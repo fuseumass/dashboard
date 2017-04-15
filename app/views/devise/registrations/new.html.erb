@@ -1,0 +1,56 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="col-lg-7 col-lg-offset-2" style="padding-top:60px">
+    <div class="well">
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>Sign Up</legend>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">First Name</label>
+            <div class="col-lg-10">
+              <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Last Name</label>
+            <div class="col-lg-10">
+              <%= f.text_field :last_name, autofocus: false, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-10">
+              <%= f.email_field :email, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Password</label>
+            <div class="col-lg-10">
+              <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Confirm</label>
+            <div class="col-lg-10">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >
+              <%= f.submit "Sign up", class: "btn btn-primary" %>
+            </div>
+          </div>
+
+          <br>
+          <%= render "devise/shared/links" %>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+<% end %>

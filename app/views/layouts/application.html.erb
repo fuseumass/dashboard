@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HackumassWeb</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <% if user_signed_in? %>
+      <%= render 'shared/navigation' %>
+    <% end %>
+
+    <div class="container">
+      <!--Alert flash message that is compatible with bootstrap -->
+      <% flash.each do |type, message| %>
+          <div class="alert <%= bootstrap_class_for(type)%> alert-dismissible">
+            <button class="close" data-dismiss="alert">×</button>
+            <%= message %>
+          </div>
+      <% end %>
+      <!--End flash message  -->
+
+      <%= yield %>
+    </div>
+
+
+  </body>
+</html>

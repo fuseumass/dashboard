@@ -1,0 +1,29 @@
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">
+      <div class="well">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Forgot your password?</legend>
+
+            <div class="form-group">
+              <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+              <div class="col-lg-10">
+                <%= f.email_field :email, autofocus: true, class: "form-control" %>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >
+                <%= f.submit "Recover email", class: "btn btn-primary" %>
+              </div>
+            </div>
+            <br>
+            <%= render "devise/shared/links" %>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+<% end %>

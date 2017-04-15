@@ -1,0 +1,34 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">
+      <div class="well">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Sign In</legend>
+
+            <div class="form-group">
+              <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+              <div class="col-lg-10">
+                <%= f.email_field :email, autofocus: true, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+              <div class="col-lg-10">
+                <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >
+                <%= f.submit "Sign In", class: "btn btn-primary" %>
+              </div>
+            </div>
+            <br>
+            <%= render "devise/shared/links" %>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+<% end %>

@@ -1,24 +1,9 @@
-# README
+# HackUMass Rails Web App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the HackUMass webapp used for registration, hardware and everything else. 
 
-Things you may want to cover:
+Info for development:
 
-* Ruby version
+* Rails 5.0.2
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Ruby 2.3

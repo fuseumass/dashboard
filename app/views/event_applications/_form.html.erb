@@ -1,14 +1,19 @@
 <%= form_for(event_application) do |f| %>
   <% if event_application.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event_application.errors.count, "error") %> prohibited this event_application from being saved:</h2>
 
-      <ul>
-      <% event_application.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pluralize(event_application.errors.count, "error") %> prohibited this event_application from being saved:</h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+            <% event_application.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+      </div>
+    
   <% end %>
 
   <div class="field">

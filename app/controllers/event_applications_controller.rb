@@ -14,6 +14,10 @@ class EventApplicationsController < ApplicationController
 
   # GET /event_applications/new
   def new
+    if EventApplication.where(user_id: current_user.id).any?
+        redirect_to event_applications_path 
+        flash[:error] = "You have already created an application."
+    end
     @event_application = EventApplication.new
   end
 

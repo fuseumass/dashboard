@@ -1,37 +1,17 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Event Applications</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th>University</th>
-      <th>Major</th>
-      <th>Grad year</th>
-      <th>Food restrictions</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @event_applications.each do |event_application| %>
-      <tr>
-        <td><%= event_application.user_id %></td>
-        <td><%= event_application.name %></td>
-        <td><%= event_application.university %></td>
-        <td><%= event_application.major %></td>
-        <td><%= event_application.grad_year %></td>
-        <td><%= event_application.food_restrictions %></td>
-        <td><%= link_to 'Show', event_application %></td>
-        <td><%= link_to 'Edit', edit_event_application_path(event_application) %></td>
-        <td><%= link_to 'Destroy', event_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<% @event_applications.each do |app| %>
+<p>
+    Applicant ID: <%=app.user_id %><br>
+    Name: <%=app.name %><br>
+    University: <%=app.university %><br>
+    Major: <%=app.major %><br>
+    Graduation Year: <%=app.grad_year %><br>
+    Food Restrictions: <%=app.food_restrictions %><br>
+</p>
+<%= link_to "Edit", edit_event_application_path(app) %>
+<%= link_to "Delete", event_application_path(app), method: :delete %>
+<hr>
+<% end %>
 
 <%= link_to 'New Event Application', new_event_application_path %>

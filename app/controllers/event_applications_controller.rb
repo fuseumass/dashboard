@@ -25,6 +25,7 @@ class EventApplicationsController < ApplicationController
   # POST /event_applications.json
   def create
     @event_application = EventApplication.new(event_application_params)
+    @event_application.user_id = current_user.id
 
     respond_to do |format|
       if @event_application.save
@@ -69,6 +70,6 @@ class EventApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_application_params
-      params.require(:event_application).permit(:user_id, :name, :university, :major, :grad_year, :food_restrictions)
+      params.require(:event_application).permit(:name, :university, :major, :grad_year, :food_restrictions)
     end
 end

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @event_application.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event_application.name %>
+</p>
+
+<p>
+  <strong>University:</strong>
+  <%= @event_application.university %>
+</p>
+
+<p>
+  <strong>Major:</strong>
+  <%= @event_application.major %>
+</p>
+
+<p>
+  <strong>Grad year:</strong>
+  <%= @event_application.grad_year %>
+</p>
+
+<p>
+  <strong>Food restrictions:</strong>
+  <%= @event_application.food_restrictions %>
+</p>
+
+<%= link_to 'Edit', edit_event_application_path(@event_application) %> |
+<%= link_to 'Back', event_applications_path %>

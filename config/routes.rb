@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :event_applications
   devise_for :users
 
   root 'navigation#index'

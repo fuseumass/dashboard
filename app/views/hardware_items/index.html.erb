@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hardware Items</h1>
+
+<table class="table table-striped table-hover ">
+
+  <thead>
+    <tr>
+      <th>UPC</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Count</th>
+      <th>Available</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @hardware_items.each do |item| %><a href=""></a>
+    <tr>
+      <td><%= link_to item.upc, item %></td>
+      <td><%= item.name %></td>
+      <td><%= item.category %></td>
+      <td><%= item.count %></td>
+      <td><%= item.available %></td>
+      <% if item.link.empty? %>
+          <td>No Link</td>
+      <% else %>
+          <td><%= link_to 'Item Hyperlink', item.link, target: :_blank %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hardware Item', new_hardware_item_path, class: 'btn btn-primary' %>

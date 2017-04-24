@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hardware_items
   resources :event_applications
   devise_for :users
 
@@ -6,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'index' => 'navigation#index'
   get 'about' => 'navigation#about'
+
+  get 'apply' => 'event_applications#new'
 
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170416004110) do
+ActiveRecord::Schema.define(version: 20170424014343) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 20170416004110) do
     t.string   "food_restrictions"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "hardware_items", force: :cascade do |t|
+    t.integer  "upc"
+    t.string   "name"
+    t.string   "link"
+    t.string   "category"
+    t.integer  "count"
+    t.boolean  "available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

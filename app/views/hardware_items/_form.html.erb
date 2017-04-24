@@ -1,0 +1,45 @@
+<%= form_for(hardware_item) do |f| %>
+  <% if hardware_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hardware_item.errors.count, "error") %> prohibited this hardware_item from being saved:</h2>
+
+      <ul>
+      <% hardware_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="form-group">
+    <%= f.label :name, class:'control-label' %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Type name of hardware here' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :count, class:'control-label' %>
+    <%= f.number_field :count, class: 'form-control', placeholder: 'Type count here'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :link, class:'control-label' %>
+    <%= f.text_field :link, class: 'form-control', placeholder: 'Type link here' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category, class:'control-label' %>
+    <%= f.select(:category, ['Microprocessors', 'Cameras'],
+                 {include_blank: "Select a category"}, { :class => 'form-control' }) %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :upc, class:'control-label' %>
+    <%= f.number_field :upc, class: 'form-control', id: 'disabledInput', disabled: '', style: 'color: #7f8c8d'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

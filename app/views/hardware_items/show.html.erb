@@ -1,0 +1,44 @@
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hardware_item.name %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @hardware_item.count %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @hardware_item.link %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @hardware_item.category %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @hardware_item.available %>
+</p>
+
+<p>
+  <strong>Upc:</strong>
+  <%= @hardware_item.upc %>
+</p>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Barcode</div>
+  <div class="panel-body">
+    <%= render 'barcode' %>
+  </div>
+</div>
+
+
+<%= link_to 'Edit', edit_hardware_item_path(@hardware_item) %> |
+<%= link_to 'Back', hardware_items_path %>

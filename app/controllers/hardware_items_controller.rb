@@ -11,7 +11,6 @@ class HardwareItemsController < ApplicationController
 
   def new
     @hardware_item = HardwareItem.new
-    @hardware_item.upc = generate_upc
   end
 
 
@@ -20,10 +19,10 @@ class HardwareItemsController < ApplicationController
 
   def create
     @hardware_item = HardwareItem.new(hardware_item_params)
-
+    @hardware_item.upc = generate_upc
     respond_to do |format|
       if @hardware_item.save
-        format.html { redirect_to @hardware_item, notice: 'Hardware item was successfully created.' }
+        format.html { redirect_to hardware_items_url, notice: 'Hardware item was successfully created.' }
       else
         format.html { render :new }
       end
@@ -34,7 +33,7 @@ class HardwareItemsController < ApplicationController
   def update
     respond_to do |format|
       if @hardware_item.update(hardware_item_params)
-        format.html { redirect_to @hardware_item, notice: 'Hardware item was successfully updated.' }
+        format.html { redirect_to hardware_items_path, notice: 'Hardware item was successfully updated.' }
       else
         format.html { render :edit }
       end

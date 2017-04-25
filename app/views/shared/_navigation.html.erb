@@ -13,8 +13,9 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
-        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
-        <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "About", about_path %></li>
+        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
+        <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
+        <li class="<%= 'active' if current_page?(hardware_items_path) %>"><%= link_to 'Hardware', hardware_items_path %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right" >

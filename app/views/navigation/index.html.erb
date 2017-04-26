@@ -1,2 +1,41 @@
-<h1>Navigation#index</h1>
-<p>Find me in app/views/navigation/index.html.erb</p>
+<h1>Dashboard</h1>
+<div class="jumbotron">
+  <h1>Hello, <%= current_user.first_name %> </h1>
+  <p>Registration is now open and it looks like you haven't registered for the evnt yet. Click the button below to get started with your application. </p>
+  <%= link_to 'Register', new_event_application_path, class: 'btn btn-primary btn-lg'%>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-4 col-md-4 col-sm-4">
+		<div class="panel panel-warning">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Panel primary</h3>
+		  </div>
+		  <div class="panel-body">
+		    Panel content
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-lg-4 col-md-4 col-sm-4">
+		<div class="panel panel-success">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Panel primary</h3>
+		  </div>
+		  <div class="panel-body">
+		    Panel content
+		  </div>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-4">
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Panel primary</h3>
+		  </div>
+		  <div class="panel-body">
+		    Panel content
+		  </div>
+		</div>
+	</div>
+</div>

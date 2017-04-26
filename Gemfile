@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# For easy search on hardware
+gem 'searchkick'
 # The theme we use on top of rails
 gem 'bootswatch-rails'
 # The most beautiful framework

@@ -18,4 +18,8 @@ class User < ApplicationRecord
   	user_type == 'mentor'
   end
 
+  def is_organizer?
+    user_type == 'organizer'
+  end
+
 end

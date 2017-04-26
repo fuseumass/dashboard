@@ -1,6 +1,13 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
 
+  def search
+    if params[:search].present?
+      @hardware_items = HardwareItem.search(params[:search])
+    else
+      @hardware_items = HardwareItem.all
+    end
+  end
 
   def index
     @hardware_items = HardwareItem.all

@@ -19,6 +19,11 @@ class HardwareItemsController < ApplicationController
   end
 
   def show
+    # Create a new hardware checkout object in case that some hardware is checked out
+    @hardware_checkout = HardwareCheckout.new
+
+    # Get all the people that have checked out items
+    @checked_out_items = HardwareCheckout.where(item_id: @hardware_item.id)
   end
 
   def new
@@ -32,32 +37,28 @@ class HardwareItemsController < ApplicationController
   def create
     @hardware_item = HardwareItem.new(hardware_item_params)
     @hardware_item.upc = generate_upc
-    respond_to do |format|
-      if @hardware_item.save
-        format.html { redirect_to hardware_items_url, notice: 'Hardware item was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @hardware_item.save
+      redirect_to hardware_items_url, notice: 'Hardware item was successfully created.' 
+    else
+      render :new 
     end
   end
 
 
   def update
-    respond_to do |format|
-      if @hardware_item.update(hardware_item_params)
-        format.html { redirect_to hardware_items_path, notice: 'Hardware item was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @hardware_item.update(hardware_item_params)
+      redirect_to hardware_items_path, notice: 'Hardware item was successfully updated.'
+    else
+      render :edit
     end
   end
 
 
   def destroy
     @hardware_item.destroy
-    respond_to do |format|
-      format.html { redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' }
-    end
+    
+    redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' 
+
   end
 
   private

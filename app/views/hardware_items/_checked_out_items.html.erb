@@ -1,0 +1,13 @@
+<% if @checked_out_items.empty? %>
+	<center><h5>This item hasn't been checked out yet</h5></center>
+<% end %>
+<table class="table table-striped table-hover ">
+  <tbody>
+  	<% @checked_out_items.each do |item| %>
+	    <tr>
+	      <td><%= item.user_email %> on <%= item.created_at.strftime('%c')%></td>
+	      <td><%= link_to 'Return', item, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %></td>
+	    </tr>
+    <% end %>
+  </tbody>
+</table>

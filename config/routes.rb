@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications
   devise_for :users
 

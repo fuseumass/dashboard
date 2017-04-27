@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  user_email: MyString
+  item_id: 1
+  item_upc: 1
+  checked_out_by: 1
+
+two:
+  user_id: 1
+  user_email: MyString
+  item_id: 1
+  item_upc: 1
+  checked_out_by: 1

@@ -1,0 +1,2 @@
+class HardwareCheckout < ApplicationRecord
+end

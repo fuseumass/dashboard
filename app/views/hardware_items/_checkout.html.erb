@@ -1,0 +1,39 @@
+<%= form_for(@hardware_checkout) do |f| %>
+  <% if @hardware_checkout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hardware_checkout.errors.count, "error") %> prohibited this hardware_checkout from being saved:</h2>
+
+      <ul>
+      <% @hardware_checkout.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.number_field :user_id, hidden: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_email, class:'control-label' %>
+    <%= f.text_field :user_email, class: 'form-control', placeholder: 'Scan QR Code or Type email'  %>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.number_field :item_id, hidden: true, value: @hardware_item.id %>
+  </div>
+
+  <div class="field">
+    <%= f.number_field :item_upc, hidden: true, value: @hardware_item.upc %>
+  </div>
+
+  <div class="field">
+    <%= f.number_field :checked_out_by, hidden: true, value: current_user.id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Checkout Item', class: 'btn btn-warning'%>
+  </div>
+<% end %>

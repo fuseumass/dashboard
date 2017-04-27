@@ -1,3 +1,4 @@
+<div class="row">
 <div class="col-lg-6">
 
   <div class="panel panel-default">
@@ -26,23 +27,13 @@
         <%= @hardware_item.category %>
       </p>
 
-      <p>
-        <strong>Available:</strong>
-        <%= @hardware_item.is_available? %>
-      </p>
 
-      <p>
-        <strong>Upc:</strong>
-        <%= @hardware_item.upc %>
-      </p>
+      <%= link_to 'Back', hardware_items_path, class: 'btn btn-default', style: 'color: #2196F3' %>
+      <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
+      <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
     </div>
     </div>
 
-
-
-  <%= link_to 'Back', hardware_items_path, class: 'btn btn-default', style: 'color: #2196F3' %>
-  <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
-  <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
   </div>
 
 
@@ -54,6 +45,34 @@
       <%= render 'barcode' %>
     </div>
   </div>
+</div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-lg-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">This Item has been checked out to</h3>
+        </div>
+        <div class="panel-body">
+          <%= render 'checked_out_items'%>
+        </div>
+      </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Checkout this Item</h3>
+      </div>
+      <div class="panel-body">
+        <%= render 'checkout' %>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 

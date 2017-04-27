@@ -1,0 +1,2 @@
+module HardwareCheckoutsHelper
+end

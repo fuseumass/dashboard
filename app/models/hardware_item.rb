@@ -13,5 +13,14 @@ class HardwareItem < ApplicationRecord
     end
   end
 
+  def self.to_csv
+    attributes = %w{name upc}
+    CSV.generate do |csv|
+      all.each do |item|
+        csv << item.attributes.values_at(*attributes)
+      end
+    end
+  end
+
 
 end

@@ -11,6 +11,11 @@ class HardwareItemsController < ApplicationController
 
   def index
     @hardware_items = HardwareItem.all
+
+    respond_to do |format|
+      format.html
+      format.csv{ send_data @hardware_items.to_csv}
+    end
   end
 
   def show

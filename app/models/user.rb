@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
 
+
   # Use type checkers
   def is_attendee?
   	user_type == 'attendee'

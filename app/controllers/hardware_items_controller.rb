@@ -3,6 +3,12 @@ class HardwareItemsController < ApplicationController
 
   def search
     if params[:search].present?
+      if is_upc?(params[:search].to_i)
+        item = HardwareItem.where(upc: params[:search])
+        if !item.first.nil?
+          redirect_to hardware_item_path(item.first)
+        end
+      end
       @hardware_items = HardwareItem.search(params[:search])
     else
       @hardware_items = HardwareItem.all
@@ -11,7 +17,6 @@ class HardwareItemsController < ApplicationController
 
   def index
     @hardware_items = HardwareItem.all
-
     respond_to do |format|
       format.html
       format.csv{ send_data @hardware_items.to_csv}
@@ -55,16 +60,28 @@ class HardwareItemsController < ApplicationController
 
 
   def destroy
-    @hardware_item.destroy
-    
-    redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' 
+    if HardwareCheckout.where(item_id: @hardware_item.id).any?
+      flash[:alert] = 'Cannot delete this hardware item because it is still checked out'
+      redirect_to hardware_item_path(@hardware_item)
+      return
+    end
 
+    @hardware_item.destroy
+    redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' 
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hardware_item
-      @hardware_item = HardwareItem.find(params[:id])
+      begin
+        @hardware_item = HardwareItem.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to hardware_items_url, alert: 'Item could not be found'
+      end
+    end
+
+    def is_upc?(number)
+      number > 0 and number < 1000000000
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

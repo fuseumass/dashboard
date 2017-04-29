@@ -1,3 +1,9 @@
+<%= link_to 'Back', hardware_items_path, class: 'btn btn-default', style: 'color: #2196F3' %>
+
+
+<br>
+<br>
+
 <div class="row">
 <div class="col-lg-6">
 
@@ -27,8 +33,6 @@
         <%= @hardware_item.category %>
       </p>
 
-
-      <%= link_to 'Back', hardware_items_path, class: 'btn btn-default', style: 'color: #2196F3' %>
       <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
       <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
     </div>

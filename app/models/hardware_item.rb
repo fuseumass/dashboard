@@ -17,7 +17,11 @@ class HardwareItem < ApplicationRecord
     attributes = %w{name upc}
     CSV.generate do |csv|
       all.each do |item|
-        csv << item.attributes.values_at(*attributes)
+        count = item.count
+        while count >= 1
+          csv << item.attributes.values_at(*attributes)
+          count -= 1
+        end
       end
     end
   end

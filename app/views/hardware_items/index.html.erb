@@ -3,7 +3,7 @@
   <div class="panel-body">
       <%= form_tag search_hardware_items_path, method: :get, class:'col-lg-12' do%>
           <div class="input-group">
-          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for hardware items by name'%>
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for hardware items by name', :autofocus => true%>
             <span class="input-group-btn">
               <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
             </span>

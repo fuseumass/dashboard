@@ -1,5 +1,5 @@
 class HardwareCheckoutsController < ApplicationController
-  before_action :set_hardware_checkout, only: [:show, :edit, :update, :destroy]
+  before_action :set_hardware_checkout, only: [:destroy]
 
   def create
     # Create the checkout from params
@@ -7,6 +7,9 @@ class HardwareCheckoutsController < ApplicationController
 
     # find the hardware item
     @item = HardwareItem.find(@hardware_checkout.item_id)
+
+    # ignore capitalization in email and whitespace
+    @hardware_checkout.user_email =  @hardware_checkout.user_email.downcase.delete(' ')
 
     # Check if the item is available
     if @item.count == 0
@@ -20,6 +23,7 @@ class HardwareCheckoutsController < ApplicationController
       redirect_to hardware_item_path(@hardware_checkout.item_id), alert: 'Cannot find user with that email'
       return 
     else
+      # if the email is legit checkout the item to the user and reduce the item count
       @hardware_checkout.user_id = checkout_to_user.id
       @item.count -= 1
       @item.save

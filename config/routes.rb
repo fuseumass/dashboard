@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   root 'navigation#index'
 
   get 'index' => 'navigation#index'
-  get 'about' => 'navigation#about'
+  get 'admin' => 'navigation#admin'
+  get 'add_permissions' => 'navigation#add_permissions'
 
   get 'apply' => 'event_applications#new'
 
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   		get 'search'
   	end
   end
+
+
 
 
 

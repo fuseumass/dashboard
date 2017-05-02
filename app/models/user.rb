@@ -23,4 +23,11 @@ class User < ApplicationRecord
     user_type == 'organizer'
   end
 
+  def full_name
+    names = []
+    names << first_name if first_name
+    names << last_name if last_name
+    names.join ' '
+  end
+
 end

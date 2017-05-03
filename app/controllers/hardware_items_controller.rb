@@ -1,5 +1,6 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
+  before_action :check_permissions, only: [:show, :edit, :create, :update, :destroy]
 
   def search
     if params[:search].present?
@@ -95,6 +96,16 @@ class HardwareItemsController < ApplicationController
       generate_upc
     else
       random_upc
+    end
+  end
+
+  def check_permissions
+    if user_signed_in?
+      unless current_user.is_admin? or current_user.is_organizer?
+        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
 

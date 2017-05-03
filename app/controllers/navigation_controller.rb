@@ -1,5 +1,5 @@
 class NavigationController < ApplicationController
-  before_action :check_permissions, only: [:add_permissions, :remove_permissions]
+  before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
 
   def index
     if !user_signed_in?

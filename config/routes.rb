@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'admin' => 'navigation#admin'
   get 'add_permissions' => 'navigation#add_permissions'
 
+  get 'remove_permissions' => 'navigation#remove_permissions'
+
   get 'apply' => 'event_applications#new'
 
   resources :hardware_items do

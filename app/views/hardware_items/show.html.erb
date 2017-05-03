@@ -35,6 +35,7 @@
 
       <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
       <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
+      <%= link_to 'Download CSV', hardware_item_path(@hardware_item, format: 'csv'), class: 'btn btn-default' %>
     </div>
     </div>
 

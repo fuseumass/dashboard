@@ -14,6 +14,7 @@ class HardwareItemsController < ApplicationController
     else
       @hardware_items = HardwareItem.all
     end
+
   end
 
   def index
@@ -30,6 +31,12 @@ class HardwareItemsController < ApplicationController
 
     # Get all the people that have checked out items
     @checked_out_items = HardwareCheckout.where(item_id: @hardware_item.id)
+
+    respond_to do |format|
+      format.html
+      format.csv{ send_data @hardware_item.single_csv}
+    end
+
   end
 
   def new

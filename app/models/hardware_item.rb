@@ -4,6 +4,7 @@ class HardwareItem < ApplicationRecord
   validates_numericality_of :count
   validates_uniqueness_of :upc
 
+  has_many :hardware_checkouts
   has_many :users, through: :hardware_checkouts
 
 

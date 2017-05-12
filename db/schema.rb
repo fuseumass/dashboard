@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512164743) do
+ActiveRecord::Schema.define(version: 20170512171123) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,10 +24,12 @@ ActiveRecord::Schema.define(version: 20170512164743) do
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "user_id"
-    t.integer  "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "hardware_item_id"
+    t.index ["hardware_item_id"], name: "index_hardware_checkouts_on_hardware_item_id"
+    t.index ["user_id"], name: "index_hardware_checkouts_on_user_id"
   end
 
   create_table "hardware_items", force: :cascade do |t|

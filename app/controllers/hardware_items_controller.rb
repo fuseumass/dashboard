@@ -29,7 +29,7 @@ class HardwareItemsController < ApplicationController
     @hardware_checkout = HardwareCheckout.new
 
     # Get all the people that have checked out items
-    @checked_out_items = HardwareCheckout.where(item_id: @hardware_item.id)
+    @checked_out_items = HardwareCheckout.where(hardware_item: @hardware_item)
 
     respond_to do |format|
       format.html

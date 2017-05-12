@@ -12,16 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.number_field :user_id, hidden: true %>
-  </div>
-
-  <div class="field">
     <%= f.text_field :user_id, class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true  %>
   </div>
   <br>
 
   <div class="field">
-    <%= f.number_field :item_id, hidden: true, value: @hardware_item %>
+    <%= f.number_field :hardware_item_id, hidden: true, value: @hardware_item.id %>
   </div>
 
 

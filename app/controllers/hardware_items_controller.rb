@@ -18,10 +18,6 @@ class HardwareItemsController < ApplicationController
 
   def index
     @hardware_items = HardwareItem.all
-    respond_to do |format|
-      format.html
-      format.csv{ send_data @hardware_items.to_csv}
-    end
   end
 
   def show
@@ -33,7 +29,7 @@ class HardwareItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv{ send_data @hardware_item.single_csv}
+      format.csv{ send_data @hardware_item.to_csv}
     end
 
   end
@@ -67,12 +63,6 @@ class HardwareItemsController < ApplicationController
 
 
   def destroy
-    if HardwareCheckout.where(item_id: @hardware_item.id).any?
-      flash[:alert] = 'Cannot delete this hardware item because it is still checked out'
-      redirect_to hardware_item_path(@hardware_item)
-      return
-    end
-
     @hardware_item.destroy
     redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' 
   end
@@ -96,23 +86,24 @@ class HardwareItemsController < ApplicationController
       params.require(:hardware_item).permit(:name, :count, :link, :category, :available, :upc)
     end
 
-  def generate_upc
-    random_upc = rand(1000000000)
-    if(HardwareItem.where(upc: random_upc)).any?
-      generate_upc
-    else
-      random_upc
-    end
-  end
-
-  def check_permissions
-    if user_signed_in?
-      unless current_user.is_admin? or current_user.is_organizer?
-        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+    # Randomly and recursively generate a upc number
+    def generate_upc
+      random_upc = rand(1000000000)
+      if(HardwareItem.where(upc: random_upc)).any?
+        generate_upc
+      else
+        random_upc
       end
-    else
-      redirect_to new_user_session_path
     end
-  end
+
+    def check_permissions
+      if user_signed_in?
+        unless current_user.is_admin? or current_user.is_organizer?
+          redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+        end
+      else
+        redirect_to new_user_session_path
+      end
+    end
 
 end

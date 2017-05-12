@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :hardware_checkouts
+  has_many :hardware_checkouts, dependent: :destroy
   has_many :hardware_items, through: :hardware_checkouts
 
   # Use type checkers

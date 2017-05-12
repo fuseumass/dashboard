@@ -6,10 +6,10 @@ class HardwareCheckoutsController < ApplicationController
     @hardware_checkout = HardwareCheckout.new(hardware_checkout_params)
 
     # find the hardware item
-    @item = HardwareItem.find(@hardware_checkout.item_id)
+    # @item = HardwareItem.find(@hardware_checkout.item_id)
 
     # ignore capitalization in email and whitespace
-    @hardware_checkout.user_email =  @hardware_checkout.user_email.downcase.delete(' ')
+    user_email =  @hardware_checkout.user_id.downcase.delete(' ')
 
     # Check if the item is available
     if @item.count == 0
@@ -18,13 +18,13 @@ class HardwareCheckoutsController < ApplicationController
     end
     
     # Check if the email is legit
-    checkout_to_user = User.where(email: @hardware_checkout.user_email).first
+    checkout_to_user = User.where(email: user_email).first
     if checkout_to_user.nil?
       redirect_to hardware_item_path(@hardware_checkout.item_id), alert: 'Cannot find user with that email'
       return 
     else
       # if the email is legit checkout the item to the user and reduce the item count
-      @hardware_checkout.user_id = checkout_to_user.id
+      @hardware_checkout.user = checkout_to_user
       @item.count -= 1
       @item.save
     end
@@ -60,6 +60,6 @@ class HardwareCheckoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hardware_checkout_params
-      params.require(:hardware_checkout).permit(:user_id, :user_email, :item_id, :item_upc, :checked_out_by)
+      params.require(:hardware_checkout).permit(:user_id, :item_id,)
     end
 end

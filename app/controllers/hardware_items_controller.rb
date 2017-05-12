@@ -14,7 +14,6 @@ class HardwareItemsController < ApplicationController
     else
       @hardware_items = HardwareItem.all
     end
-
   end
 
   def index

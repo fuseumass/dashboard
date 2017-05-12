@@ -5,53 +5,54 @@
 <br>
 
 <div class="row">
-<div class="col-lg-6">
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>
+          <strong>Name:</strong>
+          <%= @hardware_item.name %>
+        </p>
 
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <p>
-        <strong>Name:</strong>
-        <%= @hardware_item.name %>
-      </p>
+        <p>
+          <strong>Count:</strong>
+          <%= @hardware_item.count %>
+        </p>
 
-      <p>
-        <strong>Count:</strong>
-        <%= @hardware_item.count %>
-      </p>
+        <p>
+          <strong>Link:</strong>
+          <% if @hardware_item.link.empty? %>
+            No Link Available
+        <% else %>
+            <%= link_to @hardware_item.link, @hardware_item.link, target: :_blank %>
+        <% end %>
+        </p>
 
-      <p>
-        <strong>Link:</strong>
-        <% if @hardware_item.link.empty? %>
-          No Link Available
-      <% else %>
-          <%= link_to @hardware_item.link, @hardware_item.link, target: :_blank %>
-      <% end %>
-      </p>
+        <p>
+          <strong>Category:</strong>
+          <%= @hardware_item.category %>
+        </p>
 
-      <p>
-        <strong>Category:</strong>
-        <%= @hardware_item.category %>
-      </p>
+        <% if current_user.is_admin? or current_user.is_organizer? %>
+            <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
+        <% end %>
 
-      <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
-      <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
-      <%= link_to 'Download CSV', hardware_item_path(@hardware_item, format: 'csv'), class: 'btn btn-default' %>
+        <% if current_user.is_admin?%>
+            <%= link_to 'Delete', hardware_item_path(@hardware_item), :method => :delete, class: 'btn btn-danger' %>
+            <%= link_to 'Download CSV', hardware_item_path(@hardware_item, format: 'csv'), class: 'btn btn-default' %>
+        <% end %>
+
+        </div>
+      </div>
     </div>
+
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Barcode</div>
+        <div class="panel-body">
+          <%= render 'barcode' %>
+        </div>
+      </div>
     </div>
-
-  </div>
-
-
-
-<div class="col-lg-6">
-  <div class="panel panel-default">
-    <div class="panel-heading">Barcode</div>
-    <div class="panel-body">
-      <%= render 'barcode' %>
-    </div>
-  </div>
-</div>
-
 </div>
 
 <div class="row">

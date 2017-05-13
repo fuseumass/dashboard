@@ -96,6 +96,7 @@ class HardwareItemsController < ApplicationController
       end
     end
 
+    # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
     def check_permissions
       if user_signed_in?
         unless current_user.is_admin? or current_user.is_organizer?

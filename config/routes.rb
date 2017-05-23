@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :hardware_checkouts, only: [:create, :destroy]
-  resources :event_applications
+  resources :event_applications, except: [:edit, :destory]
   devise_for :users
 
   root 'navigation#index'

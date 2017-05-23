@@ -9,4 +9,5 @@ class EventApplication < ApplicationRecord
     validates :github, format: {with: /((\S)+github.(\S)+)/, message: "URL is invalid"}, allow_blank: true
     validates :waiver_liability_agreement, inclusion: [true]
     validates :are_you_interested_in_hardware_hacks, :do_you_have_a_team, :transportation, :previous_hackathon_attendance, :food_restrictions, inclusion: [true, false]
+    belongs_to :user
 end

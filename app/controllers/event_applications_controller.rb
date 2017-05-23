@@ -1,6 +1,6 @@
 class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: []
+  before_action :check_permissions, only: [:index, :show, :destory, :edit]
 
   # GET /event_applications
   # GET /event_applications.json

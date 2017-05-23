@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :hardware_checkouts, dependent: :destroy
   has_many :hardware_items, through: :hardware_checkouts
+  has_one :event_application, dependent: :destroy
 
   # Use type checkers
   def is_attendee?

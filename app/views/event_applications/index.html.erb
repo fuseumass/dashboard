@@ -1,17 +1,93 @@
-<h1>Event Applications</h1>
+<div class="form-group">
+  <legend>New Event Application</legend>
+</div>
 
 <% @event_applications.each do |app| %>
-<p>
-    Applicant ID: <%=app.user_id %><br>
-    Name: <%=app.name %><br>
-    University: <%=app.university %><br>
-    Major: <%=app.major %><br>
-    Graduation Year: <%=app.grad_year %><br>
-    Food Restrictions: <%=app.food_restrictions %><br>
-</p>
-<%= link_to "Edit", edit_event_application_path(app) %>
-<%= link_to "Delete", event_application_path(app), method: :delete %>
-<hr>
+<div class="form-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Applicant ID: <%=app.user_id %></h3>
+    </div>
+    <div class="panel-body">
+      <p>
+          <strong>Name:</strong>
+          <%= app.name %><br />
+
+          <strong>Email:</strong>
+          <%= app.email %><br />
+
+          <strong>Phone:</strong>
+          <%= app.phone %><br />
+
+          <strong>Age:</strong>
+          <%= app.age %><br />
+
+          <strong>Sex:</strong>
+          <%= app.sex %><br />
+
+          <strong>University:</strong>
+          <%= app.university %><br />
+
+          <strong>Major:</strong>
+          <%= app.major %><br />
+
+          <strong>Graduation Year:</strong>
+          <%= app.grad_year %><br />
+
+          <strong>Food Restrictions:</strong>
+          <%= app.food_restrictions ? app.food_restrictions_text : "No" %><br />
+
+          <strong>T-Shirt Size:</strong>
+          <%= app.t_shirt %><br />
+
+          <strong>Linkedin URL:</strong>
+          <%= app.linkedin %><br />
+
+          <strong>Github URL:</strong>
+          <%= app.github %><br />
+
+          <strong>Challengepost Username:</strong>
+          <%= app.challengepost_username %><br />
+
+          <strong>Have you been to a hackathon before:</strong>
+          <%= app.previous_hackathon_attendance ? "Yes" : "No" %><br />
+
+          <strong>Will you need transportation to UMass:</strong>
+          <%= app.transportation ? app.name.concat(" needs transportation from ".concat(app.transportation_from_where)) : "No" %><br />
+
+          <strong>Hacker Type:</strong>
+          <%= app.type_of_programmer_list == "{}" ? "" : app.type_of_programmer_list.gsub(/[\[\"\"\]]/, "") %><br />
+
+          <strong>Programming Skills:</strong>
+          <%= app.programming_skills_list == "{}" ? "" : app.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(app.programming_skills_other_field) %><br />
+
+          <% if app.are_you_interested_in_hardware_hacks %>
+            <strong>Are you interested in hardware hacks:</strong>
+            <%= "No" %>
+          <% else %>
+            <strong>List of interested hardware:</strong>
+            <%= app.interested_hardware_list == "{}" ? "" : app.interested_hardware_list %>
+          <% end %><br />
+
+          <strong>How did you hear about HackUMass:</strong>
+          <%= app.how_did_you_hear_about_hackumass %><br />
+
+          <strong>What hardware do you want to see at HackUMass V or future HackUMass?:</strong>
+          <%= app.future_hardware_for_hackumass %><br />
+
+          <strong>Team Name:</strong>
+          <%= app.do_you_have_a_team ? app.team_name : "" %><br />
+
+          <strong>Waiver & Liability Agreement:</strong>
+          <%= app.waiver_liability_agreement ? "Agree" : "Disagree" %>
+
+
+      </p>
+      <%= link_to "Edit", edit_event_application_path(app), class: "btn btn-primary btn-xs" %>
+      <%= link_to "Delete", event_application_path(app), method: :delete, class: "btn btn-primary btn-xs" %>
+    </div>
+  </div>
+</div>
 <% end %>
 
-<%= link_to 'New Event Application', new_event_application_path %>
+<%= link_to "New Event Application", new_event_application_path, class: "btn btn-primary btn-sm" %>

@@ -1,4 +1,5 @@
-<%= form_for(event_application) do |f| %>
+<%= javascript_include_tag("event_application.js") %>
+<%= form_for(event_application, :html => {class: "form-horizontal"}) do |f| %>
   <% if event_application.errors.any? %>
 
       <div class="panel panel-danger">
@@ -13,35 +14,364 @@
             </ul>
         </div>
       </div>
-    
+
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="form-group">
+        <%= f.label :name, "Full Name: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :university %>
-    <%= f.text_field :university %>
-  </div>
+      <div class="form-group">
+        <%= f.label :email, "Email: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :major %>
-    <%= f.text_field :major %>
-  </div>
+      <div class="form-group">
+        <%= f.label :phone, "Phone: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.text_field :phone, class: "form-control" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :grad_year %>
-    <%= f.text_field :grad_year %>
-  </div>
+      <div class="form-group">
+        <%= f.label :age, "Age: ", class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.select :age, [" "].concat((1..100).map {|i| i.to_s}), class: "form-control", id: "select" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :food_restrictions %>
-    <%= f.text_field :food_restrictions %>
-  </div>
+      <div class="form-group">
+        <%= f.label :sex, "Sex: ", class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.select :sex, [" ", "Male", "Female"], class: "form-control", id: "select" %>
+        </div>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div class="form-group">
+        <%= f.label :university, "University: ", class:"col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.text_field :university, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :major, "Major: ", class:"col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.text_field :major, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :grad_year, "Graduation Year: ", class:"col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.select :grad_year, [" "].concat(((1960..2025).map {|i| i.to_s}).reverse!), class: "form-control", id: "select" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :food_restrictions, "Do you have any food allergies or dietary restrictions?: ", class:"col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <div class="radio">
+            <label>
+              <%= f.radio_button :food_restrictions, true, id:"optionsRadios1", onclick:"unhideField('food_restrictions_text')" %>
+              <%= "Yes" %>
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= f.radio_button :food_restrictions, false, id:"optionsRadios2", onclick:"hideField('food_restrictions_text')" %>
+              <%= "No" %>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="food_restrictions_text" style="display:none">
+        <div class="form-group">
+          <%= f.label :food_restrictions_text, "Please list your dietary restrictions and allergies: ", class: "col-lg-2 control-label" %><br>
+          <div class="col-lg-10">
+            <%= f.text_area :food_restrictions_text, class: "form-control", rows: "3", id: "textArea" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :t_shirt, "T-Shirt Size: ", class:"col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.select :t_shirt, [" ", "XS", "S", "M", "L", "XL", "XXL"], class: "form-control", id: "select" %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :resume, "Resume: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.file_field :resume %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :linkedin, "Linkedin: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.url_field :linkedin, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :github, "Github: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.url_field :github, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :challengepost_username, "Challengepost Username: ", class: "col-lg-2 control-label"%>
+        <div class="col-lg-10">
+          <%= f.text_field :challengepost_username, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :previous_hackathon_attendance, "Have you been to a hackathon before?: ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :previous_hackathon_attendance, true, id:"optionsRadios1" %>
+                <%= "Yes" %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :previous_hackathon_attendance, false, id:"optionsRadios2" %>
+                <%= "No" %>
+              </label>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :transportation, "Will you need transportation to UMass?: ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :transportation, true, id:"optionsRadios1", onclick:"unhideField('transportation_from_where')" %>
+                <%= "Yes" %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :transportation, false, id:"optionsRadios2", onclick:"hideField('transportation_from_where')" %>
+                <%= "No" %>
+              </label>
+            </div>
+          </div>
+      </div>
+
+      <div id="transportation_from_where" style="display:none">
+        <div class="form-group">
+          <%= f.label :transportation_from_where, "If you answered yes, please tell use from where: ", class: "col-lg-2 control-label"%>
+          <div class="col-lg-10">
+            <%= f.text_field :transportation_from_where, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :type_of_programmer_list, "Hacker Type (select all that apply): ", class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <div class="checkbox">
+            <label>
+              <%= f.check_box :type_of_programmer_list, {multiple: true},"Web Developer", nil %>
+              <%= "Web Developer" %>
+            </label><br>
+            <label>
+              <%= f.check_box :type_of_programmer_list, {multiple: true},"Application Developer", nil %>
+              <%= "Application Developer" %>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :programming_skills_list, "Programming Skills (select all that apply): ", class: "col-lg-2 control-label" %><br>
+        <div class="col-lg-10">
+          <div class="checkbox">
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "HTML/CSS",nil%>
+              <%= "HTML/CSS" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Javascript/NodeJS",nil %>
+              <%= "Javascript/NodeJS" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "PHP",nil %>
+              <%= "PHP" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "SQL",nil %>
+              <%= "SQL" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Ruby",nil %>
+              <%= "Ruby" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Java",nil %>
+              <%= "Java" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Kotlin",nil %>
+              <%= "Kotlin" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Swift",nil %>
+              <%= "Swift" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Objective C",nil %>
+              <%= "Objective C" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "C/C++/C#",nil %>
+              <%= "C/C++/C#" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true}, "Python",nil %>
+              <%= "Python" %>
+            </label><br>
+            <label>
+              <%= f.check_box :programming_skills_list, {multiple: true, id: "check_box_other", onclick: "togglehiddenField('programming_skills_other_field', 'check_box_other')" }, "Other", nil %>
+              <%= "Other" %>
+            </label><br>
+          </div>
+        </div>
+      </div>
+
+      <div id="programming_skills_other_field" style="display:none">
+        <div class="form-group">
+          <%= f.label :programming_skills_other_field, "Please list your other programming skills: ", class: "col-lg-2 control-label"%>
+          <div class="col-lg-10">
+            <%= f.text_field :programming_skills_other_field, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :are_you_interested_in_hardware_hacks, "Are you interested in hardware hacks?: ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :are_you_interested_in_hardware_hacks, true, id:"optionsRadios1", onclick:"unhideField('interested_hardware_list')" %>
+                <%= "Yes" %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :are_you_interested_in_hardware_hacks, false, id:"optionsRadios2", onclick:"hideField('interested_hardware_list')" %>
+                <%= "No" %>
+              </label>
+            </div>
+          </div>
+      </div>
+
+      <div id="interested_hardware_list" style="display:none">
+        <div class="form-group">
+          <%= f.label :interested_hardware_list, "Select the hardware hacks that you are interested in: ", class:"col-lg-2 control-label" %><br>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+              <%= f.check_box :interested_hardware_list, {multiple: true}, "Microprocessor",nil%>
+              <%= "Microprocessor" %>
+              </label><br>
+              <label>
+              <%= f.check_box :interested_hardware_list, {multiple: true}, "Microcontroller",nil %>
+              <%= "Microcontroller" %>
+              </label><br>
+              <label>
+              <%= f.check_box :interested_hardware_list, {multiple: true}, "Robotics",nil %>
+              <%= "Robotics" %>
+              </label><br>
+              <label>
+              <%= f.check_box :interested_hardware_list, {multiple: true}, "3D-Printing",nil %>
+              <%= "3D-Printing" %>
+              </label><br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :how_did_you_hear_about_hackumass, "How did you hear about HackUMass?: ", class: "col-lg-2 control-label" %><br>
+        <div class="col-lg-10">
+          <%= f.text_area :how_did_you_hear_about_hackumass, class: "form-control", rows: "3", id: "textArea" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :future_hardware_for_hackumass, "What hardware do you want to see at HackUMass V or future HackUMass?: ", class: "col-lg-2 control-label" %><br>
+        <div class="col-lg-10">
+          <%= f.text_area :future_hardware_for_hackumass, class: "form-control", rows: "3", id: "textArea" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :do_you_have_a_team, "Do you have a team?: ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :do_you_have_a_team, true, id:"optionsRadios1", onclick:"unhideField('team_name')" %>
+                <%= "Yes" %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :do_you_have_a_team, false, id:"optionsRadios2", onclick:"hideField('team_name')" %>
+                <%= "No" %>
+              </label>
+            </div>
+          </div>
+      </div>
+
+      <div id="team_name" style="display:none">
+        <div class="form-group">
+          <%= f.label :team_name, "Please tell us your team name: ", class: "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :team_name, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :waiver_liability_agreement, "Please agree to the following Waiver & Liability documents: ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :waiver_liability_agreement, true, id:"optionsRadios1"%>
+                <%= "Agree" %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :waiver_liability_agreement, false, id:"optionsRadios2"%>
+                <%= "Disagree" %>
+              </label>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-10">
+        <br>
+        <%= link_to "Back", event_applications_path, class: "btn btn-primary"%>
+        <%= f.submit nil, type: "submit", class: "btn btn-primary" %>
+      </div>
+    </div>
   </div>
 <% end %>

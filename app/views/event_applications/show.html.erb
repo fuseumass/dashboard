@@ -1,29 +1,125 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event_application.name %>
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Event Application</h3>
+  </div>
+  <div class="panel-body">
 
-<p>
-  <strong>University:</strong>
-  <%= @event_application.university %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @event_application.name %>
+    </p>
 
-<p>
-  <strong>Major:</strong>
-  <%= @event_application.major %>
-</p>
+    <p>
+      <strong>Email:</strong>
+      <%= @event_application.email %>
+    </p>
 
-<p>
-  <strong>Grad year:</strong>
-  <%= @event_application.grad_year %>
-</p>
+    <p>
+      <strong>Phone:</strong>
+      <%= @event_application.phone %>
+    </p>
 
-<p>
-  <strong>Food restrictions:</strong>
-  <%= @event_application.food_restrictions %>
-</p>
+    <p>
+      <strong>Age:</strong>
+      <%= @event_application.age %>
+    </p>
 
-<%= link_to 'Edit', edit_event_application_path(@event_application) %> |
-<%= link_to 'Back', event_applications_path %>
+    <p>
+      <strong>Sex:</strong>
+      <%= @event_application.sex %>
+    </p>
+
+    <p>
+      <strong>University:</strong>
+      <%= @event_application.university %>
+    </p>
+
+    <p>
+      <strong>Major:</strong>
+      <%= @event_application.major %>
+    </p>
+
+    <p>
+      <strong>Graduation Year:</strong>
+      <%= @event_application.grad_year %>
+    </p>
+
+    <p>
+      <strong>Food restrictions:</strong>
+      <%= @event_application.food_restrictions ? @event_application.food_restrictions_text : "No" %>
+    </p>
+
+    <p>
+      <strong>T-Shirt Size:</strong>
+      <%= @event_application.t_shirt %>
+    </p>
+
+    <p>
+      <strong>Linkedin URL:</strong>
+      <%= @event_application.linkedin %>
+    </p>
+
+    <p>
+      <strong>Github URL:</strong>
+      <%= @event_application.github %>
+    </p>
+
+    <p>
+      <strong>Challengepost Username:</strong>
+      <%= @event_application.challengepost_username %><br />
+    </p>
+
+    <p>
+      <strong>Have you been to a hackathon before:</strong>
+      <%= @event_application.previous_hackathon_attendance ? "Yes" : "No" %><br />
+    </p>
+
+    <p>
+      <strong>Will you need transportation to UMass:</strong>
+      <%= @event_application.transportation ? @event_application.name.concat(" needs transportation from ".concat(@event_application.transportation_from_where)) : "No" %><br />
+    </p>
+
+    <p>
+      <strong>Hacker Type:</strong>
+      <%= @event_application.type_of_programmer_list == "{}" ? "" : @event_application.type_of_programmer_list.gsub(/[\[\"\"\]]/, "") %><br />
+    </p>
+
+    <p>
+      <strong>Programming Skills:</strong>
+      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_other_field)) %><br />
+    </p>
+
+    <p>
+      <% if @event_application.are_you_interested_in_hardware_hacks %>
+        <strong>Are you interested in hardware hacks:</strong>
+        <%= "No" %>
+      <% else %>
+        <strong>List of interested hardware:</strong>
+        <%= @event_application.interested_hardware_list == "{}" ? "" : @event_application.interested_hardware_list %>
+      <% end %><br />
+    </p>
+
+    <p>
+      <strong>How did you hear about HackUMass:</strong>
+      <%= @event_application.how_did_you_hear_about_hackumass %><br />
+    </p>
+
+    <p>
+      <strong>What hardware do you want to see at HackUMass V or future HackUMass?:</strong>
+      <%= @event_application.future_hardware_for_hackumass %><br />
+    </p>
+
+    <p>
+      <strong>Team Name:</strong>
+      <%= @event_application.do_you_have_a_team ? @event_application.team_name : "" %><br />
+    </p>
+
+    <p>
+      <strong>Waiver & Liability Agreement:</strong>
+      <%= @event_application.waiver_liability_agreement ? "Agree" : "Disagree" %>
+    </p>
+
+    <%= link_to 'Back', event_applications_path, class: "btn btn-primary btn-sm"%>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mentorship Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Mentor</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mentorship_requests.each do |mentorship_request| %>
+      <tr>
+        <td><%= mentorship_request.user_id %></td>
+        <td><%= mentorship_request.mentor_id %></td>
+        <td><%= mentorship_request.title %></td>
+        <td><%= mentorship_request.type %></td>
+        <td><%= mentorship_request.status %></td>
+        <td><%= link_to 'Show', mentorship_request %></td>
+        <td><%= link_to 'Edit', edit_mentorship_request_path(mentorship_request) %></td>
+        <td><%= link_to 'Destroy', mentorship_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mentorship Request', new_mentorship_request_path %>

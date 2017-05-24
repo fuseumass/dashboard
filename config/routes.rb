@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mentorship_requests
   resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications, except: [:edit, :destory]
   devise_for :users

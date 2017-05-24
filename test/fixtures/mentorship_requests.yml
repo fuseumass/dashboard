@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  mentor_id: 1
+  title: MyString
+  type: 
+  status: MyString
+
+two:
+  user_id: 1
+  mentor_id: 1
+  title: MyString
+  type: 
+  status: MyString

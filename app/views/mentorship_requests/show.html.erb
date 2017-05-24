@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @mentorship_request.user_id %>
+</p>
+
+<p>
+  <strong>Mentor:</strong>
+  <%= @mentorship_request.mentor_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @mentorship_request.title %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @mentorship_request.type %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @mentorship_request.status %>
+</p>
+
+<%= link_to 'Edit', edit_mentorship_request_path(@mentorship_request) %> |
+<%= link_to 'Back', mentorship_requests_path %>

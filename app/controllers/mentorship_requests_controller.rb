@@ -31,6 +31,8 @@ class MentorshipRequestsController < ApplicationController
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
     @mentorship_request.user_id = current_user.id
+    @mentorship_request.help_type = @mentorship_request.status
+    @mentorship_request.status = "pending"
 
     respond_to do |format|
       if @mentorship_request.save

@@ -14,7 +14,7 @@
 
 
   <div class="form-group">
-        <%= f.label :status, "What type of problem are you having? : ", class:"col-lg-2 control-label" %>
+        <%= f.label :status, "What type of problem are you having?", class:"col-lg-2 control-label" %>
           <div class="col-lg-10">
             <div class="radio">
               <label>
@@ -24,13 +24,13 @@
             </div>
             <div class="radio">
               <label>
-                <%= f.radio_button :status, "feature", id:"optionsRadios1"%>
+                <%= f.radio_button :status, "feature", id:"optionsRadios2"%>
                 <%= "Feature: You're not sure how to implement something, in your code or otherwise." %>
               </label>
             </div>
             <div class="radio">
               <label>
-                <%= f.radio_button :status, "other", id:"optionsRadios1"%>
+                <%= f.radio_button :status, "other", id:"optionsRadios3"%>
                 <%= "Other: None of the things listed above, miscellaneous." %>
               </label>
             </div>

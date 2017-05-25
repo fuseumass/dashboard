@@ -1,5 +1,6 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
+  before_action :check_permissions, only: [:index, :destroy, :edit]
 
   # GET /mentorship_requests
   # GET /mentorship_requests.json
@@ -14,6 +15,10 @@ class MentorshipRequestsController < ApplicationController
 
   # GET /mentorship_requests/new
   def new
+    if MentorshipRequest.where(user_id: current_user.id).any?
+        redirect_to index_path
+        flash[:error] = "You have already created a mentorship request."
+    end
     @mentorship_request = MentorshipRequest.new
   end
 
@@ -25,8 +30,8 @@ class MentorshipRequestsController < ApplicationController
   # POST /mentorship_requests.json
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
-    @mentorship_request.user_id = mentorship_request.user_id
-    
+    @mentorship_request.user_id = current_user.id
+
     respond_to do |format|
       if @mentorship_request.save
         format.html { redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.' }
@@ -71,5 +76,14 @@ class MentorshipRequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def mentorship_request_params
       params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :type, :status)
+    end
+    def check_permissions
+      if user_signed_in?
+        unless current_user.is_admin? or current_user.is_organizer?
+          redirect_to new_mentorship_request_path, alert: 'You do not have the permissions to visit this section of mentorship'
+        end
+      else
+        redirect_to new_user_session_path
+      end
     end
 end

@@ -11,30 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
-  </div>
 
-  <div class="field">
-    <%= f.label :mentor_id %>
-    <%= f.number_field :mentor_id %>
-  </div>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+  <div class="form-group">
+        <%= f.label :status, "What type of problem are you having? : ", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :status, "bug", id:"optionsRadios1"%>
+                <%= "Bug: Your code does not do what you want it to, or just doesn't compile." %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :status, "feature", id:"optionsRadios1"%>
+                <%= "Feature: You're not sure how to implement something, in your code or otherwise." %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :status, "other", id:"optionsRadios1"%>
+                <%= "Other: None of the things listed above, miscellaneous." %>
+              </label>
+            </div>
+          </div>
+      </div>
+  
+  <div class="form-group">
+  
+    <div class="col-lg-10">
+          <%= f.text_area :title, class: "form-control", :maxlength => 140, rows: "3", id: "textArea" %>
+        </div>
+        <span class="help-block">Tell us what exactly is going wrong. Keep this under 140 characters, you'll have a chance to elaborate more with your chosen mentor.</span>
+        </div>
 
-  <div class="field">
-    <%= f.label :type %>
-    <%= f.text_field :type %>
-  </div>
 
-  <div class="field">
-    <%= f.label :status %>
-    <%= f.text_field :status %>
-  </div>
+
 
   <div class="actions">
     <%= f.submit %>

@@ -1,5 +1,8 @@
-<h1>New Mentorship Request</h1>
+
+<div class = "jumbotron">
+<h3><%= current_user.first_name %>'s Mentorship Request</h3>
 
 <%= render 'form', mentorship_request: @mentorship_request %>
 
 <%= link_to 'Back', mentorship_requests_path %>
+</div>

@@ -15,10 +15,6 @@ class MentorshipRequestsController < ApplicationController
 
   # GET /mentorship_requests/new
   def new
-    if MentorshipRequest.where(user_id: current_user.id).any?
-        redirect_to index_path
-        flash[:error] = "You have already created a mentorship request."
-    end
     @mentorship_request = MentorshipRequest.new
   end
 
@@ -79,13 +75,15 @@ class MentorshipRequestsController < ApplicationController
     def mentorship_request_params
       params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :type, :status)
     end
+
     def check_permissions
       if user_signed_in?
         unless current_user.is_admin? or current_user.is_organizer?
-          redirect_to new_mentorship_request_path, alert: 'You do not have the permissions to visit this section of mentorship'
+          redirect_to index_path, alert: 'You do not have the permissions to visit this section of mentorship'
         end
       else
         redirect_to new_user_session_path
       end
     end
+    
 end

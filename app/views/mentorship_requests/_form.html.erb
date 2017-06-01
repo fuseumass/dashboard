@@ -14,24 +14,53 @@
 
 
   <div class="form-group">
-        <%= f.label :status, "What type of problem are you having?", class:"col-lg-2 control-label" %>
+        <%= f.label :help_type, "What type of problem are you having?", class:"col-lg-2 control-label" %>
           <div class="col-lg-10">
             <div class="radio">
               <label>
-                <%= f.radio_button :status, "bug", id:"optionsRadios1"%>
+                <%= f.radio_button :help_type, "bug", id:"optionsRadios1"%>
                 <%= "Bug: Your code does not do what you want it to, or just doesn't compile." %>
               </label>
             </div>
             <div class="radio">
               <label>
-                <%= f.radio_button :status, "feature", id:"optionsRadios2"%>
+                <%= f.radio_button :help_type, "feature", id:"optionsRadios2"%>
                 <%= "Feature: You're not sure how to implement something, in your code or otherwise." %>
               </label>
             </div>
             <div class="radio">
               <label>
-                <%= f.radio_button :status, "other", id:"optionsRadios3"%>
+                <%= f.radio_button :help_type, "other", id:"optionsRadios3"%>
                 <%= "Other: None of the things listed above, miscellaneous." %>
+              </label>
+            </div>
+          </div>
+      </div>
+  <div class="form-group">
+        <%= f.label :urgency, "How urgent is your problem?", class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :urgency, 3, id:"optionsRadios1"%>
+                <%= "Drastically Urgent: We are stuck and won't be able to work on anything else until this is resolved. " %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :urgency, 2, id:"optionsRadios2"%>
+                <%= "Considerably Urgent: It is a huge issue, but we can work on other things while we get help with this problem." %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :urgency, 1, id:"optionsRadios3"%>
+                <%= "Mildly Urgent: A problem that is incessant and annoying, but it is not a major part of our project." %>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :urgency, 0, id:"optionsRadios4"%>
+                <%= "Not Urgent: We just want a suggestion, or are capable of solving it ourselves, but help from a mentor would be nice, but not needed." %>
               </label>
             </div>
           </div>
@@ -40,15 +69,15 @@
   <div class="form-group">
   
     <div class="col-lg-10">
-          <%= f.text_area :title, class: "form-control", :maxlength => 140, rows: "3", id: "textArea" %>
+          <%= f.text_area :title, placeholder: "Tell us what exactly is going wrong. Keep this under 140 characters, you'll have a chance to elaborate more with your chosen mentor.", class: "form-control", :maxlength => 140, rows: "5", id: "textArea" %>
         </div>
-        <span class="help-block">Tell us what exactly is going wrong. Keep this under 140 characters, you'll have a chance to elaborate more with your chosen mentor.</span>
+       
         </div>
 
 
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>
   </div>
 <% end %>

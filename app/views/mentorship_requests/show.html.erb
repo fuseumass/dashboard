@@ -1,17 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-
-
 <h3><%= current_user.first_name %>'s Mentorship Request</h3>
 
 
 <div class="panel panel-info">
 
   <div class="panel-heading">
-    <h3 class="panel-title">
-    Type of Problem: <%= @mentorship_request.help_type %></h3>
+    <h3 class="panel-title"><%= @mentorship_request.urgency %>
+    </h3>
   </div>
   <div class="panel-body">
+    Type of Problem: <%= @mentorship_request.help_type %>
+
     <%= @mentorship_request.title %>
   </div>
 </div>

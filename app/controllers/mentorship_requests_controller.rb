@@ -1,6 +1,6 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:index, :destroy, :edit]
+  before_action :check_permissions, only: [:destroy, :edit]
 
   # GET /mentorship_requests
   # GET /mentorship_requests.json
@@ -27,7 +27,6 @@ class MentorshipRequestsController < ApplicationController
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
     @mentorship_request.user_id = current_user.id
-    @mentorship_request.help_type = @mentorship_request.status
     @mentorship_request.status = "pending"
 
     respond_to do |format|
@@ -73,7 +72,7 @@ class MentorshipRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mentorship_request_params
-      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :type, :status)
+      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :help_type, :status, :urgency)
     end
 
     def check_permissions

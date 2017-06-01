@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<% if current_user.is_mentor? or current_user.is_admin? %>
 <h1>Mentorship Requests</h1>
 
 <table>
@@ -10,6 +11,7 @@
       <th>Title</th>
       <th>Type</th>
       <th>Status</th>
+      <th>Urgency</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,6 +24,7 @@
         <td><%= mentorship_request.title %></td>
         <td><%= mentorship_request.help_type %></td>
         <td><%= mentorship_request.status %></td>
+        <td><%= mentorship_request.urgency %></td>
         <td><%= link_to 'Show', mentorship_request %></td>
         <td><%= link_to 'Edit', edit_mentorship_request_path(mentorship_request) %></td>
         <td><%= link_to 'Destroy', mentorship_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -32,4 +35,28 @@
 
 <br>
 
-<%= link_to 'New Mentorship Request', new_mentorship_request_path %>
+<% end %>
+<% if current_user.is_attendee? %>
+
+<h3><%= current_user.first_name %>'s Mentorship Request</h3>
+
+
+<div class="panel panel-info">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    Type of Problem: <%= @mentorship_requests.find_by_user_id(current_user.id).help_type %></h3>
+  </div>
+  <div class="panel-body">
+    <%= @mentorship_requests.find_by_user_id(current_user.id).title %>
+  </div>
+</div>
+ 
+ <p>
+  <strong>Status:</strong>
+  <%= @mentorship_requests.find_by_user_id(current_user.id).status %>
+</p>
+<% end %> 
+
+
+

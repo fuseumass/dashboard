@@ -40,23 +40,10 @@
 
 <h3><%= current_user.first_name %>'s Mentorship Request</h3>
 
+<%= link_to 'Show', @mentorship_requests.find_by_user_id(current_user.id) %>
 
-<div class="panel panel-info">
+<% end %>
 
-  <div class="panel-heading">
-    <h3 class="panel-title">
-    Type of Problem: <%= @mentorship_requests.find_by_user_id(current_user.id).help_type %></h3>
-  </div>
-  <div class="panel-body">
-    <%= @mentorship_requests.find_by_user_id(current_user.id).title %>
-  </div>
-</div>
- 
- <p>
-  <strong>Status:</strong>
-  <%= @mentorship_requests.find_by_user_id(current_user.id).status %>
-</p>
-<% end %> 
 
 
 

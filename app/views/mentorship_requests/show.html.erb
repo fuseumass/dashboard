@@ -1,20 +1,57 @@
 <h3><%= current_user.first_name %>'s Mentorship Request</h3>
 
 
-<div class="panel panel-info">
+<div class="
+<%= 'panel panel-danger' if @mentorship_request.urgency == 3 %>
+<%= 'panel panel-warning' if @mentorship_request.urgency == 2 %>
+<%= 'panel panel-info' if @mentorship_request.urgency == 1 %>
+<%= 'panel panel-success' if @mentorship_request.urgency == 0 %>">
+
+
 
   <div class="panel-heading">
-    <h3 class="panel-title"><%= @mentorship_request.urgency %>
+    <h3 class="panel-title">
+    <%if @mentorship_request.urgency == 0 
+    %>
+    Not Urgent
+    <%elsif @mentorship_request.urgency == 1 
+    %>
+    Mildly Urgent
+    <%elsif @mentorship_request.urgency == 2 
+    %>
+    Considerably Urgent
+    <%elsif @mentorship_request.urgency == 3
+    %>
+    Drastically Urgent
+    <% end %>
+
     </h3>
   </div>
   <div class="panel-body">
-    Type of Problem: <%= @mentorship_request.help_type %>
-
-    <%= @mentorship_request.title %>
+    Type of Problem: <span class="
+    <%='label label-default' if @mentorship_request.help_type == 'other' %> 
+    <%='label label-danger' if @mentorship_request.help_type == 'bug' %>
+    <%='label label-warning' if @mentorship_request.help_type == 'feature' %> ">
+    <%= @mentorship_request.help_type %></span>
+    <br>
+    <div class="well">
+    <strong><%= @mentorship_request.title %></strong>
+    </div>
+    <strong>Status: <%= @mentorship_request.status %></strong>
+  </div>
+  <p>
+  
+  <div class="progress progress-striped active">
+  <div class="progress-bar" style="
+  <%= 'width: 25%' if @mentorship_request.status == 'pending' %>">
+    
   </div>
 </div>
- 
- <p>
-  <strong>Status:</strong>
-  <%= @mentorship_request.status %>
+  
 </p>
+</div>
+ 
+</div>
+
+ 
+

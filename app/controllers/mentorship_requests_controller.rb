@@ -5,7 +5,7 @@ class MentorshipRequestsController < ApplicationController
   # GET /mentorship_requests
   # GET /mentorship_requests.json
   def index
-    @mentorship_requests = MentorshipRequest.all
+    @mentorship_requests = MentorshipRequest.all.sort_by{|h| -h[:urgency]}
   end
 
   # GET /mentorship_requests/1

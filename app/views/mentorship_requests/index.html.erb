@@ -3,30 +3,34 @@
 <% if current_user.is_mentor? or current_user.is_admin? %>
 <h1>Mentorship Requests</h1>
 
-<table>
+<table class="table table-striped table-hover ">
   <thead>
     <tr>
       <th>User</th>
-      <th>Mentor</th>
-      <th>Title</th>
+      <th>Description</th>
       <th>Type</th>
       <th>Status</th>
-      <th>Urgency</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @mentorship_requests.each do |mentorship_request| %>
-      <tr>
+      <tr class = "
+        <%= 'danger' if mentorship_request.urgency == 3%> 
+        <%= 'warning' if mentorship_request.urgency == 2%>
+        <%= 'info' if mentorship_request.urgency == 1%>
+        <%= 'success' if mentorship_request.urgency == 0%>">
         <td><%= mentorship_request.user_id %></td>
-        <td><%= mentorship_request.mentor_id %></td>
-        <td><%= mentorship_request.title %></td>
-        <td><%= mentorship_request.help_type %></td>
+        <td><div class="well well-sm">
+        <%= mentorship_request.title %>
+        </div></td>
+        <td><span class="
+        <%='label label-default' if mentorship_request.help_type == 'other' %> 
+        <%='label label-danger' if mentorship_request.help_type == 'bug' %>
+        <%='label label-warning' if mentorship_request.help_type == 'feature' %> "><%= mentorship_request.help_type%></td>
         <td><%= mentorship_request.status %></td>
-        <td><%= mentorship_request.urgency %></td>
         <td><%= link_to 'Show', mentorship_request %></td>
-        <td><%= link_to 'Edit', edit_mentorship_request_path(mentorship_request) %></td>
         <td><%= link_to 'Destroy', mentorship_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

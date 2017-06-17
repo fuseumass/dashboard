@@ -2,55 +2,39 @@ class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
 
-  # GET /mentorship_requests
-  # GET /mentorship_requests.json
+
   def index
-    @mentorship_requests = MentorshipRequest.all.sort_by{|h| -h[:urgency]}
+    @mentorship_requests = MentorshipRequest.all
   end
 
-  # GET /mentorship_requests/1
-  # GET /mentorship_requests/1.json
+
   def show
   end
 
-  # GET /mentorship_requests/new
   def new
     @mentorship_request = MentorshipRequest.new
   end
 
-  # GET /mentorship_requests/1/edit
   def edit
   end
 
-  # POST /mentorship_requests
-  # POST /mentorship_requests.json
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
-    @mentorship_request.user_id = current_user.id
-    @mentorship_request.status = "pending"
+    @mentorship_request.user = current_user
+    @mentorship_request.status = 'pending'
 
-    respond_to do |format|
-      if @mentorship_request.save
-        format.html { redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.' }
-        format.json { render :show, status: :created, location: @mentorship_request }
-      else
-        format.html { render :new }
-        format.json { render json: @mentorship_request.errors, status: :unprocessable_entity }
-      end
+    if @mentorship_request.save
+      redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /mentorship_requests/1
-  # PATCH/PUT /mentorship_requests/1.json
   def update
-    respond_to do |format|
-      if @mentorship_request.update(mentorship_request_params)
-        format.html { redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @mentorship_request }
-      else
-        format.html { render :edit }
-        format.json { render json: @mentorship_request.errors, status: :unprocessable_entity }
-      end
+    if @mentorship_request.update(mentorship_request_params)
+      redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -58,10 +42,7 @@ class MentorshipRequestsController < ApplicationController
   # DELETE /mentorship_requests/1.json
   def destroy
     @mentorship_request.destroy
-    respond_to do |format|
-      format.html { redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.'
   end
 
   private
@@ -77,7 +58,7 @@ class MentorshipRequestsController < ApplicationController
 
     def check_permissions
       if user_signed_in?
-        unless current_user.is_admin? or current_user.is_organizer?
+        unless current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
           redirect_to index_path, alert: 'You do not have the permissions to visit this section of mentorship'
         end
       else

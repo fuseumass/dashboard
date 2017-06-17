@@ -58,7 +58,7 @@ class MentorshipRequestsController < ApplicationController
 
     def check_permissions
       if user_signed_in?
-        unless current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
+        unless current_user.is_admin? or current_user.is_mentor?
           redirect_to index_path, alert: 'You do not have the permissions to visit this section of mentorship'
         end
       else

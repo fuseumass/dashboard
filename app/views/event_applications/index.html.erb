@@ -1,91 +1,43 @@
-<div class="form-group">
-  <legend>New Event Application</legend>
-</div>
 
+<%= javascript_include_tag("event_application.js") %>
+<div class="form-group">
+<legend>HackUMass Application</legend>
+</div>
+<div style="overflow:auto;">
+<table class="table table-striped table-hover ">
+<thead style="text-align:center">
+  <tr style="text-align:center">
+    <th class="dropdown-toggle" style="text-align:center">ID</th>
+    <th style="text-align:center">Status</th>
+    <th style="text-align:center">Applicant Name</th>
+    <th style="text-align:center">University</th>
+    <th style="text-align:center">Major</th>
+    <th style="text-align:center;">Graduation Year</th>
+    <th style="text-align:center;">Transportation</th>
+    <th style="text-align:center;">Sex</th>
+  </tr>
+</thead>
+<tbody>
 <% @event_applications.each do |app| %>
-<div class="form-group">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Applicant ID: <%=app.user_id %></h3>
-    </div>
-    <div class="panel-body">
-      <p>
-          <strong>Name:</strong>
-          <%= app.name %><br />
-
-          <strong>Email:</strong>
-          <%= app.email %><br />
-
-          <strong>Phone:</strong>
-          <%= app.phone %><br />
-
-          <strong>Age:</strong>
-          <%= app.age %><br />
-
-          <strong>Sex:</strong>
-          <%= app.sex %><br />
-
-          <strong>University:</strong>
-          <%= app.university %><br />
-
-          <strong>Major:</strong>
-          <%= app.major %><br />
-
-          <strong>Graduation Year:</strong>
-          <%= app.grad_year %><br />
-
-          <strong>Food Restrictions:</strong>
-          <%= app.food_restrictions ? app.food_restrictions_text : "No" %><br />
-
-          <strong>T-Shirt Size:</strong>
-          <%= app.t_shirt %><br />
-
-          <strong>Linkedin URL:</strong>
-          <%= app.linkedin %><br />
-
-          <strong>Github URL:</strong>
-          <%= app.github %><br />
-
-          <strong>Challengepost Username:</strong>
-          <%= app.challengepost_username %><br />
-
-          <strong>Have you been to a hackathon before:</strong>
-          <%= app.previous_hackathon_attendance ? "Yes" : "No" %><br />
-
-          <strong>Will you need transportation to UMass:</strong>
-          <%= app.transportation ? app.name.concat(" needs transportation from ".concat(app.transportation_from_where)) : "No" %><br />
-
-          <strong>Hacker Type:</strong>
-          <%= app.type_of_programmer_list == "{}" ? "" : app.type_of_programmer_list.gsub(/[\[\"\"\]]/, "") %><br />
-
-          <strong>Programming Skills:</strong>
-          <%= app.programming_skills_list == "{}" ? "" : app.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(app.programming_skills_other_field) %><br />
-
-          <% if app.are_you_interested_in_hardware_hacks %>
-            <strong>Are you interested in hardware hacks:</strong>
-            <%= "No" %>
-          <% else %>
-            <strong>List of interested hardware:</strong>
-            <%= app.interested_hardware_list == "{}" ? "" : app.interested_hardware_list %>
-          <% end %><br />
-
-          <strong>How did you hear about HackUMass:</strong>
-          <%= app.how_did_you_hear_about_hackumass %><br />
-
-          <strong>What hardware do you want to see at HackUMass V or future HackUMass?:</strong>
-          <%= app.future_hardware_for_hackumass %><br />
-
-          <strong>Team Name:</strong>
-          <%= app.do_you_have_a_team ? app.team_name : "" %><br />
-
-          <strong>Waiver & Liability Agreement:</strong>
-          <%= app.waiver_liability_agreement ? "Agree" : "Disagree" %>
-
-
-      </p>
-    </div>
-  </div>
+  <% if app.application_status == "undecided"%>
+    <tr class="active" style="text-align:center"  data-href="<%= event_application_path(app) %>">
+  <% elsif app.application_status == "accepted"%>
+    <tr class="success" style="text-align:center" data-href="<%= event_application_path(app) %>">
+  <% elsif app.application_status == "denied"%>
+    <tr class="danger" style="text-align:center" data-href="<%= event_application_path(app) %>">
+  <% else app.application_status == "waitlisted"%>
+    <tr class="warning" style="text-align:center" data-href="<%= event_application_path(app) %>">
+  <% end %>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.user_id %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.application_status %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.name %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.university %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.major %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.grad_year %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.transportation %></a></td>
+    <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.sex %></a></td>
+  </tr>
+<%end%>
+</tbody>
+</table> 
 </div>
-<% end %>
-
-<%= link_to "New Event Application", new_event_application_path, class: "btn btn-primary btn-sm" %>

@@ -22,11 +22,7 @@ Rails.application.routes.draw do
 
 resources :event_applications do
   	collection do
-  		post 'accepted'
-      post 'denied'
-      post 'waitlisted'
       post 'status_updated'
-      post 'next_applicant'
   	end
   end
 

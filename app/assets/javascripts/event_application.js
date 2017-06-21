@@ -1,4 +1,3 @@
-
 /*
 The unhideField function takes in only one agrument an id attribute.
 

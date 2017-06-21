@@ -1,21 +1,13 @@
 class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:index, :show, :destroy, :edit, :accepted, :denied]
+  before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
   
 
-  #upate the field 
+  # updates the application status of the applicants  
   def status_updated
     @new_status = params[:new_status]
     @id = params[:id]
     @application = EventApplication.find_by(user_id: @id)
-    if(@new_status == 'accepted')
-      if(@application.accepted_applicants > 801)
-        application.waitlisted_applicants += 1
-      end
-      @application.accepted_applicants += 1 
-    else
-      @application.rejected_applicants += 1 
-    end
     @application.application_status = @new_status
     @application.save
     redirect_to event_application_path(@application)
@@ -25,9 +17,6 @@ class EventApplicationsController < ApplicationController
   # GET /event_applications.json
   def index
     @event_applications = EventApplication.all
-    #flash[:error] = EventApplication.all.size
-    @event_application = @event_applications[0]
-
   end
 
   # GET /event_applications/1
@@ -106,7 +95,7 @@ class EventApplicationsController < ApplicationController
                                                 programmer_type_list:[], programming_skills_list:[])
     end
 
-    # Only admins and organizers have the ability to access index and show
+    # Only admins and organizers have the ability to all permission except delete and edited
     # No one should have the ability to delete or edit but to be on the safe side we are still going to check those permission
     def check_permissions
       if user_signed_in?

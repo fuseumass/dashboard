@@ -25,8 +25,4 @@ resources :event_applications do
       post 'status_updated'
   	end
   end
-
-
-
-
 end

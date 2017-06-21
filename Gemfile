@@ -70,3 +70,10 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# AMAZON WEB SERVICES GEMS:
+  # Add Amazon Web Services (AWS) SDK to website
+  gem 'aws-sdk'
+  # Helper gem for uploading file to AWS S3
+  gem 'paperclip'
+

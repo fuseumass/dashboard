@@ -94,6 +94,15 @@ class EventApplication < ApplicationRecord
                   # phone number only contains digits
                   :format => {:with => /\d/}
 
+      # RESUME:
+        validates :resume,
+                  # only if there is resume file will the following validation be
+                  # checked
+                  :if => 'resume.present?',
+                  # checks to see that the file has to be a .pdf format
+                  :format => {:with => /\A(.)+.pdf\z/}
+
+
       # LINKEDIN:
         validates :linkedin,
                   # only if the linkedin URL is fill-in will the following validation 

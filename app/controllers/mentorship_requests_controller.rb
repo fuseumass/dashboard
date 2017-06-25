@@ -2,46 +2,32 @@ class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
 
-  # GET /mentorship_requests
-  # GET /mentorship_requests.json
-  def index
-    @mentorship_requests = MentorshipRequest.all.sort_by{|h| -h[:urgency]}
-  end
-
-  # GET /mentorship_requests/1
-  # GET /mentorship_requests/1.json
   def show
   end
 
-  # GET /mentorship_requests/new
+
   def new
     @mentorship_request = MentorshipRequest.new
   end
 
-  # GET /mentorship_requests/1/edit
+
   def edit
   end
 
-  # POST /mentorship_requests
-  # POST /mentorship_requests.json
+
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
     @mentorship_request.user_id = current_user.id
     @mentorship_request.status = "pending"
 
-    respond_to do |format|
-      if @mentorship_request.save
-        format.html { redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.' }
-        format.json { render :show, status: :created, location: @mentorship_request }
-      else
-        format.html { render :new }
-        format.json { render json: @mentorship_request.errors, status: :unprocessable_entity }
-      end
+    if @mentorship_request.save
+      redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /mentorship_requests/1
-  # PATCH/PUT /mentorship_requests/1.json
+
   def update
     respond_to do |format|
       if @mentorship_request.update(mentorship_request_params)
@@ -54,8 +40,7 @@ class MentorshipRequestsController < ApplicationController
     end
   end
 
-  # DELETE /mentorship_requests/1
-  # DELETE /mentorship_requests/1.json
+
   def destroy
     @mentorship_request.destroy
     respond_to do |format|

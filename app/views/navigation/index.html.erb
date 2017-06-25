@@ -2,44 +2,21 @@
   <h1>Hello, <%= current_user.first_name %> </h1>
   <p>Registration is now open and it looks like you haven't registered for the event yet. Click the button below to get started with your application. </p>
   <%= link_to 'Register', apply_path, class: 'btn btn-primary btn-lg'%>
-  <% if EventApplication.where(user_id: current_user.id).any? %>
+  <% if current_user.has_applied? %>
   <h2>Need some help?</h2>
   <p>No worries! We have a designated group of mentors here just to help guide you on your way to hack glory! Click here to request aid:</p>
   <%= link_to 'Request Mentorship', new_mentorship_request_path, class: 'btn btn-primary btn-lg'%>
   <% end %>
 </div>
 
+<% if current_user.has_applied? %>
+    <%= render 'home_actions' %>
+  <% else %>
+    <!--TODO: Get rid of this and actually display what users should see when they haven't applied-->
+    <%= render 'home_actions' %>
+<% end %>
 
-<div class="row">
-	<div class="col-lg-4 col-md-4 col-sm-4">
-		<div class="panel panel-warning">
-		  <div class="panel-heading">
-		    <h3 class="panel-title">Panel primary</h3>
-		  </div>
-		  <div class="panel-body">
-		    Panel content
-		  </div>
-		</div>
-	</div>
 
-	<div class="col-lg-4 col-md-4 col-sm-4">
-		<div class="panel panel-success">
-		  <div class="panel-heading">
-		    <h3 class="panel-title">Panel primary</h3>
-		  </div>
-		  <div class="panel-body">
-		    Panel content
-		  </div>
-		</div>
-	</div>
-	<div class="col-lg-4 col-md-4 col-sm-4">
-		<div class="panel panel-info">
-		  <div class="panel-heading">
-		    <h3 class="panel-title">Panel primary</h3>
-		  </div>
-		  <div class="panel-body">
-		    Panel content
-		  </div>
-		</div>
-	</div>
-</div>
+
+
+

@@ -33,4 +33,18 @@ class User < ApplicationRecord
     names.join ' '
   end
 
+  def has_applied?
+    EventApplication.where(user_id: self.id).any?
+  end
+
+  def has_mentorship_requests?
+    MentorshipRequest.where(user_id: self.id).any?
+  end
+
+  def is_accepted?
+    if has_applied?
+      EventApplication.where(user_id: self.id).application_status == 'accepted'
+    end
+  end
+
 end

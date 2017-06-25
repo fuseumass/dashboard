@@ -63,6 +63,7 @@ class EventApplication < ApplicationRecord
     
     # allows all the optional fields to be blank 
       validates :phone,
+                :resume_file,
                 :linkedin,
                 :github,
                 :programmer_type_list,
@@ -95,13 +96,10 @@ class EventApplication < ApplicationRecord
                   :format => {:with => /\d/}
 
       # RESUME:
-        validates :resume,
-                  # only if there is resume file will the following validation be
-                  # checked
-                  :if => 'resume.present?',
-                  # checks to see that the file has to be a .pdf format
-                  :format => {:with => /\A(.)+.pdf\z/}
-
+        validates_attachment :resume_file,
+                             :if => 'resume_file.present?',
+                             :content_type => {:content_type => ['application/pdf']},
+                             :size => {:in => 1...1000.kilobytes}
 
       # LINKEDIN:
         validates :linkedin,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614025022) do
+ActiveRecord::Schema.define(version: 20170627171250) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,8 +26,6 @@ ActiveRecord::Schema.define(version: 20170614025022) do
     t.boolean  "food_restrictions"
     t.text     "food_restrictions_info"
     t.string   "t_shirt"
-    t.binary   "resume_file"
-    t.string   "resume_file_name"
     t.string   "linkedin"
     t.string   "github"
     t.boolean  "previous_hackathon_attendance"
@@ -42,9 +40,10 @@ ActiveRecord::Schema.define(version: 20170614025022) do
     t.boolean  "waiver_liability_agreement"
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
-    t.integer  "accepted_applicants",              default: 0
-    t.integer  "rejected_applicants",              default: 0
-    t.integer  "waitlisted_applicants",            default: 0
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

@@ -68,8 +68,8 @@ class EventApplicationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_application_params
       params.require(:event_application).permit(:name, :email, :phone, :age, :sex, :university, :major, :grad_year,
-                                                :food_restrictions, :food_restrictions_info, :t_shirt, :resume_file,
-                                                :resume_file_name, :linkedin, :github, :previous_hackathon_attendance,
+                                                :food_restrictions, :food_restrictions_info, :t_shirt,
+                                                :resume, :linkedin, :github, :previous_hackathon_attendance,
                                                 :transportation, :transportation_location,:interested_in_hardware_hacks,
                                                 :how_did_you_hear_about_hackumass, :future_hardware_for_hackumass,
                                                 :waiver_liability_agreement, interested_hardware_hacks_list:[],

@@ -1,14 +1,14 @@
-<%= form_for(event_application, :html => {class: "form-horizontal"}) do |f| %>
+<%= form_for(@event_application, :html => {multipart: true, class: "form-horizontal"}) do |f| %>
 
   <%# Error Panel %>
-  <% if event_application.errors.any? %>
+  <% if @event_application.errors.any? %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title"><%= pluralize(event_application.errors.count, "error") %> prohibited this application from being submitted:</h3>
+      <h3 class="panel-title"><%= pluralize(@event_application.errors.count, "error") %> prohibited this application from being submitted:</h3>
     </div>
     <div class="panel-body">
       <ul>
-        <% event_application.errors.full_messages.each do |message| %>
+        <% @event_application.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -21,7 +21,7 @@
     <div class="panel-body">
 
       <%# Name Field %>
-      <div class="form-group qweasd">
+      <div class="form-group">
         <%= f.label :name, "Full Name: ", {class: "col-lg-2 control-label"}%>
         <div class="col-lg-10">
           <%= f.text_field :name, {class: "form-control"} %>
@@ -122,9 +122,9 @@
       
       <%# Resume File Field %>
       <div class="form-group">
-        <%= f.label :resume_file, "Resume: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :resume, "Resume: ", {class: "col-lg-2 control-label"}%>
         <div class="col-lg-10">
-          <%= f.file_field :resume_file %>
+          <%= f.file_field :resume %>
         </div>
       </div>
       

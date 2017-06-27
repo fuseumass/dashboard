@@ -96,11 +96,19 @@ class EventApplication < ApplicationRecord
                   :format => {:with => /\d/}
 
       # RESUME:
-        validates_attachment :resume_file,
-                             :if => 'resume_file.present?',
-                             :content_type => {:content_type => ['application/pdf']},
-                             :size => {:in => 1...1000.kilobytes}
+        has_attached_file :resume,
+                          :storage => :s3,
+                          :url => 's3.amazonaws.com',
+                          :s3_credentials => {
+                            :bucket => 'dev-hackumass-v-resume',
+                            :access_key_id => 'AKIAIATAAZ2FAK3HEB2Q',
+                            :secret_access_key => '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',
+                            :s3_region => 'us-east-1'
+                          }
 
+        validates_attachment :resume,
+                             :content_type => {:content_type => ['application/pdf']},
+                             :size => {:in => 0...1.megabytes}
       # LINKEDIN:
         validates :linkedin,
                   # only if the linkedin URL is fill-in will the following validation 

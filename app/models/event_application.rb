@@ -101,14 +101,30 @@ class EventApplication < ApplicationRecord
                           :url => 's3.amazonaws.com',
                           :s3_credentials => {
                             :bucket => 'dev-hackumass-v-resume',
-                            :access_key_id => 'AKIAIATAAZ2FAK3HEB2Q',
-                            :secret_access_key => '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',
+                            :access_key_id => 'AKIAI5CVP3FA7SBS5WPA',
+                            :secret_access_key => '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',
                             :s3_region => 'us-east-1'
+
                           }
 
         validates_attachment :resume,
                              :content_type => {:content_type => ['application/pdf']},
                              :size => {:in => 0...1.megabytes}
+                             
+       def contains_name?
+          temp = Paperclip.io_adapters.for(resume)
+          file = File.open(temp.path)
+          reader = PDF::Reader.new(file)
+          return reader.page(1).text.include? name
+        end
+                              
+       validates_attachment_presence :resume, 
+                                     :if => :contains_name?
+
+        
+                                
+
+
       # LINKEDIN:
         validates :linkedin,
                   # only if the linkedin URL is fill-in will the following validation 

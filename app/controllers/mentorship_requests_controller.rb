@@ -38,8 +38,7 @@ class MentorshipRequestsController < ApplicationController
     end
   end
 
-  # DELETE /mentorship_requests/1
-  # DELETE /mentorship_requests/1.json
+
   def destroy
     @mentorship_request.destroy
     redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.'
@@ -65,5 +64,5 @@ class MentorshipRequestsController < ApplicationController
         redirect_to new_user_session_path
       end
     end
-    
+
 end

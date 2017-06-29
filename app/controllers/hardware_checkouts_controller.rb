@@ -11,7 +11,7 @@ class HardwareCheckoutsController < ApplicationController
     # get email that was initially passed in the user id field
     user_email =  params[:hardware_checkout][:user_id]
 
-    # If there is a problem with the email show an erro
+    # If there is a problem with the email show an error
     if user_email.nil?
       redirect_to hardware_item_path(@item), alert: 'There was a problem understanding that email'
       return
@@ -56,7 +56,7 @@ class HardwareCheckoutsController < ApplicationController
     @item.save
     @hardware_checkout.destroy
 
-    # Flash a good message 
+    # Flash a good message
     flash[:success] = "Hardware Successfully Returned"
     redirect_to hardware_item_path(@item)
   end

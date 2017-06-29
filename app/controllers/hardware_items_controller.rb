@@ -27,6 +27,7 @@ class HardwareItemsController < ApplicationController
     # Get all the people that have checked out items
     @checked_out_items = HardwareCheckout.where(hardware_item: @hardware_item)
 
+    # Do we really need a csv page for one spcific hardware item ???
     respond_to do |format|
       format.html
       format.csv{ send_data @hardware_item.to_csv}
@@ -46,9 +47,9 @@ class HardwareItemsController < ApplicationController
     @hardware_item = HardwareItem.new(hardware_item_params)
     @hardware_item.upc = generate_upc
     if @hardware_item.save
-      redirect_to hardware_items_url, notice: 'Hardware item was successfully created.' 
+      redirect_to hardware_items_url, notice: 'Hardware item was successfully created.'
     else
-      render :new 
+      render :new
     end
   end
 
@@ -64,7 +65,7 @@ class HardwareItemsController < ApplicationController
 
   def destroy
     @hardware_item.destroy
-    redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.' 
+    redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.'
   end
 
   private

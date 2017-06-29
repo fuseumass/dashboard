@@ -2,18 +2,13 @@ class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destory, :edit]
 
-  # GET /event_applications
-  # GET /event_applications.json
   def index
     @event_applications = EventApplication.all
   end
 
-  # GET /event_applications/1
-  # GET /event_applications/1.json
   def show
   end
 
-  # GET /event_applications/new
   def new
     if EventApplication.where(user_id: current_user.id).any?
         redirect_to event_applications_path
@@ -22,43 +17,27 @@ class EventApplicationsController < ApplicationController
     @event_application = EventApplication.new
   end
 
-  # GET /event_applications/1/edit
   def edit
   end
 
-  # POST /event_applications
-  # POST /event_applications.json
   def create
     @event_application = EventApplication.new(event_application_params)
-    @event_application.user_id = current_user.id
-
-    respond_to do |format|
+    @event_application.user = current_user
       if @event_application.save
-        format.html { redirect_to @event_application, notice: 'Event application was successfully created.' }
-        format.json { render :show, status: :created, location: @event_application }
+        redirect_to @event_application, notice: 'Event application was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @event_application.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
-  # PATCH/PUT /event_applications/1
-  # PATCH/PUT /event_applications/1.json
   def update
-    respond_to do |format|
       if @event_application.update(event_application_params)
-        format.html { redirect_to @event_application, notice: 'Event application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event_application }
+        redirect_to @event_application, notice: 'Event application was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @event_application.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
-  # DELETE /event_applications/1
-  # DELETE /event_applications/1.json
   def destroy
     @event_application.destroy
     respond_to do |format|

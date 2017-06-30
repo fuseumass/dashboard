@@ -48,7 +48,7 @@
       <div class="form-group">
         <%= f.label :age, "Age: ", {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
-          <%= f.select :age, [" "].concat((1..100).map {|i| i.to_s}), {class: "form-control", id: "select"} %>
+          <%= f.select :age, [" "].concat((18..50).map {|i| i.to_s}),{}, {class: "form-control", id: "select"} %>
         </div>
       </div>
 
@@ -56,7 +56,7 @@
       <div class="form-group">
         <%= f.label :sex, "Sex: ", {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
-          <%= f.select :sex, [" ", "Male", "Female"], {class: "form-control", id: "select"} %>
+          <%= f.select :sex, [" ", "Male", "Female", "Other"],{}, {class: "form-control", id: "select"} %>
         </div>
       </div>
 
@@ -80,7 +80,7 @@
       <div class="form-group">
         <%= f.label :grad_year, "Graduation Year: ", {class:"col-lg-2 control-label"}%>
         <div class="col-lg-10">
-          <%= f.select :grad_year, [" "].concat(((1960..2025).map {|i| i.to_s}).reverse!), {class: "form-control", id: "select"} %>
+          <%= f.select :grad_year, [" "].concat(((2017..2025).map {|i| i.to_s}).reverse!), {}, {class: "form-control", id: "select"} %>
         </div>
       </div>
 
@@ -116,7 +116,7 @@
       <div class="form-group">
         <%= f.label :t_shirt, "T-Shirt Size: ", {class:"col-lg-2 control-label"}%>
         <div class="col-lg-10">
-          <%= f.select :t_shirt, [" ", "XS", "S", "M", "L", "XL", "XXL"], {class: "form-control", id: "select"} %>
+          <%= f.select :t_shirt, [" ", "XS", "S", "M", "L", "XL", "XXL"], {}, {class: "form-control", id: "select"} %>
         </div>
       </div>
       

@@ -1,40 +1,18 @@
-<div class:"form-control" style="float:left">
-        <%= link_to "<<", event_applications_path, class: "btn btn-primary" %>
-        <%= link_to "Back Applicant", event_applications_path, class: "btn btn-primary" %>
+<div style="float:left">
+        <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
 </div>
-<div class:"form-control" style="float:right">
-        <%= link_to "Next Applicant", event_applications_path, class: "btn btn-primary" %>
-        <%= link_to ">>", event_applications_path, class: "btn btn-primary" %>
+<div style="float:right">
+        <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
 </div>
 <br>
 <br>
-<% if @event_application.application_status == "accepted" %>
 
-  <div class="panel panel-primary">
-  <div class="panel-heading" style="height: 35px; background-color: #40a33f;">
-
-<% elsif @event_application.application_status == "waitlisted" %>
-
-  <div class="panel panel-primary">
-  <div class="panel-heading" style="height: 35px; background-color: #fd8508;">
-
-<% elsif @event_application.application_status == "undecided" %>
-
-  <div class="panel panel-primary">
-  <div class="panel-heading" style="height: 35px; background-color: #000000;">
-
-<% else %>
-
-  <div class="panel panel-primary">
+<div class="panel panel-primary">
   <div class="panel-heading" style="height: 35px;">
-
-<% end %>
-    
       <h3 class="panel-title">
-          <p style="float: left; margin: 0">Applicant ID: <%=@event_application.user_id %></p>
-        <p style="float: right; margin: 0">Status: <%=@event_application.application_status%></p>
+        <p style="float: left; margin: 0">Applicant ID: <%=@event_application.user_id %></p>
+        <p style="float: right; margin: 0">Status: <%=@event_application.application_status.capitalize %></p>
       </h3>
-      
   </div>
   <div class="panel-body">
 
@@ -116,7 +94,7 @@
 
     <p>
       <strong>Programming Skills:</strong>
-      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_other_field)) %><br />
+      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_list)) %><br />
     </p>
     <p>
       <% if @event_application.interested_in_hardware_hacks %>
@@ -142,18 +120,15 @@
       <strong>Waiver & Liability Agreement:</strong>
       <%= @event_application.waiver_liability_agreement ? "Agree" : "Disagree" %>
     </p>
- <%= button_to "Accepted", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "accepted", id: @event_application.user_id}}, {class: "btn btn-primary btn-sm", style: "float: right;"}%>
-    <%= button_to "Denied", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "denied", id: @event_application.user_id}}, {class: "btn btn-primary btn-sm", style: "float: right;"}%>
-    <%= button_to "Waitlisted", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-primary btn-sm", style: "float: right;"}%>
+    <%= button_to "Accept", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "accepted", id: @event_application.user_id}}, {class: "btn btn-success btn-sm", style: "float: right; margin:5px"}%>
+    <%= button_to "Deny", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "denied", id: @event_application.user_id}}, {class: "btn btn-danger btn-sm", style: "float: right;margin:5px"}%>
+    <%= button_to "Waitlist", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-warning btn-sm", style: "float: right;margin:5px"}%>
   </div>
 </div>
-<embed src="~/Desktop/Untitled.pdf" width="100%" height="100%" />
 
-<div class:"form-control" style="float:left">
-        <%= link_to "<<", event_applications_path, class: "btn btn-primary" %>
-        <%= link_to "Back Applicant", event_applications_path, class: "btn btn-primary" %>
+<div style="float:left">
+  <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
 </div>
-<div class:"form-control" style="float:right">
-        <%= link_to "Next Applicant", event_applications_path, class: "btn btn-primary" %>
-        <%= link_to ">>", event_applications_path, class: "btn btn-primary" %>
+<div style="float:right">
+  <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
 </div>

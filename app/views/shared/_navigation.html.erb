@@ -13,8 +13,10 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
-        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li> 
-        <li class="<%= 'active' if current_page?(hardware_items_path) %>"><%= link_to 'Hardware', hardware_items_path %></li>
+        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
+        <% if current_user.is_accepted? %>
+          <li class="<%= 'active' if current_page?(hardware_items_path) %>"><%= link_to 'Hardware', hardware_items_path %></li>
+        <% end %>
         <% if current_user.is_organizer? or current_user.is_admin? %>
           <li class="<%= 'active' if current_page?(event_applications_path) %>"><%= link_to 'Applications', event_applications_path %></li>
         <% end %>
@@ -28,15 +30,7 @@
             <% unless current_user.is_attendee? %>
                 <li><a href=""><span class="label label-success"><%= current_user.user_type %></span></a></li>
             <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Option 1</a></li>
-              <li><a href="#">Option 2</a></li>
-              <li class="divider"></li>
-              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
-            </ul>
-          </li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
         <% end %>
       </ul>
     </div>

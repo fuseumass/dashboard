@@ -2,9 +2,13 @@ class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
 
-  def show
+  def index
+    @mentorship_requests = MentorshipRequest.all
   end
 
+
+  def show
+  end
 
   def new
     @mentorship_request = MentorshipRequest.new
@@ -14,11 +18,10 @@ class MentorshipRequestsController < ApplicationController
   def edit
   end
 
-
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
-    @mentorship_request.user_id = current_user.id
-    @mentorship_request.status = "pending"
+    @mentorship_request.user = current_user
+    @mentorship_request.status = 'pending'
 
     if @mentorship_request.save
       redirect_to @mentorship_request, notice: 'Mentorship request was successfully created.'
@@ -27,26 +30,18 @@ class MentorshipRequestsController < ApplicationController
     end
   end
 
-
   def update
-    respond_to do |format|
-      if @mentorship_request.update(mentorship_request_params)
-        format.html { redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @mentorship_request }
-      else
-        format.html { render :edit }
-        format.json { render json: @mentorship_request.errors, status: :unprocessable_entity }
-      end
+    if @mentorship_request.update(mentorship_request_params)
+      redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.'
+    else
+      render :edit
     end
   end
 
 
   def destroy
     @mentorship_request.destroy
-    respond_to do |format|
-      format.html { redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.'
   end
 
   private
@@ -62,7 +57,7 @@ class MentorshipRequestsController < ApplicationController
 
     def check_permissions
       if user_signed_in?
-        unless current_user.is_admin? or current_user.is_organizer?
+        unless current_user.is_admin? or current_user.is_mentor?
           redirect_to index_path, alert: 'You do not have the permissions to visit this section of mentorship'
         end
       else

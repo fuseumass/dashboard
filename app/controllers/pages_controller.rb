@@ -1,9 +1,12 @@
-class NavigationController < ApplicationController
+class PagesController < ApplicationController
   before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
 
   def index
+
     if !user_signed_in?
-      redirect_to new_user_session_path
+      respond_to do |format|
+        format.html{redirect_to new_user_session_path}
+      end
     end
   end
 

@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   resources :event_applications, except: [:edit, :destory]
   devise_for :users
 
-  root 'navigation#index'
+  root 'pages#index'
 
-  get 'index' => 'navigation#index'
-  get 'admin' => 'navigation#admin'
-  get 'add_permissions' => 'navigation#add_permissions'
+  get 'index' => 'pages#index'
+  get 'admin' => 'pages#admin'
+  get 'add_permissions' => 'pages#add_permissions'
 
-  get 'remove_permissions' => 'navigation#remove_permissions'
+  get 'remove_permissions' => 'pages#remove_permissions'
 
   get 'apply' => 'event_applications#new'
 

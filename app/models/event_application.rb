@@ -13,6 +13,7 @@ class EventApplication < ApplicationRecord
                             :major, 
                             :grad_year, 
                             :t_shirt,
+                            :resume,
                             :waiver_liability_agreement 
     
     # checks to see that all radio button fields are not blank:
@@ -48,7 +49,36 @@ class EventApplication < ApplicationRecord
                   :if => 'food_restrictions?',
                   # checks if the food_restrictions_info is fill-in
                   :presence => true
-                
+      
+      # RESUME:
+        has_attached_file :resume,
+                          :storage => :s3,
+                          :url => 's3.amazonaws.com',
+                          :s3_credentials => {
+                            :bucket => 'hackumass-v-resumes',
+                            :access_key_id => 'AKIAJXQREHQP2AIJXVFQ',
+                            :secret_access_key => '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',
+                            :s3_region => 'us-east-1'
+                          }
+
+        validates_attachment :resume,
+                             :content_type => {:content_type => ['application/pdf']},
+                             :size => {:in => 0...1.megabytes}
+
+        validate  :contains_name,
+                  :if => 'resume.present?'                    
+        
+        private
+          def contains_name
+            temp = Paperclip.io_adapters.for(resume)
+            file = File.open(temp.path, "rb")
+            reader = PDF::Reader.new(file)
+            pdf = reader.page(1).text 
+            if !reader.page(1).text.include? name
+              errors.add(:base, 'The resume is improperly formatted')
+            end
+          end
+
       # TRANSPORTATION:
         validates :transportation_location,
                   # only if transportation is checked 'Yes' will the following 
@@ -94,36 +124,6 @@ class EventApplication < ApplicationRecord
                   :length => {:is => 10},
                   # phone number only contains digits
                   :format => {:with => /\d/}
-
-      # RESUME:
-        has_attached_file :resume,
-                          :storage => :s3,
-                          :url => 's3.amazonaws.com',
-                          :s3_credentials => {
-                            :bucket => 'dev-hackumass-v-resume',
-                            :access_key_id => 'AKIAI5CVP3FA7SBS5WPA',
-                            :secret_access_key => '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',
-                            :s3_region => 'us-east-1'
-
-                          }
-
-        validates_attachment :resume,
-                             :content_type => {:content_type => ['application/pdf']},
-                             :size => {:in => 0...1.megabytes}
-                             
-       def contains_name?
-          temp = Paperclip.io_adapters.for(resume)
-          file = File.open(temp.path)
-          reader = PDF::Reader.new(file)
-          return reader.page(1).text.include? name
-        end
-                              
-       validates_attachment_presence :resume, 
-                                     :if => :contains_name?
-
-        
-                                
-
 
       # LINKEDIN:
         validates :linkedin,

@@ -1,7 +1,18 @@
+<div style="float:left">
+        <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
+</div>
+<div style="float:right">
+        <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
+</div>
+<br>
+<br>
 
 <div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Event Application</h3>
+  <div class="panel-heading" style="height: 35px;">
+      <h3 class="panel-title">
+        <p style="float: left; margin: 0">Applicant ID: <%=@event_application.user_id %></p>
+        <p style="float: right; margin: 0">Status: <%=@event_application.application_status.capitalize %></p>
+      </h3>
   </div>
   <div class="panel-body">
 
@@ -47,7 +58,7 @@
 
     <p>
       <strong>Food restrictions:</strong>
-      <%= @event_application.food_restrictions ? @event_application.food_restrictions_text : "No" %>
+      <%= @event_application.food_restrictions ? @event_application.food_restrictions_info : "No" %>
     </p>
 
     <p>
@@ -66,11 +77,6 @@
     </p>
 
     <p>
-      <strong>Challengepost Username:</strong>
-      <%= @event_application.challengepost_username %><br />
-    </p>
-
-    <p>
       <strong>Have you been to a hackathon before:</strong>
       <%= @event_application.previous_hackathon_attendance ? "Yes" : "No" %><br />
     </p>
@@ -82,21 +88,21 @@
 
     <p>
       <strong>Hacker Type:</strong>
-      <%= @event_application.type_of_programmer_list == "{}" ? "" : @event_application.type_of_programmer_list.gsub(/[\[\"\"\]]/, "") %><br />
+      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]/, "") %><br />
     </p>
+
 
     <p>
       <strong>Programming Skills:</strong>
-      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_other_field)) %><br />
+      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_list)) %><br />
     </p>
-
     <p>
-      <% if @event_application.are_you_interested_in_hardware_hacks %>
+      <% if @event_application.interested_in_hardware_hacks %>
         <strong>Are you interested in hardware hacks:</strong>
         <%= "No" %>
       <% else %>
         <strong>List of interested hardware:</strong>
-        <%= @event_application.interested_hardware_list == "{}" ? "" : @event_application.interested_hardware_list %>
+        <%= @event_application.interested_hardware_hacks_list == "{}" ? "" : @event_application.interested_hardware_list %>
       <% end %><br />
     </p>
 
@@ -111,15 +117,18 @@
     </p>
 
     <p>
-      <strong>Team Name:</strong>
-      <%= @event_application.do_you_have_a_team ? @event_application.team_name : "" %><br />
-    </p>
-
-    <p>
       <strong>Waiver & Liability Agreement:</strong>
       <%= @event_application.waiver_liability_agreement ? "Agree" : "Disagree" %>
     </p>
-
-    <%= link_to 'Back', event_applications_path, class: "btn btn-primary btn-sm"%>
+    <%= button_to "Accept", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "accepted", id: @event_application.user_id}}, {class: "btn btn-success btn-sm", style: "float: right; margin:5px"}%>
+    <%= button_to "Deny", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "denied", id: @event_application.user_id}}, {class: "btn btn-danger btn-sm", style: "float: right;margin:5px"}%>
+    <%= button_to "Waitlist", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-warning btn-sm", style: "float: right;margin:5px"}%>
   </div>
+</div>
+
+<div style="float:left">
+  <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
+</div>
+<div style="float:right">
+  <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
 </div>

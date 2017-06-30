@@ -10,40 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531224502) do
+ActiveRecord::Schema.define(version: 20170627171250) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
+    t.string   "application_status",               default: "undecided"
     t.string   "name"
-    t.string   "university"
-    t.string   "major"
-    t.string   "grad_year"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
     t.string   "email"
     t.string   "phone"
     t.string   "age"
     t.string   "sex"
+    t.string   "university"
+    t.string   "major"
+    t.string   "grad_year"
     t.boolean  "food_restrictions"
-    t.text     "food_restrictions_text"
+    t.text     "food_restrictions_info"
     t.string   "t_shirt"
-    t.string   "resume"
     t.string   "linkedin"
     t.string   "github"
-    t.string   "challengepost_username"
     t.boolean  "previous_hackathon_attendance"
     t.boolean  "transportation"
-    t.string   "transportation_from_where"
-    t.string   "type_of_programmer_list",              default: "{}"
-    t.string   "programming_skills_list",              default: "{}"
-    t.boolean  "are_you_interested_in_hardware_hacks"
-    t.string   "interested_hardware_list",             default: "{}"
+    t.string   "transportation_location"
+    t.string   "programmer_type_list",             default: "{}"
+    t.string   "programming_skills_list",          default: "{}"
+    t.boolean  "interested_in_hardware_hacks",     default: false
+    t.string   "interested_hardware_hacks_list",   default: "{}"
     t.text     "how_did_you_hear_about_hackumass"
     t.text     "future_hardware_for_hackumass"
-    t.boolean  "do_you_have_a_team"
-    t.string   "team_name"
     t.boolean  "waiver_liability_agreement"
-    t.string   "programming_skills_other_field"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

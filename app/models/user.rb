@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :hardware_checkouts, dependent: :destroy
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
-  has_one :mentorship_requests, dependent: :destroy
+  has_one :mentorship_request, dependent: :destroy
 
   # Use type checkers
   def is_attendee?
@@ -31,6 +31,20 @@ class User < ApplicationRecord
     names << first_name if first_name
     names << last_name if last_name
     names.join ' '
+  end
+
+  def has_applied?
+    self.event_application.present?
+  end
+
+  def has_mentorship_requests?
+    self.mentorship_request.present?
+  end
+
+  def is_accepted?
+    if has_applied?
+      self.event_application.application_status == 'accepted'
+    end
   end
 
 end

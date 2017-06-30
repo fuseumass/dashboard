@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :mentorship_requests
+  resources :mentorship_requests, except: [:index]
   resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications, except: [:edit, :destory]
   devise_for :users
@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   	end
   end
 
-
-
-
+  resources :event_applications do
+  	collection do
+      post 'status_updated'
+    end
+  end
 
 end

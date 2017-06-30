@@ -2,7 +2,6 @@ class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
 
-
   def index
     @mentorship_requests = MentorshipRequest.all
   end
@@ -14,6 +13,7 @@ class MentorshipRequestsController < ApplicationController
   def new
     @mentorship_request = MentorshipRequest.new
   end
+
 
   def edit
   end

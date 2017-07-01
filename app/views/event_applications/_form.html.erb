@@ -20,9 +20,12 @@
   <div class="panel panel-default">
     <div class="panel-body">
 
+      <label class="required-field-key" style="float: right">Indicates required field</label>
+      <br />
+
       <%# Name Field %>
       <div class="form-group">
-        <%= f.label :name, "Full Name: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :name, "Full Name: ", {class: "col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.text_field :name, {class: "form-control"} %>
         </div>
@@ -30,7 +33,7 @@
 
       <%# Email Field %>
       <div class="form-group">
-        <%= f.label :email, "Email: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :email, "Email: ", {class: "col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.text_field :email, {class: "form-control"} %>
         </div>
@@ -38,7 +41,7 @@
 
       <%# Phone Field %>
       <div class="form-group">
-        <%= f.label :phone, "Phone: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :phone, "Phone: ", {class: "col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.text_field :phone, {class: "form-control", placeholder: ""} %>
         </div>
@@ -46,7 +49,7 @@
 
       <%# Age Field %>
       <div class="form-group">
-        <%= f.label :age, "Age: ", {class: "col-lg-2 control-label"} %>
+        <%= f.label :age, "Age: ", {class: "col-lg-2 control-label required-field"} %>
         <div class="col-lg-10">
           <%= f.select :age, [" "].concat((18..50).map {|i| i.to_s}),{}, {class: "form-control", id: "select"} %>
         </div>
@@ -54,7 +57,7 @@
 
       <%# Sex Field %>
       <div class="form-group">
-        <%= f.label :sex, "Sex: ", {class: "col-lg-2 control-label"} %>
+        <%= f.label :sex, "Sex: ", {class: "col-lg-2 control-label required-field"} %>
         <div class="col-lg-10">
           <%= f.select :sex, [" ", "Male", "Female", "Other"],{}, {class: "form-control", id: "select"} %>
         </div>
@@ -62,7 +65,7 @@
 
       <%# University Field %>
       <div class="form-group">
-        <%= f.label :university, "University: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :university, "University: ", {class: "col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.text_field :university, class: "form-control" %>
         </div>
@@ -70,7 +73,7 @@
 
       <%# Major Field %>
       <div class="form-group">
-        <%= f.label :major, "Major: ", {class: "col-lg-2 control-label"} %>
+        <%= f.label :major, "Major: ", {class: "col-lg-2 control-label required-field"} %>
         <div class="col-lg-10">
           <%= f.text_field :major, class: "form-control" %>
         </div>
@@ -78,7 +81,7 @@
 
       <%# Graduation Year Field %>
       <div class="form-group">
-        <%= f.label :grad_year, "Graduation Year: ", {class:"col-lg-2 control-label"}%>
+        <%= f.label :grad_year, "Graduation Year: ", {class:"col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.select :grad_year, [" "].concat(((2017..2025).map {|i| i.to_s}).reverse!), {}, {class: "form-control", id: "select"} %>
         </div>
@@ -86,7 +89,7 @@
 
       <%# Food Restrictions Field %>
       <div class="form-group">
-        <%= f.label :food_restrictions, "Do you have any food allergies or dietary restrictions?: ", {class:"col-lg-2 control-label"} %>
+        <%= f.label :food_restrictions, "Do you have any food allergies or dietary restrictions?: ", {class:"col-lg-2 control-label required-field"} %>
         <div class="col-lg-10">
           <div class="radio">
             <label>
@@ -114,7 +117,7 @@
       
       <%# T-Shirt Size Field %>
       <div class="form-group">
-        <%= f.label :t_shirt, "T-Shirt Size: ", {class:"col-lg-2 control-label"}%>
+        <%= f.label :t_shirt, "T-Shirt Size: ", {class:"col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.select :t_shirt, [" ", "XS", "S", "M", "L", "XL", "XXL"], {}, {class: "form-control", id: "select"} %>
         </div>
@@ -122,7 +125,7 @@
       
       <%# Resume File Field %>
       <div class="form-group">
-        <%= f.label :resume, "Resume: ", {class: "col-lg-2 control-label"}%>
+        <%= f.label :resume, "Resume: ", {class: "col-lg-2 control-label required-field"}%>
         <div class="col-lg-10">
           <%= f.file_field :resume %>
         </div>
@@ -146,7 +149,7 @@
       
       <%# Previous Hackathon Attendance Field %>
       <div class="form-group">
-        <%= f.label :previous_hackathon_attendance, "Have you been to a hackathon before?: ", {class:"col-lg-2 control-label"} %>
+        <%= f.label :previous_hackathon_attendance, "Have you been to a hackathon before?: ", {class:"col-lg-2 control-label required-field"} %>
           <div class="col-lg-10">
             <div class="radio">
               <label>
@@ -165,7 +168,7 @@
       
       <%# Transportation Field %>
       <div class="form-group">
-        <%= f.label :transportation, "Will you need transportation to UMass?: ", {class:"col-lg-2 control-label"} %>
+        <%= f.label :transportation, "Will you need transportation to UMass?: ", {class:"col-lg-2 control-label required-field"} %>
           <div class="col-lg-10">
             <div class="radio">
               <label>
@@ -184,26 +187,9 @@
 
       <div id="transportation_location" style="display:none">
         <div class="form-group">
-          <%= f.label :transportation_location, "If you answered yes, please tell use from where: ", {class: "col-lg-2 control-label"}%>
+          <%= f.label :transportation_location, "If you answered yes, please tell use from where: ", {class: "col-lg-2 control-label required-field"}%>
           <div class="col-lg-10">
             <%= f.text_field :transportation_location, class: "form-control" %>
-          </div>
-        </div>
-      </div>
-      
-      <%# Programmer Type Field %>
-      <div class="form-group">
-        <%= f.label :programmer_type_list, "Hacker Type (select all that apply): ", {class: "col-lg-2 control-label"} %>
-        <div class="col-lg-10">
-          <div class="checkbox">
-            <label>
-              <%= f.check_box :programmer_type_list, {multiple: true},"Web Developer", nil %>
-              <%= "Web Developer" %>
-            </label><br>
-            <label>
-              <%= f.check_box :programmer_type_list, {multiple: true},"Application Developer", nil %>
-              <%= "Application Developer" %>
-            </label>
           </div>
         </div>
       </div>
@@ -324,7 +310,7 @@
       
       <%# Waiver & Liability Agreement Field %>
       <div class="form-group">
-        <%= f.label :waiver_liability_agreement, "Please agree to the following Waiver & Liability documents: ", {class:"col-lg-2 control-label"} %>
+        <%= f.label :waiver_liability_agreement, "Please agree to the following Waiver & Liability documents: ", {class:"col-lg-2 control-label required-field"} %>
          <div class="col-lg-10">
           <div class="checkbox">
             <label> 
@@ -336,8 +322,8 @@
       </div>
 
       <%# Sumbit Button%>
-      <div class="form-control" style="float:right">
-        <%= f.submit "Submit Application", type: "submit", class: "btn btn-primary" %>
+      <div>
+        <%= f.submit "Submit Application", type: "submit", class: "btn btn-primary", style: "float:right" %>
       </div>
 
     </div>

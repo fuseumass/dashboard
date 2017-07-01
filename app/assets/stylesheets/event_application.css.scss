@@ -1,0 +1,9 @@
+.required-field:after{
+  content: ' *';
+  color: red;
+}
+
+.required-field-key:before{
+  content: '* ';
+  color: red;
+}

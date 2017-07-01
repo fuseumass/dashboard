@@ -93,10 +93,8 @@ class EventApplication < ApplicationRecord
     
     # allows all the optional fields to be blank 
       validates :phone,
-                :resume_file,
                 :linkedin,
                 :github,
-                :programmer_type_list,
                 :programmer_skills_list,
                 :interested_in_hardware_hacks,
                 :how_did_you_hear_about_hackumass,

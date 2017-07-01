@@ -191,23 +191,6 @@
         </div>
       </div>
       
-      <%# Programmer Type Field %>
-      <div class="form-group">
-        <%= f.label :programmer_type_list, "Hacker Type (select all that apply): ", {class: "col-lg-2 control-label"} %>
-        <div class="col-lg-10">
-          <div class="checkbox">
-            <label>
-              <%= f.check_box :programmer_type_list, {multiple: true},"Web Developer", nil %>
-              <%= "Web Developer" %>
-            </label><br>
-            <label>
-              <%= f.check_box :programmer_type_list, {multiple: true},"Application Developer", nil %>
-              <%= "Application Developer" %>
-            </label>
-          </div>
-        </div>
-      </div>
-      
       <%# Programmer Skills Field %>
       <div class="form-group">
         <%= f.label :programming_skills_list, "Programming Skills (select all that apply): ", {class: "col-lg-2 control-label"} %><br>
@@ -336,8 +319,8 @@
       </div>
 
       <%# Sumbit Button%>
-      <div class="form-control" style="float:right">
-        <%= f.submit "Submit Application", type: "submit", class: "btn btn-primary" %>
+      <div>
+        <%= f.submit "Submit Application", type: "submit", class: "btn btn-primary", style: "float:right" %>
       </div>
 
     </div>

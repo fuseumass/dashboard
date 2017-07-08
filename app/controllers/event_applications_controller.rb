@@ -1,4 +1,5 @@
 class EventApplicationsController < ApplicationController
+  before_action :auth_user
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
   
@@ -27,27 +28,6 @@ class EventApplicationsController < ApplicationController
         flash[:error] = "You have already created an application."
     end
     @event_application = EventApplication.new
-  end
-
-  def edit
-  end
-
-  def create
-    @event_application = EventApplication.new(event_application_params)
-    @event_application.user = current_user
-      if @event_application.save
-        redirect_to @event_application, notice: 'Event application was successfully created.'
-      else
-        render :new
-      end
-  end
-
-  def update
-      if @event_application.update(event_application_params)
-        redirect_to @event_application, notice: 'Event application was successfully updated.'
-      else
-        render :edit
-      end
   end
 
 
@@ -107,4 +87,11 @@ class EventApplicationsController < ApplicationController
         redirect_to new_user_session_path
       end
     end
+
+  
+  def auth_user
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
+  end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   resources :mentorship_requests, except: [:index]
   resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications, except: [:edit, :destory]

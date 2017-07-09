@@ -99,12 +99,8 @@ class HardwareItemsController < ApplicationController
 
     # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
     def check_permissions
-      if user_signed_in?
-        unless current_user.is_admin? or current_user.is_organizer?
-          redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
-        end
-      else
-        redirect_to new_user_session_path
+      unless current_user.is_admin? or current_user.is_organizer?
+        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
       end
     end
 

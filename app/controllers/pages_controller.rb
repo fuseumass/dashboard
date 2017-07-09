@@ -64,15 +64,8 @@ class PagesController < ApplicationController
 
   # Only admin is allowed to be in admin pages
   def check_permissions
-    if user_signed_in?
-      unless current_user.is_admin?
-        redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
-      end
-    else
-      redirect_to new_user_session_path
+    unless current_user.is_admin?
+      redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
     end
   end
-
-
-
 end

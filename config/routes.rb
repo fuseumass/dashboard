@@ -2,7 +2,17 @@ Rails.application.routes.draw do
   resources :mentorship_requests, except: [:index]
   resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications, except: [:edit, :destory]
-  devise_for :users
+
+  # Make our log in and sign up routes pretty
+  devise_for :users, skip: [:sessions, :registration]
+  as :user do
+    get 'login', to: 'devise/sessions#new', as: :new_user_session
+    post 'login', to: 'devise/sessions#create', as: :user_session
+    delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+
+    get 'signup', to: 'devise/registrations#new', as: :new_user_registration
+    post 'signup', to: 'devise/registrations#create', as: :user_registration
+  end
 
   root 'pages#index'
 

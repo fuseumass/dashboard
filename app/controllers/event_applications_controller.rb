@@ -1,10 +1,9 @@
 class EventApplicationsController < ApplicationController
-  before_action :auth_user
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
-  
 
-  # updates the application status of the applicants  
+
+  # updates the application status of the applicants
   def status_updated
     @new_status = params[:new_status]
     @id = params[:id]
@@ -13,7 +12,7 @@ class EventApplicationsController < ApplicationController
     @application.save
     redirect_to event_application_path(@application)
   end
-    
+
 
   def index
     @event_applications = EventApplication.all
@@ -79,19 +78,8 @@ class EventApplicationsController < ApplicationController
     # Only admins and organizers have the ability to all permission except delete and edited
     # No one should have the ability to delete or edit but to be on the safe side we are still going to check those permission
     def check_permissions
-      if user_signed_in?
-        unless current_user.is_admin? or current_user.is_organizer?
-          redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
-        end
-      else
-        redirect_to new_user_session_path
+      unless current_user.is_admin? or current_user.is_organizer?
+        redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
       end
     end
-
-  
-  def auth_user
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
-  end
 end

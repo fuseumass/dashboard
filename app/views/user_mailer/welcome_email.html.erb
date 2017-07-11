@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+    body{
+      font-family: sans-serif;
+    }
+    .panel { 
+      display: inline-block;
+      background: #ffffff;
+      margin: 10px;
+      padding: 10px; 
+    }
+    </style>
+  </head>
+  <body>
+    <div class='panel'>
+      <div>
+        <div>
+          <%= image_tag 'HUMVLogo.svg', style:'width:360px' %>
+        </div>
+        </div>
+          <h2>Hi, <%= @user.first_name %> <%= @user.last_name %> </h2>
+          <p>You have successfully signed up to HackUMass V! </p>
+          <p>Thanks for signing up and have a great day!</p>
+          <p>- HackUMass Team </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

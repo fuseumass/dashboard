@@ -62,6 +62,8 @@ class EventApplication < ApplicationRecord
                           }
 
         validates_attachment :resume,
+
+                             #( is it possible if we can remove the content type check because my code now covers for it and the error message seemed repetitive... Sorry Dan!) 
                              :content_type => {:content_type => ['application/pdf']},
                              :size => {:in => 0...1.megabytes}
 
@@ -72,11 +74,17 @@ class EventApplication < ApplicationRecord
           def contains_name
             temp = Paperclip.io_adapters.for(resume)
             file = File.open(temp.path, "rb")
-            reader = PDF::Reader.new(file)
-            pdf = reader.page(1).text
-            if !reader.page(1).text.include? name
-              errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
+            if File.extname(file) == ".pdf"
+              reader = PDF::Reader.new(file)
+              pdf = reader.page(1).text
+                if !reader.page(1).text.include? name
+                  errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
+                  end
+
+            else
+             # errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
             end
+
           end
 
       # TRANSPORTATION:

@@ -11,6 +11,14 @@ class EventApplicationsController < ApplicationController
     @application.application_status = @new_status
     @application.save
     redirect_to event_application_path(@application)
+    @user = User.find_by(id: @id)
+    if(@new_status == 'accepted')
+      UserMailer.accepted_email(@user).deliver_now
+    elsif(@new_status == 'denied')
+      UserMailer.denied_email(@user).deliver_now
+    else
+      UserMailer.waitlisted_email(@user).deliver_now
+    end
   end
 
 

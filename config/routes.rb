@@ -2,10 +2,15 @@ Rails.application.routes.draw do
   resources :events
   resources :mentorship_requests, except: [:index]
   resources :hardware_checkouts, only: [:create, :destroy]
-  resources :event_applications, except: [:edit, :destory]
+  resources :event_applications, except: [:edit, :destroy]
+  # this creates the route allowing the view to access the data required to autocomplete
+  resources :pages do 
+    get :autocomplete_user_email, :on => :collection
+  end
+
 
   # Make our log in and sign up routes pretty
-  devise_for :users, skip: [:sessions, :registration]
+ devise_for :users, skip: [:sessions, :registration]
   as :user do
     get 'login', to: 'devise/sessions#new', as: :new_user_session
     post 'login', to: 'devise/sessions#create', as: :user_session
@@ -16,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   root 'pages#index'
+    #get :autocomplete_user_email, :on => :collection
 
   get 'index' => 'pages#index'
   get 'admin' => 'pages#admin'

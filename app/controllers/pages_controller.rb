@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
   before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
+  # alows autocomplete to work on the email field in user and creates a route through pages,
+  # :full => true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
+  autocomplete :user, :email, :full => true
 
   def index
 

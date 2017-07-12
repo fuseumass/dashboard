@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
   #TODO: Change Email Address
-  default from: 'hackumass@gmail.com'
+  default from: 'donotreply.hackumass@gmail.com'
 
   def welcome_email(user)
     @user = user;
@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
 
   def accepted_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'Congrulation! Welcome to HackUMass V!')
+    mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass V!')
   end
 
   def denied_email(user)

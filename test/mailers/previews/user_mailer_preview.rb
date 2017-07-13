@@ -6,6 +6,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome_email(@user)
   end
 
+  def submit_email_preview
+    @user = User.last
+    UserMailer.submit_email(@user)
+  end
+
   def accepted_email_preview
     @user = User.last
     UserMailer.accepted_email(@user)

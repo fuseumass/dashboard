@@ -2,6 +2,14 @@ class EventApplication < ApplicationRecord
   # link event_application to user:
     belongs_to :user
 
+  # email stuff
+    after_create :submit_email
+    
+    private
+      def submit_email
+        UserMailer.submit_email(self.user).deliver_now
+      end
+      
   # validation section for the required fields:
 
     # see if all the required fill-in / checkbox / drop-list fields are not blank:

@@ -7,6 +7,11 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Thank you for signing up for HackUMass V!')
   end
 
+  def submit_email(user)
+    @user = user;
+    mail(to: @user.email, subject: 'Thank you for submitting your HackUMass V application!')
+  end
+
   def accepted_email(user)
     @user = user;
     mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass V!')

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   resources :events
   resources :mentorship_requests, except: [:index]
-  resources :hardware_checkouts, only: [:create, :destroy]
   resources :event_applications, except: [:edit, :destroy]
   # this creates the route allowing the view to access the data required to autocomplete
   resources :pages do 
+    get :autocomplete_user_email, :on => :collection
+  end
+
+  resources :hardware_checkouts, only: [:create, :destroy] do
     get :autocomplete_user_email, :on => :collection
   end
 

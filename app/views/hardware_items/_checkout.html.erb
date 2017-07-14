@@ -11,8 +11,11 @@
     </div>
   <% end %>
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
   <div class="field">
-    <%= f.text_field :user_id, class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true  %>
+    <%= f.text_field :user_id, class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path}, 'min-length' => 1 %>
   </div>
   <br>
 

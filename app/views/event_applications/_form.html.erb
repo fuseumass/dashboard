@@ -62,12 +62,15 @@
           <%= f.select :sex, [" ", "Male", "Female", "Other"],{}, {class: "form-control", id: "select"} %>
         </div>
       </div>
-
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
       <%# University Field %>
       <div class="form-group">
         <%= f.label :university, "University: ", {class: "col-lg-2 control-label required-field"}%>
+
         <div class="col-lg-10">
-          <%= f.text_field :university, class: "form-control" %>
+          <%= f.text_field :university, class: "form-control", data: {autocomplete: autocomplete_university_name_event_applications_path}%>
+          
         </div>
       </div>
 
@@ -75,7 +78,7 @@
       <div class="form-group">
         <%= f.label :major, "Major: ", {class: "col-lg-2 control-label required-field"} %>
         <div class="col-lg-10">
-          <%= f.text_field :major, class: "form-control" %>
+          <%= f.text_field :major, class: "form-control", data: {autocomplete: autocomplete_major_name_event_applications_path} %>
         </div>
       </div>
 

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :events
   resources :mentorship_requests, except: [:index]
-  resources :event_applications, except: [:edit, :destroy]
+  resources :event_applications, except: [:edit, :destroy] do 
+    get :autocomplete_university_name, :on => :collection
+    get :autocomplete_major_name, :on => :collection
+  end
+
   # this creates the route allowing the view to access the data required to autocomplete
   resources :pages do 
     get :autocomplete_user_email, :on => :collection

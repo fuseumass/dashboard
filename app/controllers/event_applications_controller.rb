@@ -1,7 +1,8 @@
 class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
-
+  autocomplete :university, :name, :full => true
+  autocomplete :major, :name, :full => true
 
   # updates the application status of the applicants
   def status_updated

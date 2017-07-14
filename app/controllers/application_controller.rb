@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :auth_user
-  autocomplete :university, :name, :full => true
-  autocomplete :major, :name, :full => true
 
   # Additional parameters needed for devise
   protected

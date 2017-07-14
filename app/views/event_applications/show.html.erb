@@ -1,17 +1,16 @@
 <div style="float:left">
-        <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
+        <%= link_to " << Previous Applicant", event_applications_path, class: "btn btn-default" %>
 </div>
 <div style="float:right">
-        <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
+        <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-default" %>
 </div>
 <br>
 <br>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
   <div class="panel-heading" style="height: 35px;">
       <h3 class="panel-title">
-        <p style="float: left; margin: 0">Applicant ID: <%=@event_application.user_id %></p>
-        <p style="float: right; margin: 0">Status: <%=@event_application.application_status.capitalize %></p>
+        <p style="float: left; margin: 0">Status: <span class="label label-primary"><%=@event_application.application_status.capitalize %></span></p>
       </h3>
   </div>
   <div class="panel-body">
@@ -127,8 +126,8 @@
 </div>
 
 <div style="float:left">
-  <%= link_to " << Back Applicant", event_applications_path, class: "btn btn-primary" %>
+  <%= link_to " << Previous Applicant", event_applications_path, class: "btn btn-default" %>
 </div>
 <div style="float:right">
-  <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-primary" %>
+  <%= link_to "Next Applicant >>", event_applications_path, class: "btn btn-default" %>
 </div>

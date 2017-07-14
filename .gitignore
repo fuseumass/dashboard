@@ -21,3 +21,4 @@
 .byebug_history
 
 .idea/workspace.xml
+.DS_Store

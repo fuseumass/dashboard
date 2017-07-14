@@ -1,7 +1,17 @@
 class EventApplication < ApplicationRecord
+  before_create :rename_file
+  after_create :submit_email
+
   # link event_application to user:
     belongs_to :user
 
+  # email stuff
+
+    private
+      def submit_email
+        UserMailer.submit_email(self.user).deliver_now
+      end
+      
   # validation section for the required fields:
 
     # see if all the required fill-in / checkbox / drop-list fields are not blank:
@@ -53,18 +63,18 @@ class EventApplication < ApplicationRecord
       # RESUME:
         has_attached_file :resume,
                           :storage => :s3,
-                          :url => 's3.amazonaws.com',
+                          :s3_protocol => "https",
+                          :path => ':filename',
                           :s3_credentials => {
                             :bucket => 'hackumass-v-resumes',
                             :access_key_id => 'AKIAJXQREHQP2AIJXVFQ',
                             :secret_access_key => '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',
                             :s3_region => 'us-east-1'
                           }
+                          
+        do_not_validate_attachment_file_type :resume;
 
         validates_attachment :resume,
-
-                             #( is it possible if we can remove the content type check because my code now covers for it and the error message seemed repetitive... Sorry Dan!) 
-                             :content_type => {:content_type => ['application/pdf']},
                              :size => {:in => 0...1.megabytes}
 
         validate  :contains_name,
@@ -80,11 +90,15 @@ class EventApplication < ApplicationRecord
                 if !reader.page(1).text.include? name
                   errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
                   end
-
             else
-             # errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
+              errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
             end
-
+          end
+        
+        private 
+          def rename_file
+            extension = File.extname(resume_file_name).downcase
+            self.resume.instance_write :file_name, "#{user_id}_#{self.user.first_name}_#{self.user.last_name}#{extension}"
           end
 
       # TRANSPORTATION:

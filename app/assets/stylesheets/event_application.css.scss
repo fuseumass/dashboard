@@ -1,9 +1,21 @@
-.required-field:after{
-  content: ' *';
+.required-field-key:before, .required-field:after{
+  content: ' * ';
   color: red;
 }
 
-.required-field-key:before{
-  content: '* ';
-  color: red;
+.required-field-key, #submit{
+  float: right;
+}
+
+.field_with_errors{
+  display: inline;
+}
+
+#food-info, #transport-info, #hardware-hack-list{
+  display: none;
+}
+
+.character-counter{
+  color: lightgrey;
+  float: right;
 }

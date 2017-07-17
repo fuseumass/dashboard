@@ -24,3 +24,5 @@ echo 'Migrating databases....'
 heroku run rake db:migrate
 echo ' '
 echo 'Database Migration Succesfull ✅'
+echo ' '
+echo 'HackUMass Web App Has Been Deployed ✅'

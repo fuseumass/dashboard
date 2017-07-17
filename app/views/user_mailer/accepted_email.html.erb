@@ -96,6 +96,9 @@
                       </tr>
                       </tbody>
                     </table>
+                    <% if @user.event_application.age.to_i < 18 %>
+                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">In addition because your younger than 18 years old, please fill out the attachement and bring to HackUMass V on the day of the event.</p>
+                    <% end %>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">See you on November 3rd,
                       <br> HackUMass Team</p>
                   </td>

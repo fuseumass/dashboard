@@ -133,11 +133,10 @@ class EventApplication < ApplicationRecord
                           s3_protocol: 'https',
                           path: ':filename',
                           s3_credentials: {
-                            # TODO: change info back to HackUMass account
-                            bucket: 'hackumass-v-resume',
-                            access_key_id: 'AKIAIGZWR57IA6OFH3YQ',
-                            secret_access_key: '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',
-                            s3_region: 'us-east-1'
+                            :bucket => 'hackumass-v-resumes',
+                            :access_key_id => 'AKIAJXQREHQP2AIJXVFQ',
+                            :secret_access_key => '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',
+                            :s3_region => 'us-east-1'
                           }
 
         # Once the applicant upload a resume, call 'contains_name'.                  

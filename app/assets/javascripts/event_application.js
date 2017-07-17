@@ -97,10 +97,12 @@ This function does not return anything.
 function charCounter(textAreaId, footerId){
   var textAreaField = document.getElementById(textAreaId);
   var footerField = document.getElementById(footerId);
-  var counter = textAreaField.value.length;
-  var index = footerField.innerHTML.indexOf('of');
-  var str = footerField.innerHTML.substring(index);
-  document.getElementById(footerId).innerHTML = counter + ' ' + str;
+  if(textAreaField != null && footerField != null){
+    var counter = textAreaField.value.length;
+    var index = footerField.innerHTML.indexOf('of');
+    var str = footerField.innerHTML.substring(index);
+    footerField.innerHTML = counter + ' ' + str;
+  }
 }
 
 /*
@@ -113,7 +115,7 @@ the viewer.
 This function does not return anything.
 */
 function unhideField(id){
-  document.getElementById(id).style.display= 'block';
+  document.getElementById(id).style.display = 'block';
 }
 
 /*
@@ -126,7 +128,7 @@ the viewer.
 This function does not return anything.
 */
 function hideField(id){
-  document.getElementById(id).style.display= 'none';
+  document.getElementById(id).style.display = 'none';
 }
 
 /*
@@ -145,5 +147,7 @@ This function does not return anything.
 */
 function togglehiddenField(hiddenId, checkBoxId){
   checkBox = document.getElementById(checkBoxId);
-  checkBox.checked ? unhideField(hiddenId) : hideField(hiddenId);
+  if(checkBox != null){
+    checkBox.checked ? unhideField(hiddenId) : hideField(hiddenId);
+  }
 }

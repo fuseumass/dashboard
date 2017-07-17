@@ -1,85 +1,163 @@
 class EventApplication < ApplicationRecord
-  before_create :rename_file
-  after_create :submit_email
-
-  # link event_application to user:
+  # ASSOCIATION:
+    # Links event_application to user:
     belongs_to :user
 
-  # email stuff
+  # ACTIVE RECORD CALLBACK:
+    # Methods that get called after validation is completed:
+    after_validation :remove_resume_repeat, :remove_empty_error
 
+    # Because of how paperclips works, when validating for the size of the 
+    # resume, it will create two identical error that are link to different
+    # symbols. This method will remove one of the symbol there by removing 
+    # the duplication. 
+    private
+      def remove_resume_repeat
+        if errors.keys.include?(:resume_file_size)
+          errors.delete(:resume_file_size)
+        end
+      end
+    
+    # This method removes the empty error that occur when some variables passes 
+    # all its validation.
+    private 
+      def remove_empty_error
+        if errors[:phone].to_s.gsub(/[\[\]"\s]/, '') == ''
+          errors.delete(:phone)
+        end
+        if errors[:name].to_s.gsub(/[\[\]"\s]/, '') == ''
+          errors.delete(:name)
+        end
+      end
+
+    # Methods that get called before the application is created:
+    before_create :rename_resume_file
+
+    # This method when executed will rename the resume file that the 
+    # applicant has upload to the format, user id follow by his or her first 
+    # name and then his or her last name follow by the .pdf extension. 
+    # (eg. 1_JohnSmith.pdf )
+    private
+      def rename_resume_file
+        extension = File.extname(resume_file_name).downcase
+        new_name = "#{user_id}_#{self.user.first_name}_#{self.user.last_name}"
+        self.resume.instance_write :file_name, new_name + "#{extension}"
+      end
+
+    # Methods that get called after the application is created:
+    after_create :submit_email
+
+    # This method's sole purpose is to call the mailer method 'submit_email',
+    # which sends an email to the applicant telling him or her that he or she 
+    # has successful created his or her application.
     private
       def submit_email
         UserMailer.submit_email(self.user).deliver_now
       end
-      
-  # validation section for the required fields:
 
-    # see if all the required fill-in / checkbox / drop-list fields are not blank:
-      validates_presence_of :name,
-                            :email,
-                            :age,
-                            :sex,
-                            :university,
-                            :major,
-                            :grad_year,
-                            :t_shirt,
-                            :resume,
-                            :waiver_liability_agreement
+  # VALIDATION FOR ALL THE REQUIRED FIELDS:
+    # Checks to see if all the required fields are present:
+    validates_presence_of :name,
+                          :email,
+                          :university,
+                          :major,
+                          message: 'Please enter your %{attribute}. This field 
+                          is required.'
 
-    # checks to see that all radio button fields are not blank:
-      validates_inclusion_of :food_restrictions,
-                             :transportation,
-                             :previous_hackathon_attendance,
-                             :in => [true, false]
+    validates_presence_of :grad_year,
+                          :sex,
+                          :age,
+                          :t_shirt,
+                          message: 'Please select your %{attribute}. This field 
+                          is required.'
 
-    # additional validation for the field....
+    validates_presence_of :resume,
+                          message: 'Please upload your resume. This field is 
+                          required.'
 
+    validates_inclusion_of :food_restrictions,
+                           :transportation,
+                           :previous_hackathon_attendance,
+                           in: [true, false], 
+                           message: 'Please select an answer for 
+                           \'%{attribute}\'. This field is required.'
+
+    validates_presence_of :waiver_liability_agreement,
+                          message: 'Please agree to the Terms & Conditions.'
+    
+    # Additional validation for the field...
       # NAME:
+        # Once after name has been filled in, check to see that length of name  
+        # is at least 2 and that it is formatted correctly.
         validates :name,
-                  # only if name is fill-in will the following validation be checked
-                  :if => 'name.present?',
-                  # the length name has to be at least 2 character long
-                  :length => {:minimum => 2},
-                  # name must only contains letters and spaces
-                  :format => {:with => /\A[A-Za-z\s]+\z/}
-
+                  if: 'name.present?',
+                  length: {
+                    minimum: 2,
+                    message: 'Name must be longer than %{count} 
+                    characters.'
+                  },
+                  # The following regex below was taken from Kirill Polishchuk
+                  # on stack overflow; link to the post - https://goo.gl/pXPyN5.
+                  format: {
+                    if: 'errors[:name].length == 0',
+                    with: /\A^[\p{L}\s'.-]+\z/,
+                    message: 'Name should only contain letters, periods, dashes 
+                    and apostrophes.'
+                  }
+          
       # EMAIL:
+        # Once after email has been filled in, check that it has been formatted 
+        # correctly.
         validates :email,
-                  # only if email is fill-in will the following validation be checked
-                  :if => 'email.present?',
-                  # email contains only word character (e.g letters, numbers,
-                  # and underscores) and follows the natural formatting of emails
-                  :format => {:with => /\A(\S)+@(\S)+\.(\S)+\z/}
+                  if: 'email.present?',
+                  # The following regex below was taken from Mike H-R on 
+                  # stack overflow; link to the post - https://goo.gl/EorTih.
+                  format: {
+                    with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
+                    message: 'Email format is invalid. Should follow this 
+                    format: email@example.com'  
+                  }
 
-
-      # FOOD_RESTRICTIONS:
-        validates :food_restrictions_info,
-                  # only if food_restrictions is checked 'Yes' will the following
-                  # validation be checked
-                  :if => 'food_restrictions?',
-                  # checks if the food_restrictions_info is fill-in
-                  :presence => true
-
-      # RESUME:
+      # FOOD RESTRICTIONS:
+        # If the applicant has answered 'yes' for the food restrictions field,
+        # check to make sure that the food restriction text box is filled in.
+        validates_presence_of :food_restrictions_info,
+                              if: 'food_restrictions?',
+                              message: 'Please list down your dietary 
+                              restrictions and or food allergies.'
+      # RESUME FILE:
+        # This paperclip method maps all the neccessary information needed for
+        # uploading the resume file to AWS S3 storage.
         has_attached_file :resume,
-                          :storage => :s3,
-                          :s3_protocol => "https",
-                          :path => ':filename',
-                          :s3_credentials => {
-                            :bucket => 'hackumass-v-resumes',
-                            :access_key_id => 'AKIAJXQREHQP2AIJXVFQ',
-                            :secret_access_key => '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',
-                            :s3_region => 'us-east-1'
+                          storage: :s3,
+                          s3_protocol: 'https',
+                          path: ':filename',
+                          s3_credentials: {
+                            # TODO: change info back to HackUMass account
+                            bucket: 'hackumass-v-resume',
+                            access_key_id: 'AKIAIGZWR57IA6OFH3YQ',
+                            secret_access_key: '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',
+                            s3_region: 'us-east-1'
                           }
-                          
-        do_not_validate_attachment_file_type :resume;
 
-        validates_attachment :resume,
-                             :size => {:in => 0...1.megabytes}
-
+        # Once the applicant upload a resume, call 'contains_name'.                  
         validate  :contains_name,
                   :if => 'resume.present?'
+        
+        # Remove the 'content_type' validation that is by default require when
+        # using paperclip.            
+        do_not_validate_attachment_file_type :resume
 
+        # Checks to see that the resume is under 1MB in size.
+        validates_attachment_size :resume,
+                                  in: 0...1.megabytes,
+                                  message: 'Resume file must be at most 1MB 
+                                  in size.'
+        
+        # This method checks to see that resume file has a .pdf extension and if
+        # it does, will go on to validate if the resume is invalid or valid.
+        # A valid resume will contain the applicant name otherwise the resume
+        # is considered invalid.
         private
           def contains_name
             temp = Paperclip.io_adapters.for(resume)
@@ -87,89 +165,83 @@ class EventApplication < ApplicationRecord
             if File.extname(file) == ".pdf"
               reader = PDF::Reader.new(file)
               pdf = reader.page(1).text
-                if !reader.page(1).text.include? name
-                  errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
-                  end
+              unless pdf.include?(name) || pdf.include?(university)
+                errors.add(:resume_error, 'Resume file is invalid. Please make 
+                sure that the file you have uploaded has all your actual 
+                information. Please contact us at \'team@hackumass.com\' if you 
+                have any problem uploading your resume.')
+              end
             else
-              errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
+              errors.add(:extension_error, 'Resume file must be a pdf.')
             end
-          end
-        
-        private 
-          def rename_file
-            extension = File.extname(resume_file_name).downcase
-            self.resume.instance_write :file_name, "#{user_id}_#{self.user.first_name}_#{self.user.last_name}#{extension}"
           end
 
       # TRANSPORTATION:
-        validates :transportation_location,
-                  # only if transportation is checked 'Yes' will the following
-                  # validation be checked
-                  :if => 'transportation?',
-                  # checks if the transportation_location is fill-in
-                  :presence => true
+        # if the applicant answers 'yes' for the transportation field, check to 
+        # see that the address textfield is not blank
+        validates_presence_of :transportation_location,
+                              if: 'transportation?',
+                              message: 'Please tell us where you need to be
+                              transport from.'
 
+  # VALIDATION FOR ALL THE OPTIONAL FIELDS:
+    # Checks to see that all the textbox field except the food restriction text 
+    # box don't exceed pass 500 characters
+    validates_length_of :how_did_you_hear_about_hackumass,
+                        :future_hardware_for_hackumass,
+                        maximum: 500,
+                        message: 'Your answer for \'%{attribute}\' must be less
+                        than %{count} characters.'
 
-
-  # validation section for the optional fields:
-
-    # allows all the optional fields to be blank
-      validates :phone,
-                :linkedin,
-                :github,
-                :programmer_skills_list,
-                :interested_in_hardware_hacks,
-                :how_did_you_hear_about_hackumass,
-                :future_hardware_for_hackumass,
-                :presence => false
-
-    # DISCLAIMER: food_restriction_info is purposely left out for this validation
-    # because we don't want any health liability because an applicant could not write
-    # down all his dietary restriction or allegry.
-    #
-    # limits text box field to 500 characters which translates to about roughly
-    # 80-100 words (don't quote me on this though).
-      validates_length_of :how_did_you_hear_about_hackumass,
-                          :future_hardware_for_hackumass,
-                          :maximum => 500
-
-    # additional validation for the field...
-
+    # additional validation for the field....   
       # PHONE:
+        # Once after phone has been filled in, check to see that it has length  
+        # of exactly 10 and it only contains digits
         validates :phone,
-                  # only if the phone number is fill-in will the following validation
-                  # be checked
-                  :if => 'phone.present?',
-                  # phone number must be 10 digits long
-                  :length => {:is => 10},
-                  # phone number only contains digits
-                  :format => {:with => /\d/}
+                  if: 'phone.present?',
+                  allow_blank: true,
+                  format: {
+                    with: /\A\(\d{3}\)\s\d{3}-\d{4}\z|\A[0-9]+\z/,
+                    message: 'Your phone number is invalid. Should only contain 
+                    numbers.'
+                  },
+                  length: {
+                    if: 'errors[:phone].length == 0',
+                    is: 14,
+                    message: 'Your phone number must be 10 digits long.'
+                  }   
 
       # LINKEDIN:
-        validates :linkedin,
-                  # only if the linkedin URL is fill-in will the following validation
-                  # be checked
-                  :if => 'linkedin.present?',
-                  # linkedin url must start off with 'www.linkedin.com\in\' and
-                  # can end with any combination of word character (e.g letters,
-                  # numbers, and underscores) (e.g. www.linkedin.com\in\naruto)
-                  :format => {:with => /\Awww.linkedin.com\/in\/(\w)+\z/}
+        # Once after the applicant fills in the linkedin url, check to see that 
+        # it is formatted properly
+        validates_format_of :linkedin,
+                            if: 'linkedin.present?',
+                            with: /\A(https:\/\/)?(www.)?linkedin.com\/in\/\S+\z/,
+                            message: 'Your linkedin URL is invalid. Should follow
+                            this format: https://linkedin.com/in/yourprofile.'
 
       # GITHUB:
-        validates :github,
-                  # only if github URL is fill-in will the following validation be
-                  # checked
-                  :if => 'github.present?',
-                  # github url must contains github.com and can start or end with
-                  # any combination of word character (e.g letters,
-                  # numbers, and underscores) (e.g. https:\\github.com\naruto)
-                  :format => {:with => /\A(\S)+github.com\/(\w)+\z/}
+        # Once after the applicant fills in the github url, check to see that it 
+        # is formatted properly
+        validates_format_of :github,
+                            if: 'github.present?',
+                            with: /\A(https:\/\/)?(www.)?github.com\/\S+\z/,
+                            message: 'Your github URL is invalid. Should follow 
+                            this format: https://github.com/yourgithub.' 
 
-      # INTERESTED_IN_HARDWARE_HACKS:
-        validates :interested_hardware_hacks_list,
-                  # only if interested_in_hardware_hacks is checked 'Yes' will the
-                  # following validation be checked
-                  :if => 'interested_in_hardware_hacks?',
-                  # checks if the interested_hardware_hacks_list is not empty
-                  :presence => true
+      # INTERESTED IN HARDWARE HACKS:
+        # If the applicant answers 'yes' for the interested in hardware hacks 
+        # field, check to see if he or she also has checked the type of hardware
+        # hacks he or she is interested in.
+        validate :interested_hardware_hacks_list_error,
+                 if: 'interested_in_hardware_hacks?'
+        
+        private
+        def interested_hardware_hacks_list_error
+          if interested_hardware_hacks_list == '{}'
+            message = 'Please select at least one hardware hack you are 
+            interested in.'
+            errors.add(:check_box_error, message)
+          end
+        end
 end

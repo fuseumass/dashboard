@@ -64,7 +64,7 @@ novalidate: 'novalidate'}) do |f| %>
         <%= f.label :age, 'Age:', class: 'col-lg-3 control-label
         required-field' %>
         <div class='col-lg-9'>
-          <%= f.select :age, (18..50).map {|i| i.to_s}, {include_blank: true},
+          <%= f.select :age, (14..50).map {|i| i.to_s}, {include_blank: true},
           {class: 'form-control'} %>
         </div>
       </div>

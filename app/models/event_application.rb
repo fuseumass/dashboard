@@ -164,8 +164,10 @@ class EventApplication < ApplicationRecord
             file = File.open(temp.path, "rb")
             if File.extname(file) == ".pdf"
               reader = PDF::Reader.new(file)
-              pdf = reader.page(1).text
-              unless pdf.include?(name) || pdf.include?(university)
+              pdf = reader.page(1).text.downcase
+              name_check = pdf.include?(name.to_s.downcase)
+              university_check = pdf.include?(university.to_s.downcase)
+              unless name_check || university_check
                 errors.add(:resume_error, 'Resume file is invalid. Please make 
                 sure that the file you have uploaded has all your actual 
                 information. Please contact us at \'team@hackumass.com\' if you 

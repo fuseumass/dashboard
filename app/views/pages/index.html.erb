@@ -10,8 +10,12 @@
   <% end %>
 </div>
 
-<% if current_user.has_applied? %>
+<% if current_user.is_accepted? %>
     <%= render 'home_actions' %>
   <% else %>
-    <!--TODO: Get rid of this and actually display what users should see when they haven't applied-->
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <center><h6>Welcome to your dashboard! All the features will be unlocked once you get accepted!</h6></center>
+    </div>
+  </div>
 <% end %>

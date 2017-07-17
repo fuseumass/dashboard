@@ -150,7 +150,7 @@ class EventApplication < ApplicationRecord
 
         # Checks to see that the resume is under 1MB in size.
         validates_attachment_size :resume,
-                                  in: 0...1.megabytes,
+                                  in: 0...2.megabytes,
                                   message: 'Resume file must be at most 1MB 
                                   in size.'
         

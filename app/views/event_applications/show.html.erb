@@ -86,15 +86,10 @@
     </p>
 
     <p>
-      <strong>Hacker Type:</strong>
+      <strong>Programming Skills:</strong>
       <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]/, "") %><br />
     </p>
 
-
-    <p>
-      <strong>Programming Skills:</strong>
-      <%= @event_application.programming_skills_list == "{}" ? "" : @event_application.programming_skills_list.gsub(/[\[\"\"\]]|(, ")?Other/, "").concat(" ".concat(@event_application.programming_skills_list)) %><br />
-    </p>
     <p>
       <% if @event_application.interested_in_hardware_hacks %>
         <strong>Are you interested in hardware hacks:</strong>

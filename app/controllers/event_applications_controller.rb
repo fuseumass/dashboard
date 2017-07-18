@@ -27,6 +27,8 @@ class EventApplicationsController < ApplicationController
 
   def index
     @event_applications = EventApplication.all
+    @posts = EventApplication.all.paginate(page: params[:page], per_page: 30)
+    @posts.order('user_id')
   end
 
   def show

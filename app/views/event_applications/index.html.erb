@@ -1,5 +1,3 @@
-
-<%= javascript_include_tag("event_application.js") %>
 <div class="form-group">
 <legend>HackUMass Application</legend>
 </div>
@@ -16,7 +14,7 @@
   </tr>
 </thead>
 <tbody>
-<% @event_applications.each do |app| %>
+<% @posts.each do |app| %>
   <% if app.application_status == "undecided"%>
     <tr class="active" style="text-align:center"  data-href="<%= event_application_path(app) %>">
   <% elsif app.application_status == "accepted"%>
@@ -34,6 +32,8 @@
     <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.transportation %></a></td>
   </tr>
 <%end%>
+<%= will_paginate @posts %>
 </tbody>
-</table> 
+</table>
+<%= will_paginate @posts %> 
 </div>

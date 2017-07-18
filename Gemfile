@@ -87,3 +87,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
   
 # FOR AUTOCOMPLETE FIELDS FOR ADMIN SEARCHING 
   gem 'rails-jquery-autocomplete'
+
+# PAGINATION: 
+  # Adds pagination to the website
+  gem 'will_paginate'

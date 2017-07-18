@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :auth_user
+  before_action :set_raven_context
   autocomplete :university, :name, :full => true
   autocomplete :major, :name, :full => true
 
@@ -19,5 +20,10 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
-
+  private
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end 
 end
+

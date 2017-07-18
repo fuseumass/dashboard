@@ -3,6 +3,7 @@
 </div>
 <div style="overflow:auto;">
 <table class="table table-striped table-hover ">
+<%= will_paginate @posts, class: 'pagination pagination-lg'%>
 <thead style="text-align:center">
   <tr style="text-align:center">
     <th style="text-align:center">Status</th>
@@ -32,8 +33,7 @@
     <td><a href="<%= event_application_path(app) %>" style="color:black; text-decoration:none;"><%= app.transportation %></a></td>
   </tr>
 <%end%>
-<%= will_paginate @posts %>
 </tbody>
 </table>
-<%= will_paginate @posts %> 
+<%= will_paginate @posts, class:' pagination pagination-lg' %> 
 </div>

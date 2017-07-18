@@ -82,7 +82,7 @@
 
     <p>
       <strong>Will you need transportation to UMass:</strong>
-      <%= @event_application.transportation ? @event_application.name.concat(" needs transportation from ".concat(@event_application.transportation_from_where)) : "No" %><br />
+      <%= @event_application.transportation ? @event_application.name.concat(" needs transportation from ".concat(@event_application.transportation_location)) : "No" %><br />
     </p>
 
     <p>

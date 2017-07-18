@@ -14,3 +14,8 @@ module HackumassWeb
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+Raven.configure do |config|
+  config.dsn = '***REMOVED***
+  #config.attr = 'value'
+end

@@ -197,6 +197,8 @@ GEM
       activemodel (>= 4.1)
       elasticsearch (>= 1)
       hashie
+    sentry-raven (2.5.3)
+      faraday (>= 0.7.6, < 1.0)
     slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
@@ -257,6 +259,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0)
   searchkick
+  sentry-raven
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

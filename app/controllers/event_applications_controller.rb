@@ -1,7 +1,8 @@
 class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
-
+  autocomplete :university, :name, :full => true
+  autocomplete :major, :name, :full => true
 
   # updates the application status of the applicants
   def status_updated
@@ -10,7 +11,17 @@ class EventApplicationsController < ApplicationController
     @application = EventApplication.find_by(user_id: @id)
     @application.application_status = @new_status
     @application.save
+
     redirect_to event_application_path(@application)
+
+    # Send email when status changes
+    if @new_status == 'accepted'
+      UserMailer.accepted_email(@application.user).deliver_now
+    elsif @new_status == 'denied'
+      UserMailer.denied_email(@application.user).deliver_now
+    else
+      UserMailer.waitlisted_email(@application.user).deliver_now
+    end
   end
 
 

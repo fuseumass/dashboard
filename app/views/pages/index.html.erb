@@ -5,13 +5,17 @@
       <p>Your application status is: <span class="label label-info" style="font-size: 80%"><%= current_user.event_application.application_status.capitalize %></span></p>
   <% else %>
       <h1>Hello, <%= current_user.first_name %> </h1>
-      <p>Registration is now open and it looks like you haven't registered for the event yet. Click the button below to get started with your application. </p>
-      <%= link_to 'Register', apply_path, class: 'btn btn-primary btn-lg'%>
+      <p>Registration is now open and it looks like you haven't applied for the event yet. Click the button below to get started with your application. </p>
+      <%= link_to 'Apply', apply_path, class: 'btn btn-primary btn-lg'%>
   <% end %>
 </div>
 
-<% if current_user.has_applied? %>
+<% if current_user.is_accepted? %>
     <%= render 'home_actions' %>
   <% else %>
-    <!--TODO: Get rid of this and actually display what users should see when they haven't applied-->
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <center><h6>Welcome to your dashboard! All the features will be unlocked once you get accepted!</h6></center>
+    </div>
+  </div>
 <% end %>

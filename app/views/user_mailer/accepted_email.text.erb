@@ -1,0 +1,12 @@
+Hi <%= @user.first_name %>,
+
+Congratulations! You got accepted into HackUMass. You might be wondering what’s next, so head over to our website and see all the cool things that you’ll be able to make once you arrive to Amherst.
+
+<% if @user.event_application.age.to_i < 18%>
+In addition, because your younger than 18 years old, please fill out the attached form and bring to HackUMass V on the day of the event.
+<% end %>
+
+Visit your dashboard at https://dashboard.hackumass.com
+
+See you on November 3rd,
+HackUMass Team

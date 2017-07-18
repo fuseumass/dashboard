@@ -21,7 +21,6 @@ class PagesController < ApplicationController
 
   def add_permissions
     # Check if the user doing this is admin
-    # Get rid of this hacky way of doing things and implement a dropdown with all the users
       if params[:add_admin].present?
         @user = User.where(email: params[:add_admin]).first
         if @user.nil?

@@ -1,12 +1,17 @@
-Hi <%= @user.first_name %>,
 
-Congratulations! You got accepted into HackUMass. You might be wondering what’s next, so head over to our website and see all the cool things that you’ll be able to make once you arrive to Amherst.
+Hello <%= @user.first_name %>,
+  
+Congratulations! You’ve been accepted to participate in HackUMass. 
 
-<% if @user.event_application.age.to_i < 18%>
-In addition, because your younger than 18 years old, please fill out the attached form and bring to HackUMass V on the day of the event.
+The event is from November 3rd to November 5th 2017 at the University of Massachusetts Amherst. 
+
+If you have any questions please visit our website at www.hackumass.com. If you can’t find your answer on our website, then please feel free to shoot us an email at team@hackumass.com and we’ll get back to you as soon as we can. We’ll be sending out an RSVP form as well as additional information soon, so stay tuned!
+
+<% if @user.event_application.age.to_i < 18 %>
+In addition, because your younger than 18 years old, please fill out the attached form and bring it to HackUMass V on the day of the event.
 <% end %>
 
-Visit your dashboard at https://dashboard.hackumass.com
+Thanks again for registering for our event, and we look forward to seeing you there!
 
-See you on November 3rd,
-HackUMass Team
+- The HackUMass Team
+

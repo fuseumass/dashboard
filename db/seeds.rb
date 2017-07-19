@@ -108,7 +108,7 @@ emails = ['bfrichley0@wp.com',
 'mlamcken1d@quantcast.com']
 
 for i in 0..49
-  @app = EventApplication.new(user_id: 1,
+  @app = EventApplication.new(user_id: i+1,
    application_status: "undecided",
    name: names[i],
    email: emails[i],

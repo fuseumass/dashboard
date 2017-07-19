@@ -26,9 +26,15 @@ class EventApplicationsController < ApplicationController
 
 
   def index
-    @event_applications = EventApplication.all
-    @posts = EventApplication.all.paginate(page: params[:page], per_page: 30)
+    @status = params[:status]
+    if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
+      @event_applications = EventApplication.where({application_status: @status})
+    else
+      @event_applications = EventApplication.all
+    end
+    @posts = @event_applications.paginate(page: params[:page], per_page: 30)
     @posts.order('user_id')
+    
   end
 
   def show

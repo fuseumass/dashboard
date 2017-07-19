@@ -91,7 +91,7 @@ class EventApplicationsController < ApplicationController
                                                 :transportation, :transportation_location,:interested_in_hardware_hacks,
                                                 :how_did_you_hear_about_hackumass, :future_hardware_for_hackumass,
                                                 :waiver_liability_agreement, interested_hardware_hacks_list:[],
-                                                programming_skills_list:[])
+                                                programming_skills_list:[], hardware_skills_list:[])
     end
 
     # Only admins and organizers have the ability to all permission except delete and edited

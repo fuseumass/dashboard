@@ -283,6 +283,36 @@ novalidate: 'novalidate'}) do |f| %>
         </div>
       </div>
 
+      <%# Hardware Skills Field %>
+      <div class='form-group'>
+        <%= f.label :hardware_skills_list, 'Hardware Skills (select all
+        that apply):', class: 'col-lg-3 control-label' %>
+        <div class='col-lg-9'>
+          <div class='checkbox'>
+            <label>
+              <%= f.check_box :hardware_skills_list, {multiple: true},
+              'Embedded Systems',nil %> Embedded Systems
+            </label><br/>
+            <label>
+              <%= f.check_box :hardware_skills_list, {multiple: true},
+              'Robotics',nil %> Robotics
+            </label><br/>
+            <label>
+              <%= f.check_box :hardware_skills_list, {multiple: true},
+              'Wireless Communications', nil %> Wireless Communications
+            </label><br/>
+            <label>
+              <%= f.check_box :hardware_skills_list, {multiple: true},
+              'Circuits', nil %> Circuits
+            </label><br/>
+            <label>
+              <%= f.check_box :hardware_skills_list, {multiple: true},
+              '3D Printing', nil %> 3D Printing
+            </label><br/>
+          </div>
+        </div>
+      </div>
+
       <%# Are You Interested in Hardware Hacks Field %>
       <div class='form-group'>
         <%= f.label :interested_in_hardware_hacks, 'Are you interested in

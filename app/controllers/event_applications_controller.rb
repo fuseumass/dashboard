@@ -32,8 +32,8 @@ class EventApplicationsController < ApplicationController
     else
       @event_applications = EventApplication.all
     end
+    @event_applications = @event_applications.order(user_id: :asc)
     @posts = @event_applications.paginate(page: params[:page], per_page: 30)
-    @posts.order('user_id')
     
   end
 

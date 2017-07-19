@@ -91,3 +91,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # PAGINATION: 
   # Adds pagination to the website
   gem 'will_paginate'
+
+# SENTRY FOR ERROR REPORTING 
+  gem "sentry-raven"

@@ -76,15 +76,16 @@ class EventApplication < ApplicationRecord
             file = File.open(temp.path, "rb")
             if File.extname(file) == ".pdf"
               reader = PDF::Reader.new(file)
-              pdf = reader.page(1).text
-                if !reader.page(1).text.include? name
-                  errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
-                  end
+              pdf = reader.page(1).text.downcase
+              if pdf.include? (self.user.first_name.downcase) or pdf.include? (self.user.last_name.downcase) or pdf.include? (grad_year) or pdf.include? (email) or pdf.include? (sex)
+              else 
+               errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information, including the same full name (preferably without middle name/initial), email, sex, and/or year of graduation that you put in the application above. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
 
+              end
             else
              # errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
             end
-
+            
           end
 
       # TRANSPORTATION:

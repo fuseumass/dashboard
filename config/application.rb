@@ -18,5 +18,4 @@ end
 Raven.configure do |config|
   config.dsn = '***REMOVED***
   config.environments = %w[ production ]
-  config.attr = 'value'
 end

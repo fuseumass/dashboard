@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  validates_presence_of :first_name, :last_name
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -8,6 +9,8 @@ class User < ApplicationRecord
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
   has_one :mentorship_request, dependent: :destroy
+
+  after_create :welcome_email
 
   # Use type checkers
   def is_attendee?
@@ -45,6 +48,10 @@ class User < ApplicationRecord
     if has_applied?
       self.event_application.application_status == 'accepted'
     end
+  end
+
+  def welcome_email
+    UserMailer.welcome_email(self).deliver_now
   end
 
 end

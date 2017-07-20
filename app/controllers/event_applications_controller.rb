@@ -1,7 +1,8 @@
 class EventApplicationsController < ApplicationController
   before_action :set_event_application, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:index, :show, :destroy, :edit, :status_updated, :update]
-
+  autocomplete :university, :name, :full => true
+  autocomplete :major, :name, :full => true
 
   # updates the application status of the applicants
   def status_updated
@@ -10,12 +11,30 @@ class EventApplicationsController < ApplicationController
     @application = EventApplication.find_by(user_id: @id)
     @application.application_status = @new_status
     @application.save
+
     redirect_to event_application_path(@application)
+
+    # Send email when status changes
+    if @new_status == 'accepted'
+      UserMailer.accepted_email(@application.user).deliver_now
+    elsif @new_status == 'denied'
+      UserMailer.denied_email(@application.user).deliver_now
+    else
+      UserMailer.waitlisted_email(@application.user).deliver_now
+    end
   end
 
 
   def index
-    @event_applications = EventApplication.all
+    @status = params[:status]
+    if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
+      @event_applications = EventApplication.where({application_status: @status})
+    else
+      @event_applications = EventApplication.all
+    end
+    @event_applications = @event_applications.order(user_id: :asc)
+    @posts = @event_applications.paginate(page: params[:page], per_page: 30)
+    
   end
 
   def show
@@ -72,7 +91,7 @@ class EventApplicationsController < ApplicationController
                                                 :transportation, :transportation_location,:interested_in_hardware_hacks,
                                                 :how_did_you_hear_about_hackumass, :future_hardware_for_hackumass,
                                                 :waiver_liability_agreement, interested_hardware_hacks_list:[],
-                                                programming_skills_list:[])
+                                                programming_skills_list:[], hardware_skills_list:[])
     end
 
     # Only admins and organizers have the ability to all permission except delete and edited

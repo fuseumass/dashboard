@@ -164,15 +164,34 @@ class EventApplication < ApplicationRecord
             if File.extname(file) == ".pdf"
               reader = PDF::Reader.new(file)
               pdf = reader.page(1).text.downcase
-              if pdf.include?(self.user.first_name.downcase) or pdf.include?(self.user.last_name.downcase) or pdf.include?(grad_year) or pdf.include?(email) or pdf.include?(sex)
-              else
-               errors.add(:base, 'Sorry but it seems like your resume is not properly formatted. Make sure it is a PDF that has all your actual information that you put in the application above. If your Resume is formatted properly and you still see this message, please contact us at team@hackumass.com')
-
+              errors.add(:pdf, pdf)
+              unless check_string?(pdf, name)||check_string?(pdf, email)||check_string?(pdf, university)||check_string?(pdf, major)
+                errors.add(:resume_error, 'Resume file is invalid. Please make 
+                sure that the file you have uploaded has all your actual 
+                information. Please contact us at \'team@hackumass.com\' if you 
+                have any problem uploading your resume.')
               end
             else
-             errors.add(:base, 'Sorry but it seems like your resume is not a .pdf file. Please follow instructions and convert to a pdf.')
+              errors.add(:extension_error, 'Resume file must be a pdf.')
             end
-
+          end
+      
+        private
+          def check_string?(pdf, string)
+            string_no_space = string.gsub(' ', '')
+            no_space_string_check = pdf.include?(string_no_space.downcase)
+            string_check = pdf.include?(string.downcase)
+            if string_check||no_space_string_check
+              return true
+            else
+              stringArray = string.downcase.split(' ')
+              stringArray.each do |part_of_string|
+                if !pdf.include?(part_of_string)
+                  return false
+                end
+              end
+              return true
+            end
           end
 
       # TRANSPORTATION:

@@ -140,8 +140,9 @@ class EventApplication < ApplicationRecord
                           }
 
         # Once the applicant upload a resume, call 'contains_name'.
-        validate  :contains_name,
-                  :if => 'resume.present?'
+        # No email validation for now....
+        # validate  :contains_name,
+        #           :if => 'resume.present?'
 
         # Remove the 'content_type' validation that is by default require when
         # using paperclip.

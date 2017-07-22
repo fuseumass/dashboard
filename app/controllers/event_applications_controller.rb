@@ -4,8 +4,15 @@ class EventApplicationsController < ApplicationController
   autocomplete :university, :name, :full => true
   autocomplete :major, :name, :full => true
 
-  def index
+  def search
+    if params[:search].present?
+      @event_applications = EventApplication.search(params[:search])
+    else
+      @event_applications = EventApplication.all
+    end
+  end
 
+  def index
     @all_apps_count = EventApplication.all.count
     @accepted_count = EventApplication.where(application_status: 'accepted').count
     @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count

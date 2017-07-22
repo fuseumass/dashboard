@@ -24,4 +24,12 @@ module EventApplicationsHelper
 		!(params[:status].present? or params[:flagged].present?)
 	end
 
+	def is_editing_application
+		params[:action] == 'edit'
+	end
+
+	def has_permissions_to_edit
+		current_user.is_admin?
+	end
+
 end

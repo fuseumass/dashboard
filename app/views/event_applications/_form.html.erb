@@ -416,10 +416,18 @@ novalidate: 'novalidate'}) do |f| %>
       </div>
 
       <%# Submit Button %>
-      <div>
-        <%= f.submit 'Submit Application', type: 'submit', id: 'submit',
-        class: 'btn btn-primary submit' %>
-      </div>
+      <% if is_editing_application %>
+        <div>
+          <%= f.submit 'Update Application', type: 'submit', id: 'submit',
+          class: 'btn btn-primary submit' %>
+        </div>
+      <% else %>
+        <div>
+          <%= f.submit 'Submit Application', type: 'submit', id: 'submit',
+          class: 'btn btn-primary submit' %>
+        </div>
+      <% end %>
+      
 
     </div>
   </div>

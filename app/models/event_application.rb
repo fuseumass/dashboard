@@ -76,7 +76,8 @@ class EventApplication < ApplicationRecord
 
     validates_presence_of :resume,
                           message: 'Please upload your resume. This field is
-                          required.'
+                          required.',
+                          on: :create
 
     validates_inclusion_of :food_restrictions,
                            :transportation,
@@ -144,7 +145,8 @@ class EventApplication < ApplicationRecord
 
         # Once the applicant upload a resume, call 'contains_name'.
         validate  :contains_string,
-                  :if => 'resume.present?'
+                  :if => 'resume.present?',
+                  on: :create
 
 
         # Remove the 'content_type' validation that is by default require when

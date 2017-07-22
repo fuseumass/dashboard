@@ -131,10 +131,14 @@
     <%= button_to "Waitlist", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-warning btn-sm", style: "float: right;margin:5px"}%>
 
     <% if @event_application.flag %>
-      <%= button_to " Unflag Applicantion", {:controller => "event_applications", :action => "unflag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
+      <%= button_to " Unflag", {:controller => "event_applications", :action => "unflag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
     <% else %>
-      <%= button_to "Flag Applicantion", {:controller => "event_applications", :action => "flag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
+      <%= button_to "Flag", {:controller => "event_applications", :action => "flag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
     <% end  %>
+
+    <% if has_permissions_to_edit %>
+      <%= link_to "Edit", edit_event_application_path(@event_application), class: "btn btn-default btn-sm", style: "float: right;margin:5px"%>
+    <% end%>
   </div>
 </div>
 

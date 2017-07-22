@@ -140,7 +140,7 @@ class EventApplication < ApplicationRecord
                           }
 
         # Once the applicant upload a resume, call 'contains_name'.
-        validate  :contains_name,
+        validate  :contains_string,
                   :if => 'resume.present?'
 
         # Remove the 'content_type' validation that is by default require when
@@ -158,7 +158,7 @@ class EventApplication < ApplicationRecord
         # A valid resume will contain the applicant name otherwise the resume
         # is considered invalid.
         private
-          def contains_name
+          def contains_string
             temp = Paperclip.io_adapters.for(resume)
             file = File.open(temp.path, "rb")
             if File.extname(file) == ".pdf"

@@ -4,14 +4,6 @@ class EventApplicationsController < ApplicationController
   autocomplete :university, :name, :full => true
   autocomplete :major, :name, :full => true
 
-  def search
-    if params[:search].present?
-      @posts = EventApplication.search(params[:search])
-    else
-      redirect_to event_applications_path
-    end
-  end
-
   def index
     @all_apps_count = EventApplication.all.count
     @accepted_count = EventApplication.where(application_status: 'accepted').count
@@ -72,6 +64,21 @@ class EventApplicationsController < ApplicationController
   def destroy
     @event_application.destroy
     redirect_to event_applications_url, notice: 'Event application was successfully destroyed.'
+  end
+
+  def search
+    @all_apps_count = EventApplication.all.count
+    @accepted_count = EventApplication.where(application_status: 'accepted').count
+    @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count
+    @undecided_count = EventApplication.where(application_status: 'undecided').count
+    @denied_count = EventApplication.where(application_status: 'denied').count
+    @flagged_count = EventApplication.where(flag: true).count
+    
+    if params[:search].present?
+      @posts = EventApplication.search(params[:search])
+    else
+      redirect_to event_applications_path
+    end
   end
 
   # updates the application status of the applicants

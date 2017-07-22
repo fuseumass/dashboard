@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         post 'status_updated'
         post 'flag_application'
         post 'unflag_application'
+        get 'search'
       end
     end
 

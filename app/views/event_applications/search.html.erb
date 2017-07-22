@@ -43,7 +43,7 @@
   <div class="panel-body">
       <%= form_tag search_event_applications_path, method: :get, class:'col-lg-12' do%>
           <div class="input-group">
-          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for anything i.e. name, status, university, major, sex etc.', :autofocus => true %>
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for anything i.e. name, status, university, etc.', :autofocus => true%>
             <span class="input-group-btn">
               <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
             </span>

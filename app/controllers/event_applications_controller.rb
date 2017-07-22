@@ -88,8 +88,11 @@ class EventApplicationsController < ApplicationController
     application = EventApplication.find_by(user_id: id)
     application.application_status = new_status
     application.save
+    flash[:success] = "Status successfully updated"
 
     redirect_to event_application_path(application)
+
+
 
     # Send email when status changes
     if new_status == 'accepted'
@@ -107,6 +110,8 @@ class EventApplicationsController < ApplicationController
     app.flag = true
     app.save(:validate => false)
 
+    flash[:success] = "Application successfully flagged"
+
     redirect_to event_application_path(app)
   end
 
@@ -115,6 +120,7 @@ class EventApplicationsController < ApplicationController
     app = EventApplication.find(appId)
     app.flag = false
     app.save(:validate => false)
+    flash[:success] = "Flag successfully removed"
 
     redirect_to event_application_path(app)
   end

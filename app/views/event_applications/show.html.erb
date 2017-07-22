@@ -10,7 +10,14 @@
 <div class="panel panel-default">
   <div class="panel-heading" style="height: 35px;">
       <h3 class="panel-title">
-        <p style="float: left; margin: 0">Status: <span class="label label-primary"><%=@event_application.application_status.capitalize %></span></p>
+        <p style="float: left; margin: 0">
+        Status: <span class="label label-primary"><%=@event_application.application_status.capitalize %></span></p>
+          
+        <% if @event_application.flag %>
+          <span class="label label-danger">
+            Flag
+          </span>
+        <% end %>
       </h3>
   </div>
   <div class="panel-body">
@@ -122,6 +129,12 @@
     <%= button_to "Accept", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "accepted", id: @event_application.user_id}}, {class: "btn btn-success btn-sm", style: "float: right; margin:5px"}%>
     <%= button_to "Deny", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "denied", id: @event_application.user_id}}, {class: "btn btn-danger btn-sm", style: "float: right;margin:5px"}%>
     <%= button_to "Waitlist", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-warning btn-sm", style: "float: right;margin:5px"}%>
+
+    <% if @event_application.flag %>
+      <%= button_to " Unflag Applicantion", {:controller => "event_applications", :action => "unflag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
+    <% else %>
+      <%= button_to "Flag Applicantion", {:controller => "event_applications", :action => "flag_application", :params => {application: @event_application}}, {class: "btn btn-primary btn-sm", style: "float: right;margin:5px"}%>
+    <% end  %>
   </div>
 </div>
 

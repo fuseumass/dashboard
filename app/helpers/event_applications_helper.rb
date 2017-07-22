@@ -16,8 +16,12 @@ module EventApplicationsHelper
 		params[:status].present? and params[:status] == 'undecided'
 	end
 
+	def isFlaggedActive(params)
+		params[:flagged].present?
+	end
+
 	def isAllActive(params)
-		!params[:status].present?
+		!(params[:status].present? or params[:flagged].present?)
 	end
 
 end

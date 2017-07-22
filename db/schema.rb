@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719225344) do
+ActiveRecord::Schema.define(version: 20170722060404) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170719225344) do
     t.datetime "resume_updated_at"
     t.boolean  "interested_in_hardware_hacks"
     t.string   "hardware_skills_list",             default: "{}"
+    t.boolean  "flag",                             default: false
   end
 
   create_table "events", force: :cascade do |t|

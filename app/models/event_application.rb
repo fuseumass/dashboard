@@ -143,6 +143,7 @@ class EventApplication < ApplicationRecord
         validate  :contains_string,
                   :if => 'resume.present?'
 
+
         # Remove the 'content_type' validation that is by default require when
         # using paperclip.
         do_not_validate_attachment_file_type :resume

@@ -8,7 +8,7 @@ class EventApplicationsController < ApplicationController
     if params[:search].present?
       @event_applications = EventApplication.search(params[:search])
     else
-      @event_applications = EventApplication.all
+      redirect_to event_applications_path
     end
   end
 

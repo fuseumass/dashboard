@@ -128,6 +128,7 @@
     </p>
     <%= button_to "Accept", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "accepted", id: @event_application.user_id}}, {class: "btn btn-success btn-sm", style: "float: right; margin:5px"}%>
     <%= button_to "Deny", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "denied", id: @event_application.user_id}}, {class: "btn btn-danger btn-sm", style: "float: right;margin:5px"}%>
+    
     <%= button_to "Waitlist", {:controller => "event_applications", :action => "status_updated", :params => {new_status: "waitlisted", id: @event_application.user_id}}, {class: "btn btn-warning btn-sm", style: "float: right;margin:5px"}%>
 
     <% if @event_application.flag %>

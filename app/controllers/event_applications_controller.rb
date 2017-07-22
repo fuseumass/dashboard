@@ -18,13 +18,12 @@ class EventApplicationsController < ApplicationController
     if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
       @event_applications = EventApplication.where({application_status: @status})
     elsif params[:flagged].present?
-      puts('hello----------')
       @event_applications = EventApplication.where(flag: true)
     else
       @event_applications = EventApplication.all
     end
     @event_applications = @event_applications.order(created_at: :asc)
-    @posts = @event_applications.paginate(page: params[:page], per_page: 30)
+    @posts = @event_applications.paginate(page: params[:page], per_page: 20)
     
   end
 

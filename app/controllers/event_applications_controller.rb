@@ -26,6 +26,13 @@ class EventApplicationsController < ApplicationController
 
 
   def index
+
+    @all_apps_count = EventApplication.all.count
+    @accepted_count = EventApplication.where(application_status: 'accepted').count
+    @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count
+    @undecided_count = EventApplication.where(application_status: 'undecided').count
+    @denied_count = EventApplication.where(application_status: 'denied').count
+
     @status = params[:status]
     if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
       @event_applications = EventApplication.where({application_status: @status})
@@ -94,8 +101,7 @@ class EventApplicationsController < ApplicationController
                                                 programming_skills_list:[], hardware_skills_list:[])
     end
 
-    # Only admins and organizers have the ability to all permission except delete and edited
-    # No one should have the ability to delete or edit but to be on the safe side we are still going to check those permission
+    # Only admins and organizers have the ability to all permission except delete
     def check_permissions
       unless current_user.is_admin? or current_user.is_organizer?
         redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'

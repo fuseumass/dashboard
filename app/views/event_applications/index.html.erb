@@ -2,91 +2,102 @@
   <legend>HackUMass Applications</legend>
 </div>
 
-<%= will_paginate @posts %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <ul class="nav nav-pills">
+      <li class="<%= 'active' if isAllActive(params) %>">
+        <a href="<%= event_applications_path %>">
+        All <span class="badge"><%= @all_apps_count%></span></a>
+      </li>
 
-<div class='btn-group btn-group-justified'>
-  <%= 
-      link_to 'all', 
-      {controller: 'event_applications', action: 'index', params:{status: 'all'}}, 
-      {class:'btn btn-default'}
-  %>
-  <%= 
-      link_to 'undecided', 
-      {controller: 'event_applications', action: 'index', params:{status: 'undecided'}},  
-      {class:'btn btn-default'}
-  %>
-  <%= 
-      link_to 'accepted', 
-      {controller: 'event_applications', action: 'index', params:{status: 'accepted'}},  
-      {class:'btn btn-default'}
-  %>
-  <%= 
-      link_to 'denied', 
-      {controller: 'event_applications', action: 'index', params:{status: 'denied'}},  
-      {class:'btn btn-default'}
-  %>
-  <%= 
-      link_to 'waitlisted', 
-      {controller: 'event_applications', action: 'index', params:{status: 'waitlisted'}},  
-      {class:'btn btn-default'}
-  %>
-</div><br>
-  
-<table class='table table-striped table-hover'>
-  <thead>
-    <tr>
-      <th class='table-header'>User ID</th>
-      <th class='table-header'>Application Status</th>
-      <th class='table-header'>Name</th>
-      <th class='table-header'>University</th>
-      <th class='table-header'>Major</th>
-      <th class='table-header'>Graduation Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @posts.each do |form| %>
-      <% show_form = event_application_path(form) %>
-      <% if form.application_status == 'undecided'%>
-        <tr class='table-row active'>
-      <% elsif form.application_status == 'accepted' %>
-        <tr class='table-row success'>
-      <% elsif form.application_status == 'denied' %>
-        <tr class='table-row danger'>
-      <% else form.application_status == 'waitlisted' %>
-        <tr class='table-row warning'>
-      <% end %>
+      <li class="<%= 'active' if isUndecidedActive(params) %>">
+        <a href="<%= event_applications_path(:status => 'undecided') %>">
+        Undecided <span class="badge"><%= @undecided_count%></span></a>
+      </li>
 
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.user_id %>
-          </a>
-        </td>
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.application_status.capitalize %>
-          </a>
-        </td>
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.name %>
-          </a>
-        </td>
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.university %>
-          </a>
-        </td>
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.major %>
-          </a>
-        </td>
-        <td> 
-          <a class='table-link' href='<%= show_form %>'>
-            <%= form.grad_year %>
-          </a>
-        </td>
+      <li class="<%= 'active' if isAcceptedActive(params) %>">
+        <a href="<%= event_applications_path(:status => 'accepted') %>">
+        Accepted <span class="badge"><%= @accepted_count %></span></a>
+      </li>
+
+      <li class="<%= 'active' if isWaitlistedActive(params) %>">
+        <a href="<%= event_applications_path(:status => 'waitlisted') %>">
+        Waitlisted<span class="badge"><%= @waitlisted_count %></span></a>
+      </li>
+
+      <li class="<%= 'active' if isDeniedActive(params) %>">
+        <a href="<%= event_applications_path(:status => 'denied') %>">
+        Denied<span class="badge"><%= @waitlisted_count%></span></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<% if (@posts.count > 0) %>
+  <table class='table table-striped table-hover'>
+    <thead>
+      <tr>
+        <th class='table-header'>Application Status</th>
+        <th class='table-header'>Name</th>
+        <th class='table-header'>University</th>
+        <th class='table-header'>Major</th>
+        <th class='table-header'>Graduation Year</th>
       </tr>
-    <% end %>
-  </tbody>
-</table> 
+    </thead>
+    <tbody>
+      <% @posts.each do |form| %>
+        <% show_form = event_application_path(form) %>
+        
+        <tr class='table-row'>
+          <td> 
+            <a class='table-link' href='<%= show_form %>'>
+              <% if form.application_status == 'undecided'%>
+                <span class="label label-info">
+              <% elsif form.application_status == 'accepted' %>
+                <span class="label label-success">
+              <% elsif form.application_status == 'denied' %>
+                <span class="label label-danger">
+              <% else form.application_status == 'waitlisted' %>
+                <span class="label label-warning">
+              <% end %>
+                <%= form.application_status.capitalize %>
+              </span>
+            </a>
+          </td>
+          <td> 
+            <a class='table-link' href='<%= show_form %>'>
+              <%= form.name %>
+            </a>
+          </td>
+          <td> 
+            <a class='table-link' href='<%= show_form %>'>
+              <%= form.university %>
+            </a>
+          </td>
+          <td> 
+            <a class='table-link' href='<%= show_form %>'>
+              <%= form.major %>
+            </a>
+          </td>
+          <td> 
+            <a class='table-link' href='<%= show_form %>'>
+              <%= form.grad_year %>
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> 
+
+<% else %>
+<div class="panel panel-default">
+  <div class="panel-body">
+  <center>
+    <h4>No applications found with that query...</h4>
+  </center>
+  <center><img style="height: 30%;width: 30%" src="https://media.giphy.com/media/20k1punZ5bpmM/giphy.gif"></center>
+  </div>
+</div>
+  
+<% end %>
+<%= will_paginate @posts %>

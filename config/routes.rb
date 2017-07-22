@@ -24,19 +24,16 @@ Rails.application.routes.draw do
     get 'apply' => 'event_applications#new'
 
     #Allow us to update the status of an application
-    resources :event_applications do
+    resources :event_applications, except: [:destroy] do
       collection do
         post 'status_updated'
         post 'flag_application'
         post 'unflag_application'
         get 'search'
-      end
-    end
 
-    # Autocomplte fields for the application itself
-    resources :event_applications, except: [:destroy] do 
-      get :autocomplete_university_name, :on => :collection
-      get :autocomplete_major_name, :on => :collection
+        get :autocomplete_university_name
+        get :autocomplete_major_name
+      end
     end
 
   # Event Application Routes End

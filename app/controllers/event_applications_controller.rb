@@ -4,27 +4,6 @@ class EventApplicationsController < ApplicationController
   autocomplete :university, :name, :full => true
   autocomplete :major, :name, :full => true
 
-  # updates the application status of the applicants
-  def status_updated
-    @new_status = params[:new_status]
-    @id = params[:id]
-    @application = EventApplication.find_by(user_id: @id)
-    @application.application_status = @new_status
-    @application.save
-
-    redirect_to event_application_path(@application)
-
-    # Send email when status changes
-    if @new_status == 'accepted'
-      UserMailer.accepted_email(@application.user).deliver_now
-    elsif @new_status == 'denied'
-      UserMailer.denied_email(@application.user).deliver_now
-    else
-      UserMailer.waitlisted_email(@application.user).deliver_now
-    end
-  end
-
-
   def index
 
     @all_apps_count = EventApplication.all.count
@@ -32,14 +11,19 @@ class EventApplicationsController < ApplicationController
     @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count
     @undecided_count = EventApplication.where(application_status: 'undecided').count
     @denied_count = EventApplication.where(application_status: 'denied').count
+    @flagged_count = EventApplication.where(flag: true).count
 
+    @flagged = params[:flagged]
     @status = params[:status]
     if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
       @event_applications = EventApplication.where({application_status: @status})
+    elsif params[:flagged].present?
+      puts('hello----------')
+      @event_applications = EventApplication.where(flag: true)
     else
       @event_applications = EventApplication.all
     end
-    @event_applications = @event_applications.order(user_id: :asc)
+    @event_applications = @event_applications.order(created_at: :asc)
     @posts = @event_applications.paginate(page: params[:page], per_page: 30)
     
   end
@@ -82,6 +66,44 @@ class EventApplicationsController < ApplicationController
   def destroy
     @event_application.destroy
     redirect_to event_applications_url, notice: 'Event application was successfully destroyed.'
+  end
+
+  # updates the application status of the applicants
+  def status_updated
+    new_status = params[:new_status]
+    id = params[:id]
+    application = EventApplication.find_by(user_id: id)
+    application.application_status = new_status
+    application.save
+
+    redirect_to event_application_path(application)
+
+    # Send email when status changes
+    if new_status == 'accepted'
+      UserMailer.accepted_email(application.user).deliver_now
+    elsif @new_status == 'denied'
+      UserMailer.denied_email(application.user).deliver_now
+    else
+      UserMailer.waitlisted_email(application.user).deliver_now
+    end
+  end
+
+  def flag_application
+    appId = params[:application]
+    app = EventApplication.find(appId)
+    app.flag = true
+    app.save(:validate => false)
+
+    redirect_to event_application_path(app)
+  end
+
+  def unflag_application
+    appId = params[:application]
+    app = EventApplication.find(appId)
+    app.flag = false
+    app.save(:validate => false)
+
+    redirect_to event_application_path(app)
   end
 
   private

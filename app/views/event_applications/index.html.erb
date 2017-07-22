@@ -29,6 +29,12 @@
         <a href="<%= event_applications_path(:status => 'denied') %>">
         Denied<span class="badge"><%= @waitlisted_count%></span></a>
       </li>
+
+      <li class="<%= 'active' if isFlaggedActive(params) %>">
+        <a href="<%= event_applications_path(:flagged => true) %>">
+        Flagged<span class="badge"><%= @flagged_count%></span></a>
+      </li>
+
     </ul>
   </div>
 </div>

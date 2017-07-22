@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :event_applications do
       collection do
         post 'status_updated'
+        post 'flag_application'
+        post 'unflag_application'
       end
     end
 

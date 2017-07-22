@@ -6,7 +6,7 @@ class EventApplicationsController < ApplicationController
 
   def search
     if params[:search].present?
-      @event_applications = EventApplication.search(params[:search])
+      @posts = EventApplication.search(params[:search])
     else
       redirect_to event_applications_path
     end

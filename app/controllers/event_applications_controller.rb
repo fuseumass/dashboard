@@ -15,18 +15,32 @@ class EventApplicationsController < ApplicationController
     @flagged = params[:flagged]
     @status = params[:status]
     if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
-      @event_applications = EventApplication.where({application_status: @status})
+      @applications = EventApplication.where({application_status: @status})
     elsif params[:flagged].present?
-      @event_applications = EventApplication.where(flag: true)
+      @applications = EventApplication.where(flag: true)
     else
-      @event_applications = EventApplication.all
+      @applications = EventApplication.all
     end
-    @event_applications = @event_applications.order(created_at: :asc)
-    @posts = @event_applications.paginate(page: params[:page], per_page: 20)
+    @applications = @applications.order(created_at: :asc)
+    @posts = @applications.paginate(page: params[:page], per_page: 20)
     
   end
 
   def show
+    # WORK IN PROGRESS
+    #@status = params[:status]
+    #@user_ids = params[:user_ids]
+    #@applications = EventApplication.find(@user_ids)
+    #flash[:error] = @user_ids
+    #if(@applications.empty? && @status == 'next')
+    #  @event_application = @applications.where('created_at > ? ', @event_application.created_at).first
+    #  redirect_to event_application_path(@event_application)
+   #elsif(@applications.empty? && @status == 'previous')
+   #   @event_application = @applications.where('created_at < ? ', @event_application.created_at).first
+   #   redirect_to event_application_path(@event_application)
+   # else
+      # load like it nothing happen
+    #end
   end
 
   def new
@@ -88,7 +102,7 @@ class EventApplicationsController < ApplicationController
     application = EventApplication.find_by(user_id: id)
     application.application_status = new_status
     application.save
-    flash[:success] = "Status successfully updated"
+    flash[:success] = "Status successfully updated."
 
     redirect_to event_application_path(application)
 

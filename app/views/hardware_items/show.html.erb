@@ -20,7 +20,7 @@
 
         <p>
           <strong>Link:</strong>
-          <% if @hardware_item.link.empty? %>
+          <% if @hardware_item.link.nil? or @hardware_item.link.empty?%>
             No Link Available
         <% else %>
             <%= link_to @hardware_item.link, @hardware_item.link, target: :_blank %>

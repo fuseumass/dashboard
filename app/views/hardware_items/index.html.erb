@@ -38,7 +38,7 @@
           <td> <span class="label label-danger"><%= item.is_available? %></span></td>
       <% end %>
 
-      <% if item.link.empty? %>
+      <% if item.link.nil? or item.link.empty? %>
           <td>No Link</td>
       <% else %>
           <td><%= link_to 'Item Hyperlink', item.link, target: :_blank %></td>

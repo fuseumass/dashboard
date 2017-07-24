@@ -111,7 +111,7 @@
       <% if @applicant.programming_skills_list.empty? %>
         <%= 'N/A '%>
       <% else %>
-        <%= @applicant.programming_skills_list.gsub(/[\[\]"]/, '')%>
+        <%= @applicant.programming_skills_list %>
       <% end %>     
     </p>
 
@@ -120,14 +120,14 @@
       <% if @applicant.hardware_skills_list.empty? %>
         <%= 'N/A' %>
       <% else %>
-        <%= @applicant.hardware_skills_list.gsub(/[\[\]"]/, '')%>
+        <%= @applicant.hardware_skills_list %>
       <% end %>     
     </p>
 
     <p>
       <label><b>Are you interested in hardware hacks?: </b></label>
       <% if @applicant.interested_in_hardware_hacks %>
-        <%= @applicant.interested_hardware_hacks_list.gsub(/[\[\]"]/, '') %>
+        <%= @applicant.interested_hardware_hacks_list %>
       <% else %>
         <%= 'No' %>
       <% end %>     

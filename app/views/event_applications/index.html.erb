@@ -65,7 +65,7 @@
     </thead>
     <tbody>
       <% @posts.each do |form| %>
-        <% show_form = event_application_path(form, user_ids: @applications.map(&:user_id)) %>
+        <% show_form = event_application_path(form) %>
         
         <tr class='table-row'>
           <td> 

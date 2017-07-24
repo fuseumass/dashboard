@@ -27,20 +27,6 @@ class EventApplicationsController < ApplicationController
   end
 
   def show
-    # WORK IN PROGRESS
-    #@status = params[:status]
-    #@user_ids = params[:user_ids]
-    #@applications = EventApplication.find(@user_ids)
-    #flash[:error] = @user_ids
-    #if(@applications.empty? && @status == 'next')
-    #  @event_application = @applications.where('created_at > ? ', @event_application.created_at).first
-    #  redirect_to event_application_path(@event_application)
-   #elsif(@applications.empty? && @status == 'previous')
-   #   @event_application = @applications.where('created_at < ? ', @event_application.created_at).first
-   #   redirect_to event_application_path(@event_application)
-   # else
-      # load like it nothing happen
-    #end
   end
 
   def new

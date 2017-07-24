@@ -211,15 +211,15 @@
 </div></br>
 <div id = 'button-container'>
   <%= 
-    link_to "<< Previous Applicant",
-    {controller:'event_applications', action: 'show', 
-    params: {status: 'previous'}},
-    {class: 'btn btn-default', id: 'prev-button'}
+    link_to '<< Previous Applicant',
+    event_applications_path,
+    class: 'btn btn-default',
+    id: 'prev-button'
   %>
   <%= 
-    link_to "Next Applicant >>",
-    {controller:'event_applications', action: 'show', 
-    params: {status: 'next'}},
-    {class: 'btn btn-default', id: 'next-button'}
+    link_to 'Next Applicant >>',
+    event_applications_path,
+    class: 'btn btn-default',
+    id: 'next-button'
   %>
 </div> 

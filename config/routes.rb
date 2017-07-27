@@ -13,8 +13,6 @@ Rails.application.routes.draw do
       delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
       get 'signup', to: 'devise/registrations#new', as: :new_user_registration
       post 'signup', to: 'devise/registrations#create', as: :user_registration
-
-      get 'forgot_password' => 'devise/passwords#new'
     end
 
   #Authentication Routes End

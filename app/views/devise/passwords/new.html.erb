@@ -17,13 +17,14 @@
 
             <div class="form-group">
               <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >
-                <%= f.submit "Recover email", class: "btn btn-primary" %>
+                <%= f.submit "Send Instructions", class: "btn btn-primary" %>
               </div>
             </div>
-            <br>
-            <%= render "devise/shared/links" %>
           </fieldset>
         </form>
+        <div style="margin-top:5%">
+            <%= render "devise/shared/links" %>
+        </div>
       </div>
     </div>
 <% end %>

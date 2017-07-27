@@ -1,18 +1,20 @@
 Rails.application.routes.draw do
-  
+
   # Our Root URL Links to the index page (duh)
   root 'pages#index'
 
   # Authentication Routes Start
 
     # Make our log in and sign up routes pretty
-    devise_for :users, skip: [:sessions, :registration] 
+    devise_for :users, skip: [:sessions, :registration]
     as :user do
       get 'login', to: 'devise/sessions#new', as: :new_user_session
       post 'login', to: 'devise/sessions#create', as: :user_session
       delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
       get 'signup', to: 'devise/registrations#new', as: :new_user_registration
       post 'signup', to: 'devise/registrations#create', as: :user_registration
+
+      get 'forgot_password' => 'devise/passwords#new'
     end
 
   #Authentication Routes End
@@ -39,14 +41,14 @@ Rails.application.routes.draw do
   # Event Application Routes End
 
 
-  
-  # Mentorship Request Routes Start 
+
+  # Mentorship Request Routes Start
 
     # Create all routes but index
     resources :mentorship_requests, except: [:index]
 
   # Mentorship Request Routes End
-  
+
 
 
   # Events Routes Start
@@ -55,12 +57,12 @@ Rails.application.routes.draw do
     resources :events
 
   # Events Routes End
-  
+
 
   # Pages Routes Start
 
     # Allow autocomplete on admin page
-    resources :pages do 
+    resources :pages do
       get :autocomplete_user_email, :on => :collection
     end
 
@@ -75,7 +77,7 @@ Rails.application.routes.draw do
     get 'admin' => 'pages#admin'
 
   # Pages Routes End
-  
+
 
   # Hardware Routes Start
 
@@ -92,5 +94,5 @@ Rails.application.routes.draw do
     end
 
   # Hardware Routes End
-  
+
 end

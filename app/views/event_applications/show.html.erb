@@ -1,12 +1,12 @@
 <% @applicant = @event_application %>
 <div id = 'button-container'>
-  <%= 
+  <%=
     link_to '<< Previous Applicant',
     event_applications_path,
     class: 'btn btn-default',
     id: 'prev-button'
   %>
-  <%= 
+  <%=
     link_to 'Next Applicant >>',
     event_applications_path,
     class: 'btn btn-default',
@@ -75,7 +75,7 @@
       <label><b>Graduation Year: </b></label>
       <%= @applicant.grad_year %>
     </p>
-    
+
     <p class='required-field'>
       <label><b>Food Restrictions: </b></label>
       <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
@@ -93,17 +93,17 @@
 
     <p>
       <label><b>Github URL: </b></label>
-      <%= @applicant.github.empty? ? 'N/A' : @applicant.github %>      
+      <%= @applicant.github.empty? ? 'N/A' : @applicant.github %>
     </p>
 
     <p class='required-field'>
       <label><b>Have you been to a hackathon before?:</b></label>
-      <%= @applicant.previous_hackathon_attendance ? 'Yes' : 'No'%>      
+      <%= @applicant.previous_hackathon_attendance ? 'Yes' : 'No'%>
     </p>
 
     <p class='required-field'>
       <label><b>Will you need transportation to UMass?:</b></label>
-      <%= @applicant.transportation ? 'Yes' : 'No'%>      
+      <%= @applicant.transportation ? 'Yes' : 'No'%>
     </p>
 
     <p>
@@ -112,7 +112,7 @@
         <%= 'N/A '%>
       <% else %>
         <%= @applicant.programming_skills_list %>
-      <% end %>     
+      <% end %>
     </p>
 
     <p>
@@ -121,7 +121,7 @@
         <%= 'N/A' %>
       <% else %>
         <%= @applicant.hardware_skills_list %>
-      <% end %>     
+      <% end %>
     </p>
 
     <p>
@@ -130,7 +130,7 @@
         <%= @applicant.interested_hardware_hacks_list %>
       <% else %>
         <%= 'No' %>
-      <% end %>     
+      <% end %>
     </p>
 
     <p>
@@ -145,7 +145,7 @@
     <p>
       <label>
         <b>
-          What hardware do you want to see at HackUMass V or future HackUMass?: 
+          What hardware do you want to see at HackUMass V or future HackUMass?:
         </b>
       </label>
       <% if @applicant.future_hardware_for_hackumass.empty?  %>
@@ -155,8 +155,8 @@
       <% end %>
     </p>
 
-    <%# Only show this field when the applicants disagrees to the 
-    Term & Conditions but the form is somehow still submitted. %> 
+    <%# Only show this field when the applicants disagrees to the
+    Term & Conditions but the form is somehow still submitted. %>
     <% if !@applicant.waiver_liability_agreement %>
       <p class='required-field'>
         <span class='error'>
@@ -166,60 +166,60 @@
       </p>
     <% end %>
 
-    <%= button_to 'Accept', 
-        {controller:'event_applications', action: 'status_updated', 
+    <%= button_to 'Accept',
+        {controller:'event_applications', action: 'status_updated',
         params: {new_status:'accepted', id: @applicant.user_id}},
         {class: 'btn btn-success btn-sm button'} %>
-    
-    <%= button_to 'Deny', 
-        {controller:'event_applications', action: 'status_updated', 
+
+    <%= button_to 'Deny',
+        {controller:'event_applications', action: 'status_updated',
         params: {new_status:'denied', id: @applicant.user_id}},
         {class: 'btn btn-danger btn-sm button'} %>
 
-    <%= button_to 'Waitlist', 
-        {controller:'event_applications', action: 'status_updated', 
+    <%= button_to 'Waitlist',
+        {controller:'event_applications', action: 'status_updated',
         params: {new_status:'waitlisted', id: @applicant.user_id}},
         {class: 'btn btn-warning btn-sm button'} %>
 
     <% if @event_application.flag %>
-      <%= button_to 'Unflag', 
-        {controller:'event_applications', action: 'unflag_application', 
-        params: {new_status:'waitlisted', id: @applicant.user_id}},
+      <%= button_to 'Unflag',
+        {controller:'event_applications', action: 'unflag_application',
+        params: {application: @event_application}},
         {class: 'btn btn-primary btn-sm button'} %>
     <% else %>
-      <%= button_to 'Flag', 
-        {controller:'event_applications', action: 'flag_application', 
+      <%= button_to 'Flag',
+        {controller:'event_applications', action: 'flag_application',
         params: {application: @event_application}},
         {class: 'btn btn-primary btn-sm button'} %>
     <% end %>
 
     <%# Needed to turn off turbo-link so that persistent works when editing the
-    applicants form. TODO: Checkbox persistent? (Need to see how checkboxes 
+    applicants form. TODO: Checkbox persistent? (Need to see how checkboxes
     behavior on the server when it comes to editing) %>
     <% if has_permissions_to_edit %>
-      <%= link_to 'Edit', 
-        edit_event_application_path(@event_application), 
+      <%= link_to 'Edit',
+        edit_event_application_path(@event_application),
         {data: {turbolinks: false}, class: 'btn btn-default btn-sm button'} %>
     <% end %>
   </div>
 </div>
 <div id='resume-container'>
   <object type='application/pdf' data="<%=@event_application.resume.url%>">
-    <p>There was error loading the resume, try refreshing the page to see if the 
+    <p>There was error loading the resume, try refreshing the page to see if the
     problem will be resolved. If the issue persists, contact the tech team.</p>
   </object>
 </div></br>
 <div id = 'button-container'>
-  <%= 
+  <%=
     link_to '<< Previous Applicant',
     event_applications_path,
     class: 'btn btn-default',
     id: 'prev-button'
   %>
-  <%= 
+  <%=
     link_to 'Next Applicant >>',
     event_applications_path,
     class: 'btn btn-default',
     id: 'next-button'
   %>
-</div> 
+</div>

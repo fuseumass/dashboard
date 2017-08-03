@@ -228,12 +228,22 @@ class EventApplication < ApplicationRecord
                     with: /\A\(\d{3}\)\s\d{3}-\d{4}\z|\A[0-9]+\z/,
                     message: 'Your phone number is invalid. Should only contain
                     numbers.'
-                  },
-                  length: {
-                    if: 'errors[:phone].length == 0',
-                    is: 14,
-                    message: 'Your phone number must be 10 digits long.'
                   }
+        
+        validate :phone_length,
+                 if: 'phone.present? && errors[:phone].length == 0'
+        
+        # new phone length validation to account for people who has javascript 
+        # turn off
+        private
+          def phone_length
+            unless (phone.length == 14 || phone.length == 10)
+              message = 'Your phone number must be 10 digits long.'
+              errors.add(:phone_length_error, message)
+            end
+          end
+            
+                
 
       # LINKEDIN:
         # Once after the applicant fills in the linkedin url, check to see that

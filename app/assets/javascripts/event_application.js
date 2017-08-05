@@ -10,6 +10,9 @@ $( document ).ready(function(){
   togglehiddenField('food-info', 'foodRadios1');
   togglehiddenField('transport-info', 'transportRadios1');
   togglehiddenField('hardware-hack-list', 'hardware-radio-1');
+  unhideField('char-counter');
+  unhideField('char-counter-2');
+  unhideField('char-counter-3');
 })
 
 /*
@@ -149,5 +152,7 @@ function togglehiddenField(hiddenId, checkBoxId){
   checkBox = document.getElementById(checkBoxId);
   if(checkBox != null){
     checkBox.checked ? unhideField(hiddenId) : hideField(hiddenId);
+  }else{
+    hideField(hiddenId);
   }
 }

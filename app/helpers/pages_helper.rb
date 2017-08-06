@@ -20,8 +20,12 @@ module PagesHelper
 		controller?("mentoship_requests")
 	end
 
-	def has_access_to_applications
+	def has_access_to_all_applications
 		current_user.is_organizer? or current_user.is_admin?
+	end
+
+	def current_user_application
+		event_application_path(current_user.event_application)
 	end
 
 	def has_access_to_hardware
@@ -37,7 +41,7 @@ module PagesHelper
 	def has_access_to_admin
 		current_user.is_admin?
 	end
-
+	
 
 	# Helper methonds to this helper class. lol so meta
 	def controller?(target_controller)

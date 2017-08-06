@@ -32,4 +32,7 @@ module EventApplicationsHelper
 		current_user.is_admin?
 	end
 
+	def is_admin_or_organizer?
+		current_user.user_type == 'admin' or current_user.user_type == 'organizer'
+	end
 end

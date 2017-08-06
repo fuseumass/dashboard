@@ -29,10 +29,12 @@
             <%= link_to 'Applications', event_applications_path %>  
           </li>
         <% else %>
-          <% if current_user.event_application.present? %>
+          <% begin %>
             <li class="<%= 'active' if is_applications_active %>">
               <%= link_to 'Application', current_user_application %>  
             </li>
+          <% rescue %>
+            <%# don't render anything if the program runs into an exception %>
           <% end %>
         <% end %>
 

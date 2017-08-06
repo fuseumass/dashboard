@@ -173,12 +173,12 @@ class EventApplication < ApplicationRecord
               begin 
                 reader = PDF::Reader.new(file)
                 pdf = reader.page(1).text.downcase
-                if (pdf.length > 0 && pdf.length < 20){
+                if (pdf.length > 0 && pdf.length < 20)
                   errors.add(:fake_resume_error, 'Resume file is invalid. Please make 
                   sure that the file you have uploaded has all your actual 
                   information. Please contact us at \'team@hackumass.com\' if you 
                   have any problem uploading your resume.')
-                }
+                end
                 self.flag = !(check_string?(pdf, name)||check_string?(pdf, email)||check_string?(pdf, university)||check_string?(pdf, major))
               rescue
                 errors.add(:corruption_error, 'Sorry but it looks like your 

@@ -33,8 +33,9 @@ class EventApplication < ApplicationRecord
         end
       end
 
-    # Methods that get called before the application is created:
+    # Methods that get called before the application is created or updated:
     before_create :rename_resume_file
+    before_update :rename_resume_file
 
     # This method when executed will rename the resume file that the
     # applicant has upload to the format, user id follow by his or her first
@@ -146,7 +147,8 @@ class EventApplication < ApplicationRecord
         # Once the applicant upload a resume, call 'contains_name'.
         validate  :contains_string,
                   :if => 'resume.present?',
-                  on: :create
+                  on: :create,
+                  on: :update
 
 
         # Remove the 'content_type' validation that is by default require when
@@ -171,9 +173,15 @@ class EventApplication < ApplicationRecord
               begin 
                 reader = PDF::Reader.new(file)
                 pdf = reader.page(1).text.downcase
+                if (pdf.length > 0 && pdf.length < 20)
+                  errors.add(:fake_resume_error, 'Resume file is invalid. Please make 
+                  sure that the file you have uploaded has all your actual 
+                  information. Please contact us at \'team@hackumass.com\' if you 
+                  have any problem uploading your resume.')
+                end
                 self.flag = !(check_string?(pdf, name)||check_string?(pdf, email)||check_string?(pdf, university)||check_string?(pdf, major))
               rescue
-                errors.add(:extension_error, 'Sorry but it looks like your 
+                errors.add(:corruption_error, 'Sorry but it looks like your 
                   resume file is corrupted. Please contact us at \'team@hackumass.com\' if you 
                   have any problem uploading your resume.')
               end

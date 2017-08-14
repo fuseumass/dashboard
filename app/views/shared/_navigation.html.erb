@@ -24,10 +24,18 @@
           </li>
         <% end %>
 
-        <% if has_access_to_applications %>
+        <% if has_access_to_all_applications %>
           <li class="<%= 'active' if is_applications_active %>">
             <%= link_to 'Applications', event_applications_path %>  
           </li>
+        <% else %>
+          <% begin %>
+            <li class="<%= 'active' if is_applications_active %>">
+              <%= link_to 'Application', current_user_application %>  
+            </li>
+          <% rescue %>
+            <%# don't render anything if the program runs into an exception %>
+          <% end %>
         <% end %>
 
         <!-- TODO: Add mentorship link here -->

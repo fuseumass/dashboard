@@ -132,9 +132,9 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='food-info'>
         <div class='form-group'>
-          <%= f.label :food_restrictions_info, 'Please list your dietary
-          restrictions and allergies:', class: 'col-lg-3 control-label
-          required-field' %>
+          <%= f.label :food_restrictions_info, raw('<noscript>if you answer yes, 
+          </noscript> please list your dietary restrictions and allergies:'),
+          class: 'col-lg-3 control-label required-field hidden-field' %>
           <div class='col-lg-9'>
             <%= f.text_area :food_restrictions_info, rows: '5',
             onkeyup: 'charCounter(\'text-box\', \'char-counter\')',
@@ -221,8 +221,9 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='transport-info'>
         <div class='form-group'>
-          <%= f.label :transportation_location, 'Please tell us from where:',
-          class: 'col-lg-3 control-label required-field' %>
+          <%= f.label :transportation_location, raw('<noscript>if you answer yes, 
+          </noscript> please tell us from where:'), class: 'col-lg-3 control-label 
+          required-field hidden-field' %>
           <div class='col-lg-9'>
             <%= f.text_field :transportation_location, class: 'form-control' %>
           </div>
@@ -337,9 +338,9 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='hardware-hack-list'>
         <div class='form-group'>
-          <%= f.label :interested_hardware_hacks_list, 'Please select the
-          hardware hacks that you are interested in:', class: 'col-lg-3
-          control-label' %>
+          <%= f.label :interested_hardware_hacks_list, raw('<noscript>if you 
+          answer yes, </noscript> please select the hardware hacks that you 
+          are interested in:'), class: 'col-lg-3 control-label hidden-field' %>
           <div class='col-lg-9'>
             <div class='radio'>
               <label>

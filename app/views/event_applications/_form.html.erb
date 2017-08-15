@@ -132,7 +132,7 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='food-info'>
         <div class='form-group'>
-          <%= f.label :food_restrictions_info, raw('<noscript>if you answer yes, 
+          <%= f.label :food_restrictions_info, raw('<noscript>if you answer yes,
           </noscript> please list your dietary restrictions and allergies:'),
           class: 'col-lg-3 control-label required-field hidden-field' %>
           <div class='col-lg-9'>
@@ -158,7 +158,7 @@ novalidate: 'novalidate'}) do |f| %>
 
       <%# Resume File Field %>
       <div class='form-group'>
-        <%= f.label :resume, 'Resume:', class: 'col-lg-3 control-label
+        <%= f.label :resume, 'Resume: (.PDF)', class: 'col-lg-3 control-label
         required-field' %>
         <div class='col-lg-9'>
           <%= f.file_field :resume %>
@@ -221,8 +221,8 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='transport-info'>
         <div class='form-group'>
-          <%= f.label :transportation_location, raw('<noscript>if you answer yes, 
-          </noscript> please tell us from where:'), class: 'col-lg-3 control-label 
+          <%= f.label :transportation_location, raw('<noscript>if you answer yes,
+          </noscript> please tell us from where:'), class: 'col-lg-3 control-label
           required-field hidden-field' %>
           <div class='col-lg-9'>
             <%= f.text_field :transportation_location, class: 'form-control' %>
@@ -338,8 +338,8 @@ novalidate: 'novalidate'}) do |f| %>
 
       <div id='hardware-hack-list'>
         <div class='form-group'>
-          <%= f.label :interested_hardware_hacks_list, raw('<noscript>if you 
-          answer yes, </noscript> please select the hardware hacks that you 
+          <%= f.label :interested_hardware_hacks_list, raw('<noscript>if you
+          answer yes, </noscript> please select the hardware hacks that you
           are interested in:'), class: 'col-lg-3 control-label hidden-field' %>
           <div class='col-lg-9'>
             <div class='radio'>
@@ -428,7 +428,7 @@ novalidate: 'novalidate'}) do |f| %>
           class: 'btn btn-primary submit' %>
         </div>
       <% end %>
-      
+
 
     </div>
   </div>

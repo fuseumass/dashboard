@@ -8,3 +8,13 @@
 <%= line_chart EventApplication.group_by_day(:created_at).count %>
 
 <hr>
+<h4>Applicants Gender Breakdown</h4>
+<%= pie_chart EventApplication.group(:sex).count %>
+
+<hr>
+<h4>Applicants T-Shirt Size Breakdown </h4>
+<%= bar_chart EventApplication.group(:t_shirt).count %>
+
+<hr>
+<h4>Applicant Graduation Year Breakdown</h4>
+<%= pie_chart EventApplication.group(:grad_year).count %>

@@ -1,0 +1,10 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+<h4>Users Signups <span class="label label-primary"><%= User.all.count %></span></h4>
+<%= line_chart User.group_by_day(:created_at).count %>
+<hr>
+
+<h4>Applications Submitted <span class="label label-primary"><%= EventApplication.all.count %></span></h4>
+<%= line_chart EventApplication.group_by_day(:created_at).count %>
+
+<hr>

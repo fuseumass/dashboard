@@ -16,5 +16,9 @@
 <%= bar_chart EventApplication.group(:t_shirt).count %>
 
 <hr>
-<h4>Applicant Graduation Year Breakdown</h4>
+<h4>Applicants Graduation Year Breakdown</h4>
 <%= pie_chart EventApplication.group(:grad_year).count %>
+
+<hr>
+<h4>Applicants Major Breakdown</h4>
+<%= pie_chart EventApplication.group(:major).count %>

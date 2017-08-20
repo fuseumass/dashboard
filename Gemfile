@@ -5,7 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# Graphs and all that jazz for statistics
+gem 'chartkick'
+gem 'groupdate'
 # Easy debugging
 gem 'pry-rails', :group => :development
 # For easy search on hardware

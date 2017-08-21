@@ -20,5 +20,5 @@
 <%= pie_chart EventApplication.group(:grad_year).count %>
 
 <hr>
-<h4>Applicants Major Breakdown</h4>
-<%= pie_chart EventApplication.group(:major).count %>
+<h4>Applicants Previous Hackathon Acceptance</h4>
+<%= pie_chart EventApplication.group(:previous_hackathon_attendance).count %>

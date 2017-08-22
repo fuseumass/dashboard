@@ -22,10 +22,10 @@ class Event < ApplicationRecord
                     s3_protocol: 'https',
                     path: 'event-images/:filename',
                     s3_credentials: {
-                      :bucket => 'hackumass-v-asset',
-                      :access_key_id => 'AKIAIZAVSFUILF4TAG4Q',
-                      :secret_access_key => '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',
-                      :s3_region => 'us-east-1'
+                      bucket: 'hackumass-v-assets',
+                      access_key_id: 'AKIAJXQREHQP2AIJXVFQ',
+                      secret_access_key: '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',
+                      s3_region: 'us-east-1'
                     }
 
   validates_attachment :image,

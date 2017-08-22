@@ -6,7 +6,7 @@
         <div class="featured-event">
           <a href="<%= event_path(event) %>">
             <!--TODO: Replace with event.thumbnail-->
-            <img src="http://www.canadianbusiness.com/wp-content/uploads/2014/02/html500.jpg" alt="" >
+            <%= image_tag event.image.url(:thumb) %>
             
             <div class="block-title">
               <h4 style="color: #ffffff"><%= event.title %></h4>

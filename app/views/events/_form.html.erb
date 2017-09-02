@@ -36,9 +36,9 @@
     <%= f.text_field :created_by %>
   </div>
 
-  <div class="field">
-    <%= f.label :thumbnail %>
-    <%= f.text_field :thumbnail %>
+  <div class="form-group">
+    <%= f.label :image, 'Event Image', class:'control-label' %>
+    <%= f.file_field :image %>
   </div>
 
   <div class="actions">

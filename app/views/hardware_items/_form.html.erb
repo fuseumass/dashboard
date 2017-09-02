@@ -1,25 +1,30 @@
 <%= form_for(hardware_item) do |f| %>
 
-    <% if hardware_item.errors.any? %>
+  <% if hardware_item.errors.any? %>
 
-        <div class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(hardware_item.errors.count, "error") %> prohibited this hardware item from being saved:</h3>
-          </div>
-          <div class="panel-body">
-            <ul>
-              <% hardware_item.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pluralize(hardware_item.errors.count, "error") %> prohibited this hardware item from being saved:</h3>
         </div>
+        <div class="panel-body">
+          <ul>
+            <% hardware_item.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+ <%= hardware_item.errors.keys %>
+  <% end %>
 
-    <% end %>
-
-    <div class="form-group">
+  <div class="form-group">
     <%= f.label :name, class:'control-label' %>
     <%= f.text_field :name, class: 'form-control', placeholder: 'Type name of hardware here' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image, 'Hardware Image', class:'control-label' %>
+    <%= f.file_field :image %>
   </div>
 
   <div class="form-group">

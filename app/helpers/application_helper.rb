@@ -11,6 +11,8 @@ module ApplicationHelper
         "alert-danger"   #Yellow
       when "notice"
         "alert-success"  #Green
+      when "warning"
+        "alert-warning"
       else
         flash_type.to_s
     end

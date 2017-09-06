@@ -4,13 +4,13 @@
   <div id = 'button-container'>
     <%=
       link_to '<< Previous Applicant',
-      event_applications_path,
+        event_application_path(@applicant.id-1),
       class: 'btn btn-default',
       id: 'prev-button'
     %>
     <%=
       link_to 'Next Applicant >>',
-      event_applications_path,
+      event_application_path(@applicant.id+1),
       class: 'btn btn-default',
       id: 'next-button'
     %>
@@ -220,13 +220,13 @@
   <br/><div id = 'button-container'>
     <%=
       link_to '<< Previous Applicant',
-      event_applications_path,
+      event_application_path(@applicant.id-1),
       class: 'btn btn-default',
       id: 'prev-button'
     %>
     <%=
       link_to 'Next Applicant >>',
-      event_applications_path,
+      event_application_path(@applicant.id+1),
       class: 'btn btn-default',
       id: 'next-button'
     %>

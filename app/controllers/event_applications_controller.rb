@@ -23,7 +23,7 @@ class EventApplicationsController < ApplicationController
     end
     @applications = @applications.order(created_at: :asc)
     @posts = @applications.paginate(page: params[:page], per_page: 20)
-    
+
   end
 
   def show
@@ -73,7 +73,7 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(application_status: 'undecided').count
     @denied_count = EventApplication.where(application_status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
-    
+
     if params[:search].present?
       @posts = EventApplication.search(params[:search])
     else
@@ -128,7 +128,13 @@ class EventApplicationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event_application
-      @event_application = EventApplication.find(params[:id])
+      begin
+        @event_application = EventApplication.find(params[:id])
+      rescue
+        flash[:warning] = 'Upppps looks like you went backwards or forward too much.'
+        redirect_to event_applications_path
+        return
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

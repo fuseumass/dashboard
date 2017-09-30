@@ -30,16 +30,9 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'HackUMass V Application Status Update')
   end
 
-  def reminder_email(all_user)
-    @all_user = all_user;
-    if @all_user.any?
-      @all_user.each do |user|
-        @user = user
-        if @user.event_application == nil
-          mail(to: @user.email, subject: 'HackUMass V Deadline Reminder')
-        end
-      end
-    end
+  def reminder_email(user)
+    @user = user
+    mail(to: @user.email, subject: 'HackUMass V Deadline Reminder')
   end
 
 end

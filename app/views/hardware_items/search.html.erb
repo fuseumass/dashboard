@@ -21,7 +21,6 @@
       <th>Category</th>
       <th>Count</th>
       <th>Available</th>
-      <th>Link</th>
     </tr>
   </thead>
 
@@ -38,11 +37,6 @@
           <td> <span class="label label-danger"><%= item.is_available? %></span></td>
       <% end %>
 
-      <% if item.link.empty? %>
-          <td>No Link</td>
-      <% else %>
-          <td><%= link_to 'Item Hyperlink', item.link, target: :_blank %></td>
-      <% end %>
     </tr>
   <% end %>
   </tbody>

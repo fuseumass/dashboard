@@ -26,4 +26,9 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.waitlisted_email(@user)
   end
 
+  def reminder_email_preivew
+    @user = User.last
+    UserMailer.reminder_email(@user)
+  end
+
 end

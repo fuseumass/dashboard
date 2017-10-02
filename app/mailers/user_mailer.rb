@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
-  #TODO: Change Email Address
-  default from: 'donotreply.hackumass@gmail.com'
+
+  default from: 'tech.hackumass@gmail.com'
 
   def welcome_email(user)
     @user = user;
@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
     if user.event_application.age.to_i < 18
       attachments['HUMVLiabilityWaivers.pdf'] = File.read('app/assets/attachments/HUMVLiabilityWaivers.pdf')
     end
-    mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass V!') 
+    mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass V!')
   end
 
   def denied_email(user)
@@ -28,6 +28,11 @@ class UserMailer < ApplicationMailer
   def waitlisted_email(user)
     @user = user;
     mail(to: @user.email, subject: 'HackUMass V Application Status Update')
+  end
+
+  def reminder_email(user)
+    @user = user
+    mail(to: @user.email, subject: 'HackUMass V Deadline Reminder')
   end
 
 end

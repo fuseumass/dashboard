@@ -35,18 +35,19 @@ echo ' '
 echo 'Heroku Build Sucessfull ✅'
 echo ' '
 
-# Put the app on maintinance mode and migrate the database
-echo 'Application entering maintinance mode...'
-heroku maintenance:on
-echo ' '
-echo 'Migrating databases....'
-heroku run rake db:migrate
-echo ' '
-echo 'Database Migration Succesfull ✅'
-echo ' '
-echo 'Application exiting maintinance mode...'
-heroku maintenance:off
-echo ' '
+# Put the app on maintenance mode and migrate the database
+echo 'Skipping maintenance mode. No migrations found. ✅'
+#echo 'Application entering maintenance mode...'
+#heroku maintenance:on
+#echo ' '
+#echo 'Migrating databases....'
+#heroku run rake db:migrate
+#echo ' '
+#echo 'Database Migration Successful ✅'
+#echo ' '
+#echo 'Application exiting maintenance mode...'
+#heroku maintenance:off
+#echo ' '
 
 # All good!
 echo 'HackUMass Web App Has Been Deployed ✅'

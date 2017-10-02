@@ -49,7 +49,7 @@ class EventApplication < ApplicationRecord
       end
 
     # Methods that get called after the application is created:
-    after_create :submit_email
+    # after_create :submit_email
 
     # This method's sole purpose is to call the mailer method 'submit_email',
     # which sends an email to the applicant telling him or her that he or she

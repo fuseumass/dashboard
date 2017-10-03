@@ -59,17 +59,16 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => 'dashboard.hackumass.com' }
 
-  config.action_mailer.delivery_method = :ses
-
-  # # SMTP settings for gmail
-  # config.action_mailer.smtp_settings = {
-  #     :address => "email-smtp.us-east-1.amazonaws.com",
-  #     :port => 587,
-  #     :user_name => 'AKIAJP22YR65QF763O4Q', #Your SMTP user
-  #     :password => 'AlPL8vx0FGb4ua1aM/utyf1sRaiW4ImcdZKGYR2WSj1w', #Your SMTP password
-  #     :authentication => :login,
-  #     :enable_starttls_auto => true
-  # }
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+      :address => "email-smtp.us-east-1.amazonaws.com",
+      :port => 587,
+      :user_name => 'AKIAI5ELW7IPJCGSWUQA', #Your SMTP user
+      :password => 'AnTH9NIGs7h6wJGae0wVSd6pO81KGpoChqb9Jr2uPFQx', #Your SMTP password
+      :authentication => :login,
+      :enable_starttls_auto => true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

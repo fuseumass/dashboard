@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_one :event_application, dependent: :destroy
   has_one :mentorship_request, dependent: :destroy
 
-  # Let's not send a welcome email anymore.
-  # after_create :welcome_email
+
+  after_create :welcome_email
 
   # Use type checkers
   def is_attendee?

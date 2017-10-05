@@ -27,6 +27,11 @@ class EventApplicationsController < ApplicationController
   end
 
   def show
+    unless current_user.is_admin? or current_user.is_organizer?
+      if @event_application.user != current_user
+        redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
+      end
+    end
   end
 
   def new

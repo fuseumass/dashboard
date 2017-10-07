@@ -50,6 +50,7 @@ class EventApplicationsController < ApplicationController
   def create
     @event_application = EventApplication.new(event_application_params)
     @event_application.user = current_user
+    @event_application.application_status = 'waitlisted'
     if @event_application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else

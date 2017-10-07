@@ -36,13 +36,15 @@
         <h3 class="panel-title">Your Hardware Checkouts</h3>
       </div>
       <div class="panel-body">
-
-        <!--TODO: Get rid of this placeholder bullshit-->
-        <div class="list-group">
-          <a href="#" class="list-group-item">First Hardware Item</a>
-          <a href="#" class="list-group-item">Second Hardware Item</a>
-          <a href="#" class="list-group-item">Thrid Hardware Item</a>
-        </div>
+        <% if current_user.hardware_checkouts.any? %>
+            <div class="list-group">
+            <% current_user.hardware_checkouts.each do |checkout| %>
+                <a class="list-group-item"><%= checkout.hardware_item.name %></a>
+            <% end %>
+            </div>
+      <% else %>
+          It seems like you haven't checked out any hardware yet.
+        <% end %>
 
       </div>
     </div>

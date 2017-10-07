@@ -5,8 +5,8 @@
       <p>Your application status is: <span class="label label-info" style="font-size: 80%"><%= current_user.event_application.application_status.capitalize %></span></p>
   <% else %>
       <h1>Hello, <%= current_user.first_name %> </h1>
-      <p>Registration is now open and it looks like you haven't applied for the event yet. Click the button below to get started with your application. </p>
-      <%= link_to 'Apply', apply_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg'%>
+      <p>Registration is now closed but you can still apply for our waitlist.</p>
+      <%= link_to 'Apply for Waitlist', apply_path, data: {turbolinks: false}, class: 'btn btn-warning btn-lg'%>
   <% end %>
 </div>
 
@@ -15,7 +15,7 @@
   <% else %>
   <div class="panel panel-default">
     <div class="panel-body">
-      <center><h6>Welcome to your dashboard! All the features will be unlocked once you get accepted!</h6></center>
+      <center><h6>Welcome to your dashboard! All the features will be unlocked if you get accepted!</h6></center>
     </div>
   </div>
 <% end %>

@@ -10,7 +10,7 @@
   <% end %>
 </div>
 
-<% if current_user.is_accepted? %>
+<% if current_user.is_accepted? or current_user.is_admin?%>
     <%= render 'home_actions' %>
   <% else %>
   <div class="panel panel-default">

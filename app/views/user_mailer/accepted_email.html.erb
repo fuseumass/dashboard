@@ -84,7 +84,8 @@
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">The event is from November 3rd to November 5th 2017 at the University of Massachusetts Amherst. In order to participate, make sure you go to our website and <b>RSVP</b>!</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">If you have any questions please visit our website at <a href='https:\\www.hackumass.com' target='_blank'>www.hackumass.com</a>. If you can’t find your answer on our website, then please feel free to shoot us an email at <a href='mailto:team@hackumass.com'>team@hackumass.com</a> and we’ll get back to you as soon as we can. We’ll be sending out an RSVP form as well as additional information soon, so stay tuned!</p>                                                                                             
                     <% if @user.event_application.age.to_i < 18 %>
-                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">In addition, because you're younger than 18 years old, please fill out the attached form and bring it to HackUMass V on the day of the event.</p>
+                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">In addition, if you're younger than 18 years old, please fill out the attached form and bring it to HackUMass V on the day of the event.
+                        <a href="http://hackumass.com/legal/HUMVLiabilityWaiverForm.pdf"> Download Form Here!</a></p>
                     <% end %>
                     <%# THE CODE FOR THE DASHBOARD BUTTON
                     <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;box-sizing:border-box;width:100%;">

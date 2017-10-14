@@ -16,22 +16,22 @@ namespace :admissions do
         if app.application_status == 'undecided'
 
           # Get rejected if you graduated early or left shit empty on the application.
-          if app.university == 'N/A' or app.major == 'N/A' or app.grad_year == '2016' or app.grad_year == '2015' or app.grad_year == '2014'
+          if app.transportation or app.university == 'N/A' or app.major == 'N/A' or app.grad_year == '2016' or app.grad_year == '2015' or app.grad_year == '2014'
+            app.flag = true
+            app.save(:validate => false)
             flagged_count += 1
-            counter += 1
-            next
+          else
+            app.application_status = 'accepted'
+            app.save(:validate => false)
+            accepted_count += 1
+
+            UserMailer.accepted_email(user).deliver_now
           end
-
-
-          UserMailer.accepted_email(user).deliver_now
-          app.application_status = 'accepted'
-          app.save(:validate => false)
-          accepted_count += 1
           counter += 1
 
-        if counter >= 300
-          break
-        end
+          if counter >= 300
+            break
+          end
 
         end #End of undecided status check
       end #End of event application check
@@ -40,7 +40,6 @@ namespace :admissions do
 
     puts "Flagged Applications: #{flagged_count}"
     puts "Accepted Applications: #{accepted_count}"
-
     puts "Total Applications Considered: #{flagged_count+accepted_count}"
   end
 

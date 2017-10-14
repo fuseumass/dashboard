@@ -22,10 +22,12 @@ namespace :admissions do
             next
           end
 
+
+          UserMailer.accepted_email(user).deliver_now
           accepted_count += 1
           counter += 1
 
-        if counter >= 600
+        if counter >= 30
           break
         end
 

@@ -23,6 +23,7 @@ namespace :admissions do
           end
 
           accepted_count += 1
+          counter += 1
 
         if counter >= 600
           break

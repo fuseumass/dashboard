@@ -8,7 +8,7 @@
 <%= line_chart EventApplication.group_by_day(:created_at).count %>
 
 <center><h4>Applicants RSVP <span class="label label-primary"><%= EventApplication.where(:rsvp => true).count%></span></h4></center>
-<%= pie_chart EventApplication.group(:rsvp).count %>
+<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:rsvp).count %>
 
 <hr>
 <center><h4>T-Shirt Size Breakdown</h4></center>

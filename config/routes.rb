@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         post 'unflag_application'
         get 'search'
 
+        get :rsvp
         get :autocomplete_university_name
         get :autocomplete_major_name
       end

@@ -3,7 +3,7 @@
       <h1>Hey, <%= current_user.first_name %> </h1>
       <% if current_user.event_application.application_status == 'accepted' %>
           <% if current_user.event_application.rsvp %>
-              <p>You're all set and ready! </p>
+              <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions.</p>
             <% else %>
               <p>Congrats on getting accepted! Now make sure to RSVP for the event. Only RSVP if you are confident that you will be able to attend. If you have any questions regarding parking/traveling or anything else, please contact us at
                 <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>

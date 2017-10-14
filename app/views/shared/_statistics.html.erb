@@ -1,24 +1,32 @@
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 
-<h4>Users Signups <span class="label label-primary"><%= User.all.count %></span></h4>
+<center><h4>Users Signups <span class="label label-primary"><%= User.all.count %></span></h4></center>
 <%= line_chart User.group_by_day(:created_at).count %>
 <hr>
 
-<h4>Applications Submitted <span class="label label-primary"><%= EventApplication.all.count %></span></h4>
+<center><h4>Applications Submitted <span class="label label-primary"><%= EventApplication.all.count %></span></h4></center>
 <%= line_chart EventApplication.group_by_day(:created_at).count %>
 
+<center><h4>Applicants RSVP <span class="label label-primary"><%= EventApplication.where(:rsvp => true).count%></span></h4></center>
+<%= pie_chart EventApplication.group(:rsvp).count %>
+
 <hr>
-<h4>Applicants Gender Breakdown</h4>
+<center><h4>T-Shirt Size Breakdown</h4></center>
+<center><%= bar_chart EventApplication.group(:t_shirt).count %>
+
+<hr>
+<center><h4>Applicants Gender Breakdown</h4></center>
 <%= pie_chart EventApplication.group(:sex).count %>
 
 <hr>
-<h4>Applicants T-Shirt Size Breakdown </h4>
-<%= bar_chart EventApplication.group(:t_shirt).count %>
+<center><h4>Applicants Travel Requirements</h4></center>
+<%= pie_chart EventApplication.group(:transportation).count %>
+
 
 <hr>
-<h4>Applicants Graduation Year Breakdown</h4>
+  <center><h4>Applicants Graduation Year Breakdown</h4></center>
 <%= pie_chart EventApplication.group(:grad_year).count %>
 
 <hr>
-<h4>Applicants Previous Hackathon Acceptance</h4>
+  <center><h4>Applicants Previous Hackathon Acceptance</h4></center>
 <%= pie_chart EventApplication.group(:previous_hackathon_attendance).count %>

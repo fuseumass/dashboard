@@ -131,6 +131,14 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
+  def rsvp
+    @app = current_user.event_application
+    @app.rsvp = true
+    @app.save
+    flash[:success] = "You Successfully RSVP for the Event"
+    redirect_to root_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event_application

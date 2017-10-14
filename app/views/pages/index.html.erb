@@ -1,8 +1,20 @@
 <div class="jumbotron">
   <% if current_user.has_applied? %>
       <h1>Hey, <%= current_user.first_name %> </h1>
-      <p>Thanks for submitting your application! We'll send you an email if you got in.</p>
-      <p>Your application status is: <span class="label label-info" style="font-size: 80%"><%= current_user.event_application.application_status.capitalize %></span></p>
+      <% if current_user.event_application.application_status == 'accepted' %>
+          <% if current_user.event_application.rsvp %>
+              <p>You're all set and ready! </p>
+            <% else %>
+              <p>Congrats on getting accepted! Now make sure to RSVP for the event. Only RSVP if you are confident that you will be able to attend. If you have any questions regarding parking/traveling or anything else, please contact us at
+                <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>
+              <%= link_to 'Rsvp Now', rsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
+          <% end %>
+        <% else %>
+          <p>Thanks for submitting your application! We'll send you an email if you got in.</p>
+          <p>Your application status is: <span class="label label-info" style="font-size: 80%"><%= current_user.event_application.application_status.capitalize %></span></p>
+      <% end  %>
+
+
   <% else %>
       <h1>Hello, <%= current_user.first_name %> </h1>
       <p>Registration is now closed but you can still apply for our waitlist.</p>

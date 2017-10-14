@@ -29,7 +29,7 @@ namespace :admissions do
           accepted_count += 1
           counter += 1
 
-        if counter >= 30
+        if counter >= 300
           break
         end
 

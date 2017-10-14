@@ -24,6 +24,7 @@ namespace :admissions do
 
 
           UserMailer.accepted_email(user).deliver_now
+          app.application_status = 'accepted'
           accepted_count += 1
           counter += 1
 

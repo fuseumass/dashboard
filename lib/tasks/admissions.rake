@@ -2,30 +2,24 @@ namespace :admissions do
   desc "Accept or flag student applications"
   task accept_now: :environment do
 
-    list_of_users = User.all
+    list_of_apps = EventApplication.where(:application_status => 'undecided')
 
     flagged_count = 0
     accepted_count = 0
     counter = 0
 
-    list_of_users.each do |user|
-      unless user.event_application.nil?
-        app = user.event_application
-
-        # Only consider accepting people that are undecided
-        if app.application_status == 'undecided'
+    list_of_apps.each do |app|
 
           # Get rejected if you graduated early or left shit empty on the application.
           if app.transportation or app.university == 'N/A' or app.major == 'N/A' or app.grad_year == '2016' or app.grad_year == '2015' or app.grad_year == '2014'
-            app.flag = true
-            app.save(:validate => false)
+            # app.flag = true
+            # app.save(:validate => false)
             flagged_count += 1
           else
-            app.application_status = 'accepted'
-            app.save(:validate => false)
+            # app.application_status = 'accepted'
+            # app.save(:validate => false)
             accepted_count += 1
-
-            UserMailer.accepted_email(user).deliver_now
+            # UserMailer.accepted_email(app.user).deliver_now
           end
           counter += 1
 
@@ -33,9 +27,7 @@ namespace :admissions do
             break
           end
 
-        end #End of undecided status check
-      end #End of event application check
-    end #End of all users loop
+    end #End of event application check
 
 
     puts "Flagged Applications: #{flagged_count}"

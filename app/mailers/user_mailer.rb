@@ -14,9 +14,7 @@ class UserMailer < ApplicationMailer
 
   def accepted_email(user)
     @user = user;
-    if user.event_application.age.to_i < 18
-      attachments['HUMVLiabilityWaivers.pdf'] = File.read('app/assets/attachments/HUMVLiabilityWaivers.pdf')
-    end
+    attachments['HUMVLiabilityWaivers.pdf'] = File.read('app/assets/attachments/HUMVLiabilityWaivers.pdf')
     mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass V!')
   end
 

@@ -5,7 +5,7 @@
           <% if current_user.event_application.rsvp %>
               <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions.</p>
             <% else %>
-              <p>Congrats on getting accepted! Now make sure to RSVP for the event. Only RSVP if you are confident that you will be able to attend. If you have any questions regarding parking/traveling or anything else, please contact us at
+              <p>Congrats on getting accepted! Now make sure to RSVP for the event. Only RSVP if you are confident that you will be able to attend. We will send out more info on what to bring and what to expect soon! If you have any questions regarding parking/traveling or anything else, please contact us at
                 <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>
               <%= link_to 'Rsvp Now', rsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
           <% end %>

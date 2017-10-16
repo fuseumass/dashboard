@@ -23,7 +23,7 @@ namespace :admissions do
           end
           counter += 1
 
-          if counter >= 300
+          if counter >= 600
             break
           end
 

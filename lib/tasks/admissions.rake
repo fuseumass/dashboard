@@ -12,9 +12,9 @@ namespace :admissions do
 
           # Get rejected if you graduated early or left shit empty on the application.
           if app.transportation or app.university == 'N/A' or app.major == 'N/A' or app.grad_year == '2016' or app.grad_year == '2015' or app.grad_year == '2014'
-            app.flag = true
-            app.save(:validate => false)
-            flagged_count += 1
+            # app.flag = true
+            # app.save(:validate => false)
+            # flagged_count += 1
           else
             app.application_status = 'accepted'
             app.save(:validate => false)

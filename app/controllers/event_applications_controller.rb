@@ -134,8 +134,16 @@ class EventApplicationsController < ApplicationController
   def rsvp
     @app = current_user.event_application
     @app.rsvp = true
-    @app.save
+    @app.save(:validate => false)
     flash[:success] = "You Successfully RSVP for the Event"
+    redirect_to root_path
+  end
+
+  def unrsvp
+    @app = current_user.event_application
+    @app.rsvp = false
+    @app.save(:validate => false)
+    flash[:success] = "Thanks for letting us know you can't make it. If you change your mind, just RSVP again!"
     redirect_to root_path
   end
 

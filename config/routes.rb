@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get 'search'
 
         get :rsvp
+        get :unrsvp
         get :autocomplete_university_name
         get :autocomplete_major_name
       end

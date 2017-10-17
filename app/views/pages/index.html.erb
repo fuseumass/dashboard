@@ -3,7 +3,8 @@
       <h1>Hey, <%= current_user.first_name %> </h1>
       <% if current_user.event_application.application_status == 'accepted' %>
           <% if current_user.event_application.rsvp %>
-              <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions.</p>
+              <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions. If for some reason you can't make it, please let us know by pressing the button below.</p>
+              <%= link_to 'I Can not attend anymore', unrsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
             <% else %>
               <p>Congrats on getting accepted! Now make sure to RSVP for the event. Only RSVP if you are confident that you will be able to attend. We will send out more info on what to bring and what to expect soon! If you have any questions regarding parking/traveling or anything else, please contact us at
                 <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>

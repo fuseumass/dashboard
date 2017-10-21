@@ -97,7 +97,7 @@ class EventApplicationsController < ApplicationController
     id = params[:id]
     application = EventApplication.find_by(user_id: id)
     application.application_status = new_status
-    application.save
+    application.save(:validate => false)
     flash[:success] = "Status successfully updated."
 
     redirect_to event_application_path(application)

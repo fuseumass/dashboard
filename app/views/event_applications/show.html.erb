@@ -111,6 +111,14 @@
       <%= @applicant.transportation ? 'Yes' : 'No'%>
     </p>
 
+    <% if @applicant.transportation %>
+        <p>
+          <label><b>Where do you need transportation from?</b></label>
+          <%= @applicant.transportation_location%>
+        </p>
+    <% end %>
+
+
     <p>
       <label><b>Programming Skills: </b></label>
       <% if @applicant.programming_skills_list == '{}' %>
@@ -207,6 +215,10 @@
       {data: {turbolinks: false}, class: 'btn btn-default btn-sm button'} %>
 
   </div>
+</div>
+
+<div class="col-lg-12" style="padding: 20px">
+  <a href="<%= @applicant.resume.url %>"  download="resume" class="btn btn-default btn-sm button">Download Resume</a>
 </div>
 
 <div id='resume-container'>

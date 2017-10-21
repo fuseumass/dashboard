@@ -16,12 +16,16 @@ module EventApplicationsHelper
 		params[:status].present? and params[:status] == 'undecided'
 	end
 
+  def isRsvpActive(params)
+		params[:rsvp].present?
+	end
+
 	def isFlaggedActive(params)
 		params[:flagged].present?
 	end
 
 	def isAllActive(params)
-		!(params[:status].present? or params[:flagged].present?)
+		!(params[:status].present? or params[:flagged].present? or params[:rsvp].present?)
 	end
 
 	def is_editing_application

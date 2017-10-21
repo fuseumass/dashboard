@@ -11,6 +11,7 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(application_status: 'undecided').count
     @denied_count = EventApplication.where(application_status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
+    @rsvp_count = EventApplication.where(rsvp: true).count
 
     @flagged = params[:flagged]
     @status = params[:status]
@@ -18,6 +19,8 @@ class EventApplicationsController < ApplicationController
       @applications = EventApplication.where({application_status: @status})
     elsif params[:flagged].present?
       @applications = EventApplication.where(flag: true)
+    elsif params[:rsvp].present?
+      @applications = EventApplication.where(rsvp: true)
     else
       @applications = EventApplication.all
     end
@@ -79,6 +82,7 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(application_status: 'undecided').count
     @denied_count = EventApplication.where(application_status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
+    @rsvp_count = EventApplication.where(rsvp: true).count
 
     if params[:search].present?
       @posts = EventApplication.search(params[:search])

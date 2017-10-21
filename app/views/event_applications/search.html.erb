@@ -2,6 +2,11 @@
   <legend>HackUMass Applications</legend>
 </div>
 
+<div class="alert alert-dismissible alert-info">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Hey!</strong> There are <%= @posts.count %> results for this query.
+</div>
+
 <div class="panel panel-default">
   <div class="panel-body">
     <ul class="nav nav-pills">
@@ -33,6 +38,11 @@
       <li class="<%= 'active' if isFlaggedActive(params) %>">
         <a href="<%= event_applications_path(:flagged => true) %>">
         Flagged<span class="badge"><%= @flagged_count%></span></a>
+      </li>
+
+      <li class="<%= 'active' if isRsvpActive(params) %>">
+        <a href="<%= event_applications_path(:rsvp => true) %>">
+          RSVP<span class="badge"><%= @rsvp_count%></span></a>
       </li>
 
     </ul>

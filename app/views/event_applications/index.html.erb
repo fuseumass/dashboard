@@ -35,6 +35,11 @@
         Flagged<span class="badge"><%= @flagged_count%></span></a>
       </li>
 
+      <li class="<%= 'active' if isRsvpActive(params) %>">
+        <a href="<%= event_applications_path(:rsvp => true) %>">
+          RSVP<span class="badge"><%= @rsvp_count%></span></a>
+      </li>
+
     </ul>
   </div>
 </div>

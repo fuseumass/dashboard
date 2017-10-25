@@ -2,8 +2,7 @@ namespace :admissions do
   desc "Accept or flag student applications"
   task accept_now: :environment do
 
-    list_of_apps = EventApplication.where(:application_status => 'undecided')
-
+    list_of_apps = EventApplication.where(:application_status => 'waitlisted')
     flagged_count = 0
     accepted_count = 0
 

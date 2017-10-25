@@ -7,26 +7,26 @@
 <center><h4>Applications Submitted <span class="label label-primary"><%= EventApplication.all.count %></span></h4></center>
 <%= line_chart EventApplication.group_by_day(:created_at).count %>
 
-<center><h4>Applicants RSVP <span class="label label-primary"><%= EventApplication.where(:rsvp => true).count%></span></h4></center>
+<center><h4>Applicants RSVP<span class="label label-primary"><%= EventApplication.where(:rsvp => true).count%></span></h4></center>
 <%= pie_chart EventApplication.where(:application_status => 'accepted').group(:rsvp).count %>
 
 <hr>
-<center><h4>T-Shirt Size Breakdown</h4></center>
-<center><%= bar_chart EventApplication.group(:t_shirt).count %>
+<center><h4>T-Shirt Size Breakdown (People that RSVP'd)</h4></center>
+<center><%= bar_chart EventApplication.where(:application_status => 'accepted').group(:t_shirt).count %>
 
 <hr>
-<center><h4>Applicants Gender Breakdown</h4></center>
-<%= pie_chart EventApplication.group(:sex).count %>
+<center><h4>Gender Breakdown (People that RSVP'd)</h4></center>
+<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:sex).count %>
 
 <hr>
-<center><h4>Applicants Travel Requirements</h4></center>
-<%= pie_chart EventApplication.group(:transportation).count %>
+<center><h4>Travel Requirements (People that RSVP'd)</h4></center>
+<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:transportation).count %>
 
 
 <hr>
-  <center><h4>Applicants Graduation Year Breakdown</h4></center>
-<%= pie_chart EventApplication.group(:grad_year).count %>
+  <center><h4>Graduation Year Breakdown (People that RSVP'd) </h4></center>
+<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:grad_year).count %>
 
 <hr>
-  <center><h4>Applicants Previous Hackathon Acceptance</h4></center>
-<%= pie_chart EventApplication.group(:previous_hackathon_attendance).count %>
+  <center><h4>Applicants Previous Hackathon Acceptance (People that RSVP'd)</h4></center>
+<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:previous_hackathon_attendance).count %>

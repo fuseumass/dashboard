@@ -3,17 +3,12 @@ namespace :reminder do
   application and the deadline is coming up"
 
   task :send_email => :environment do
-    @all_user = User.all
-    count = 0
-    if @all_user.any?
-      @all_user.each do |user|
-        if user.event_application == nil
-          UserMailer.reminder_email(user).deliver_now;
-          puts 'Email sent to ' + user.email
-          count += 1
-        end
-      end
+    @apps = EventApplication.where(:applications_status => 'accepted' )
+    @apps.each do |app|
+      UserMailer.reminder_email(app.user).deliver_now
+      count =+ 1
     end
+
     puts '------------------------------------------------------------'
     puts "Total emails sent: #{count}"
   end

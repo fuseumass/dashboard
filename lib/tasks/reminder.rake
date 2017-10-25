@@ -3,7 +3,7 @@ namespace :reminder do
   application and the deadline is coming up"
 
   task :send_email => :environment do
-    @apps = EventApplication.where(:applications_status => 'accepted' )
+    @apps = EventApplication.where(:application_status => 'accepted' )
     @apps.each do |app|
       UserMailer.reminder_email(app.user).deliver_now
       count =+ 1

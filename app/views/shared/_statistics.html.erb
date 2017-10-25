@@ -12,21 +12,21 @@
 
 <hr>
 <center><h4>T-Shirt Size Breakdown (People that RSVP'd)</h4></center>
-<center><%= bar_chart EventApplication.where(:application_status => 'accepted').group(:t_shirt).count %>
+<center><%= bar_chart EventApplication.where(:rsvp => true).group(:t_shirt).count %>
 
 <hr>
 <center><h4>Gender Breakdown (People that RSVP'd)</h4></center>
-<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:sex).count %>
+<%= pie_chart EventApplication.where(:rsvp => true).group(:sex).count %>
 
 <hr>
 <center><h4>Travel Requirements (People that RSVP'd)</h4></center>
-<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:transportation).count %>
+<%= pie_chart EventApplication.where(:rsvp => true).group(:transportation).count %>
 
 
 <hr>
   <center><h4>Graduation Year Breakdown (People that RSVP'd) </h4></center>
-<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:grad_year).count %>
+<%= pie_chart EventApplication.where(:rsvp => true).group(:grad_year).count %>
 
 <hr>
   <center><h4>Applicants Previous Hackathon Acceptance (People that RSVP'd)</h4></center>
-<%= pie_chart EventApplication.where(:application_status => 'accepted').group(:previous_hackathon_attendance).count %>
+<%= pie_chart EventApplication.where(:rsvp => true).group(:previous_hackathon_attendance).count %>

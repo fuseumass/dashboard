@@ -7,7 +7,7 @@ namespace :reminder do
     @apps = EventApplication.where(:application_status => 'accepted' ).where(:rsvp => false)
     @apps.each do |app|
       UserMailer.reminder_email(app.user).deliver_now
-      count =+ 1
+      count += 1
     end
 
     puts '------------------------------------------------------------'

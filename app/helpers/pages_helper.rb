@@ -8,6 +8,10 @@ module PagesHelper
 		controller?("pages") and action?("check_in")
 	end
 
+	def is_mailing_active?
+		controller?("emails")
+	end
+
 	def is_hardware_active?
 		controller?("hardware_items")
 	end
@@ -26,6 +30,10 @@ module PagesHelper
 
 	def has_access_to_all_applications?
 		current_user.is_organizer? or current_user.is_admin?
+	end
+
+	def has_access_to_mailing?
+		current_user.is_admin?
 	end
 
 	def current_user_application

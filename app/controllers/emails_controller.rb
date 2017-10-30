@@ -1,7 +1,6 @@
 class EmailsController < ApplicationController
   before_action :set_email, only: [:show, :edit, :update, :destroy]
-
-
+  before_action :check_permissions
   def index
     @emails = Email.all
   end
@@ -85,4 +84,13 @@ class EmailsController < ApplicationController
     def email_params
       params.require(:email).permit(:subject, :message, :mailing_list, :status, :sent_by)
     end
+
+    # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
+    def check_permissions
+      unless current_user.is_admin?
+        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+      end
+    end
+
+
 end

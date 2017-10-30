@@ -35,8 +35,12 @@
       <% end %>
       <hr>
 
+      <% if @email.status == 'Sent' %>
+          <%= link_to 'Send Email', email_send_path(@email), class: 'btn btn-danger btn-lg btn-block', data: {confirm: "THIS EMAIL HAS ALREADY BEEN SENT!! Are you sure you want to send this email AGAIN? Additionally, sending many emails can take quite a bit of time so please DO NOT close the browser until you've received a success message."} %>
+      <% else %>
+          <%= link_to 'Send Email', email_send_path(@email), class: 'btn btn-danger btn-lg btn-block', data: {confirm: "Are you sure you want to send this email? Additionally, sending many emails can take quite a bit of time so please DO NOT close the browser until you've received a success message."} %>
+      <% end %>
 
-      <%= link_to 'Send Email', email_send_path(@email), class: 'btn btn-danger btn-lg btn-block', data: {confirm: "Are you really really really sure you want to send this email?"} %>
 
 
     </div>

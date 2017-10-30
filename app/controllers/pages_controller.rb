@@ -24,6 +24,12 @@ class PagesController < ApplicationController
   def check_in
     user_email = params[:email]
     unless user_email.nil? #Only validate for an email when the email is in the params
+
+      if user_email.empty?
+        flash[:alert] = 'Error! Cannot check in user without an email'
+        return
+      end
+
       user_email = user_email.downcase.delete(' ')
 
       if is_invalid_email?(user_email)
@@ -32,7 +38,7 @@ class PagesController < ApplicationController
 
       user = User.where(:email => user_email).first
       if user.nil?
-        redirect_to check_in_path, alert: " Error! Couldn't find user with email: '#{user_email}'. Make sure to www.google.com"
+        redirect_to check_in_path, alert: " Error! Couldn't find user with email: '#{user_email}'."
       end
 
       if not user.is_accepted?
@@ -42,7 +48,6 @@ class PagesController < ApplicationController
       if not user.did_rsvp?
         redirect_to check_in_path, alert: 'Error! This user did not RSVP for the event. #SucksToSuck'
       end
-
     end
 
   end

@@ -47,13 +47,18 @@ class EmailsController < ApplicationController
 
   def send_email
     @email = Email.find(params[:email_id])
+
+    if @email.nil?
+      redirect_to emails_path, error: 'Error! No email found'
+    end
+
     apps_list = set_mailing_list(@email.mailing_list)
 
     apps_list.each do |app|
       UserMailer.reminder_email(app.user, @email.message, @email.subject).deliver_now
     end
 
-    @email.status = 'sent'
+    @email.status = 'Sent'
     @email.save!
     redirect_to @email, notice: 'Shit! it worked'
 

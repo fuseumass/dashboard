@@ -24,6 +24,13 @@
             </li>
         <% end %>
 
+        <% if has_access_to_mailing? %>
+            <li class="<%= 'active' if is_mailing_active? %>">
+              <%= link_to 'Mailing', emails_path %>
+            </li>
+        <% end %>
+
+
         <% if has_access_to_hardware? %>
           <li class="<%= 'active' if is_hardware_active? %>">
             <%= link_to 'Hardware', hardware_items_path %>

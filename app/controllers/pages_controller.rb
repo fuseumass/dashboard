@@ -48,6 +48,11 @@ class PagesController < ApplicationController
       if not user.did_rsvp?
         redirect_to check_in_path, alert: 'Error! This user did not RSVP for the event. #SucksToSuck'
       end
+
+      app = user.event_application
+      app.check_in = true
+      app.save(:validate => false)
+      redirect_to check_in_path, success: 'User has been check in successfully'
     end
 
   end

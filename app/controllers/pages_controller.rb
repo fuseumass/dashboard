@@ -51,8 +51,10 @@ class PagesController < ApplicationController
 
       app = user.event_application
       app.check_in = true
-      app.save(:validate => false)
-      redirect_to check_in_path, success: 'User has been check in successfully'
+      if app.save(:validate => false)
+        redirect_to check_in_path, success: 'User has been check in successfully'
+      end
+
     end
 
   end

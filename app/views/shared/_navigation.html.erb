@@ -14,23 +14,29 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
 
-        <li class="<%= 'active' if is_home_active %>">
+        <li class="<%= 'active' if is_home_active? %>">
           <%= link_to 'Home', root_path %>    
         </li>
 
-        <% if has_access_to_hardware %>
-          <li class="<%= 'active' if is_hardware_active %>">
+        <% if has_access_to_check_in? %>
+            <li class="<%= 'active' if is_check_in_active? %>">
+              <%= link_to 'Check In', check_in_path %>
+            </li>
+        <% end %>
+
+        <% if has_access_to_hardware? %>
+          <li class="<%= 'active' if is_hardware_active? %>">
             <%= link_to 'Hardware', hardware_items_path %>
           </li>
         <% end %>
 
-        <% if has_access_to_all_applications %>
-          <li class="<%= 'active' if is_applications_active %>">
+        <% if has_access_to_all_applications? %>
+          <li class="<%= 'active' if is_applications_active? %>">
             <%= link_to 'Applications', event_applications_path %>  
           </li>
         <% else %>
           <% begin %>
-            <li class="<%= 'active' if is_applications_active %>">
+            <li class="<%= 'active' if is_applications_active? %>">
               <%= link_to 'Application', current_user_application %>  
             </li>
           <% rescue %>
@@ -40,8 +46,8 @@
 
         <!-- TODO: Add mentorship link here -->
 
-        <% if has_access_to_admin %>
-          <li class="<%= 'active' if is_admin_active %>">
+        <% if has_access_to_admin? %>
+          <li class="<%= 'active' if is_admin_active? %>">
             <%= link_to 'Admin', admin_path %>
           </li>
         <% end %>

@@ -76,6 +76,8 @@ Rails.application.routes.draw do
     get 'index' => 'pages#index'
     get 'admin' => 'pages#admin'
 
+    get 'check_in' => 'pages#check_in'
+
   # Pages Routes End
 
 
@@ -94,5 +96,11 @@ Rails.application.routes.draw do
     end
 
   # Hardware Routes End
+
+  # Email Routes Begin
+    resources :emails do
+      get 'send' => 'emails#send_email'
+    end
+  # Email Routes End
 
 end

@@ -57,6 +57,12 @@ class User < ApplicationRecord
     end
   end
 
+  def did_check_in?
+    if has_applied?
+      self.event_application.check_in
+    end
+  end
+
   def welcome_email
     UserMailer.welcome_email(self).deliver_now
   end

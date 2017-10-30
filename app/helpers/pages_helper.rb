@@ -41,9 +41,7 @@ module PagesHelper
 	end
 
 	def has_access_to_hardware?
-		# TODO: Uncoment this later
-		# current_user.is_accepted?
-		current_user.is_admin?
+		current_user.is_admin? or current_user.is_organizer? or current_user.did_check_in?
 	end
 
 	def has_access_to_mentorship

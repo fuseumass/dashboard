@@ -16,18 +16,23 @@
 
   <thead>
     <tr>
-      <th>UPC</th>
+      <% if current_user.is_organizer? or current_user.is_admin? %>
+          <th>UPC</th>
+      <% end %>
       <th>Name</th>
       <th>Category</th>
       <th>Count</th>
       <th>Available</th>
+      <th>Link</th>
     </tr>
   </thead>
 
   <tbody>
   <% @hardware_items.each do |item| %><a href=""></a>
     <tr>
-      <td><%= link_to item.upc, item %></td>
+      <% if current_user.is_organizer? or current_user.is_admin? %>
+          <td><%= link_to item.upc, item %></td>
+      <% end %>
       <td><%= item.name %></td>
       <td><%= item.category %></td>
       <td><%= item.count %></td>
@@ -36,6 +41,13 @@
       <% else %>
           <td> <span class="label label-danger"><%= item.is_available? %></span></td>
       <% end %>
+
+      <% if item.link.nil? or item.link.empty? %>
+          <td>--</td>
+      <% else %>
+          <td><a href="<%= item.link %>">Link</a></td>
+      <% end %>
+
     </tr>
   <% end %>
   </tbody>

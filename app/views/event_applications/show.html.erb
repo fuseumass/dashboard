@@ -177,7 +177,7 @@
           <span class='error'>
           <label><b>Terms & Condition: </b></label>
           <%= @applicant.waiver_liability_agreement ? 'AGREED' : 'DISAGREED' %>
-          <span>
+          </span>
         </p>
       <% end %>
 
@@ -195,6 +195,8 @@
           {controller:'event_applications', action: 'status_updated',
           params: {new_status:'waitlisted', id: @applicant.user_id}},
           {class: 'btn btn-warning btn-sm button'} %>
+
+      <%= link_to 'RSVP', rsvp_event_applications_path, class: 'btn btn-info btn-sm button', data: {turbolinks: false} %>
 
       <% if @event_application.flag %>
         <%= button_to 'Unflag',

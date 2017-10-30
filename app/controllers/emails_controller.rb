@@ -59,7 +59,7 @@ class EmailsController < ApplicationController
 
     @email.status = 'Sent'
     @email.save!
-    redirect_to @email, notice: 'Success! The email has been delivered!'
+    redirect_to @email, notice: "Success! The email has been delivered to #{apps_list.count} people!"
 
   end
 

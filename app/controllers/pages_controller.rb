@@ -21,6 +21,34 @@ class PagesController < ApplicationController
     @all_mentors = User.where(user_type: 'mentor')
   end
 
+  def check_in
+    user_email = params[:email]
+    unless user_email.nil? #Only validate for an email when the email is in the params
+      user_email = user_email.downcase.delete(' ')
+
+      if is_invalid_email?(user_email)
+        flash[:alert] = " Error! '#{user_email}' is not valid format for an email."
+      end
+
+      user = User.where(:email => user_email).first
+      if user.nil?
+        redirect_to check_in_path, alert: " Error! Couldn't find user with email: '#{user_email}'. Make sure to www.google.com"
+      end
+
+      if not user.is_accepted?
+        redirect_to check_in_path, alert: 'Error! This user has not been accepted to HackUMass V.'
+      end
+
+      if not user.did_rsvp?
+        redirect_to check_in_path, alert: 'Error! This user did not RSVP for the event. #SucksToSuck'
+      end
+
+    end
+
+  end
+
+
+
   def add_permissions
     # Check if the user doing this is admin
       if params[:add_admin].present?
@@ -62,6 +90,10 @@ class PagesController < ApplicationController
     @user.user_type = 'attendee'
     @user.save
     redirect_to admin_path, notice: 'Permission has been removed'
+  end
+
+  def is_invalid_email?(email)
+    !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
   end
 
   private

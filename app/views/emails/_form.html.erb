@@ -1,0 +1,40 @@
+<%= form_for(email) do |f| %>
+
+    <% if email.errors.any? %>
+
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(email.errors.count, "error") %> prohibited this email from being saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% email.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <%= email.errors.keys %>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :subject, class:'control-label' %>
+      <%= f.text_field :subject, class: 'form-control', placeholder: 'Type email subject here' %>
+    </div>
+
+
+    <div class="form-group" style="background: whitesmoke">
+      <%= f.label :message, class:'control-label' %>
+      <%= f.text_area :message, class: 'form-control', placeholder: 'Type the email you want to send here. Exclude the opening statement (e.g. Hello @name... That will be automatically added.)'%>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :mailing_list, class:'control-label' %>
+      <%= f.select(:mailing_list, ['All Participants that RSVP', 'All Checked-In Participants', 'Send Test Email to Myself'], {include_blank: "Select a category"}, { :class => 'form-control' }) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+<% end %>
+

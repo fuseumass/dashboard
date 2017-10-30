@@ -39,7 +39,9 @@
 
   <div class="form-group">
     <%= f.label :category, class:'control-label' %>
-    <%= f.select(:category, ['Microprocessors', 'Microcontrollers', 'Sensors', 'Wearables', 'Quadcopters', 'Other'],
+    <%= f.select(:category, ['Microprocessors', 'Microcontrollers', 'Sensors', 'Wearables', 'Quadcopters', 'Other','
+                              General','Kits','Building Parts','Soldering Items','Cables','Wires','Motor Drivers','Switches',
+                              'Passive Devices', 'Motors','Wheels','Software Defined Radios','Antennas'],
                  {include_blank: "Select a category"}, { :class => 'form-control' }) %>
   </div>
 

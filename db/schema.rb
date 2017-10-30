@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014030325) do
+ActiveRecord::Schema.define(version: 20171030002802) do
+
+  create_table "emails", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "message"
+    t.string   "mailing_list"
+    t.string   "status"
+    t.string   "sent_by"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "event_applications", force: :cascade do |t|
     t.integer  "user_id"
@@ -46,6 +56,7 @@ ActiveRecord::Schema.define(version: 20171014030325) do
     t.string   "hardware_skills_list",             default: "{}"
     t.boolean  "flag",                             default: false
     t.boolean  "rsvp",                             default: false
+    t.boolean  "check_in",                         default: false
   end
 
   create_table "events", force: :cascade do |t|

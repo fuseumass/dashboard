@@ -29,13 +29,13 @@ Rails.application.routes.draw do
         post 'status_updated'
         post 'flag_application'
         post 'unflag_application'
+        post 'app_rsvp'
         get 'search'
 
         get :rsvp
         get :unrsvp
         get :autocomplete_university_name
         get :autocomplete_major_name
-        get :app_rsvp
       end
     end
 

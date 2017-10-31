@@ -60,7 +60,6 @@ class EmailsController < ApplicationController
     @email.status = 'Sent'
     @email.save!
     redirect_to @email, notice: "Success! The email has been delivered to #{apps_list.count} people!"
-
   end
 
   # Returns a list of applications whose users we should sent emails to

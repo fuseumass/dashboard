@@ -196,7 +196,7 @@
           params: {new_status:'waitlisted', id: @applicant.user_id}},
           {class: 'btn btn-warning btn-sm button'} %>
 
-      <%= link_to 'RSVP', rsvp_event_applications_path, class: 'btn btn-info btn-sm button', data: {turbolinks: false} %>
+      <%= link_to 'RSVP', app_rsvp_event_applications_path, class: 'btn btn-info btn-sm button', data: {turbolinks: false} %>
 
       <% if @event_application.flag %>
         <%= button_to 'Unflag',

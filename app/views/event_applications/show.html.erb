@@ -28,6 +28,9 @@
         <% if @applicant.flag && is_admin_or_organizer? %>
           <span class='label label-danger status-label'>Flag</span>
         <% end %>
+        <% if @applicant.rsvp && is_admin_or_organizer? %>
+            <span class='label label-info status-label'>RSVP</span>
+        <% end %>
       </p>
     </h3>
   </div>
@@ -196,7 +199,7 @@
           params: {new_status:'waitlisted', id: @applicant.user_id}},
           {class: 'btn btn-warning btn-sm button'} %>
 
-      <%= link_to 'RSVP', app_rsvp_event_applications_path, class: 'btn btn-info btn-sm button', data: {turbolinks: false} %>
+        <%= button_to 'RSVP', {controller:'event_applications', action: 'app_rsvp', params: {application: @event_application}}, {class: 'btn btn-info btn-sm button'} %>
 
       <% if @event_application.flag %>
         <%= button_to 'Unflag',

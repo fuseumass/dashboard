@@ -1,5 +1,5 @@
 class EventApplicationsController < ApplicationController
-  before_action :set_event_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_application, only: [:show, :edit, :update, :destroy, :app_rsvp]
   before_action :check_permissions, only: [:index, :destroy, :status_updated]
   autocomplete :university, :name, :full => true
   autocomplete :major, :name, :full => true
@@ -135,8 +135,14 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
+  def app_rsvp
+    @event_application.rsvp = true
+    @event_application.save(:validate => false)
+    flash[:success] = "Successfully RSVP'd for the Event"
+    redirect_to event_application_path(@event_application)
+  end
+
   def rsvp
-    @app = current_user.event_application
     @app.rsvp = true
     @app.save(:validate => false)
     flash[:success] = "You Successfully RSVP for the Event"

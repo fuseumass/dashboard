@@ -31,4 +31,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.reminder_email(@user)
   end
 
+  def template_email_preview
+    @user = User.last
+    @subject = 'Test Subject'
+    UserMailer.template_email(@user,@subject)
+  end
+
 end

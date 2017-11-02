@@ -9,6 +9,7 @@ namespace :template_email do
 
 
     app_mailing_list.each do |app|
+      UserMailer.template_email(app.user, 'HackUMass Day-of-registration',).deliver_now
       email_count += 1
     end
 

@@ -1,39 +1,44 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= image_tag @event.image.url %>
+<div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= image_tag @event.image.url, class: 'img-responsive' %>
+    </div>
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p>
-      <strong>Title:</strong>
-      <%= @event.title %>
-    </p>
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <p>
+        <strong>Title:</strong>
+        <%= @event.title %>
+      </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @event.description %>
-    </p>
+      <p>
+        <strong>Description:</strong>
+        <%= @event.description %>
+      </p>
 
-    <p>
-      <strong>Location:</strong>
-      <%= @event.location %>
-    </p>
+      <p>
+        <strong>Location:</strong>
+        <%= @event.location %>
+      </p>
 
-    <p>
-      <strong>Time:</strong>
-      <%= @event.time %>
-    </p>
+      <p>
+        <strong>Time:</strong>
+        <%= @event.time %>
+      </p>
 
-    <p>
-      <strong>Created by:</strong>
-      <%= @event.created_by %>
-    </p>
+      <p>
+        <strong>Created by:</strong>
+        <%= @event.created_by %>
+      </p>
+    </div>
   </div>
 </div>
 
-
+<div class="col-lg-12">
 <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
 <%= link_to 'Back', events_path, class: 'btn btn-default' %>
 <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
+</div>

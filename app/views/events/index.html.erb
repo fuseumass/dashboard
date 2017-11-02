@@ -8,7 +8,7 @@
 
         <div class="col-sm-6 col-md-4">
           <div class="thumbnail">
-            <%= image_tag event.image.url %>
+            <%= image_tag event.image.url, class: 'img-responsive' %>
             <div class="caption" style="margin-top: -5%">
               <h3><%= event.title %></h3>
               <p><b>Time:</b> <%= event.time.strftime("%b %e, %l:%M %p")%></p>

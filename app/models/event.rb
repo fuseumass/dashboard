@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   # TODO: Add a bunch of checks here
   after_validation :remove_image_repeat
+  validates_presence_of :time, :location, :title, :description
 
   # Because of how paperclips works, when validating for the size of the
   # image, it will create two identical error that are link to different

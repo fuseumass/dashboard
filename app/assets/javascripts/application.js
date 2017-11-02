@@ -20,4 +20,6 @@
 //= require autocomplete-rails
 //= require turbolinks
 //= require event_application
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .

@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   # Mentorship Request Routes Start
 
     # Create all routes but index
-    resources :mentorship_requests, except: [:index]
+    resources :mentorship_requests
 
   # Mentorship Request Routes End
 

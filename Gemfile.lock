@@ -56,6 +56,8 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap3-datetimepicker-rails (4.17.47)
+      momentjs-rails (>= 2.8.1)
     bootswatch-rails (3.3.5)
       railties (>= 3.1)
     builder (3.2.3)
@@ -123,6 +125,8 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    momentjs-rails (2.17.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     nio4r (2.0.0)
@@ -245,6 +249,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bootstrap-sass (~> 3.3.6)
+  bootstrap3-datetimepicker-rails (~> 4.17.47)
   bootswatch-rails
   byebug
   chartkick
@@ -255,6 +260,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   listen (~> 3.0.5)
+  momentjs-rails (>= 2.9.0)
   paperclip
   pdf-reader
   pg

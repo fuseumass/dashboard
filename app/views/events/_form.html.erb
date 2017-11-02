@@ -11,29 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  <div class="form-group">
+    <%= f.label :title, class:'control-label' %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+  <div class="form-group">
+    <%= f.label :description, class:'control-label' %>
+    <%= f.text_field :description, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
+  <div class="form-group">
+    <%= f.label :location, class:'control-label' %>
+    <%= f.text_field :location, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :time %>
-    <%= f.text_field :time %>
-  </div>
-
-  <div class="field">
-    <%= f.label :created_by %>
-    <%= f.text_field :created_by %>
+  <div class="form-group">
+    <%= f.label :time, class:'control-label' %> (Format mm/dd/yyyy HH:mm:ss)<br>
+    <%= f.datetime_field  :time, :value => Date.today %>
   </div>
 
   <div class="form-group">
@@ -41,7 +36,10 @@
     <%= f.file_field :image %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary'%>
   </div>
 <% end %>
+<script>
+  $('#datepicker').datepicker({format: 'yyyy-mm-dd'});
+</script>

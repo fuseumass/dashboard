@@ -24,10 +24,10 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.created_by = current_user
+    @event.created_by = current_user.full_name
 
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      redirect_to events_path, notice: 'Event was successfully created.'
     else
       render :new
     end
@@ -59,7 +59,7 @@ class EventsController < ApplicationController
 
     #  Only admins and organizers have the ability to create, update, edit, show, and destroy Events
     def check_permissions
-      unless current_user.is_admin? or current_user.is_organizer?
+      unless current_user.is_admin?
         redirect_to events_path, alert: 'You do not have the permissions to visit this section of Events'
       end
     end

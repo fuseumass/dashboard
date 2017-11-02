@@ -28,8 +28,16 @@ module PagesHelper
 		controller?("mentoship_requests")
 	end
 
+	def is_events_active?
+		controller?("events")
+	end
+
 	def has_access_to_all_applications?
 		current_user.is_organizer? or current_user.is_admin?
+	end
+
+	def has_access_to_events?
+		current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer?
 	end
 
 	def has_access_to_mailing?

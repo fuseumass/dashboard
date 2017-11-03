@@ -3,7 +3,7 @@ class MentorshipRequestsController < ApplicationController
   before_action :check_permissions, only: [:destroy, :edit]
 
   def index
-    @mentorship_requests = MentorshipRequest.all
+    @mentorship_requests = MentorshipRequest.all.order(created_at: :desc)
   end
 
 
@@ -42,6 +42,24 @@ class MentorshipRequestsController < ApplicationController
   def destroy
     @mentorship_request.destroy
     redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.'
+  end
+
+  def mark_as_resolved
+      request = MentorshipRequest.find(params[:mentorship_request])
+      request.status = 'resolved'
+      request.save!
+
+      flash[:success] = 'Request Successfully Resolved'
+      redirect_to mentorship_requests_path
+  end
+
+  def mark_as_denied
+    request = MentorshipRequest.find(params[:mentorship_request])
+    request.status = 'denied'
+    request.save!
+
+    flash[:success] = 'Request Successfully denied'
+    redirect_to mentorship_requests_path
   end
 
   private

@@ -4,13 +4,12 @@
 
   <thead>
   <tr>
-    <% if current_user.is_organizer? or current_user.is_admin? %>
-        <th>UPC</th>
-    <% end %>
     <th>Title</th>
     <th>Help Type</th>
     <th>Urgency</th>
     <th>Status</th>
+    <th>Submitted on</th>
+    <th>Submitted by</th>
   </tr>
   </thead>
 
@@ -18,11 +17,12 @@
   <% @mentorship_requests.each do |request| %><a href=""></a>
       <tr>
 
-        <td><%= link_to request.title, request %></td>
+        <td><%= link_to truncate(request.title), request %></td>
         <td><%= request.help_type %></td>
         <td><%= request.urgency %></td>
         <td><%= request.status %></td>
-
+        <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>
+        <td><%= request.user.full_name%></td>
       </tr>
   <% end %>
   </tbody>

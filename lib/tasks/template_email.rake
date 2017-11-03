@@ -5,7 +5,7 @@ namespace :template_email do
   task :send => :environment do
     email_count = 0
 
-    app_mailing_list = EventApplication.(:rsvp => true)
+    app_mailing_list = EventApplication.where(:rsvp => true)
 
     app_mailing_list.each do |app|
       UserMailer.template_email(app, 'Important HackUMass Check-In Information',).deliver_now

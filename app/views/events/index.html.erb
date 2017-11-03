@@ -3,7 +3,7 @@
 <% end %>
 
 
-<% @events.in_groups_of(3).each do |group| %>
+<% @events.in_groups_of(3, false).each do |group| %>
     <div class="row">
       <% group.each do |event| %>
             <div class="col-sm-6 col-md-4">

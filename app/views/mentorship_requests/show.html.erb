@@ -1,3 +1,5 @@
+<%= link_to 'Back', mentorship_requests_path, class: 'btn btn-deault' %>
+
 <h3><%= @mentorship_request.user.first_name %>'s Request</h3>
 
 <div class="row">
@@ -33,10 +35,14 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <strong>Status: <br></strong>
-        <% if @mentorship_request.status == 'pending' %>
-
+        <% if @mentorship_request.status == 'resolved' %>
+            <h4><span class="label label-success"><%= @mentorship_request.status.capitalize%></span></h4>
+        <% elsif@mentorship_request.status == 'denied' %>
+            <h4><span class="label label-danger"><%= @mentorship_request.status.capitalize%></span></h4>
+        <% else %>
+            <h4><span class="label label-default"><%= @mentorship_request.status.capitalize%></span></h4>
         <% end %>
-        <h4><span class="label label-default"><%= @mentorship_request.status.capitalize%></span></h4>
+
       </div>
     </div>
   </div>
@@ -63,6 +69,14 @@
         <%= link_to 'Delete', mentorship_request_path(@mentorship_request), method: :delete, class: 'btn btn-danger' %>
         <%= link_to 'Edit', edit_mentorship_request_path(@mentorship_request), class: 'btn btn-warning' %>
         <% end %>
+        <%= button_to 'Mark as Resolved',
+                      {controller:'mentorship_requests', action: 'mark_as_resolved',
+                       params: {mentorship_request: @mentorship_request}},
+                      {class: 'btn btn-success button'} %>
+        <%= button_to 'Mark as Denied',
+                      {controller:'mentorship_requests', action: 'mark_as_denied',
+                       params: {mentorship_request: @mentorship_request}},
+                      {class: 'btn btn-danger button'} %>
       </div>
     </div>
   </div>

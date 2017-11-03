@@ -1,6 +1,5 @@
 class MentorshipRequest < ApplicationRecord
-	validates_presence_of :user, :title, :status
+	validates_presence_of :user, :title, :status, :urgency, :help_type
 	validates :help_type, format: {with: /\S/, message: "Please choose one."}
-	validates_length_of :title, :maximum => 140
 	belongs_to :user
 end

@@ -46,7 +46,14 @@ Rails.application.routes.draw do
   # Mentorship Request Routes Start
 
     # Create all routes but index
-    resources :mentorship_requests
+    resources :mentorship_requests do
+      collection do
+        post 'mark_as_resolved'
+        post 'mark_as_denied'
+      end
+    end
+
+
 
   # Mentorship Request Routes End
 

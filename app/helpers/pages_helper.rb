@@ -25,7 +25,7 @@ module PagesHelper
 	end
 
 	def is_mentorship_active?
-		controller?("mentoship_requests")
+		controller?("mentorship_requests")
 	end
 
 	def is_events_active?
@@ -37,11 +37,11 @@ module PagesHelper
 	end
 
 	def has_access_to_events?
-		current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer?
+		current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
 	end
 
 	def has_access_to_mailing?
-		current_user.is_admin?
+		false
 	end
 
 	def current_user_application
@@ -49,7 +49,7 @@ module PagesHelper
 	end
 
 	def has_access_to_hardware?
-		current_user.is_admin? or current_user.is_organizer? or current_user.did_check_in?
+		current_user.is_admin? or current_user.is_organizer? or current_user.did_check_in? or current_user.is_mentor?
 	end
 
 	def has_access_to_mentorship

@@ -5,28 +5,14 @@
         <h3 class="panel-title">Upcoming Events</h3>
       </div>
       <div class="panel-body">
-
-        <!--TODO: Get rid of this placeholder bullshit-->
-        <!--<div class="list-group">-->
-          <!--<a href="#" class="list-group-item">-->
-            <!--<h5 class="list-group-item-heading">First Event</h5>-->
-            <!--<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
-          <!--</a>-->
-          <!--<a href="#" class="list-group-item">-->
-            <!--<h5 class="list-group-item-heading">Second Event</h5>-->
-            <!--<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
-          <!--</a>-->
-          <!--<a href="#" class="list-group-item">-->
-            <!--<h5 class="list-group-item-heading">Thrid Event</h5>-->
-            <!--<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
-          <!--</a>-->
-          <!--<a href="#" class="list-group-item">-->
-            <!--<h5 class="list-group-item-heading">Fourth Event</h5>-->
-            <!--<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
-          <!--</a>-->
-        <!--</div>-->
-        There are no upcoming events.
-
+        <div class="list-group">
+          <% @upcoming_events.each do |event| %>
+              <a href="<%= events_path %>" class="list-group-item">
+                <h5 class="list-group-item-heading"><%= event.title %></h5>
+                <p class="list-group-item-text"><%= event.location %></p>
+              </a>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +39,7 @@
   <div class="col-lg-4 col-md-4 col-sm-4">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Your Mentorship Requests</h3>
+        <h3 class="panel-title">Mentorship Requests</h3>
       </div>
       <div class="panel-body">
         <!--TODO: Actually check if they have created a mentorship request-->

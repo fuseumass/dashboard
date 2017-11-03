@@ -46,3 +46,12 @@
 <% end %>
 
 
+<% if current_user.is_mentor? %>
+    <div class="jumbotron">
+      <h1>Hello, <%= current_user.first_name %></h1>
+      <p>Thanks so much for volunteering to be a mentor for HackUMass V! Now head to the mentorship dashboard and get started helping out participants!</p>
+      <a href="<%= mentorship_requests_path %>" class="btn btn-lg btn-primary">Go Mentorship Dashboard</a>
+    </div>
+<% end %>
+
+

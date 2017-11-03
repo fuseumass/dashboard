@@ -18,6 +18,12 @@
           <%= link_to 'Home', root_path %>    
         </li>
 
+        <% if has_access_to_mentorship %>
+            <li class="<%= 'active' if is_mentorship_active? %>">
+              <%= link_to 'Mentorship', mentorship_requests_path %>
+            </li>
+        <% end %>
+
         <% if has_access_to_events? %>
             <li class="<%= 'active' if is_events_active? %>">
               <%= link_to 'Events', events_path %>
@@ -56,8 +62,6 @@
             <%# don't render anything if the program runs into an exception %>
           <% end %>
         <% end %>
-
-        <!-- TODO: Add mentorship link here -->
 
         <% if has_access_to_admin? %>
           <li class="<%= 'active' if is_admin_active? %>">

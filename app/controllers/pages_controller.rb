@@ -13,6 +13,7 @@ class PagesController < ApplicationController
     end
 
     @hardware_checkouts = current_user.hardware_checkouts
+    @upcoming_events = Event.all.order(time: :asc).limit(4)
   end
 
   def admin

@@ -2,29 +2,30 @@
     <center><h3>Looks like there aren't any events yet....</h3></center>
 <% end %>
 
-<div class="row">
 
-  <% @events.each do |event| %>
-
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <%= image_tag event.image.url, class: 'img-responsive' %>
-            <div class="caption" style="margin-top: -5%">
-              <h3><%= event.title %></h3>
-              <p><b>Time:</b> <%= event.time.strftime("%b %e, %l:%M %p")%></p>
-              <p><b>Location:</b> <%= event.location %></p>
-              <p><b>Description:</b> <br>
-                <%= event.description %></p>
-              <% if current_user.is_admin? %>
-                <%= link_to 'Show', event_path(event), class: 'btn btn-primary' %>
-              <% end %>
+<% @events.in_groups_of(3).each do |group| %>
+    <div class="row">
+      <% group.each do |event| %>
+            <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <%= image_tag event.image.url, class: 'img-responsive' %>
+                <div class="caption" style="margin-top: -5%">
+                  <h3><%= event.title %></h3>
+                  <p><b>Time:</b> <%= event.time.strftime("%b %e, %l:%M %p")%></p>
+                  <p><b>Location:</b> <%= event.location %></p>
+                  <p><b>Description:</b> <br>
+                    <%= event.description %></p>
+                  <% if current_user.is_admin? %>
+                    <%= link_to 'Show', event_path(event), class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+      <% end %>
+    </div>
+<% end %>
 
-  <% end %>
 
-</div>
 
 <br>
 

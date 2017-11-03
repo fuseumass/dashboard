@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20171030002802) do
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "time"
     t.string   "created_by"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(version: 20171030002802) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.datetime "time"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

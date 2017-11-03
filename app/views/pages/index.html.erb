@@ -5,8 +5,15 @@
           <h1>Hey, <%= current_user.first_name %> </h1>
           <% if current_user.event_application.application_status == 'accepted' %>
               <% if current_user.event_application.rsvp %>
-                  <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions. If for some reason you can't make it, please let us know by pressing the button below.</p>
-                  <%= link_to 'I Can not attend anymore', unrsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
+
+                  <% if current_user.did_check_in? %>
+                      <p> Welcome to Hack<span style="color: #E70F47">UMass</span>!! You're all set for the event. Hacking starts at midnight! Take a second to browse the website; checkout the events section if you wanna know what's going on during the event or maybe go to the hardware section and see what hardware items you can rent during the event. </p>
+                      <a href="https://hackumass-v.devpost.com" class="btn btn-primary">Go to DevPost</a>
+                  <% else %>
+                      <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions. If for some reason you can't make it, please let us know by pressing the button below.</p>
+                      <%= link_to 'I Can not attend anymore', unrsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
+                  <% end %>
+
               <% else %>
                   <p>It looks like you got accepted to the event but didn't RSVP. This means that you won't be able to attend. If you have any questions please email us at <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>
               <% end %>
@@ -31,44 +38,9 @@
         </div>
     <% end %>
 
-    <%elsif current_user.is_admin? or current_user.is_organizer? %>
-      <!--Organizer Stuff-->
-    <div class="jumbotron">
-      <h1>Hello, <%= current_user.first_name %></h1>
-      <p>You're an organizer and that's fucking awesome! Here's some things we think you might care about.</p>
-    </div>
+    <% elsif current_user.is_admin? or current_user.is_organizer? %>
 
-    <div class="row">
-
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">RSVP Count <span class="label label-primary"><%= EventApplication.where(:rsvp => true).count%></span></div>
-          <div class="panel-body">
-            <%= pie_chart EventApplication.where(:application_status => 'accepted').group(:rsvp).count %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">Check-In Count <span class="label label-primary"><%= EventApplication.where(:check_in => true).count%></div>
-          <div class="panel-body">
-            <%= pie_chart EventApplication.where(:application_status => 'accepted').group(:check_in).count %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">Secret</div>
-          <div class="panel-body">
-            <h3>There's nothing here yet...</h3>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+    <%= render 'shared/organizer_view' %>
 
 
 <% end %>

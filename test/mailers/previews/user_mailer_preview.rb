@@ -32,9 +32,9 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def template_email_preview
-    @user = User.last
+    @app = EventApplication.last
     @subject = 'Test Subject'
-    UserMailer.template_email(@user,@subject)
+    UserMailer.template_email(@app, @subject)
   end
 
 end

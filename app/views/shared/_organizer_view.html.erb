@@ -26,9 +26,32 @@
 
   <div class="col-lg-4">
     <div class="panel panel-default">
-      <div class="panel-heading">Secret</div>
+      <div class="panel-heading">Extra Info</div>
       <div class="panel-body">
-        <h3>There's nothing here yet...</h3>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <strong> Number of Hardware Checkouts: </strong> <span class="label label-success"><%= HardwareCheckout.all.count %></span>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <strong> Number of Mentorship Requests: </strong> <span class="label label-success"><%= MentorshipRequest.all.count %></span>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <strong> Number of Events Happening: </strong> <span class="label label-success"><%= Event.all.count %></span>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <strong> Number of fucks given: </strong> <span class="label label-success">0</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

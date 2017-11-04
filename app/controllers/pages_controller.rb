@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   def check_in
     @checked_in_user_count = EventApplication.where(:check_in => true).count
     rsvp_user_count = EventApplication.where(:rsvp => true).count
-    @done_percentage = @checked_in_user_count/rsvp_user_count *100
+    @done_percentage = (@checked_in_user_count/rsvp_user_count) * 100
 
     user_email = params[:email]
     unless user_email.nil? #Only validate for an email when the email is in the params

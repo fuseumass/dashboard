@@ -37,27 +37,18 @@ class PagesController < ApplicationController
 
       user_email = user_email.downcase.delete(' ')
 
-      if is_invalid_email?(user_email)
-        flash[:alert] = " Error! '#{user_email}' is not valid format for an email."
-      end
-
       user = User.where(:email => user_email).first
       if user.nil?
         redirect_to check_in_path, alert: " Error! Couldn't find user with email: '#{user_email}'."
+        return
       end
 
-      if not user.is_accepted?
-        redirect_to check_in_path, alert: 'Error! This user has not been accepted to HackUMass V.'
-      end
-
-      if not user.did_rsvp?
-        redirect_to check_in_path, alert: 'Error! This user did not RSVP for the event. #SucksToSuck'
-      end
 
       app = user.event_application
       app.check_in = true
       if app.save(:validate => false)
         redirect_to check_in_path, notice: 'User has been check in successfully'
+        return
       end
 
     end

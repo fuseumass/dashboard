@@ -4,9 +4,20 @@ namespace :reminder do
 
 
   task :send_email => :environment do
-    @brian = User.find(1)
+    @apps = EventApplication.where(rsvp: true).where(check_in: false)
+    counter = 0
+    @apps.each do |app|
+      if counter >= 100
+        break
+      end
 
-    UserMailer.reminder_email(@brian, test, 'Test subject').deliver_now
+      app.check_in = true
+      app.save(:validate => false)
+      counter += 1
+
+    end
+
+    puts "Total Emails sent: #{counter}"
   end
 
 end

@@ -13,129 +13,122 @@
 ActiveRecord::Schema.define(version: 20171030002802) do
 
   create_table "emails", force: :cascade do |t|
-    t.string   "subject"
-    t.string   "message"
-    t.string   "mailing_list"
-    t.string   "status"
-    t.string   "sent_by"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string "subject"
+    t.string "message"
+    t.string "mailing_list"
+    t.string "status"
+    t.string "sent_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "event_applications", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "application_status",               default: "undecided"
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.string   "age"
-    t.string   "sex"
-    t.string   "university"
-    t.string   "major"
-    t.string   "grad_year"
-    t.boolean  "food_restrictions"
-    t.text     "food_restrictions_info"
-    t.string   "t_shirt"
-    t.string   "linkedin"
-    t.string   "github"
-    t.boolean  "previous_hackathon_attendance"
-    t.boolean  "transportation"
-    t.string   "transportation_location"
-    t.string   "programming_skills_list",          default: "{}"
-    t.string   "interested_hardware_hacks_list",   default: "{}"
-    t.text     "how_did_you_hear_about_hackumass"
-    t.text     "future_hardware_for_hackumass"
-    t.boolean  "waiver_liability_agreement"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
-    t.string   "resume_file_name"
-    t.string   "resume_content_type"
-    t.integer  "resume_file_size"
-    t.datetime "resume_updated_at"
-    t.boolean  "interested_in_hardware_hacks"
-    t.string   "hardware_skills_list",             default: "{}"
-    t.boolean  "flag",                             default: false
-    t.boolean  "rsvp",                             default: false
-    t.boolean  "check_in",                         default: false
+    t.integer "user_id"
+    t.string "application_status", default: "undecided"
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "age"
+    t.string "sex"
+    t.string "university"
+    t.string "major"
+    t.string "grad_year"
+    t.boolean "food_restrictions"
+    t.text "food_restrictions_info"
+    t.string "t_shirt"
+    t.binary "resume_file"
+    t.string "resume_file_name"
+    t.string "linkedin"
+    t.string "github"
+    t.boolean "previous_hackathon_attendance"
+    t.boolean "transportation"
+    t.string "transportation_location"
+    t.string "programming_skills_list", default: "{}"
+    t.string "interested_hardware_hacks_list", default: "{}"
+    t.text "how_did_you_hear_about_hackumass"
+    t.text "future_hardware_for_hackumass"
+    t.boolean "waiver_liability_agreement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "accepted_applicants", default: 0
+    t.integer "rejected_applicants", default: 0
+    t.integer "waitlisted_applicants", default: 0
+    t.boolean "interested_in_hardware_hacks"
+    t.string "hardware_skills_list", default: "{}"
+    t.boolean "flag", default: false
+    t.boolean "rsvp", default: false
+    t.boolean "check_in", default: false
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.string   "location"
-    t.string   "created_by"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.string "title"
+    t.string "description"
+    t.string "location"
+    t.string "created_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "time"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "user_id"
-    t.integer  "hardware_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "hardware_item_id"
     t.index ["hardware_item_id"], name: "index_hardware_checkouts_on_hardware_item_id"
     t.index ["user_id"], name: "index_hardware_checkouts_on_user_id"
   end
 
   create_table "hardware_items", force: :cascade do |t|
-    t.integer  "upc"
-    t.string   "name"
-    t.string   "link"
-    t.string   "category"
-    t.integer  "count"
-    t.boolean  "available"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.integer "upc"
+    t.string "name"
+    t.string "link"
+    t.string "category"
+    t.integer "count"
+    t.boolean "available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "majors", force: :cascade do |t|
-    t.string   "name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "mentorship_requests", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "mentor_id"
-    t.string   "title"
-    t.string   "status"
+    t.integer "user_id"
+    t.integer "mentor_id"
+    t.string "title"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "help_type"
-    t.integer  "urgency"
+    t.string "help_type"
+    t.integer "urgency"
   end
 
   create_table "universities", force: :cascade do |t|
-    t.string   "name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",                                  null: false
-    t.string   "last_name",                                   null: false
-    t.string   "email",                  default: "",         null: false
-    t.string   "encrypted_password",     default: "",         null: false
-    t.string   "reset_password_token"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,          null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.string   "user_type",              default: "attendee"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_type", default: "attendee"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
 # Jquery datetime picker
-gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
+gem 'momentjs-rails', '>= 2.9.0'
 # Graphs and all that jazz for statistics
 gem 'chartkick'
 gem 'groupdate'
 # Easy debugging
-gem 'pry-rails', :group => :development
+gem 'pry-rails', group: :development
 # For easy search on hardware
 gem 'searchkick'
 # The theme we use on top of rails
@@ -22,7 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 # The devise gem helps us authenticate users securely
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.4'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -40,7 +40,8 @@ gem 'jquery-rails'
 # Required for autocomplete
 gem 'jquery-ui-rails'
 
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# Turbolinks makes navigating your web application faster.
+# Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -53,15 +54,18 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger 
+  # console
   gem 'byebug', platform: :mri
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  # Access an IRB console on exception pages or by using <%= console %> anywhere
+  # in the code.
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Spring speeds up development by keeping your application running in the
+  # background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -76,26 +80,24 @@ group :production do
   gem 'rails_12factor'
 end
 
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-# AMAZON WEB SERVICES GEMS:
-  # Add Amazon Web Services (AWS) SDK to website
-  gem 'aws-sdk'
-  # Helper gem for uploading file to AWS S3
-  gem 'paperclip'
+# Amazon Web Services gem use for emailing and cloud storage
+gem 'aws-sdk-s3' # cloud storage
+gem 'aws-sdk-ses' # emailing
 
-# FOR AUTHENTICATION AND PDF PARSING:
-  # Reading pdfs to find user's first/last name 
-  gem 'pdf-reader' 
-  
-# FOR AUTOCOMPLETE FIELDS FOR ADMIN SEARCHING 
-  gem 'rails-jquery-autocomplete'
+# Use for uploading file to cloud storage
+gem 'carrierwave'
 
-# PAGINATION: 
-  # Adds pagination to the website
-  gem 'will_paginate'
+# Use to help parse pdf file (specifically the resume files)
+gem 'pdf-reader'
 
-# SENTRY FOR ERROR REPORTING 
-  gem "sentry-raven"
+# Adds autocompletion feature to website
+gem 'rails-jquery-autocomplete'
+
+# Adds pagination feature to website
+gem 'will_paginate'
+
+# Gem use to track and report errors on website
+gem 'sentry-raven'

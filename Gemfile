@@ -8,6 +8,8 @@ end
 # Jquery datetime picker
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'momentjs-rails', '>= 2.9.0'
+# File Uploads
+gem "paperclip", "~> 5.2.1"
 # Graphs and all that jazz for statistics
 gem 'chartkick'
 gem 'groupdate'
@@ -54,7 +56,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger 
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger
   # console
   gem 'byebug', platform: :mri
 end

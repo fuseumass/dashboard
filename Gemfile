@@ -22,7 +22,7 @@ gem 'bootswatch-rails'
 # The most beautiful framework
 gem 'bootstrap-sass', '~> 3.3.6'
 # The devise gem helps us authenticate users securely
-gem 'devise'
+gem 'devise', '~> 4.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use Puma as the app server

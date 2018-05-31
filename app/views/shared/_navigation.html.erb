@@ -8,14 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<%= root_path %>"><span style="color:#E70F47">Hack</span>UMass</a>
+      <a class="navbar-brand" href="<%= root_path %>"><span style="color:#764ba2">Hack</span>UMass</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
 
         <li class="<%= 'active' if is_home_active? %>">
-          <%= link_to 'Home', root_path %>    
+          <%= link_to 'Home', root_path %>
         </li>
 
         <% if has_access_to_mentorship %>
@@ -51,12 +51,12 @@
 
         <% if has_access_to_all_applications? %>
           <li class="<%= 'active' if is_applications_active? %>">
-            <%= link_to 'Applications', event_applications_path %>  
+            <%= link_to 'Applications', event_applications_path %>
           </li>
         <% else %>
           <% begin %>
             <li class="<%= 'active' if is_applications_active? %>">
-              <%= link_to 'Application', current_user_application %>  
+              <%= link_to 'Application', current_user_application %>
             </li>
           <% rescue %>
             <%# don't render anything if the program runs into an exception %>

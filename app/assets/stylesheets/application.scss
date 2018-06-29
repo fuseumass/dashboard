@@ -1,10 +1,7 @@
-//=require event_application
-$brand-primary: #764ba2;
-
-@import 'bootstrap-sprockets';
-@import 'bootswatch/paper/variables';
-@import 'bootstrap';
-@import 'bootswatch/paper/bootswatch';
+@import "tabler/variables";
+@import "bootstrap";
+@import "tabler";
+@import "tabler.plugins";
 @import 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 @import 'bootstrap-datetimepicker';
 @import 'event_application';

@@ -52,7 +52,7 @@ module PagesHelper
 		current_user.is_admin? or current_user.is_organizer? or current_user.is_attendee? or current_user.is_mentor?
 	end
 
-	def has_access_to_mentorship
+	def has_access_to_mentorship?
 		current_user.is_admin? or current_user.is_mentor?
 	end
 
@@ -63,7 +63,7 @@ module PagesHelper
 	def has_access_to_check_in?
 		current_user.is_organizer? or current_user.is_admin?
 	end
-	
+
 
 	# Helper methonds to this helper class. lol so meta
 	def controller?(target_controller)

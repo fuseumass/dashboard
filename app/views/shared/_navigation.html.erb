@@ -1,86 +1,143 @@
-<!-- Navigation Begins -->
-<nav class="navbar navbar-default">
+<div class="header py-4">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="<%= root_path %>"><span style="color:#764ba2">Hack</span>UMass</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav">
-
-        <li class="<%= 'active' if is_home_active? %>">
-          <%= link_to 'Home', root_path %>
-        </li>
-
-        <% if has_access_to_mentorship %>
-            <li class="<%= 'active' if is_mentorship_active? %>">
-              <%= link_to 'Mentorship', mentorship_requests_path %>
-            </li>
-        <% end %>
-
-        <% if has_access_to_events? %>
-            <li class="<%= 'active' if is_events_active? %>">
-              <%= link_to 'Events', events_path %>
-            </li>
-        <% end %>
-
-        <% if has_access_to_check_in? %>
-            <li class="<%= 'active' if is_check_in_active? %>">
-              <%= link_to 'Check In', check_in_path %>
-            </li>
-        <% end %>
-
-        <% if has_access_to_mailing? %>
-            <li class="<%= 'active' if is_mailing_active? %>">
-              <%= link_to 'Mailing', emails_path %>
-            </li>
-        <% end %>
-
-
-        <% if has_access_to_hardware? %>
-          <li class="<%= 'active' if is_hardware_active? %>">
-            <%= link_to 'Hardware', hardware_items_path %>
-          </li>
-        <% end %>
-
-        <% if has_access_to_all_applications? %>
-          <li class="<%= 'active' if is_applications_active? %>">
-            <%= link_to 'Applications', event_applications_path %>
-          </li>
-        <% else %>
-          <% begin %>
-            <li class="<%= 'active' if is_applications_active? %>">
-              <%= link_to 'Application', current_user_application %>
-            </li>
-          <% rescue %>
-            <%# don't render anything if the program runs into an exception %>
-          <% end %>
-        <% end %>
-
-        <% if has_access_to_admin? %>
-          <li class="<%= 'active' if is_admin_active? %>">
-            <%= link_to 'Admin', admin_path %>
-          </li>
-        <% end %>
-
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right" >
-        <% if user_signed_in? %>
-            <% unless current_user.is_attendee? %>
-                <li><a href=""><span class="label label-success"><%= current_user.user_type %></span></a></li>
+    <div class="d-flex">
+      <a class="header-brand" href="../index.html">
+        <img src="https://i.imgur.com/7TAUyJH.png" class="header-brand-img" alt="tabler logo">
+      </a>
+      <div class="d-flex order-lg-2 ml-auto">
+        <div class="dropdown d-none d-md-flex">
+          <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fe fe-bell"></i>
+            <span class="nav-unread"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <a href="#" class="dropdown-item d-flex">
+              <div>
+                <strong>Notification 1</strong> Test
+                <div class="small text-muted">10 minutes ago</div>
+              </div>
+            </a>
+            <a href="#" class="dropdown-item d-flex">
+              <div>
+                <strong>Notification 2</strong> Test
+                <div class="small text-muted">10 minutes ago</div>
+              </div>
+            </a>
+            <a href="#" class="dropdown-item d-flex">
+              <div>
+                <strong>Notification 3</strong> Test
+                <div class="small text-muted">10 minutes ago</div>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item text-center text-muted-dark">Go to notification</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url('https://d1mpvgh3wz53k.cloudfront.net/Content/img/empty-user-photo.png')"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default"><%= current_user.full_name%></span>
+              <small class="text-muted d-block mt-1"><%= current_user.user_type %></small>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <%= link_to destroy_user_session_path, method: :delete,  class: "dropdown-item" do %>
+              <i class="dropdown-icon fe fe-log-out"></i> Sign out
             <% end %>
-            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
-        <% end %>
-      </ul>
-
+          </div>
+        </div>
+      </div>
+      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+        <span class="header-toggler-icon"></span>
+      </a>
     </div>
   </div>
-</nav>
-<!-- Navigation Ends -->
+</div>
+<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg order-lg-first">
+        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+
+          <li class="nav-item">
+            <%= link_to root_path, class: "nav-link #{'active' if is_home_active?}" do %>
+              <i class="fe fe-home"></i> Home</a>
+            <% end %>
+          </li>
+
+          <% if has_access_to_mentorship? %>
+            <li class="nav-item">
+              <%= link_to mentorship_requests_path, class: "nav-link #{'active' if is_mentorship_active?}" do %>
+                <i class="fe fe-users"></i> Mentorship</a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if has_access_to_events? %>
+            <li class="nav-item">
+              <%= link_to events_path, class: "nav-link #{'active' if is_events_active?}" do %>
+                <i class="fe fe-share-2"></i> Events</a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if has_access_to_check_in? %>
+            <li class="nav-item">
+              <%= link_to check_in_path, class: "nav-link #{'active' if is_check_in_active?}" do %>
+                <i class="fe fe-check"></i> Check In</a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if has_access_to_mailing? %>
+              <li class="nav-item">
+                <%= link_to emails_path, class: "nav-link #{'active' if is_mailing_active?}" do %>
+                  <i class="fe fe-check"></i> Mailing</a>
+                <% end %>
+              </li>
+          <% end %>
+
+          <% if has_access_to_hardware? %>
+            <li class="nav-item">
+              <%= link_to hardware_items_path, class: "nav-link #{'active' if is_hardware_active?}" do %>
+                <i class="fe fe-cpu"></i> Hardware</a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if has_access_to_admin? %>
+            <li class="nav-item">
+              <%= link_to admin_path, class: "nav-link #{'active' if is_admin_active?}" do %>
+                <i class="fe fe-command"></i> Admin</a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <!-- <% if has_access_to_all_applications? %>
+            <li class="<%= 'active' if is_applications_active? %>">
+              <%= link_to 'Applications', event_applications_path %>
+            </li>
+          <% else %>
+            <% begin %>
+              <li class="<%= 'active' if is_applications_active? %>">
+                <%= link_to 'Application', current_user_application %>
+              </li>
+            <% rescue %>
+              <%# don't render anything if the program runs into an exception %>
+            <% end %>
+          <% end %> -->
+
+          <!-- <li class="nav-item"> -->
+            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Interface</a>
+            <div class="dropdown-menu dropdown-menu-arrow">
+              <a href="../cards.html" class="dropdown-item ">Cards design</a>
+              <a href="../charts.html" class="dropdown-item ">Charts</a>
+              <a href="../pricing-cards.html" class="dropdown-item ">Pricing cards</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

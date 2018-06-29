@@ -1,62 +1,30 @@
-<% if current_user.is_attendee? %>
-    <!-- Attendee Stuff-->
-    <div class="jumbotron">
-      <% if current_user.has_applied? %>
-          <h1>Hey, <%= current_user.first_name %> </h1>
-          <% if current_user.event_application.application_status == 'accepted' %>
-              <% if current_user.event_application.rsvp %>
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title"> Home</h1>
+  </div>
 
-                  <% if current_user.did_check_in? %>
-                      <p> Welcome to Hack<span style="color: #E70F47">UMass</span>!! You're all set for the event. Hacking starts at midnight! Take a second to browse the website; checkout the events section if you wanna know what's going on during the event or maybe go to the hardware section and see what hardware items you can rent during the event. </p>
-                      <a href="https://hackumass-v.devpost.com" class="btn btn-primary">Go to DevPost</a>
-                  <% else %>
-                      <p>You're all set and ready! You don't need to do anything else other than show up to the event. Please email us at  <a href="mailto:team@hackumass.com ">team@hackumass.com </a> if you have any questions. If for some reason you can't make it, please let us know by pressing the button below.</p>
-                      <%= link_to 'I Can not attend anymore', unrsvp_event_applications_path, data: {turbolinks: false}, class: 'btn btn-primary btn-lg' %>
-                  <% end %>
+  <div class="col-sm-5 offset-4">
+    <div class="card">
+      <div class="card-body d-flex flex-column">
+        <br>
+        <br>
+        <center> <div class="loader"></div> Loading new website...</center>
+        <br>
+        <br>
+        <h2>We're Under Construction</h2>
+        <div class="text-muted">Hi there! We're re-vamping our website right now. Come back later this summer.</div>
+        <div class="d-flex align-items-center pt-5 mt-auto">
 
-              <% else %>
-                  <p>It looks like you got accepted to the event but didn't RSVP. This means that you won't be able to attend. If you have any questions please email us at <a href="mailto:team@hackumass.com ">team@hackumass.com </a></p>
-              <% end %>
-          <% else %>
-              <p>Thanks for submitting your application! We'll send you an email if you got in.</p>
-              <p>Your application status is: <span class="label label-info" style="font-size: 80%"><%= current_user.event_application.application_status.capitalize %></span></p>
-          <% end  %>
-      <% else %>
-          <h1>Hello, <%= current_user.first_name %> </h1>
-          <p>Registration is now closed but you can still apply for our waitlist.</p>
-          <%= link_to 'Apply for Waitlist', apply_path, data: {turbolinks: false}, class: 'btn btn-warning btn-lg'%>
-      <% end %>
-    </div>
-
-    <% if current_user.did_rsvp? or current_user.is_admin?%>
-        <%= render 'home_actions' %>
-    <% else %>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <center><h6>Welcome to your dashboard! All the features will be unlocked if you get accepted!</h6></center>
+          <div>
+            <a class="text-default">Brian Ramirez</a>
+            <small class="d-block text-muted">3 days ago</small>
+          </div>
+          <div class="ml-auto text-muted">
+            <a href="#" class="icon d-none d-md-inline-block ml-3"></a>
           </div>
         </div>
-    <% end %>
-
-    <% elsif current_user.is_admin? or current_user.is_organizer? %>
-
-    <%= render 'shared/organizer_view' %>
-
-    <a href="#" class="btn btn-pill btn-primary">Primary</a>
-<a href="#" class="btn btn-pill btn-secondary">Secondary</a>
-<a href="#" class="btn btn-pill btn-success">Success</a>
-<a href="#" class="btn btn-pill btn-info">Info</a>
-<a href="#" class="btn btn-pill btn-warning">Warning</a>
-<a href="#" class="btn btn-pill btn-danger">Danger</a>
-
-
-<% end %>
-
-
-<% if current_user.is_mentor? %>
-    <div class="jumbotron">
-      <h1>Hello, <%= current_user.first_name %></h1>
-      <p>Thanks so much for volunteering to be a mentor for HackUMass V! Now head to the mentorship dashboard and get started helping out participants!</p>
-      <a href="<%= mentorship_requests_path %>" class="btn btn-lg btn-primary">Go Mentorship Dashboard</a>
+      </div>
     </div>
-<% end %>
+  </div>
+
+</div>

@@ -4,33 +4,37 @@
     <title>HackUMass Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
-    <%= favicon_link_tag 'favicon.jpg' %>
+    <%= favicon_link_tag 'favicon.png' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
 
-    <% if user_signed_in? %>
-      <%= render 'shared/navigation' %>
-    <% end %>
+    <div class="page">
+        <div class="page-main">
+          <!-- Only show navigation if user is logged in... -->
+          <% if user_signed_in? %>
+            <%= render 'shared/navigation' %>
+          <% end %>
 
-    <div class="container">
-      <!--Alert flash message that is compatible with bootstrap -->
-      <% flash.each do |type, message| %>
-          <div class="alert <%= bootstrap_class_for(type)%> alert-dismissible">
-            <button class="close" data-dismiss="alert">×</button>
-            <%= message %>
+          <div class="container">
+            <% flash.each do |type, message| %>
+                <div class="alert <%= bootstrap_class_for(type)%> alert-dismissible">
+                  <button class="close" data-dismiss="alert">×</button>
+                  <%= message %>
+                </div>
+            <% end %>
+
+            <!-- This is where every component will load -->
+            <%= yield %>
           </div>
-      <% end %>
-      <!--End flash message  -->
 
-      <%= yield %>
+          <% if user_signed_in? %>
+            <%= render 'shared/footer' %>
+          <% end %>
     </div>
-
-    <% if user_signed_in? %>
-      <%= render 'shared/footer' %>
-    <% end %>
+  </div>
 
   </body>
 </html>

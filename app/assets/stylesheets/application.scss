@@ -6,17 +6,36 @@
 @import 'bootstrap-datetimepicker';
 @import 'event_application';
 
-.label{
-  font-size: 100%;
+* {
+ box-sizing: border-box;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 100px;
-  line-height: 60px; /* Vertically center the text there */
+*:before,
+*:after {
+ box-sizing: border-box;
+}
+
+html,
+body {
+ height: 100%;
+ position: relative;
+}
+.page-main {
+ min-height: 100vh; /* will cover the 100% of viewport */
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-bottom: 100px; /* height of your footer */
+}
+
+footer {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+}
+
+.label{
+  font-size: 100%;
 }
 
 .tag-event {

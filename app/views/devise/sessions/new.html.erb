@@ -1,72 +1,75 @@
-<!-- <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
-    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <fieldset>
-              <center><%= image_tag 'HUMVLogo.svg', style:'width:70%;height:70%' %></center>
-              <hr>
-              <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-                <div class="col-lg-10">
-                  <%= f.email_field :email, autofocus: true, class: "form-control" %>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                <div class="col-lg-10">
-                  <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;margin-bottom: 10px" >
-                  <%= f.submit "Sign In", class: "btn btn-primary" %>
-                </div>
-              </div>
-              <br>
-              <%= render "devise/shared/links" %>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+<div class="row">
+  <div class="col col-login mx-auto">
+    <div class="text-center mb-6" style="margin-top:10%">
+      <%= image_tag('HUMVLogo.png', height: '70%', width: '70%')%>
     </div>
-<% end %> -->
-
-
-  <div class="row">
-    <div class="col col-login mx-auto">
-      <div class="text-center mb-6" style="margin-top:10%">
-        <%= image_tag('HUMVLogo.png', height: '70%', width: '70%')%>
-      </div>
-      <div class="card">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="card-body p-6">
-            <div class="card-title">Login to your account</div>
-            <div class="form-group">
-              <label class="form-label">Email address</label>
-              <%= f.email_field :email, autofocus: true, class: "form-control" %>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Password</label>
-              <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
-            </div>
-            <div class="form-group">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" />
-                <span class="custom-control-label">Remember me</span>
-              </label>
-            </div>
-            <div class="form-footer">
-              <%= f.submit "Sign In", class: "btn btn-primary btn-block" %>
-            </div>
+    <div class="card">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="card-body p-6">
+          <div class="card-title">Login to your account</div>
+          <div class="form-group">
+            <label class="form-label">Email address</label>
+            <%= f.email_field :email, autofocus: true, class: "form-control" %>
           </div>
-        <% end %>
-      </div>
-      <div class="text-center text-muted">
-        <%= render "devise/shared/links" %>
-      </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+          </div>
+          <div class="form-group">
+            <label class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" />
+              <span class="custom-control-label">Remember me</span>
+            </label>
+          </div>
+          <div class="form-footer">
+            <%= f.submit "Sign In", class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center text-muted">
+      <%= render "devise/shared/links" %>
     </div>
   </div>
+</div>
+
+
+
+
+<!-- LEGACY CODE -->
+<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%#= devise_error_messages! %>
+<!--    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">-->
+<!--      <div class="panel panel-default">-->
+<!--        <div class="panel-body">-->
+<!--          <form class="form-horizontal">-->
+<!--            <fieldset>-->
+<!--              <center><%#= image_tag 'HUMVLogo.svg', style:'width:70%;height:70%' %></center>-->
+<!--              <hr>-->
+<!--              <div class="form-group">-->
+<!--                <label for="inputEmail" class="col-lg-2 control-label">Email</label>-->
+<!--                <div class="col-lg-10">-->
+                  <%#= f.email_field :email, autofocus: true, class: "form-control" %>
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="form-group">-->
+<!--                <label for="inputPassword" class="col-lg-2 control-label">Password</label>-->
+<!--                <div class="col-lg-10">-->
+                  <%#= f.password_field :password, autocomplete: "off", class: "form-control"%>
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="form-group">-->
+<!--                <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;margin-bottom: 10px" >-->
+                  <%#= f.submit "Sign In", class: "btn btn-primary" %>
+<!--                </div>-->
+<!--              </div>-->
+<!--              <br>-->
+              <%#= render "devise/shared/links" %>
+<!--            </fieldset>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<%# end %>

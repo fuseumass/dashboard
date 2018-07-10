@@ -1,30 +1,53 @@
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
-    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">
-      <div class="well">
-        <form class="form-horizontal">
-          <fieldset>
-            <legend>Forgot your password?</legend>
-
-            <div class="form-group">
-              <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-              <div class="col-lg-10">
-                <%= f.email_field :email, autofocus: true, class: "form-control" %>
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >
-                <%= f.submit "Send Instructions", class: "btn btn-primary" %>
-              </div>
-            </div>
-          </fieldset>
-        </form>
-        <div style="margin-top:5%">
-            <%= render "devise/shared/links" %>
+<div class="row">
+  <div class="col col-login mx-auto">
+    <%= render 'partial/hackumasslogo', locals: {width: "70%", height: "70%"}%>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html:{class: "card"}) do |f| %>
+      <div class="card-body p-6">
+        <div class="card-title">Forgot password</div>
+        <p class="text-muted">Enter your email address and your password will be reset and emailed to you.</p>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Enter Email" %>
+        </div>
+        <div class="form-footer">
+          <%= f.submit "Send Instructions", class: "btn btn-primary btn-block" %>
         </div>
       </div>
+    <% end %>
+    <div class="text-center text-muted">
+      <%= render "devise/shared/links" %>
     </div>
-<% end %>
+  </div>
+</div>
+
+
+<!-- LEGACY CODE -->
+<%#= form_for(resource, as: resource_name, url: password_path(resource_name)) do |f| %>
+    <%#= devise_error_messages! %>
+<!--    <div class="col-lg-6 col-lg-offset-3" style="padding-top:60px">-->
+<!--      <div class="well">-->
+<!--        <form class="form-horizontal">-->
+<!--          <fieldset>-->
+<!--            <legend>Forgot your password?</legend>-->
+
+<!--            <div class="form-group">-->
+<!--              <label for="inputEmail" class="col-lg-2 control-label">Email</label>-->
+<!--              <div class="col-lg-10">-->
+                <%#= f.email_field :email, autofocus: true, class: "form-control" %>
+<!--              </div>-->
+<!--            </div>-->
+
+
+<!--            <div class="form-group">-->
+<!--              <div class="col-lg-10 col-lg-offset-2" style="padding-top: 5%;" >-->
+                <%#= f.submit "Send Instructions", class: "btn btn-primary" %>
+<!--              </div>-->
+<!--            </div>-->
+<!--          </fieldset>-->
+<!--        </form>-->
+<!--        <div style="margin-top:5%">-->
+            <%#= render "devise/shared/links" %>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<%# end %>

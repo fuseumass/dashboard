@@ -1,4 +1,6 @@
-<h1>Hardware Inventory</h1>
+<div class="page-header">
+  <h1 class="page-title">Hardware Inventory</h1>
+</div>
 <div class="panel panel-default">
   <div class="panel-body">
       <%= form_tag search_hardware_items_path, method: :get, class:'col-lg-12' do%>
@@ -56,4 +58,3 @@
 <br>
 
 <%= link_to 'New Hardware Item', new_hardware_item_path, class: 'btn btn-primary' %>
-

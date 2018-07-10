@@ -77,6 +77,9 @@ end
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  # Amazon Web Services gem use for emailing and cloud storage
+  gem 'aws-sdk-s3' # cloud storage
+  gem 'aws-sdk-ses' # emailing
 end
 
 group :production do

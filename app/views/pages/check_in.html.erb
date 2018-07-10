@@ -1,34 +1,5 @@
-
-<h2>Check In</h2>
-
-<div class="row">
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <% if @checked_in_user_count <= 1000%>
-            <h4>Check In Status : <span class="label label-success">OK</span></h4>
-        <% else %>
-            <h4>Check In Status : <span class="label label-danger">Max Capacity!</span></h4>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4>Checked In People: <span class="label label-success"><%= @checked_in_user_count %></span></h4>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4><span class="label label-success"><%= @done_percentage %>%</span> Checked In</h4>
-      </div>
-    </div>
-  </div>
+<div class="page-header">
+  <h1 class="page-title"> Check In</h1>
 </div>
 
 <div class="panel panel-default">

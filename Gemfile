@@ -17,10 +17,12 @@ gem 'groupdate'
 gem 'pry-rails', group: :development
 # For easy search on hardware
 gem 'searchkick'
+# Stuff for looks
+gem 'sprockets-rails'
 # The theme we use on top of rails
-gem 'bootswatch-rails'
+gem 'tabler-rubygem'
 # The most beautiful framework
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap', '~> 4.1.1'
 # The devise gem helps us authenticate users securely
 gem 'devise', '~> 4.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

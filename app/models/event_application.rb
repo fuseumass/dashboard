@@ -139,8 +139,8 @@ class EventApplication < ApplicationRecord
                           path: ':filename',
                           s3_credentials: {
                             :bucket => 'hackumass-v-resumes',
-                            :access_key_id => 'AKIAJXQREHQP2AIJXVFQ',
-                            :secret_access_key => '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',
+                            :access_key_id => 'AKIAILBJYFHCLGTOXHQQ',
+                            :secret_access_key => '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',
                             :s3_region => 'us-east-1'
                           }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030002802) do
+ActiveRecord::Schema.define(version: 20180711001332) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20171030002802) do
     t.boolean "flag", default: false
     t.boolean "rsvp", default: false
     t.boolean "check_in", default: false
+    t.integer "resume_file_size"
   end
 
   create_table "events", force: :cascade do |t|

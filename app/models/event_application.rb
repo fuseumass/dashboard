@@ -1,6 +1,6 @@
 class EventApplication < ApplicationRecord
-  #Allows us so search through app
-  searchkick
+  # #Allows us so search through app
+  # searchkick
 
   # ASSOCIATION:
     # Links event_application to user:

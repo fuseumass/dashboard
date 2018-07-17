@@ -90,10 +90,18 @@
             </li>
           <% end %>
 
+          <% if has_access_to_all_applications? %>
+            <li class="nav-item">
+              <%= link_to event_applications_path, class: "nav-link #{'active' if is_applications_active?}" do %>
+                <i class="fe fe-file"></i> Applications</a>
+              <% end %>
+            </li>
+          <% end %>
+
           <% if has_access_to_mailing? %>
               <li class="nav-item">
                 <%= link_to emails_path, class: "nav-link #{'active' if is_mailing_active?}" do %>
-                  <i class="fe fe-check"></i> Mailing</a>
+                  <i class="fe fe-mail"></i> Mailing</a>
                 <% end %>
               </li>
           <% end %>

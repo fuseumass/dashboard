@@ -1,5 +1,3 @@
-puts 'Seeding your database with some fake data...'
-
 names = ['Casi Camoletto',
 'Marsiella Bassingden',
 'Aliza Shuttell',
@@ -203,17 +201,27 @@ emails = ['bfrichley0@wp.com',
 'bspindler1b@fda.gov',
 'bparrett1c@virginia.edu',
 'mlamcken1d@quantcast.com']
+
+puts '################# Rake Seed File Initiaded #####################'
+puts 'Deleting all user...'
+User.delete_all
+puts 'All users deleted!'
+
+puts ' '
 
 puts 'Creating admin user...'
 User.create(id: 1, first_name: "admin", last_name: "user", email: "admin@email.com", password: "testpass", password_confirmation: "testpass", user_type: "admin")
+puts 'Admin user created successfuly!'
 
+puts ' '
 # Creating Fake Users
-puts 'Creating fake users'
-for i in 1..48
+puts 'Creating fake users...'
+for i in 1..49
   fname = names[i].split(" ")[0]
   lname = names[i].split(" ")[1]
   User.create(id: i+1, first_name: fname, last_name: lname, email: emails[i], password: "testpass", password_confirmation: "testpass")
 end
+puts 'Fake users successfuly created!'
 
 # Create fifty fake events
 # TODO
@@ -256,3 +264,9 @@ end
 #    interested_in_hardware_hacks: true)
 #    @app.save(validate: false)
 # end
+
+puts "Your database is full with fake data! You're all set! 🎉🎉🎉🎉🎉🎉🎉🎉🎉"
+puts ' '
+puts 'Admin credentials:'
+puts 'Email: admin@email.com'
+puts 'Password: testpass'

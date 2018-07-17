@@ -45,6 +45,7 @@ class EmailsController < ApplicationController
   end
 
   def send_email
+    # TODO: Perform all of this on a background thread and show a loading bar on UI
     @email = Email.find(params[:email_id])
 
     if @email.nil?

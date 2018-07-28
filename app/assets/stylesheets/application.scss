@@ -72,3 +72,11 @@ footer {
 .by-author {
   margin-bottom: 0px;
 }
+
+.bg-primary-color {
+  background-color: $primary-color;
+}
+
+.field_with_errors{
+  display: inline;
+}

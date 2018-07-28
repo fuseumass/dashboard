@@ -1,5 +1,16 @@
-<div class="page-header">
-  <h1 class="page-title">Application</h1>
+<div class="my-4 my-md-5">
+  <div class="container">
+    <div class="row">
+      <div class="card">
+        <div class="card-status bg-primary-color"></div>
+        <div class="card-header event-application-card-padding">
+          <h2 class="page-title event-application-page-title-margin-right">
+            Signup Application
+          </h2>
+        </div>
+        <%= render 'form', event_application: @event_application %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= render 'form', event_application: @event_application %>

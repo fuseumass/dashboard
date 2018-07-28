@@ -4,14 +4,9 @@ $event-application-medium-button-height: 35px;
 $primary-color: #926dde;
 $error-color: red;
 
-// TODO: Check these class belows
-.required-field-key:before, .required-field:after{
+.event-application-required-field:after{
   content: ' * ';
   color: $error-color;
-}
-
-.required-field-key {
-  float: right;
 }
 
 .event-application-nav-button-container {
@@ -28,7 +23,7 @@ $error-color: red;
 
 }
 
-.event-application-status-button-container {
+.event-application-flex-end-container {
   display: flex;
   justify-content: flex-end;
 }
@@ -55,4 +50,16 @@ $error-color: red;
 
 .event-application-error-text {
   color: $error-color;
+}
+
+.event-application-form-group {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.event-application-flex-space-around{
+  display: flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+  width: 100%;
 }

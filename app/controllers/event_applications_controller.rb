@@ -30,31 +30,39 @@ class EventApplicationsController < ApplicationController
   end
 
   def show
+    # variable use in erb file
+    @applicant = @event_application
+    @status = @event_application.application_status
+    @user = @event_application.user
+
     unless current_user.is_admin? or current_user.is_organizer?
-      if @event_application.user != current_user
+      if @user != current_user
         redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
       end
     end
   end
 
   def new
+    @application = EventApplication.new
+
     if current_user.has_applied?
         redirect_to index_path
         flash[:error] = "You have already created an application."
     end
-    @event_application = EventApplication.new
+
   end
 
 
   def edit
+    @application = @event_application
   end
 
 
   def create
-    @event_application = EventApplication.new(event_application_params)
-    @event_application.user = current_user
-    @event_application.application_status = 'waitlisted'
-    if @event_application.save
+    @application = EventApplication.new(event_application_params)
+    @application.user = current_user
+    @application.application_status = 'waitlisted'
+    if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else
       render :new
@@ -62,8 +70,9 @@ class EventApplicationsController < ApplicationController
   end
 
   def update
-    if @event_application.update(event_application_params)
-      redirect_to @event_application, notice: 'Event application was successfully updated.'
+    @application = @event_application
+    if @application.update(event_application_params)
+      redirect_to @application, notice: 'Event application was successfully updated.'
     else
       render :edit
     end
@@ -106,11 +115,11 @@ class EventApplicationsController < ApplicationController
 
     # Send email when status changes
     if new_status == 'accepted'
-      UserMailer.accepted_email(application.user).deliver_now
+      #UserMailer.accepted_email(application.user).deliver_now
     elsif new_status == 'denied'
-      UserMailer.denied_email(application.user).deliver_now
+      #UserMailer.denied_email(application.user).deliver_now
     else
-      UserMailer.waitlisted_email(application.user).deliver_now
+      #UserMailer.waitlisted_email(application.user).deliver_now
     end
   end
 

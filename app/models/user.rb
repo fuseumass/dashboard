@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_one :mentorship_request, dependent: :destroy
 
 
-  after_create :welcome_email
+  # after_create :welcome_email
 
   # Use type checkers
   def is_attendee?
@@ -48,18 +48,6 @@ class User < ApplicationRecord
   def is_accepted?
     if has_applied?
       self.event_application.application_status == 'accepted'
-    end
-  end
-
-  def did_rsvp?
-    if has_applied?
-      self.event_application.rsvp
-    end
-  end
-
-  def did_check_in?
-    if has_applied?
-      self.event_application.check_in
     end
   end
 

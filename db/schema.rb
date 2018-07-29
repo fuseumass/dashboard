@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711001332) do
+ActiveRecord::Schema.define(version: 2018_07_29_035032) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -26,7 +47,6 @@ ActiveRecord::Schema.define(version: 20180711001332) do
     t.integer "user_id"
     t.string "application_status", default: "undecided"
     t.string "name"
-    t.string "email"
     t.string "phone"
     t.string "age"
     t.string "sex"
@@ -36,15 +56,12 @@ ActiveRecord::Schema.define(version: 20180711001332) do
     t.boolean "food_restrictions"
     t.text "food_restrictions_info"
     t.string "t_shirt"
-    t.binary "resume_file"
-    t.string "resume_file_name"
     t.string "linkedin"
     t.string "github"
     t.boolean "previous_hackathon_attendance"
     t.boolean "transportation"
     t.string "transportation_location"
     t.string "programming_skills_list", default: "{}"
-    t.string "interested_hardware_hacks_list", default: "{}"
     t.text "how_did_you_hear_about_hackumass"
     t.text "future_hardware_for_hackumass"
     t.boolean "waiver_liability_agreement"
@@ -53,12 +70,9 @@ ActiveRecord::Schema.define(version: 20180711001332) do
     t.integer "accepted_applicants", default: 0
     t.integer "rejected_applicants", default: 0
     t.integer "waitlisted_applicants", default: 0
-    t.boolean "interested_in_hardware_hacks"
     t.string "hardware_skills_list", default: "{}"
     t.boolean "flag", default: false
-    t.boolean "rsvp", default: false
-    t.boolean "check_in", default: false
-    t.integer "resume_file_size"
+    t.binary "resume"
   end
 
   create_table "events", force: :cascade do |t|

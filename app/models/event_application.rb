@@ -6,14 +6,17 @@ class EventApplication < ApplicationRecord
   # creates a one to one association with the user
   belongs_to :user
 
+  # creates a one to one association with upload resume
+  has_one_attached :resume
+
   # checks to see that all the required fields are presence
   validates_presence_of %i[name university major],
                         message: 'Please enter %{attribute}. This field is required.'
 
-  validates_presence_of %i[grad_year sex age t_shirt],
+  validates_presence_of %i[sex age t_shirt],
                         message: 'Please select your %{attribute}. This field is required.'
 
-  validates_inclusion_of %i[food_restrictions transportation previous_hackathon_attendance],
+  validates_inclusion_of %i[food_restrictions previous_hackathon_attendance],
                          in: [true, false],
                          message: 'Please pick an answer for \'%{attribute}\'. This field is required.'
 
@@ -73,4 +76,6 @@ class EventApplication < ApplicationRecord
   validates_length_of %i[how_did_you_hear_about_hackumass future_hardware_for_hackumass],
                       maximum: 500,
                       message: 'Your textbox answers must be less than %{count} characters long.'
+
+  #validation for resume:
 end

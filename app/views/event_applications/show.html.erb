@@ -161,16 +161,6 @@
           </p>
 
           <p>
-            <% if @applicant.interested_in_hardware_hacks %>
-              <label><b>Interested hardware hacks: </b></label>
-              <%= @applicant.interested_hardware_hacks_list %>
-            <% else %>
-              <label><b>Are you interested in hardware hacks?: </b></label>
-              <%= 'No' %>
-            <% end %>
-          </p>
-
-          <p>
             <label><b>How did you hear about HackUMass?: </b></label>
             <% if @applicant.how_did_you_hear_about_hackumass.empty? %>
               <%= 'N/A' %>

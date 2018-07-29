@@ -11,7 +11,6 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(application_status: 'undecided').count
     @denied_count = EventApplication.where(application_status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
-    @rsvp_count = EventApplication.where(rsvp: true).count
 
     @flagged = params[:flagged]
     @status = params[:status]
@@ -19,8 +18,6 @@ class EventApplicationsController < ApplicationController
       @applications = EventApplication.where({application_status: @status})
     elsif params[:flagged].present?
       @applications = EventApplication.where(flag: true)
-    elsif params[:rsvp].present?
-      @applications = EventApplication.where(rsvp: true)
     else
       @applications = EventApplication.all
     end
@@ -62,6 +59,7 @@ class EventApplicationsController < ApplicationController
     @application = EventApplication.new(event_application_params)
     @application.user = current_user
     @application.application_status = 'waitlisted'
+
     if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else
@@ -182,13 +180,13 @@ class EventApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_application_params
-      params.require(:event_application).permit(:name, :email, :phone, :age, :sex, :university, :major, :grad_year,
+      params.require(:event_application).permit(:name, :phone, :age, :sex, :university, :major, :grad_year,
                                                 :food_restrictions, :food_restrictions_info, :t_shirt,
                                                 :resume, :linkedin, :github, :previous_hackathon_attendance,
-                                                :transportation, :transportation_location,:interested_in_hardware_hacks,
+                                                :transportation, :transportation_location,
                                                 :how_did_you_hear_about_hackumass, :future_hardware_for_hackumass,
-                                                :waiver_liability_agreement, interested_hardware_hacks_list:[],
-                                                programming_skills_list:[], hardware_skills_list:[])
+                                                :waiver_liability_agreement, programming_skills_list:[],
+                                                hardware_skills_list:[])
     end
 
     # Only admins and organizers have the ability to all permission except delete

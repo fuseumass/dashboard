@@ -37,7 +37,7 @@ module PagesHelper
 	end
 
 	def has_access_to_events?
-		current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
+		#current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
 	end
 
 	def has_access_to_mailing?

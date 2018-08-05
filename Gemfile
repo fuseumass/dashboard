@@ -107,6 +107,9 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'aws-sdk-s3'
 gem 'aws-sdk-ses'
 
+# File upload
+gem 'carrierwave'
+
 # Use to help parse pdf file (specifically the resume files)
 gem 'pdf-reader'
 

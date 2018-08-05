@@ -1,6 +1,0 @@
-amazon:
-  service: S3
-  access_key_id: 'AKIAIRI2RFW3P7JI3KRA'
-  secret_access_key: '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'
-  region: 'us-east-1'
-  bucket: 'hackumass-vi'

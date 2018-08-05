@@ -1,6 +1,0 @@
-amazon:
-  service: S3
-  access_key_id: ***REMOVED***
-  secret_access_key: ***REMOVED***
-  region: 'us-east-1'
-  bucket: 'hackumass-vi'

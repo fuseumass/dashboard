@@ -10,28 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_29_035032) do
-
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
+ActiveRecord::Schema.define(version: 2018_08_04_185413) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -45,7 +24,8 @@ ActiveRecord::Schema.define(version: 2018_07_29_035032) do
 
   create_table "event_applications", force: :cascade do |t|
     t.integer "user_id"
-    t.string "application_status", default: "undecided"
+    t.string "status", default: "undecided"
+    t.boolean "flag", default: false
     t.string "name"
     t.string "phone"
     t.string "age"
@@ -55,24 +35,18 @@ ActiveRecord::Schema.define(version: 2018_07_29_035032) do
     t.string "grad_year"
     t.boolean "food_restrictions"
     t.text "food_restrictions_info"
-    t.string "t_shirt"
-    t.string "linkedin"
-    t.string "github"
-    t.boolean "previous_hackathon_attendance"
-    t.boolean "transportation"
-    t.string "transportation_location"
-    t.string "programming_skills_list", default: "{}"
-    t.text "how_did_you_hear_about_hackumass"
-    t.text "future_hardware_for_hackumass"
+    t.binary "resume"
+    t.string "t_shirt_size"
+    t.string "linkedin_url"
+    t.string "github_url"
+    t.boolean "prev_attendance"
+    t.string "programming_skills", default: "{}"
+    t.string "hardware_skills", default: "{}"
+    t.text "referral_info"
+    t.text "future_hardware_suggestion"
     t.boolean "waiver_liability_agreement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "accepted_applicants", default: 0
-    t.integer "rejected_applicants", default: 0
-    t.integer "waitlisted_applicants", default: 0
-    t.string "hardware_skills_list", default: "{}"
-    t.boolean "flag", default: false
-    t.binary "resume"
   end
 
   create_table "events", force: :cascade do |t|

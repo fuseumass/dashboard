@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @feature_flag.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @feature_flag.value %>
+</p>
+
+<%= link_to 'Edit', edit_feature_flag_path(@feature_flag) %> |
+<%= link_to 'Back', feature_flags_path %>

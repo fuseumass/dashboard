@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180807223040) do
 
-  create_table "devposts", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "link"
-    t.string "team_members"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "emails", force: :cascade do |t|
     t.string "subject"
     t.string "message"

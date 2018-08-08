@@ -1,0 +1,39 @@
+<div class="col-lg-8">
+  <%= form_with(model: project, local: true) do |form| %>
+  <% if project.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+    <ul>
+      <% project.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, class:'control-label' %>
+    <%= form.text_field :title, id: :project_title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, class:'control-label' %>
+    <%= form.text_area :description, id: :project_description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :link, class:'control-label' %>
+    <%= form.text_field :link, id: :project_link, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :team_members, class:'control-label' %>
+    <%= form.text_field :team_members, id: :project_team_members, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+  <% end %>
+</div>

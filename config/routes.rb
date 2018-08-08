@@ -111,4 +111,8 @@ Rails.application.routes.draw do
     end
   # Email Routes End
 
+  # Projects Routes Start
+    resources :projects
+  # Projects Routes End
+  
 end

@@ -107,30 +107,13 @@
             </li>
           <% end %>
 
-
-          <!-- <% if has_access_to_all_applications? %>
-            <li class="<%= 'active' if is_applications_active? %>">
-              <%= link_to 'Applications', event_applications_path %>
-            </li>
-          <% else %>
-            <% begin %>
-              <li class="<%= 'active' if is_applications_active? %>">
-                <%= link_to 'Application', current_user_application %>
-              </li>
-            <% rescue %>
-              <%# don't render anything if the program runs into an exception %>
-            <% end %>
-          <% end %> -->
-
           <% if has_access_to_admin? %>
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" ><i class="fe fe-layers"></i>Admin</a>
               <div class="dropdown-menu dropdown-menu-arrow">
                 <%= link_to 'Permissions', admin_path, class: 'dropdown-item'%>
                 <%= link_to 'Emails', emails_path, class: 'dropdown-item'%>
-                <!-- <a href="../cards.html" class="dropdown-item">Cards design</a>
-                <a href="../charts.html" class="dropdown-item ">Charts</a>
-                <a href="../pricing-cards.html" class="dropdown-item ">Pricing cards</a> -->
+                <%= link_to 'Feature Flags', feature_flags_path, class: 'dropdown-item'%>
               </div>
             </li>
           <% end %>

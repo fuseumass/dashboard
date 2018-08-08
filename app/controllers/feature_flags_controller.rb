@@ -2,8 +2,6 @@ class FeatureFlagsController < ApplicationController
   before_action :set_feature_flag, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions
 
-  # GET /feature_flags
-  # GET /feature_flags.json
   def index
     @feature_flags = FeatureFlag.all
   end
@@ -30,8 +28,6 @@ class FeatureFlagsController < ApplicationController
     redirect_to feature_flags_path
   end
 
-  # POST /feature_flags
-  # POST /feature_flags.json
   def create
     @feature_flag = FeatureFlag.new(feature_flag_params)
 

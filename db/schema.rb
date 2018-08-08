@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180808024842) do
 
-  create_table "devposts", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "link"
-    t.string "team_members"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "emails", force: :cascade do |t|
     t.string "subject"
     t.string "message"
@@ -78,13 +69,6 @@ ActiveRecord::Schema.define(version: 20180808024842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "time"
-  end
-
-  create_table "feature_flags", force: :cascade do |t|
-    t.string "name"
-    t.boolean "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

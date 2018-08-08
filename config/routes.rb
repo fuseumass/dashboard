@@ -112,6 +112,11 @@ Rails.application.routes.draw do
   # Email Routes End
 
   # Feature Flag Routes Start
-    resources :feature_flags, except: [:create, :destroy, :edit, :show]
+    resources :feature_flags, except: [:create, :destroy, :edit, :show] do
+      collection do
+        post 'enable'
+        post 'disable'
+      end
+    end
   # Feature Flag Routes End
 end

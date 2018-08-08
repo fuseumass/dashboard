@@ -1,5 +1,6 @@
 class FeatureFlagsController < ApplicationController
   before_action :set_feature_flag, only: [:show, :edit, :update, :destroy]
+  before_action :check_permissions
 
   # GET /feature_flags
   # GET /feature_flags.json
@@ -7,18 +8,26 @@ class FeatureFlagsController < ApplicationController
     @feature_flags = FeatureFlag.all
   end
 
-  # GET /feature_flags/1
-  # GET /feature_flags/1.json
-  def show
+  def enable
+    flagId = params[:flag]
+    flag = FeatureFlag.find(flagId)
+    flag.value = true
+    flag.save
+
+    flash[:success] = "Flag successfully enabled"
+
+    redirect_to feature_flags_path
   end
 
-  # GET /feature_flags/new
-  def new
-    @feature_flag = FeatureFlag.new
-  end
+  def disable
+    flagId = params[:flag]
+    flag = FeatureFlag.find(flagId)
+    flag.value = false
+    flag.save
 
-  # GET /feature_flags/1/edit
-  def edit
+    flash[:success] = "Flag successfully disabled"
+
+    redirect_to feature_flags_path
   end
 
   # POST /feature_flags
@@ -37,22 +46,6 @@ class FeatureFlagsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /feature_flags/1
-  # PATCH/PUT /feature_flags/1.json
-  def update
-    respond_to do |format|
-      if @feature_flag.update(feature_flag_params)
-        format.html { redirect_to @feature_flag, notice: 'Feature flag was successfully updated.' }
-        format.json { render :show, status: :ok, location: @feature_flag }
-      else
-        format.html { render :edit }
-        format.json { render json: @feature_flag.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /feature_flags/1
-  # DELETE /feature_flags/1.json
   def destroy
     @feature_flag.destroy
     respond_to do |format|
@@ -70,5 +63,11 @@ class FeatureFlagsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_flag_params
       params.require(:feature_flag).permit(:name, :value)
+    end
+
+    def check_permissions
+      unless current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
+      end
     end
 end

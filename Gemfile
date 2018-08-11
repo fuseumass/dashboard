@@ -108,7 +108,7 @@ gem 'aws-sdk-s3'
 gem 'aws-sdk-ses'
 
 # File upload
-gem 'carrierwave'
+gem 'paperclip'
 
 # Use to help parse pdf file (specifically the resume files)
 gem 'pdf-reader'

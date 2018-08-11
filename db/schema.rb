@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_04_185413) do
+ActiveRecord::Schema.define(version: 2018_08_11_040748) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2018_08_04_185413) do
   end
 
   create_table "event_applications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "status", default: "undecided"
     t.boolean "flag", default: false
@@ -35,7 +37,10 @@ ActiveRecord::Schema.define(version: 2018_08_04_185413) do
     t.string "grad_year"
     t.boolean "food_restrictions"
     t.text "food_restrictions_info"
-    t.binary "resume"
+    t.string "resume_file_name"
+    t.string "resume_content_type"
+    t.integer "resume_file_size"
+    t.datetime "resume_updated_at"
     t.string "t_shirt_size"
     t.string "linkedin_url"
     t.string "github_url"
@@ -45,8 +50,6 @@ ActiveRecord::Schema.define(version: 2018_08_04_185413) do
     t.text "referral_info"
     t.text "future_hardware_suggestion"
     t.boolean "waiver_liability_agreement"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|

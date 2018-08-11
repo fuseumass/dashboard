@@ -75,11 +75,10 @@ GEM
       momentjs-rails (>= 2.8.1)
     builder (3.2.3)
     byebug (10.0.2)
-    carrierwave (1.2.2)
-      activemodel (>= 4.0.0)
-      activesupport (>= 4.0.0)
-      mime-types (>= 1.16)
     chartkick (2.3.5)
+    climate_control (0.2.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -154,6 +153,12 @@ GEM
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
+    paperclip (5.2.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
     pdf-reader (2.1.0)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.1)
@@ -275,7 +280,6 @@ DEPENDENCIES
   bootstrap (~> 4.1.1)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
   byebug
-  carrierwave
   chartkick
   coffee-rails (~> 4.2)
   devise (~> 4.4.0)
@@ -285,6 +289,7 @@ DEPENDENCIES
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   momentjs-rails (>= 2.9.0)
+  paperclip
   pdf-reader
   pg
   pry-rails

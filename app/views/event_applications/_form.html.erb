@@ -104,10 +104,10 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :t_shirt,
+      <%= f.label :t_shirt_size,
                   'T-Shirt Size:',
                   class:'form-label event-application-required-field' %>
-      <%= f.select :t_shirt,
+      <%= f.select :t_shirt_size,
                    ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
                    {include_blank: true},
                    {class: 'form-control custom-select'} %>
@@ -116,114 +116,114 @@
     <div class="form-group">
       <%= f.label :resume,
                   'Resume: (.PDF)',
-                  class: 'form-label event-application-required-field' %>
-      <div class="custom-file">
-        <%= f.file_field :resume, class:'custom-file-input' %>
-        <label class="custom-file-label">
+                  class: '' %>
+      <div class="">
+        <%= f.file_field :resume, class:'' %>
+        <label class="">
           Choose file
         </label>
       </div>
     </div>
 
     <div class="form-group">
-      <%= f.label :linkedin,
+      <%= f.label :linkedin_url,
                   'Linkedin URL:',
                   class: 'form-label' %>
-      <%= f.url_field :linkedin,
+      <%= f.url_field :linkedin_url,
                       class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <%= f.label :github,
+      <%= f.label :github_url,
                   'GitHub URL:',
                   class: 'form-label' %>
-      <%= f.url_field :github,
+      <%= f.url_field :github_url,
                       class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <%= f.label :previous_hackathon_attendance,
+      <%= f.label :prev_attendance,
                   'Have you been to a hackathon before?:',
                   class: 'form-label event-application-required-field' %>
       <div class="custom-controls-stacked">
         <label class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :previous_hackathon_attendance, true, class: 'custom-control-input' %>
+          <%= f.radio_button :prev_attendance, true, class: 'custom-control-input' %>
           <span class="custom-control-label">Yes</span>
         </label>
         <label class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :previous_hackathon_attendance, false, class: 'custom-control-input' %>
+          <%= f.radio_button :prev_attendance, false, class: 'custom-control-input' %>
           <span class="custom-control-label">No</span>
         </label>
       </div>
     </div>
 
     <div class='form-group'>
-      <%= f.label :programming_skills_list,
+      <%= f.label :programming_skills,
                   'Programming Skills (select all that apply):',
                   class: 'form-label' %>
       <div class='custom-controls-stacked'>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'HTML/CSS',
                           {class:'custom-control-input'} %> HTML/CSS
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Javascript/NodeJS',
                           {class:'custom-control-input'} %> Javascript/NodeJS
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'PHP',
                           {class:'custom-control-input'} %> PHP
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'SQL',
                           {class:'custom-control-input'} %> SQL
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Ruby',
                           {class:'custom-control-input'} %> Ruby
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Java',
                           {class:'custom-control-input'} %> Java
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Kotlin',
                           {class:'custom-control-input'} %> Kotlin
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Swift',
                           {class:'custom-control-input'} %> Swift
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Objective C',
                           {class:'custom-control-input'} %> Objective C
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                            'C/C++/C#',
                           {class:'custom-control-input'} %> C/C++/C#
         </label>
         <label class="custom-control custom-checkbox">
-          <%= f.check_box :programming_skills_list,
+          <%= f.check_box :programming_skills,
                           {multiple: true},
                           'Python',
                           {class:'custom-control-input'} %> Python
@@ -232,37 +232,37 @@
     </div>
 
     <div class='form-group'>
-      <%= f.label :hardware_skills_list,
+      <%= f.label :hardware_skills,
                   'Hardware Skills (select all that apply):',
                   class: 'form-label' %>
       <div class='custom-controls-stacked'>
         <div class='checkbox'>
           <label class="custom-control custom-checkbox">
-            <%= f.check_box :hardware_skills_list,
+            <%= f.check_box :hardware_skills,
                             {multiple: true},
                             'Embedded Systems',
                             nil %> Embedded Systems
           </label>
           <label class="custom-control custom-checkbox">
-            <%= f.check_box :hardware_skills_list,
+            <%= f.check_box :hardware_skills,
                             {multiple: true},
                             'Robotics',
                             nil %> Robotics
           </label>
           <label class="custom-control custom-checkbox">
-            <%= f.check_box :hardware_skills_list,
+            <%= f.check_box :hardware_skills,
                             {multiple: true},
                             'Wireless Communications',
                             nil %> Wireless Communications
           </label>
           <label class="custom-control custom-checkbox">
-            <%= f.check_box :hardware_skills_list,
+            <%= f.check_box :hardware_skills,
                             {multiple: true},
                             'Circuits',
                             nil %> Circuits
           </label>
           <label class="custom-control custom-checkbox">
-            <%= f.check_box :hardware_skills_list,
+            <%= f.check_box :hardware_skills,
                             {multiple: true},
                             '3D Printing',
                             nil %> 3D Printing
@@ -272,10 +272,10 @@
     </div>
 
     <div class="form-group event-application-form-group">
-      <%= f.label :how_did_you_hear_about_hackumass,
+      <%= f.label :referral_info,
                   'How did you hear about HackUMass?:',
                   class: 'form-label' %>
-      <%= f.text_area :how_did_you_hear_about_hackumass,
+      <%= f.text_area :referral_info,
                       rows: '5',
                       class: 'form-control' %>
       <div class="form-label-small event-application-flex-end-container">
@@ -284,10 +284,10 @@
     </div>
 
     <div class="form-group event-application-form-group">
-      <%= f.label :future_hardware_for_hackumass,
+      <%= f.label :future_hardware_suggestion,
                   'What hardware do you want to see at HackUMass VI or future HackUMass?:',
                   class: 'form-label' %>
-      <%= f.text_area :future_hardware_for_hackumass,
+      <%= f.text_area :future_hardware_suggestion,
                       rows: '5',
                       class: 'form-control' %>
       <div class="form-label-small event-application-flex-end-container">

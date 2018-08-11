@@ -71,16 +71,16 @@
                 <tr class='table-row'>
                   <td>
                     <a class='table-link' href='<%= show_form %>'>
-                      <% if form.application_status == 'undecided'%>
+                      <% if form.status == 'undecided'%>
                 <span class="label label-info">
-                      <% elsif form.application_status == 'accepted' %>
+                      <% elsif form.status == 'accepted' %>
                 <span class="label label-success">
-                      <% elsif form.application_status == 'denied' %>
+                      <% elsif form.status == 'denied' %>
                 <span class="label label-danger">
-                      <% else form.application_status == 'waitlisted' %>
+                      <% else form.status == 'waitlisted' %>
                 <span class="label label-warning">
                       <% end %>
-                      <%= form.application_status.capitalize %>
+                      <%= form.status.capitalize %>
                       </span>
                     </a>
                   </td>

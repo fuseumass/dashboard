@@ -111,61 +111,48 @@
 
           <p class='required-field'>
             <label><b>T-Shirt Size: </b></label>
-            <%= @applicant.t_shirt %>
+            <%= @applicant.t_shirt_size %>
           </p>
 
           <p>
             <label><b>Linkedin URL: </b></label>
-            <%= @applicant.linkedin.empty? ? 'N/A' : @applicant.linkedin %>
+            <%= @applicant.linkedin_url.empty? ? 'N/A' : @applicant.linkedin_url %>
           </p>
 
           <p>
             <label><b>Github URL: </b></label>
-            <%= @applicant.github.empty? ? 'N/A' : @applicant.github %>
+            <%= @applicant.github_url.empty? ? 'N/A' : @applicant.github_url %>
           </p>
 
           <p class='required-field'>
             <label><b>Have you been to a hackathon before?:</b></label>
-            <%= @applicant.previous_hackathon_attendance ? 'Yes' : 'No' %>
+            <%= @applicant.prev_attendance ? 'Yes' : 'No' %>
           </p>
-
-          <p class='required-field'>
-            <label><b>Will you need transportation to UMass?:</b></label>
-            <%= @applicant.transportation ? 'Yes' : 'No' %>
-          </p>
-
-          <% if @applicant.transportation %>
-            <p>
-              <label><b>Where do you need transportation from?</b></label>
-              <%= @applicant.transportation_location %>
-            </p>
-          <% end %>
-
 
           <p>
             <label><b>Programming Skills: </b></label>
-            <% if @applicant.programming_skills_list == '{}' %>
+            <% if @applicant.programming_skills == '{}' %>
               <%= 'N/A ' %>
             <% else %>
-              <%= @applicant.programming_skills_list %>
+              <%= @applicant.programming_skills %>
             <% end %>
           </p>
 
           <p>
             <label><b>Hardware Skills: </b></label>
-            <% if @applicant.hardware_skills_list == '{}' %>
+            <% if @applicant.hardware_skills == '{}' %>
               <%= 'N/A' %>
             <% else %>
-              <%= @applicant.hardware_skills_list %>
+              <%= @applicant.hardware_skills %>
             <% end %>
           </p>
 
           <p>
             <label><b>How did you hear about HackUMass?: </b></label>
-            <% if @applicant.how_did_you_hear_about_hackumass.empty? %>
+            <% if @applicant.referral_info.empty? %>
               <%= 'N/A' %>
             <% else %>
-              <%= @applicant.how_did_you_hear_about_hackumass %>
+              <%= @applicant.referral_info %>
             <% end %>
           </p>
 
@@ -175,10 +162,10 @@
                 What hardware do you want to see at HackUMass V or future HackUMass?:
               </b>
             </label>
-            <% if @applicant.future_hardware_for_hackumass.empty? %>
+            <% if @applicant.future_hardware_suggestion.empty? %>
               <%= 'N/A' %>
             <% else %>
-              <%= @applicant.future_hardware_for_hackumass %>
+              <%= @applicant.future_hardware_suggestion %>
             <% end %>
           </p>
         </div>
@@ -215,7 +202,7 @@
                            params: {new_status: 'waitlisted', id: @applicant.user_id}},
                           {class: 'btn btn-warning btn-sm event-application-status-button'} %>
 
-            <% if @event_application.flag %>
+            <% if @application.flag %>
               <%= button_to 'Unflag',
                             {controller: 'event_applications', action: 'unflag_application',
                              params: {application: @event_application}},

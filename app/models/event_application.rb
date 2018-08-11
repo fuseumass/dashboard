@@ -1,4 +1,8 @@
 class EventApplication < ApplicationRecord
+  after_validation :remove_repeats_err_msg
+  before_create :rename_file
+  after_update :rename_file
+  after_create :submit_email
 
   # give us elastic search functionality in event application
   # searchkick
@@ -70,5 +74,74 @@ class EventApplication < ApplicationRecord
                       maximum: 500,
                       message: 'Your textbox answers must be less than %{count} characters long.'
 
-  #validation for resume:
+  # extra config for resume file
+  has_attached_file :resume,
+                    path: 'resume/:filename'
+
+  # validates the resume attachments:
+  # checks to see that the file is under 1.5MB and that the resume is a PDF
+  validates_attachment :resume,
+                       content_type: { content_type: 'application/pdf',
+                                       message: 'Resume file must be a PDF.' },
+                       size: { less_than: 2.megabyte,
+                               message: 'Resume file must be under 2MB in size.' }
+
+  # checks to see that the user resume is legit
+  validate :resume_legitimacy,
+           if: -> { resume.present? && errors[:resume].length.zero? }
+
+  private
+
+  def resume_legitimacy
+    resume_path = Paperclip.io_adapters.for(self.resume).path
+    resume = File.open(resume_path, 'rb')
+    begin
+      parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
+      if parser.length.positive? && parser.length < 400 || !resume_contains(name, parser)
+        errors.add(:invalid_resume, 'Resume file is invalid. Please make
+        sure that the file is OCR PDF. Contact us at \'team@hackumass.com\'
+        if you have any more problem uploading your resume.')
+      end
+      self.flag = resume_contains(university, parser) && resume_contains(major, parser)
+    rescue
+      errors.add(:corrupt_file, 'Resume file is corrupted. Please try
+      recreating the resume file. Contact us at \'team@hackumass.com\'
+      if you have any more problem uploading your resume.')
+    end
+  end
+
+  # checks to see if the resume file contains the given string
+  def resume_contains(string, resume_file)
+    string.downcase!
+    return true if resume_file.include?(string.delete(' '))
+    return true if resume_file.include?(string)
+    string_array = string.split(' ')
+    string_array.each do |part|
+      return true if resume_file.include?(part)
+    end
+    false
+  end
+
+  # This method when executed will rename the resume file that the
+  # applicant has upload to the format, user id follow by his or her first
+  # name and then his or her last name follow by the .pdf extension.
+  # (eg. 1_JohnSmith.pdf )
+  def rename_file
+    new_file_name = "#{user_id}_#{user.first_name}_#{user.last_name}"
+    resume.instance_write :file_name, new_file_name + '.pdf'
+  end
+
+  # Because of how paperclips works, when validating it will create
+  # two identical error that are link to different symbols. This
+  # method will remove one of the symbol there by removing the
+  # duplication.
+  def remove_repeats_err_msg
+    errors.delete(:resume) if errors.key?(:resume)
+  end
+
+  # send email confirmation to user once they submit there application
+  def submit_email
+    # UserMailer.submit_email(user).deliver_now
+  end
+
 end

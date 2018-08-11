@@ -104,8 +104,7 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Amazon Web Services gem use for emailing and cloud storage
-gem 'aws-sdk-s3'
-gem 'aws-sdk-ses'
+gem 'aws-sdk', '< 3.0'
 
 # File upload
 gem 'paperclip'

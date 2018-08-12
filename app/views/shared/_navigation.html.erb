@@ -66,6 +66,18 @@
             <% end %>
           </li>
 
+          <li class="nav-item">
+            <% if !has_apply? %>
+              <%= link_to event_application_path(current_user.event_application.id), class: "nav-link #{'active' if is_applications_active?}" do %>
+                <i class="fe fe-file-text"></i>&nbsp;Application</a>
+              <% end %>
+            <% else %>
+              <%= link_to apply_path, class: "nav-link #{'active' if is_applications_active?}" do %>
+                <i class="fe fe-file-text"></i>&nbsp;Application</a>
+              <% end %>
+            <% end %>
+          </li>
+
           <% if has_access_to_mentorship? %>
             <li class="nav-item">
               <%= link_to mentorship_requests_path, class: "nav-link #{'active' if is_mentorship_active?}" do %>
@@ -114,28 +126,19 @@
             </li>
           <% end %>
 
-          <!-- <% if has_access_to_all_applications? %>
-            <li class="<%= 'active' if is_applications_active? %>">
-              <%= link_to 'Applications', event_applications_path %>
-            </li>
-          <% else %>
-            <% begin %>
-              <li class="<%= 'active' if is_applications_active? %>">
-                <%= link_to 'Application', current_user_application %>
-              </li>
-            <% rescue %>
-              <%# don't render anything if the program runs into an exception %>
-            <% end %>
-          <% end %> -->
-
-          <!-- <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Interface</a>
-            <div class="dropdown-menu dropdown-menu-arrow">
-              <a href="../cards.html" class="dropdown-item ">Cards design</a>
-              <a href="../charts.html" class="dropdown-item ">Charts</a>
-              <a href="../pricing-cards.html" class="dropdown-item ">Pricing cards</a>
-            </div>
-          </li> -->
+          <%# if has_access_to_all_applications? %>
+<!--            <li class="<%#= 'active' if is_applications_active? %>">-->
+              <%#= link_to 'Applications', event_applications_path %>
+<!--            </li>-->
+          <%# else %>
+            <%# begin %>
+<!--              <li class="<%#= 'active' if is_applications_active? %>">-->
+                <%#= link_to 'Application', current_user_application %>
+<!--              </li>-->
+            <%# rescue %>
+              <%# "don't render anything if the program runs into an exception" %>
+            <%# end %>
+          <%# end %>
 
 
         </ul>

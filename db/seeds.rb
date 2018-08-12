@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 names = ['Casi Camoletto',
 'Marsiella Bassingden',
 'Aliza Shuttell',
@@ -107,32 +100,69 @@ emails = ['bfrichley0@wp.com',
 'bparrett1c@virginia.edu',
 'mlamcken1d@quantcast.com']
 
-for i in 0..49
-  @app = EventApplication.new(user_id: i+1,
-                              status: "undecided",
-                              name: names[i],
-                              phone: "(978) 701-1514",
-                              age: "15",
-                              sex: "Male",
-                              university: "FAKE USER",
-                              major: "FAKE USER",
-                              grad_year: "2018",
-                              food_restrictions: false,
-                              food_restrictions_info: "",
-                              t_shirt_size: "M",
-                              linkedin_url: "",
-                              github_url: "",
-                              prev_attendance: false,
-                              programming_skills: "[\"Swift\"]",
-                              hardware_skills: "{}",
-                              referral_info: "",
-                              future_hardware_suggestion: "",
-                              waiver_liability_agreement: true,
-                              created_at: Time.now,
-                              updated_at: Time.now,
-                              resume_file_name: "2_John_Smith.pdf",
-                              resume_content_type: "application/pdf",
-                              resume_file_size: 6831,
-                              resume_updated_at: Time.now)
-  @app.save(validate: false)
+puts '################# Rake Seed File Initiaded #####################'
+puts 'Deleting all user...'
+User.delete_all
+puts 'All users deleted!'
+
+puts ' '
+
+puts 'Creating admin user...'
+User.create(id: 1, first_name: "admin", last_name: "user", email: "admin@email.com", password: "testpass", password_confirmation: "testpass", user_type: "admin")
+puts 'Admin user created successfuly!'
+
+puts ' '
+# Creating Fake Users
+puts 'Creating fake users...'
+for i in 1..49
+  fname = names[i].split(" ")[0]
+  lname = names[i].split(" ")[1]
+  User.create(id: i+1, first_name: fname, last_name: lname, email: emails[i], password: "testpass", password_confirmation: "testpass")
 end
+puts 'Fake users successfuly created!'
+
+# Create fifty fake events
+# TODO
+
+# Create fifty fake hardware hardware_items
+# TODO
+
+# create fifity fake mentorship requests
+# TODO
+
+# # Create fifty fake applications
+# for i in 0..49
+#   @app = EventApplication.new(user_id: i+1,
+#                               status: "undecided",
+#                               name: names[i],
+#                               phone: "(978) 701-1514",
+#                               age: "15",
+#                               sex: "Male",
+#                               university: "FAKE USER",
+#                               major: "FAKE USER",
+#                               grad_year: "2018",
+#                               food_restrictions: false,
+#                               food_restrictions_info: "",
+#                               t_shirt_size: "M",
+#                               linkedin_url: "",
+#                               github_url: "",
+#                               prev_attendance: false,
+#                               programming_skills: "[\"Swift\"]",
+#                               hardware_skills: "{}",
+#                               referral_info: "",
+#                               future_hardware_suggestion: "",
+#                               waiver_liability_agreement: true,
+#                               created_at: Time.now,
+#                               updated_at: Time.now,
+#                               resume_file_name: "2_John_Smith.pdf",
+#                               resume_content_type: "application/pdf",
+#                               resume_file_size: 6831,
+#                               resume_updated_at: Time.now)
+#   @app.save(validate: false)
+# end
+
+puts "Your database is full with fake data! You're all set! 🎉🎉🎉🎉🎉🎉🎉🎉🎉"
+puts ' '
+puts 'Admin credentials:'
+puts 'Email: admin@email.com'
+puts 'Password: testpass'

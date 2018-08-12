@@ -4,7 +4,7 @@ $event-application-medium-button-height: 35px;
 $primary-color: #926dde;
 $error-color: red;
 
-.event-application-required-field:after{
+.event-application-required-field:after {
   content: ' * ';
   color: $error-color;
 }
@@ -57,9 +57,26 @@ $error-color: red;
   margin-bottom: 30px;
 }
 
-.event-application-flex-space-around{
+.event-application-flex-space-around {
   display: flex;
   justify-content: space-around;
   flex-flow: wrap;
   width: 100%;
+}
+
+.event-application-error-card-padding {
+  padding: 20px 0px;
+}
+
+.event-application-hidden {
+  display: none;
+}
+
+.event-application-resume-container {
+  width: 100%;
+  height: 80vh;
+}
+
+#javascript-container {
+  display: none;
 }

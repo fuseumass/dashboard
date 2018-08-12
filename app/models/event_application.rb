@@ -17,6 +17,9 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[sex age t_shirt_size],
                         message: 'Please select your %{attribute}. This field is required.'
 
+  validates_presence_of %i[resume],
+                        message: 'Please upload your resume. This field is required.'
+
   validates_inclusion_of %i[food_restrictions prev_attendance],
                          in: [true, false],
                          message: 'Please pick an answer for \'%{attribute}\'. This field is required.'

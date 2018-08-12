@@ -1,9 +1,31 @@
 <div class="my-4 my-md-5">
   <div class="container">
     <div class="row">
+      <% if @application.errors.any? %>
+        <div class="card">
+          <div class="card-status bg-danger"></div>
+          <div class="card-header">
+            <h3 class="page-title">
+                <%=pluralize(@application.errors.count, 'error') %> prohibited this
+                application from being submitted:
+            </h3>
+          </div>
+          <div class="card-body event-application-error-card-padding">
+            <ul>
+              <% @application.errors.values.each do |message| %>
+                <li>
+                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
       <div class="card">
-        <div class="card-status bg-primary-color"></div>
-        <div class="card-header event-application-card-padding">
+        <% if !@application.errors.any? %>
+          <div class="card-status bg-primary-color"></div>
+        <% end %>
+        <div class="card-header">
           <h2 class="page-title event-application-page-title-margin-right">
             Signup Application
           </h2>

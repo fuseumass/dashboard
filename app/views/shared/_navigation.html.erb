@@ -5,7 +5,7 @@
         <%= image_tag('navlogo.png', class: 'header-brand-img')%>
       </a>
       <div class="d-flex order-lg-2 ml-auto">
-        <div class="dropdown d-none d-md-flex">
+        <!-- <div class="dropdown d-none d-md-flex">
           <a class="nav-link icon" data-toggle="dropdown">
             <i class="fe fe-bell"></i>
             <span class="nav-unread"></span>
@@ -32,7 +32,7 @@
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item text-center text-muted-dark">Go to notification</a>
           </div>
-        </div>
+        </div> -->
         <div class="dropdown">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url('https://d1mpvgh3wz53k.cloudfront.net/Content/img/empty-user-photo.png')"></span>
@@ -66,17 +66,19 @@
             <% end %>
           </li>
 
-          <li class="nav-item">
-            <% if !has_apply? %>
-              <%= link_to event_application_path(current_user.event_application.id), class: "nav-link #{'active' if is_applications_active?}" do %>
-                <i class="fe fe-file-text"></i>&nbsp;Application</a>
+          <% if has_access_to_applying? %>
+            <li class="nav-item">
+              <% if already_applied? %>
+                <%= link_to event_application_path(current_user.event_application.id), class: "nav-link #{'active' if is_applications_active?}" do %>
+                  <i class="fe fe-file-text"></i>My Application</a>
+                <% end %>
+              <% else %>
+                <%= link_to apply_path, class: "nav-link #{'active' if is_applications_active?}" do %>
+                  <i class="fe fe-file-text"></i>Apply</a>
+                <% end %>
               <% end %>
-            <% else %>
-              <%= link_to apply_path, class: "nav-link #{'active' if is_applications_active?}" do %>
-                <i class="fe fe-file-text"></i>&nbsp;Application</a>
-              <% end %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
 
           <% if has_access_to_mentorship? %>
             <li class="nav-item">
@@ -118,20 +120,6 @@
               <% end %>
             </li>
           <% end %>
-
-          <%# if has_access_to_all_applications? %>
-<!--            <li class="<%#= 'active' if is_applications_active? %>">-->
-              <%#= link_to 'Applications', event_applications_path %>
-<!--            </li>-->
-          <%# else %>
-            <%# begin %>
-<!--              <li class="<%#= 'active' if is_applications_active? %>">-->
-                <%#= link_to 'Application', current_user_application %>
-<!--              </li>-->
-            <%# rescue %>
-              <%# "don't render anything if the program runs into an exception" %>
-            <%# end %>
-          <%# end %>
 
           <% if has_access_to_admin? %>
             <li class="nav-item">

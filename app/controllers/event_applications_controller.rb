@@ -43,13 +43,12 @@ class EventApplicationsController < ApplicationController
   end
 
   def new
-    @application = EventApplication.new
-
     if current_user.has_applied?
         redirect_to index_path
         flash[:error] = "You have already created an application."
     end
 
+    @application = EventApplication.new
   end
 
 
@@ -60,8 +59,6 @@ class EventApplicationsController < ApplicationController
   def create
     @application = EventApplication.new(event_application_params)
     @application.user = current_user
-    @application.status = 'waitlisted'
-
     if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else
@@ -158,14 +155,11 @@ class EventApplicationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_application_params
-    variables = %i[name phone age sex university major grad_year
-                   food_restrictions food_restrictions_info t_shirt_size
-                   resume linkedin_url github_url prev_attendance
-                   referral_info future_hardware_suggestion
-                   waiver_liability_agreement programming_skills:[]
-                   hardware_skills:[]]
-
-    params.require(:event_application).permit(variables)
+    params.require(:event_application).permit(:name, :phone, :age, :sex, :university, :major, :grad_year,
+                   :food_restrictions, :food_restrictions_info, :t_shirt_size,
+                   :resume, :linkedin_url, :github_url, :prev_attendance,
+                   :referral_info, :future_hardware_suggestion,
+                   :waiver_liability_agreement, :programming_skills, :hardware_skills)
   end
 
   # Only admins and organizers have the ability to all permission except delete

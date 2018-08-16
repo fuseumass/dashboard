@@ -1,74 +1,82 @@
-.required-field-key:before, .required-field:after{
+$event-application-large-button-width: 155px;
+$event-application-medium-button-width: 75px;
+$event-application-medium-button-height: 35px;
+$primary-color: #926dde;
+$error-color: red;
+
+.event-application-required-field:after {
   content: ' * ';
-  color: red;
+  color: $error-color;
 }
 
-.error{
-  color: red;
+.event-application-nav-button-container {
+  margin: 10px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.required-field-key, #submit, #next-button, .button{
-  float: right;
+.event-application-nav-button {
+  width: $event-application-large-button-width;
+  background-color: $primary-color;
+  border-color: $primary-color;
+
 }
 
-.field_with_errors{
-  display: inline;
+.event-application-flex-end-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.character-counter{
-  color: lightgrey;
-  float: right;
+.event-application-status-button {
+  margin: 5px;
+  width: $event-application-medium-button-width;
+  height: $event-application-medium-button-height;
+}
+
+.event-application-card-padding {
+  margin-left: 5px;
+  padding-left: 5px;
+}
+
+.event-application-page-title-margin-right {
+  margin-right: 5px;
+}
+
+.event-application-header-status-margin {
+  margin-left: 6px;
+  margin-top: 4px;
+}
+
+.event-application-error-text {
+  color: $error-color;
+}
+
+.event-application-form-group {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.event-application-flex-space-around {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+  width: 100%;
+}
+
+.event-application-error-card-padding {
+  padding: 20px 0px;
+}
+
+.event-application-hidden {
   display: none;
 }
 
-#text-box, #text-box-2, #text-box-3{
-  background-color: #fdfdfd;
-}
-
-.table-header, .table-row{
-  text-align: center;
-}
-
-.table-link{
-  color :black;
-  text-decoration: none;
-}
-
-#status-text{
-  float: left;
-  margin: 0;
-}
-
-#status-bar{
-  height: 37.5px;
-}
-
-.button{
-  margin: 5px;
-}
-
-#resume-container, object{
-  position: absolute;
+.event-application-resume-container {
   width: 100%;
-  height: 100%;
+  height: 80vh;
 }
 
-#resume-container {
-    position: relative;
-    padding-bottom: 133%;
-    overflow: hidden;
-}
-
-.status-label{
-  display: block;
-  margin-left: 5px;
-  text-align: center;
-}
-
-.hidden-field::first-letter{
-  text-transform: uppercase;
-}
-
-.file {
-  
+#javascript-container {
+  display: none;
 }

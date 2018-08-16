@@ -1,26 +1,26 @@
 class EventApplicationsController < ApplicationController
-  before_action :set_event_application, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:index, :destroy, :status_updated]
-  autocomplete :university, :name, :full => true
-  autocomplete :major, :name, :full => true
+  # imports helper methods to the controller
+  include EventApplicationsHelper
+
+  before_action :set_event_application, only: %i[show edit update destroy]
+  before_action :check_permissions, only: %i[index destroy status_updated]
+  autocomplete :university, :name, full: true
+  autocomplete :major, :name, full: true
 
   def index
     @all_apps_count = EventApplication.all.count
-    @accepted_count = EventApplication.where(application_status: 'accepted').count
-    @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count
-    @undecided_count = EventApplication.where(application_status: 'undecided').count
-    @denied_count = EventApplication.where(application_status: 'denied').count
+    @accepted_count = EventApplication.where(status: 'accepted').count
+    @waitlisted_count = EventApplication.where(status: 'waitlisted').count
+    @undecided_count = EventApplication.where(status: 'undecided').count
+    @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
-    @rsvp_count = EventApplication.where(rsvp: true).count
 
     @flagged = params[:flagged]
     @status = params[:status]
     if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
-      @applications = EventApplication.where({application_status: @status})
+      @applications = EventApplication.where({status: @status})
     elsif params[:flagged].present?
       @applications = EventApplication.where(flag: true)
-    elsif params[:rsvp].present?
-      @applications = EventApplication.where(rsvp: true)
     else
       @applications = EventApplication.all
     end
@@ -30,19 +30,26 @@ class EventApplicationsController < ApplicationController
   end
 
   def show
+    # variable use in erb file
+    @applicant = @application
+    @status = @application.status
+    @user = @application.user
+
     unless current_user.is_admin? or current_user.is_organizer?
-      if @event_application.user != current_user
-        redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
+      if @user != current_user
+    redirect_to index_path, alert: lack_permission_msg if !admin_or_organizer? && @user != current_user
       end
     end
   end
 
   def new
+    @application = EventApplication.new
+
     if current_user.has_applied?
         redirect_to index_path
         flash[:error] = "You have already created an application."
     end
-    @event_application = EventApplication.new
+
   end
 
 
@@ -51,10 +58,11 @@ class EventApplicationsController < ApplicationController
 
 
   def create
-    @event_application = EventApplication.new(event_application_params)
-    @event_application.user = current_user
-    @event_application.application_status = 'waitlisted'
-    if @event_application.save
+    @application = EventApplication.new(event_application_params)
+    @application.user = current_user
+    @application.status = 'waitlisted'
+
+    if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else
       render :new
@@ -62,8 +70,9 @@ class EventApplicationsController < ApplicationController
   end
 
   def update
-    if @event_application.update(event_application_params)
-      redirect_to @event_application, notice: 'Event application was successfully updated.'
+    @application = @application
+    if @application.update(event_application_params)
+      redirect_to @application, notice: 'Event application was successfully updated.'
     else
       render :edit
     end
@@ -71,16 +80,16 @@ class EventApplicationsController < ApplicationController
 
 
   def destroy
-    @event_application.destroy
+    @application.destroy
     redirect_to event_applications_url, notice: 'Event application was successfully destroyed.'
   end
 
   def search
     @all_apps_count = EventApplication.all.count
-    @accepted_count = EventApplication.where(application_status: 'accepted').count
-    @waitlisted_count = EventApplication.where(application_status: 'waitlisted').count
-    @undecided_count = EventApplication.where(application_status: 'undecided').count
-    @denied_count = EventApplication.where(application_status: 'denied').count
+    @accepted_count = EventApplication.where(status: 'accepted').count
+    @waitlisted_count = EventApplication.where(status: 'waitlisted').count
+    @undecided_count = EventApplication.where(status: 'undecided').count
+    @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
     @rsvp_count = EventApplication.where(rsvp: true).count
 
@@ -96,7 +105,7 @@ class EventApplicationsController < ApplicationController
     new_status = params[:new_status]
     id = params[:id]
     application = EventApplication.find_by(user_id: id)
-    application.application_status = new_status
+    application.status = new_status
     application.save(:validate => false)
     flash[:success] = "Status successfully updated."
 
@@ -106,11 +115,11 @@ class EventApplicationsController < ApplicationController
 
     # Send email when status changes
     if new_status == 'accepted'
-      UserMailer.accepted_email(application.user).deliver_now
+      #UserMailer.accepted_email(application.user).deliver_now
     elsif new_status == 'denied'
-      UserMailer.denied_email(application.user).deliver_now
+      #UserMailer.denied_email(application.user).deliver_now
     else
-      UserMailer.waitlisted_email(application.user).deliver_now
+      #UserMailer.waitlisted_email(application.user).deliver_now
     end
   end
 
@@ -135,57 +144,32 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
-  def app_rsvp
-    appId = params[:application]
-    app = EventApplication.find(appId)
-    app.rsvp = true
-    app.save(:validate => false)
-    flash[:success] = "Successfully RSVP'd for the Event"
-    redirect_to event_application_path(app)
-  end
-
-  def rsvp
-    @app.rsvp = true
-    @app.save(:validate => false)
-    flash[:success] = "You Successfully RSVP for the Event"
-    redirect_to root_path
-  end
-
-  def unrsvp
-    @app = current_user.event_application
-    @app.rsvp = false
-    @app.save(:validate => false)
-    flash[:success] = "Thanks for letting us know you can't make it. If you change your mind, just RSVP again!"
-    redirect_to root_path
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_application
-      begin
-        @event_application = EventApplication.find(params[:id])
-      rescue
-        flash[:warning] = 'Upppps looks like you went backwards or forward too much.'
-        redirect_to event_applications_path
-        return
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event_application
+    begin
+      @application = EventApplication.find(params[:id])
+    rescue
+      flash[:warning] = 'Upppps looks like you went backwards or forward too much.'
+      redirect_to event_applications_path
+      return
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_application_params
-      params.require(:event_application).permit(:name, :email, :phone, :age, :sex, :university, :major, :grad_year,
-                                                :food_restrictions, :food_restrictions_info, :t_shirt,
-                                                :resume, :linkedin, :github, :previous_hackathon_attendance,
-                                                :transportation, :transportation_location,:interested_in_hardware_hacks,
-                                                :how_did_you_hear_about_hackumass, :future_hardware_for_hackumass,
-                                                :waiver_liability_agreement, interested_hardware_hacks_list:[],
-                                                programming_skills_list:[], hardware_skills_list:[])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_application_params
+    variables = %i[name phone age sex university major grad_year
+                   food_restrictions food_restrictions_info t_shirt_size
+                   resume linkedin_url github_url prev_attendance
+                   referral_info future_hardware_suggestion
+                   waiver_liability_agreement programming_skills:[]
+                   hardware_skills:[]]
 
-    # Only admins and organizers have the ability to all permission except delete
-    def check_permissions
-      unless current_user.is_admin? or current_user.is_organizer?
-        redirect_to index_path, alert: 'Sorry, but you seem to lack the permission to go to that part of the website.'
-      end
-    end
+    params.require(:event_application).permit(variables)
+  end
+
+  # Only admins and organizers have the ability to all permission except delete
+  def check_permissions
+    redirect_to index_path, alert: lack_permission_msg unless admin_or_organizer?
+  end
 end

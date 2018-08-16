@@ -5,6 +5,11 @@
 @import 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 @import 'bootstrap-datetimepicker';
 @import 'event_application';
+@import 'devise';
+
+
+$primary-color: #926dde;
+$error-color: red;
 
 * {
  box-sizing: border-box;
@@ -67,4 +72,12 @@ footer {
 
 .by-author {
   margin-bottom: 0px;
+}
+
+.bg-primary-color {
+  background-color: $primary-color;
+}
+
+.field_with_errors{
+  display: inline;
 }

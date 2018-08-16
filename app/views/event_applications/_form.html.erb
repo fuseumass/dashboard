@@ -1,438 +1,335 @@
-<% @form = @event_application %>
-<%= form_for(@form, html: {multipart: true, class: 'card', novalidate: 'novalidate'}) do |f| %>
-
 <div class="card-body">
+  <noscript>
+    Hello, <%= current_user.first_name %>! It seems like you have javascript
+    currently disable. In order to have everything function properly during
+    the sign up, please enable javascript for the duration of the sign up.
+    Thank you cooperation and we hope you see at HackUMass!
+  </noscript>
 
-    <%# Error Panel %>
-    <% if @form.errors.any? %>
-    <div class='panel panel-danger'>
-      <div class='panel-heading'>
-        <h3 class='panel-title'>
-          <%= pluralize(@form.errors.count, 'error') %> prohibited this
-          application from being submitted:
-        </h3>
-      </div>
-      <div class='panel-body'>
-        <ul>
-          <% @form.errors.values.each do |message| %>
-          <li>
-            <%= message.to_s.gsub(/[\[\]"]/, '').gsub(/\\n/, '') %>
-          </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    <% end %>
+  <div>
+    <%= form_for(@application, html: {multipart: true}) do |f| %>
+      <label class="event-application-required-field event-application-flex-end-container">
+        Indicates required field &nbsp;
+      </label>
 
-
-    <%# Required Key %>
-    <label class='required-field-key'>
-      Indicates required field
-    </label><br/>
-
-    <div class="row">
-      <%# Name Field %>
-      <div class="col-sm-12 col-md-4">
-        <div class='form-group'>
-          <%= f.label :name, 'Full Name:', class: 'col form-label required-field' %>
-          <div class='col-lg-9'>
-            <%= f.text_field :name, class: 'form-control' %>
-          </div>
-        </div>
+      <div class="form-group">
+        <%= f.label :name,
+                    'Full Name:',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.text_field :name,
+                         class: 'form-control' %>
       </div>
 
-      <%# Email Field %>
-      <div class="col-sm-6 col-md-4">
-        <div class='form-group'>
-          <%= f.label :email, 'Email:', class: 'col form-label
-          required-field' %>
-          <div class='col-lg-9'>
-            <%= f.text_field :email, class: 'form-control' %>
-          </div>
-        </div>
+      <div class="form-group event-application-form-group">
+        <%= f.label :phone,
+                    'Phone:',
+                    class: 'form-label' %>
+        <%= f.text_field :phone,
+                         class: 'form-control',
+                         maxlength: 10,
+                         onkeyup:'autoFormatPhoneNum()' %>
       </div>
 
-      <%# Phone Field %>
-      <div class="col-sm-6 col-md-4">
-        <div class='form-group'>
-          <%= f.label :phone, 'Phone:', class: 'col form-label' %>
-          <div class='col-lg-9'>
-            <%= f.text_field :phone, id: 'phone', class: 'form-control',
-            maxlength: 10, onkeyup: 'autoFormatPhoneNum()'  %>
-          </div>
-        </div>
+      <div class="form-group">
+        <%= f.label :age,
+                    'Age:',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.select :age,
+                     (14..50).map { |i| i.to_s},
+                     {include_blank: true},
+                     {class: 'form-control custom-select'} %>
       </div>
-    </div>
 
-    <%# Age Field %>
-    <div class='form-group'>
-      <%= f.label :age, 'Age:', class: 'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.select :age, (14..50).map {|i| i.to_s}, {include_blank: true},
-        {class: 'form-control'} %>
+      <div class="form-group">
+        <%= f.label :sex,
+                    'Sex:',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.select :sex,
+                     ['Male', 'Female', 'Other'],
+                     {include_blank: true},
+                     {class: 'form-control custom-select'} %>
       </div>
-    </div>
 
-    <%# Sex Field %>
-    <div class='form-group'>
-      <%= f.label :sex, 'Sex:', class: 'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.select :sex, ['Male', 'Female', 'Other'], {include_blank: true},
-        {class: 'form-control'} %>
+      <div class="form-group">
+        <%= f.label :university,
+                    'University:',
+                    class: 'form-label event-application-required-field' %>
+
+        <%= f.text_field :university,
+                         class: 'form-control',
+                         data: {autocomplete: autocomplete_university_name_event_applications_path} %>
       </div>
-    </div>
 
-    <%# University Field %>
-    <div class='form-group'>
-      <%= f.label :university, 'University:', class: 'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.text_field :university, class: 'form-control',
-        data: {autocomplete: autocomplete_university_name_event_applications_path} %>
+      <div class="form-group">
+        <%= f.label :major,
+                    'Major:',
+                    class: 'form-label event-application-required-field' %>
+
+        <%= f.text_field :major,
+                         class: 'form-control',
+                         data: {autocomplete: autocomplete_major_name_event_applications_path} %>
       </div>
-    </div>
 
-    <%# Major Field %>
-    <div class='form-group'>
-      <%= f.label :major, 'Major:', class: 'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.text_field :major, class: 'form-control',
-        data: {autocomplete: autocomplete_major_name_event_applications_path} %>
-      </div>
-    </div>
-
-    <%# Graduation Year Field %>
-    <div class='form-group'>
-      <%= f.label :grad_year, 'Graduation Year:', class: 'col-lg-3
-      form-label required-field'%>
-      <div class='col-lg-9'>
-        <%= f.select :grad_year, (2017..2025).map {|i| i.to_s},
-        {include_blank: true}, {class: 'form-control'} %>
-      </div>
-    </div>
-
-    <%# Food Restrictions Field %>
-    <div class='form-group'>
-      <%= f.label :food_restrictions, 'Do you have any food allergies or
-      dietary restrictions that we should know about?:', class: 'col-lg-3
-      form-label required-field '%>
-      <div class='col-lg-9'>
-        <div class='radio'>
-          <label>
-            <%= f.radio_button :food_restrictions, true, id:'foodRadios1',
-            onclick:'unhideField(\'food-info\')' %> Yes
+      <div class="form-group">
+        <%= f.label :food_restrictions,
+                    'Do you have any food allergies or dietary restrictions that we should know about?:',
+                    class: 'form-label event-application-required-field' %>
+        <div class="custom-controls-stacked">
+          <label class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :food_restrictions,
+                               true,
+                               class: 'custom-control-input',
+                               onclick: 'toggleHiddenField(\'event_application_food_restrictions_info\', \'event_application_food_restrictions_true\')' %>
+            <span class="custom-control-label">Yes</span>
           </label>
-        </div>
-        <div class='radio'>
-          <label>
-            <%= f.radio_button :food_restrictions, false, id:'foodRadios2',
-            onclick:'hideField(\'food-info\')' %> No
+          <label class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :food_restrictions,
+                               false,
+                               class: 'custom-control-input',
+                               onclick: 'toggleHiddenField(\'event_application_food_restrictions_info\', \'event_application_food_restrictions_true\')' %>
+            <span class="custom-control-label">No</span>
           </label>
         </div>
       </div>
-    </div>
 
-    <div id='food-info'>
-      <div class='form-group'>
-        <%= f.label :food_restrictions_info, raw('<noscript>if you answer yes,
-        </noscript> please list your dietary restrictions and allergies:'),
-        class: 'col-lg-3 form-label required-field hidden-field' %>
-        <div class='col-lg-9'>
-          <%= f.text_area :food_restrictions_info, rows: '5',
-          onkeyup: 'charCounter(\'text-box\', \'char-counter\')',
-          id: 'text-box', class: 'form-control' %>
-          <footer class='character-counter' id='char-counter'>
-            0 of Unlimited
-          </footer>
-        </div>
-      </div>
-    </div>
-
-    <%# T-Shirt Size Field %>
-    <div class='form-group'>
-      <%= f.label :t_shirt, 'T-Shirt Size:', class:'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.select :t_shirt, ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-        {include_blank: true}, {class: 'form-control'} %>
-      </div>
-    </div>
-
-    <%# Resume File Field %>
-    <div class='form-group'>
-      <%= f.label :resume, 'Resume: (.PDF)', class: 'col-lg-3 form-label
-      required-field' %>
-      <div class='col-lg-9'>
-        <%= f.file_field :resume %>
-      </div>
-    </div>
-
-    <%# Linkedin Field %>
-    <div class='form-group'>
-      <%= f.label :linkedin, 'Linkedin:', class: 'col-lg-3 form-label'%>
-      <div class='col-lg-9'>
-        <%= f.url_field :linkedin, class: 'form-control' %>
-      </div>
-    </div>
-
-    <%# Github Field %>
-    <div class='form-group'>
-      <%= f.label :github, 'Github:', class: 'col-lg-3 form-label' %>
-      <div class='col-lg-9'>
-        <%= f.url_field :github, class: 'form-control' %>
-      </div>
-    </div>
-
-    <%# Previous Hackathon Attendance Field %>
-    <div class='form-group'>
-      <%= f.label :previous_hackathon_attendance, 'Have you been to a
-      hackathon before?:', class: 'col-lg-3 form-label required-field' %>
-        <div class='col-lg-9'>
-          <div class='radio'>
-            <label>
-              <%= f.radio_button :previous_hackathon_attendance, true %> Yes
-            </label>
-          </div>
-          <div class='radio'>
-            <label>
-              <%= f.radio_button :previous_hackathon_attendance, false %> No
-            </label>
-          </div>
-        </div>
-    </div>
-
-    <%# Transportation Field %>
-    <div class='form-group'>
-      <%= f.label :transportation, 'Will you need transportation to UMass?:',
-      class: 'col-lg-3 form-label required-field' %>
-        <div class='col-lg-9'>
-          <div class='radio'>
-            <label>
-              <%= f.radio_button :transportation, true, id: 'transportRadios1',
-              onclick:'unhideField(\'transport-info\')' %> Yes
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <%= f.radio_button :transportation, false, id: 'transportRadios2',
-              onclick:'hideField(\'transport-info\')' %> No
-            </label>
-          </div>
-        </div>
-    </div>
-
-    <div id='transport-info'>
-      <div class='form-group'>
-        <%= f.label :transportation_location, raw('<noscript>if you answer yes,
-        </noscript> please tell us from where:'), class: 'col-lg-3 form-label
-        required-field hidden-field' %>
-        <div class='col-lg-9'>
-          <%= f.text_field :transportation_location, class: 'form-control' %>
-        </div>
-      </div>
-    </div>
-
-    <%# Programming Skills Field %>
-    <div class='form-group'>
-      <%= f.label :programming_skills_list, 'Programming Skills (select all
-      that apply):', class: 'col-lg-3 form-label' %>
-      <div class='col-lg-9'>
-        <div class='checkbox'>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'HTML/CSS',nil %> HTML/CSS
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Javascript/NodeJS',nil %> Javascript/NodeJS
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'PHP', nil %> PHP
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'SQL', nil %> SQL
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Ruby', nil %> Ruby
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Java', nil %> Java
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Kotlin', nil %> Kotlin
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Swift', nil %> Swift
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Objective C', nil %> Objective C
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'C/C++/C#',nil %> C/C++/C#
-          </label><br/>
-          <label>
-            <%= f.check_box :programming_skills_list, {multiple: true},
-            'Python', nil %> Python
-          </label><br/>
-        </div>
-      </div>
-    </div>
-
-    <%# Hardware Skills Field %>
-    <div class='form-group'>
-      <%= f.label :hardware_skills_list, 'Hardware Skills (select all
-      that apply):', class: 'col-lg-3 form-label' %>
-      <div class='col-lg-9'>
-        <div class='checkbox'>
-          <label>
-            <%= f.check_box :hardware_skills_list, {multiple: true},
-            'Embedded Systems',nil %> Embedded Systems
-          </label><br/>
-          <label>
-            <%= f.check_box :hardware_skills_list, {multiple: true},
-            'Robotics',nil %> Robotics
-          </label><br/>
-          <label>
-            <%= f.check_box :hardware_skills_list, {multiple: true},
-            'Wireless Communications', nil %> Wireless Communications
-          </label><br/>
-          <label>
-            <%= f.check_box :hardware_skills_list, {multiple: true},
-            'Circuits', nil %> Circuits
-          </label><br/>
-          <label>
-            <%= f.check_box :hardware_skills_list, {multiple: true},
-            '3D Printing', nil %> 3D Printing
-          </label><br/>
-        </div>
-      </div>
-    </div>
-
-    <%# Are You Interested in Hardware Hacks Field %>
-    <div class='form-group'>
-      <%= f.label :interested_in_hardware_hacks, 'Are you interested in
-      hardware hacks?:', class:'col-lg-3 form-label' %>
-        <div class='col-lg-9'>
-          <div class='radio'>
-            <label>
-              <%= f.radio_button :interested_in_hardware_hacks, true,
-              onclick: 'unhideField(\'hardware-hack-list\')',
-              id: 'hardware-radio-1' %> Yes
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <%= f.radio_button :interested_in_hardware_hacks, false,
-              onclick: 'hideField(\'hardware-hack-list\')',
-              id: 'hardware-radio-2' %> No
-            </label>
-          </div>
-        </div>
-    </div>
-
-    <div id='hardware-hack-list'>
-      <div class='form-group'>
-        <%= f.label :interested_hardware_hacks_list, raw('<noscript>if you
-        answer yes, </noscript> please select the hardware hacks that you
-        are interested in:'), class: 'col-lg-3 form-label hidden-field' %>
-        <div class='col-lg-9'>
-          <div class='radio'>
-            <label>
-            <%= f.check_box :interested_hardware_hacks_list, {multiple: true},
-            'Microprocessor', nil%> Microprocessor
-            </label><br/>
-            <label>
-            <%= f.check_box :interested_hardware_hacks_list, {multiple: true},
-            'Microcontroller', nil %> Microcontroller
-            </label><br/>
-            <label>
-            <%= f.check_box :interested_hardware_hacks_list, {multiple: true},
-            'Robotics', nil %> Robotics
-            </label><br/>
-            <label>
-            <%= f.check_box :interested_hardware_hacks_list, {multiple: true},
-            '3D-Printing', nil %> 3D-Printing
-            </label><br/>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <%# How Did You Hear About HackUMass Field %>
-    <div class='form-group'>
-      <%= f.label :how_did_you_hear_about_hackumass, 'How did you hear about
-      HackUMass?:', class: 'col-lg-3 form-label' %>
-      <div class='col-lg-9'>
-        <%= f.text_area :how_did_you_hear_about_hackumass, rows: '5',
-        onkeyup: 'charCounter(\'text-box-2\', \'char-counter-2\')',
-        id: 'text-box-2', class: 'form-control' %>
-        <footer class='character-counter' id='char-counter-2'>
+      <div class="form-group event-application-hidden">
+        <%= f.label :food_restrictions_info,
+                    raw('Please list your dietary restrictions and allergies<noscript>, if you answer yes</noscript>:'),
+                    class: 'form-label' %>
+        <%= f.text_area :food_restrictions_info,
+                        rows: '5',
+                        class: 'form-control text-box',
+                        onkeyup: 'charCounter(1)' %>
+        <div class="form-label-small event-application-flex-end-container text-box-counter">
           0 of 500
-        </footer>
+        </div>
       </div>
-    </div>
 
-    <%# Future Hardware For HackUMass Field %>
-    <div class='form-group'>
-      <%= f.label :future_hardware_for_hackumass, 'What hardware do you want
-      to see at HackUMass V or future HackUMass?:', class: 'col-lg-3
-      form-label' %>
-      <div class='col-lg-9'>
-        <%= f.text_area :future_hardware_for_hackumass, rows: '5',
-        onkeyup: 'charCounter(\'text-box-3\', \'char-counter-3\')',
-        id: 'text-box-3', class: 'form-control' %>
-        <footer class='character-counter' id='char-counter-3'>
-          0 of 500
-        </footer>
+      <div class="form-group">
+        <%= f.label :t_shirt_size,
+                    'T-Shirt Size:',
+                    class:'form-label event-application-required-field' %>
+        <%= f.select :t_shirt_size,
+                     ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                     {include_blank: true},
+                     {class: 'form-control custom-select'} %>
       </div>
-    </div>
 
-    <%# Waiver & Liability Agreement Field %>
-    <div class='form-group'>
-      <%= f.label :waiver_liability_agreement, 'Please agree to the following
-      Terms & Conditions for HackUMass V:', class: 'col-lg-3 form-label
-      required-field' %>
-       <div class='col-lg-9'>
-        <div class='radio'>
-          <label>
-            <%= f.check_box :waiver_liability_agreement,{}, true, false %>
-            I agree to the terms of both the <a href="https://goo.gl/jMXKsO">
-            MLH Contest Terms and Conditions </a> and the
-            <a href="https://mlh.io/privacy"> MLH Privacy Policy </a>.
-            Please note that you may receive pre and post-event
-            informational e-mails and occasional messages about hackathons
-            from MLH as per the MLH Privacy Policy. Also, by checking the box below
-            you agree to UMass' <a href="http://hackumass.com/legal/HUMVPhotoRelease.pdf">
-            Photo Release</a> requirement and <a href="http://hackumass.com/legal/HUMVLiabilityWaiver.pdf">
-            Liability Waiver</a>.
+      <div class="form-group">
+        <%= f.label :resume,
+                    'Resume: (.PDF)',
+                    class: 'form-label event-application-required-field' %>
+        <div class="custom-file">
+          <%= f.file_field :resume, class:'custom-file-input', onchange: 'updateResumeFileLabel()' %>
+          <label class="custom-file-label">
+            Choose file
           </label>
         </div>
       </div>
-    </div>
 
-    <%# Submit Button %>
-    <% if is_editing_application %>
-      <div>
-        <%= f.submit 'Update Application', type: 'submit', id: 'submit',
-        class: 'btn btn-primary submit' %>
+      <div class="form-group">
+        <%= f.label :linkedin_url,
+                    'Linkedin URL:',
+                    class: 'form-label' %>
+        <%= f.text_field :linkedin_url,
+                        class: 'form-control',
+                        novalidate: 'novalidate' %>
       </div>
-    <% else %>
-      <div>
-        <%= f.submit 'Submit Application', type: 'submit', id: 'submit',
-        class: 'btn btn-primary submit' %>
+
+      <div class="form-group">
+        <%= f.label :github_url,
+                    'GitHub URL:',
+                    class: 'form-label' %>
+        <%= f.text_field :github_url,
+                        class: 'form-control',
+                        novalidate: 'novalidate'%>
       </div>
+
+      <div class="form-group">
+        <%= f.label :prev_attendance,
+                    'Have you been to a hackathon before?:',
+                    class: 'form-label event-application-required-field' %>
+        <div class="custom-controls-stacked">
+          <label class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :prev_attendance, true, class: 'custom-control-input' %>
+            <span class="custom-control-label">Yes</span>
+          </label>
+          <label class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :prev_attendance, false, class: 'custom-control-input' %>
+            <span class="custom-control-label">No</span>
+          </label>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :programming_skills,
+                    'Programming Skills (select all that apply):',
+                    class: 'form-label' %>
+        <div class='custom-controls-stacked'>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'HTML/CSS',
+                            {class:'custom-control-input'} %> HTML/CSS
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Javascript/NodeJS',
+                            {class:'custom-control-input'} %> Javascript/NodeJS
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'PHP',
+                            {class:'custom-control-input'} %> PHP
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'SQL',
+                            {class:'custom-control-input'} %> SQL
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Ruby',
+                            {class:'custom-control-input'} %> Ruby
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Java',
+                            {class:'custom-control-input'} %> Java
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Kotlin',
+                            {class:'custom-control-input'} %> Kotlin
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Swift',
+                            {class:'custom-control-input'} %> Swift
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Objective C',
+                            {class:'custom-control-input'} %> Objective C
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'C/C++/C#',
+                            {class:'custom-control-input'} %> C/C++/C#
+          </label>
+          <label class="custom-control custom-checkbox">
+            <%= f.check_box :programming_skills,
+                            {multiple: true},
+                            'Python',
+                            {class:'custom-control-input'} %> Python
+          </label>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :hardware_skills,
+                    'Hardware Skills (select all that apply):',
+                    class: 'form-label' %>
+        <div class='custom-controls-stacked'>
+          <div class='checkbox'>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :hardware_skills,
+                              {multiple: true},
+                              'Embedded Systems',
+                              nil %> Embedded Systems
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :hardware_skills,
+                              {multiple: true},
+                              'Robotics',
+                              nil %> Robotics
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :hardware_skills,
+                              {multiple: true},
+                              'Wireless Communications',
+                              nil %> Wireless Communications
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :hardware_skills,
+                              {multiple: true},
+                              'Circuits',
+                              nil %> Circuits
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :hardware_skills,
+                              {multiple: true},
+                              '3D Printing',
+                              nil %> 3D Printing
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group event-application-form-group">
+        <%= f.label :referral_info,
+                    'How did you hear about HackUMass?:',
+                    class: 'form-label' %>
+        <%= f.text_area :referral_info,
+                        rows: '5',
+                        class: 'form-control text-box',
+                        onkeyup: 'charCounter(2)' %>
+        <div class="form-label-small event-application-flex-end-container text-box-counter">
+          0 of 500
+        </div>
+      </div>
+
+      <div class="form-group event-application-form-group">
+        <%= f.label :future_hardware_suggestion,
+                    'What hardware do you want to see at HackUMass VI or future HackUMass?:',
+                    class: 'form-label' %>
+        <%= f.text_area :future_hardware_suggestion,
+                        rows: '5',
+                        class: 'form-control text-box',
+                        onkeyup: 'charCounter(3)' %>
+        <div class="form-label-small event-application-flex-end-container text-box-counter">
+          0 of 500
+        </div>
+      </div>
+
+      <div class="form-group event-application-form-group">
+        <%= f.label :waiver_liability_agreement,
+                    'Please agree to the following Terms & Conditions for HackUMass VI:',
+                    class: 'form-label' %>
+        <%= f.check_box :waiver_liability_agreement, {}, true, false %>
+        I agree to the terms of both the <a href="https://goo.gl/jMXKsO">
+        MLH Contest Terms and Conditions </a> and the
+        <a href="https://mlh.io/privacy"> MLH Privacy Policy </a>.
+        Please note that you may receive pre and post-event
+        informational e-mails and occasional messages about hackathons
+        from MLH as per the MLH Privacy Policy. Also, by checking the box below
+        you agree to UMass' <a href="http://hackumass.com/legal/HUMVPhotoRelease.pdf">
+        Photo Release</a> requirement and <a href="http://hackumass.com/legal/HUMVLiabilityWaiver.pdf">
+        Liability Waiver</a>.
+      </div>
+
+      <% if editing_application? %>
+        <div class="event-application-flex-end-container">
+          <%= f.submit 'Update Application',
+                       type: 'submit',
+                       class: 'btn btn-purple bg-primary-color' %>
+        </div>
+      <% else %>
+        <div class="event-application-flex-end-container">
+          <%= f.submit 'Submit Application',
+                       type: 'submit',
+                       class: 'btn btn-purple bg-primary-color' %>
+        </div>
+      <% end %>
     <% end %>
-
   </div>
-<% end %>
+</div>

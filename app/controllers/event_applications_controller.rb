@@ -91,7 +91,6 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(status: 'undecided').count
     @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
-    @rsvp_count = EventApplication.where(rsvp: true).count
 
     if params[:search].present?
       @posts = EventApplication.search(params[:search])

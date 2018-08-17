@@ -111,15 +111,15 @@ puts 'Creating admin user...'
 User.create(id: 1, first_name: "admin", last_name: "user", email: "admin@email.com", password: "testpass", password_confirmation: "testpass", user_type: "admin")
 puts 'Admin user created successfuly!'
 
-puts ' '
-# Creating Fake Users
-puts 'Creating fake users...'
-for i in 1..49
-  fname = names[i].split(" ")[0]
-  lname = names[i].split(" ")[1]
-  User.create(id: i+1, first_name: fname, last_name: lname, email: emails[i], password: "testpass", password_confirmation: "testpass")
-end
-puts 'Fake users successfuly created!'
+# puts ' '
+# # Creating Fake Users
+# puts 'Creating fake users...'
+# for i in 1..49
+#   fname = names[i].split(" ")[0]
+#   lname = names[i].split(" ")[1]
+#   User.create(id: i+1, first_name: fname, last_name: lname, email: emails[i], password: "testpass", password_confirmation: "testpass")
+# end
+# puts 'Fake users successfuly created!'
 
 # Create fifty fake events
 # TODO

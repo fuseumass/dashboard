@@ -101,14 +101,14 @@ emails = ['bfrichley0@wp.com',
 'mlamcken1d@quantcast.com']
 
 puts '################# Rake Seed File Initiaded #####################'
-puts 'Deleting all user...'
-User.delete_all
-puts 'All users deleted!'
+# puts 'Deleting all user...'
+# User.delete_all
+# puts 'All users deleted!'
 
 puts ' '
 
 puts 'Creating admin user...'
-User.create(id: 1, first_name: "admin", last_name: "user", email: "admin@email.com", password: "testpass", password_confirmation: "testpass", user_type: "admin")
+User.create(first_name: "admin", last_name: "user", email: "admin@email.com", password: "testpass", password_confirmation: "testpass", user_type: "admin")
 puts 'Admin user created successfuly!'
 
 # puts ' '

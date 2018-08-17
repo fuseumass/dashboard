@@ -49,11 +49,11 @@ module PagesHelper
   end
 
   def has_access_to_hardware?
-    false
+    is_feature_enabled('hardware')
   end
 
   def has_access_to_mentorship?
-    current_user.is_admin? or current_user.is_mentor?
+    (current_user.is_admin? or current_user.is_mentor?) and is_feature_enabled('mentorship_requests')
   end
 
   def has_access_to_admin?
@@ -65,7 +65,7 @@ module PagesHelper
   end
 
   def has_access_to_applying?
-    current_user.is_attendee?
+    current_user.is_attendee? and is_feature_enabled('event_applications')
   end
 
   def already_applied?
@@ -78,6 +78,15 @@ module PagesHelper
 
   def action?(target_action)
     target_action.include?(params[:action])
+  end
+
+  def is_feature_enabled(name)
+    feature_flag = FeatureFlag.find_by(name: name)
+    if feature_flag.nil?
+      false
+    else
+      feature_flag.value
+    end
   end
 
 end

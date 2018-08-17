@@ -115,11 +115,11 @@ class EventApplicationsController < ApplicationController
 
     # Send email when status changes
     if new_status == 'accepted'
-      #UserMailer.accepted_email(application.user).deliver_now
+      UserMailer.accepted_email(application.user).deliver_now
     elsif new_status == 'denied'
-      #UserMailer.denied_email(application.user).deliver_now
+      UserMailer.denied_email(application.user).deliver_now
     else
-      #UserMailer.waitlisted_email(application.user).deliver_now
+      UserMailer.waitlisted_email(application.user).deliver_now
     end
   end
 

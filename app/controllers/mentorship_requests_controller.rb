@@ -1,6 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
+  before_action :is_feature_enabled
 
   def index
     @mentorship_requests = MentorshipRequest.all.order(created_at: :desc)
@@ -60,6 +61,19 @@ class MentorshipRequestsController < ApplicationController
 
     flash[:success] = 'Request Successfully denied'
     redirect_to mentorship_requests_path
+  end
+
+  def is_feature_enabled
+    feature_flag = FeatureFlag.find_by(name: 'mentorship_requests')
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: 'Mentorship is currently not available. Try again later'
+    else
+      if feature_flag.value == false
+        # Redirect user to index if no feature flag is off (false)
+        redirect_to index_path, alert: 'Mentorship is currently not available. Try again later'
+      end
+    end
   end
 
   private

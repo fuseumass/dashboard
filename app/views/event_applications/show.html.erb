@@ -18,7 +18,7 @@
       <div class="card">
 
         <!-- Applicant's Status -->
-        <% if @applicant.flag || 'denied'.eql?(@status)  %>
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
           <div class="card-status bg-danger"></div>
         <% elsif 'accepted'.eql?(@status) %>
           <div class="card-status bg-success"></div>
@@ -32,7 +32,7 @@
           <h2 class="page-title event-application-page-title-margin-right">
             Application Status:
           </h2>
-          <% if @applicant.flag %>
+          <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
             </span>

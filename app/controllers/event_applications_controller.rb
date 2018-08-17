@@ -43,12 +43,13 @@ class EventApplicationsController < ApplicationController
   end
 
   def new
+    @application = EventApplication.new
+
     if current_user.has_applied?
         redirect_to index_path
         flash[:error] = "You have already created an application."
     end
 
-    @application = EventApplication.new
   end
 
 
@@ -59,6 +60,8 @@ class EventApplicationsController < ApplicationController
   def create
     @application = EventApplication.new(event_application_params)
     @application.user = current_user
+    @application.status = 'waitlisted'
+
     if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'
     else
@@ -112,11 +115,11 @@ class EventApplicationsController < ApplicationController
 
     # Send email when status changes
     if new_status == 'accepted'
-      #UserMailer.accepted_email(application.user).deliver_now
+      UserMailer.accepted_email(application.user).deliver_now
     elsif new_status == 'denied'
-      #UserMailer.denied_email(application.user).deliver_now
+      UserMailer.denied_email(application.user).deliver_now
     else
-      #UserMailer.waitlisted_email(application.user).deliver_now
+      UserMailer.waitlisted_email(application.user).deliver_now
     end
   end
 
@@ -159,7 +162,7 @@ class EventApplicationsController < ApplicationController
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
                    :resume, :linkedin_url, :github_url, :prev_attendance,
                    :referral_info, :future_hardware_suggestion,
-                   :waiver_liability_agreement, :programming_skills, :hardware_skills)
+                   :waiver_liability_agreement, programming_skills:[], hardware_skills:[])
   end
 
   # Only admins and organizers have the ability to all permission except delete

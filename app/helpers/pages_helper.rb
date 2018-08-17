@@ -49,7 +49,7 @@ module PagesHelper
   end
 
   def has_access_to_hardware?
-    current_user.is_admin? or current_user.is_organizer? or current_user.is_attendee? or current_user.is_mentor?
+    false
   end
 
   def has_access_to_mentorship?
@@ -64,8 +64,12 @@ module PagesHelper
     current_user.is_organizer? or current_user.is_admin?
   end
 
-  def has_apply?
-    current_user.event_application.blank?
+  def has_access_to_applying?
+    current_user.is_attendee?
+  end
+
+  def already_applied?
+    !current_user.event_application.blank? and !current_user.event_application.id.nil?
   end
   # Helper methonds to this helper class. lol so meta
   def controller?(target_controller)

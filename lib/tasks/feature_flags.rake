@@ -3,11 +3,9 @@ namespace :feature_flags do
   task load_flags: :environment do
 
     FeatureFlag.delete_all
-    FeatureFlag.create(name: 'Applications', value: false)
-    FeatureFlag.create(name: 'Mentorship Dashboard', value: false)
-    FeatureFlag.create(name: 'Hardware', value: false)
-    FeatureFlag.create(name: 'Check In', value: false)
-    FeatureFlag.create(name: 'Events', value: false)
+    FeatureFlag.create(name: 'event_applications', value: false)
+    FeatureFlag.create(name: 'mentorship_requests', value: false)
+    FeatureFlag.create(name: 'hardware', value: false)
 
     puts 'Feature flags created successfully!'
 

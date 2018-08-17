@@ -5,7 +5,7 @@ class EventApplication < ApplicationRecord
   # after_create :submit_email
 
   # give us elastic search functionality in event application
-  searchkick
+  # searchkick
 
   # creates a one to one association with the user
   belongs_to :user
@@ -91,7 +91,7 @@ class EventApplication < ApplicationRecord
 
   # checks to see that the user resume is legit
   validate :resume_legitimacy,
-           if: -> { resume.present? && errors[:resume].length.zero? }
+           if: -> { resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
 
   private
 
@@ -140,7 +140,8 @@ class EventApplication < ApplicationRecord
   # method will remove one of the symbol there by removing the
   # duplication.
   def remove_repeats_err_msg
-    errors.delete(:resume) if errors.key?(:resume)
+    presence_msg = 'Please upload your resume. This field is required.'
+    errors.delete(:resume) if errors[:resume].length > 0 && !errors[:resume].include?(presence_msg)
   end
 
   # send email confirmation to user once they submit there application

@@ -2,7 +2,7 @@ class EventApplication < ApplicationRecord
   after_validation :remove_repeats_err_msg
   before_create :rename_file
   after_update :rename_file
-  after_create :submit_email
+  # after_create :submit_email
 
   # give us elastic search functionality in event application
   searchkick

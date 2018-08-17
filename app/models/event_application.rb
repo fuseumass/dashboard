@@ -5,7 +5,7 @@ class EventApplication < ApplicationRecord
   # after_create :submit_email
 
   # give us elastic search functionality in event application
-  searchkick
+  # searchkick
 
   # creates a one to one association with the user
   belongs_to :user
@@ -102,14 +102,15 @@ class EventApplication < ApplicationRecord
       parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
       if parser.length.positive? && parser.length < 400 || !resume_contains(name, parser)
         errors.add(:invalid_resume, 'Resume file is invalid. Please make
-        sure that the file is OCR PDF. Contact us at \'team@hackumass.com\'
-        if you have any more problem uploading your resume.')
+        sure that the file you have uploaded has all your actual information.
+        Contact us at \'team@hackumass.com\' if you have any more problem
+        uploading your resume.')
       end
-      self.flag = resume_contains(university, parser) && resume_contains(major, parser)
+      self.flag = !(resume_contains(university, parser) && resume_contains(major, parser))
     rescue
-      errors.add(:corrupt_file, 'Resume file is corrupted. Please try
-      recreating the resume file. Contact us at \'team@hackumass.com\'
-      if you have any more problem uploading your resume.')
+      errors.add(:invalid_resume, 'Resume file is invalid. Please make
+        sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
+        if you have any more problem uploading your resume.')
     end
   end
 

@@ -36,8 +36,8 @@ echo 'Heroku Build Sucessfull ✅'
 echo ' '
 
 # Put the app on maintenance mode and migrate the database
-# echo 'Skipping maintenance mode. No migrations found. ✅'
-echo 'Application entering maintenance mode...'
+echo 'Skipping maintenance mode. No migrations found. ✅'
+# echo 'Application entering maintenance mode...'
 # heroku maintenance:on -a hackumass-web
 # echo ' '
 # echo 'Migrating databases....'

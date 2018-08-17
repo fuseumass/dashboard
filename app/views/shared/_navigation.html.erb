@@ -37,8 +37,8 @@
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url('https://d1mpvgh3wz53k.cloudfront.net/Content/img/empty-user-photo.png')"></span>
             <span class="ml-2 d-none d-lg-block">
-              <span class="text-default"><%= current_user.full_name%></span>
-              <small class="text-muted d-block mt-1"><%= current_user.user_type %></small>
+              <span class="text-default"><%= current_user.full_name.capitalize%></span>
+              <small class="text-muted d-block mt-1"><%= current_user.user_type.capitalize %></small>
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">

@@ -20,6 +20,7 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require turbolinks
+//= require cable
 //= require event_application
 //= require moment
 //= require bootstrap-datetimepicker

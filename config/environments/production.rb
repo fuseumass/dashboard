@@ -64,15 +64,15 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address => "email-smtp.us-east-1.amazonaws.com",
       :port => 587,
-      :user_name => 'AKIAI5ELW7IPJCGSWUQA', #Your SMTP user
-      :password => 'AnTH9NIGs7h6wJGae0wVSd6pO81KGpoChqb9Jr2uPFQx', #Your SMTP password
+      :user_name => 'AKIAIS5JEPUJFKVSFKXA', #Your SMTP user
+      :password => 'Aji7htpSp4KUt2oNJpq+sfOuz/xgXoMEgZuht/Wnz4j/', #Your SMTP password
       :authentication => :login,
       :enable_starttls_auto => true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -96,4 +96,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # setup paperclip to use AWS S3
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_region: 'us-east-1',
+      s3_credentials: {
+          bucket: 'hackumass-vi',
+          access_key_id: 'AKIAIRI2RFW3P7JI3KRA',
+          secret_access_key: '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'
+      }
+  }
 end

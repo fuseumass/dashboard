@@ -180,3 +180,4 @@ function updateResumeFileLabel() {
         fileLabel.innerHTML = fileName;
     }
 }
+;

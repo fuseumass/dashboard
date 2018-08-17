@@ -18,7 +18,7 @@ class UpdateEventApplicationTable < ActiveRecord::Migration[5.2]
       t.text :food_restrictions_info
       t.string :resume_file_name
       t.string :resume_content_type
-      # t.integer :resume_file_size
+      t.integer :resume_file_size
       t.datetime :resume_updated_at
       t.string :t_shirt_size
       t.string :linkedin_url

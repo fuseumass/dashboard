@@ -96,21 +96,17 @@ class EventApplication < ApplicationRecord
   private
 
   def resume_legitimacy
-    resume_path = Paperclip.io_adapters.for(self.resume).path
-    resume = File.open(resume_path, 'rb')
-    begin
-      parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
-      if parser.length.positive? && parser.length < 400 || !resume_contains(name, parser)
+    if age.to_i > 17
+      resume_path = Paperclip.io_adapters.for(self.resume).path
+      resume = File.open(resume_path, 'rb')
+      begin
+        parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
+        self.flag = parser.length < 400 || !resume_contains(name, parser) || !(resume_contains(university, parser) || !resume_contains(major, parser))
+      rescue
         errors.add(:invalid_resume, 'Resume file is invalid. Please make
-        sure that the file you have uploaded has all your actual information.
-        Contact us at \'team@hackumass.com\' if you have any more problem
-        uploading your resume.')
+          sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
+          if you have any more problem uploading your resume.')
       end
-      self.flag = !(resume_contains(university, parser) && resume_contains(major, parser))
-    rescue
-      errors.add(:invalid_resume, 'Resume file is invalid. Please make
-        sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
-        if you have any more problem uploading your resume.')
     end
   end
 

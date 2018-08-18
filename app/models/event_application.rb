@@ -5,7 +5,7 @@ class EventApplication < ApplicationRecord
   # after_create :submit_email
 
   # give us elastic search functionality in event application
-  searchkick
+  # searchkick
 
   # creates a one to one association with the user
   belongs_to :user
@@ -91,26 +91,22 @@ class EventApplication < ApplicationRecord
 
   # checks to see that the user resume is legit
   validate :resume_legitimacy,
-           if: -> { resume.present? && errors[:resume].length.zero? }
+           if: -> { resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
 
   private
 
   def resume_legitimacy
-    resume_path = Paperclip.io_adapters.for(self.resume).path
-    resume = File.open(resume_path, 'rb')
-    begin
-      parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
-      if parser.length.positive? && parser.length < 400 || !resume_contains(name, parser)
+    if age.to_i > 17
+      resume_path = Paperclip.io_adapters.for(self.resume).path
+      resume = File.open(resume_path, 'rb')
+      begin
+        parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
+        self.flag = parser.length < 400 || !resume_contains(name, parser) || !(resume_contains(university, parser) || !resume_contains(major, parser))
+      rescue
         errors.add(:invalid_resume, 'Resume file is invalid. Please make
-        sure that the file you have uploaded has all your actual information.
-        Contact us at \'team@hackumass.com\' if you have any more problem
-        uploading your resume.')
+          sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
+          if you have any more problem uploading your resume.')
       end
-      self.flag = !(resume_contains(university, parser) && resume_contains(major, parser))
-    rescue
-      errors.add(:invalid_resume, 'Resume file is invalid. Please make
-        sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
-        if you have any more problem uploading your resume.')
     end
   end
 
@@ -140,7 +136,8 @@ class EventApplication < ApplicationRecord
   # method will remove one of the symbol there by removing the
   # duplication.
   def remove_repeats_err_msg
-    errors.delete(:resume) if errors.key?(:resume)
+    presence_msg = 'Please upload your resume. This field is required.'
+    errors.delete(:resume) if errors[:resume].length > 0 && !errors[:resume].include?(presence_msg)
   end
 
   # send email confirmation to user once they submit there application

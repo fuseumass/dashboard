@@ -7,6 +7,18 @@ $(document).on('turbolinks:load', function () {
     toggleHiddenField('event_application_food_restrictions_info', 'event_application_food_restrictions_true');
 });
 
+
+$(document).on('ready', function () {
+    console.log(page.action())
+    if (!(page.controller() === 'event_applications' && page.action() === 'create' || page.action() === 'update')) {
+        return;
+    }
+    unhideField(document.getElementById('javascript-container'));
+    charCounter();
+    toggleHiddenField('event_application_food_restrictions_info', 'event_application_food_restrictions_true');
+});
+
+
 /*
 This function runs everytime a page completely reloads (this means turbolinks 
 are excluded). The purpose of this function is to make all the hidden field 
@@ -131,7 +143,9 @@ the viewer.
 This function does not return anything.
 */
 function unhideField(field) {
-    field.style.display = 'block';
+    if (field) {
+        field.style.display = 'block';
+    }
 }
 
 /*
@@ -144,7 +158,9 @@ the viewer.
 This function does not return anything.
 */
 function hideField(field) {
-    field.style.display = 'none';
+    if (field) {
+        field.style.display = 'none';
+    }
 }
 
 /*

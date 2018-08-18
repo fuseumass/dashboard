@@ -64,12 +64,13 @@ Rails.application.configure do
   #     :enable_starttls_auto => true
   # }
 
-  # SMTP settings for amazon mailgun
+  # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-      :address => "smtp.mailgun.org",
+      :address => "smtp.gmail.com",
       :port => 587,
-      :user_name => 'postmaster@sandbox4d135c7bd7eb42fb92e77abc9786ed11.mailgun.org', #Your SMTP user
-      :password => '512200b7c9adb3669903faf9888cd88e-6b60e603-e89740fa', #Your SMTP password
+      :domain => "gmail.com",
+      :user_name => 'donotreply.hackumass@gmail.com', #Your SMTP user
+      :password => 'eR499@Z0', #Your SMTP password
       :authentication => :plain,
       :enable_starttls_auto => true
   }

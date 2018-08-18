@@ -42,10 +42,20 @@
 
       <div class="form-group">
         <%= f.label :sex,
-                    'Sex:',
+                    'Gender:',
                     class: 'form-label event-application-required-field' %>
         <%= f.select :sex,
                      ['Male', 'Female', 'Other'],
+                     {include_blank: true},
+                     {class: 'form-control custom-select'} %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :education_lvl,
+                    'What\'s your education level?',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.select :education_lvl,
+                     ['High School Student', 'College Freshman', 'College Sophomore', 'College Junior', 'College Senior', 'Masters', 'PhD'],
                      {include_blank: true},
                      {class: 'form-control custom-select'} %>
       </div>
@@ -57,7 +67,8 @@
 
         <%= f.text_field :university,
                          class: 'form-control',
-                         data: {autocomplete: autocomplete_university_name_event_applications_path} %>
+                         placeholder: 'Enter your University or High School',
+                         data: {autocomplete: autocomplete_university_name_event_applications_path}%>
       </div>
 
       <div class="form-group">
@@ -67,6 +78,7 @@
 
         <%= f.text_field :major,
                          class: 'form-control',
+                         placeholder: 'Please list your major or N/A if your still in High School',
                          data: {autocomplete: autocomplete_major_name_event_applications_path} %>
       </div>
 

@@ -1,242 +1,238 @@
-<% @applicant = @event_application %>
+<div class="my-4 my-md-5">
+  <div class="container">
+    <div class="row">
 
-<% if is_admin_or_organizer? %>
-  <div id = 'button-container'>
-    <%=
-      link_to '<< Previous Applicant',
-        event_application_path(@applicant.id-1),
-      class: 'btn btn-default',
-      id: 'prev-button'
-    %>
-    <%=
-      link_to 'Next Applicant >>',
-      event_application_path(@applicant.id+1),
-      class: 'btn btn-default',
-      id: 'next-button'
-    %>
-  </div><br/>
-<% end %>
+      <% if admin_or_organizer? %>
 
-<%# Applicant's Status %>
-<div class='panel panel-default'>
-  <div class='panel-heading' id='status-bar'>
-    <h3 class='panel-title'>
-      <p id='status-text'>
-        Status: <span class='label label-primary status-label'>
-                  <%= @applicant.application_status.capitalize %>
-                </span>
-        <% if @applicant.flag && is_admin_or_organizer? %>
-          <span class='label label-danger status-label'>Flag</span>
+        <div class="row align-items-center event-application-nav-button-container">
+          <%= link_to 'Previous Applicant',
+                      event_application_path(@applicant.id-1),
+                      class: 'btn btn-purple event-application-nav-button' %>
+          <%= link_to 'Next Applicant',
+                      event_application_path(@applicant.id+1),
+                      class: 'btn btn-purple event-application-nav-button' %>
+        </div>
+
+      <% end %>
+
+      <div class="card">
+
+        <!-- Applicant's Status -->
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
+          <div class="card-status bg-danger"></div>
+        <% elsif 'accepted'.eql?(@status) %>
+          <div class="card-status bg-success"></div>
+        <% elsif 'waitlisted'.eql?(@status) %>
+          <div class="card-status bg-warning"></div>
+        <% else %>
+          <div class="card-status bg-secondary"></div>
         <% end %>
-        <% if @applicant.rsvp && is_admin_or_organizer? %>
-            <span class='label label-info status-label'>RSVP</span>
+
+        <div class="card-header event-application-card-padding">
+          <h2 class="page-title event-application-page-title-margin-right">
+            Application Status:
+          </h2>
+          <% if @applicant.flag && admin_or_organizer? %>
+            <span class="tag tag-danger event-application-header-status-margin">
+              Flagged
+            </span>
+          <% end %>
+          <% if 'accepted'.eql?(@status) %>
+            <span class="tag tag-success event-application-header-status-margin">
+              <%= @status.capitalize %>
+            </span>
+          <% elsif 'denied'.eql?(@status) %>
+            <span class="tag tag-danger event-application-header-status-margin">
+              <%= @status.capitalize %>
+            </span>
+          <% elsif 'waitlisted'.eql?(@status) %>
+            <span class="tag tag-warning event-application-header-status-margin">
+              <%= @status.capitalize %>
+            </span>
+          <% else %>
+            <span class="tag tag-secondary event-application-header-status-margin">
+              <%= @status.capitalize %>
+            </span>
+          <% end %>
+        </div>
+
+        <div class="card-body event-application-card-padding">
+
+          <% if admin_or_organizer? %>
+            <label class='event-application-required-field event-application-flex-end-container'>
+              Required Fields for the Applicant &nbsp;
+            </label>
+          <% end %>
+
+          <p class='required-field'>
+            <label><b>Name: </b></label>
+            <%= @applicant.name %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Email: </b></label>
+            <%= @user.email %>
+          </p>
+
+          <p>
+            <label><b>Phone: </b></label>
+            <%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Age: </b></label>
+            <%= @applicant.age %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Gender: </b></label>
+            <%= @applicant.sex %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Education Level: </b></label>
+            <%= @applicant.education_lvl %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>University: </b></label>
+            <%= @applicant.university %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Major: </b></label>
+            <%= @applicant.major %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Graduation Year: </b></label>
+            <%= @applicant.grad_year %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Food Restrictions: </b></label>
+            <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>T-Shirt Size: </b></label>
+            <%= @applicant.t_shirt_size %>
+          </p>
+
+          <p>
+            <label><b>Linkedin URL: </b></label>
+            <%= @applicant.linkedin_url.empty? ? 'N/A' : @applicant.linkedin_url %>
+          </p>
+
+          <p>
+            <label><b>Github URL: </b></label>
+            <%= @applicant.github_url.empty? ? 'N/A' : @applicant.github_url %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Have you been to a hackathon before?:</b></label>
+            <%= @applicant.prev_attendance ? 'Yes' : 'No' %>
+          </p>
+
+          <p>
+            <label><b>Programming Skills: </b></label>
+            <% if @applicant.programming_skills == '{}' %>
+              <%= 'N/A ' %>
+            <% else %>
+              <%= @applicant.programming_skills %>
+            <% end %>
+          </p>
+
+          <p>
+            <label><b>Hardware Skills: </b></label>
+            <% if @applicant.hardware_skills == '{}' %>
+              <%= 'N/A' %>
+            <% else %>
+              <%= @applicant.hardware_skills %>
+            <% end %>
+          </p>
+
+          <p>
+            <label><b>How did you hear about HackUMass?: </b></label>
+            <% if @applicant.referral_info.empty? %>
+              <%= 'N/A' %>
+            <% else %>
+              <%= @applicant.referral_info %>
+            <% end %>
+          </p>
+
+          <p>
+            <label>
+              <b>
+                What hardware do you want to see at HackUMass VI or future HackUMass?:
+              </b>
+            </label>
+            <% if @applicant.future_hardware_suggestion.empty? %>
+              <%= 'N/A' %>
+            <% else %>
+              <%= @applicant.future_hardware_suggestion %>
+            <% end %>
+          </p>
+        </div>
+
+        <% if admin_or_organizer? %>
+          <!--
+            Only show this field when the applicants disagrees to the
+            Term & Conditions but the form is somehow still submitted
+          -->
+          <% unless @applicant.waiver_liability_agreement %>
+            <p class='required-field'>
+            <span class='event-application-error-text'>
+              <label><b>Terms & Condition: </b></label>
+              <%= @applicant.waiver_liability_agreement ? 'AGREED' : 'DISAGREED' %>
+            </span>
+            </p>
+          <% end %>
         <% end %>
-      </p>
-    </h3>
-  </div>
 
-  <%# Applicant's Info %>
-  <div class ='panel-body'>
+        <div class="event-application-flex-end-container">
+          <% if admin_or_organizer? %>
+            <%= button_to 'Accept',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'accepted', id: @applicant.user_id}},
+                          {class: 'btn btn-success btn-sm event-application-status-button'} %>
 
-    <% if is_admin_or_organizer? %>
-      <label class='required-field-key'>
-        Required Fields for the Applicant
-      </label>
-    <% end %>
+            <%= button_to 'Deny',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'denied', id: @applicant.user_id}},
+                          {class: 'btn btn-danger btn-sm event-application-status-button'} %>
 
-    <p class='required-field'>
-      <label><b>Name: </b></label>
-      <%= @applicant.name %>
-    </p>
+            <%= button_to 'Waitlist',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'waitlisted', id: @applicant.user_id}},
+                          {class: 'btn btn-warning btn-sm event-application-status-button'} %>
 
-    <p class='required-field'>
-      <label><b>Email: </b></label>
-      <%= @applicant.email %>
-    </p>
+            <% if @application.flag %>
+              <%= button_to 'Unflag',
+                            {controller: 'event_applications', action: 'unflag_application',
+                             params: {application: @event_application}},
+                            {class: 'btn btn-success btn-sm event-application-status-button'} %>
+            <% else %>
+              <%= button_to 'Flag',
+                            {controller: 'event_applications', action: 'flag_application',
+                             params: {application: @event_application}},
+                            {class: 'btn btn-danger btn-sm event-application-status-button'} %>
+            <% end %>
+          <% end %>
 
-    <p>
-      <label><b>Phone: </b></label>
-      <%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %>
-    </p>
+          <%= button_to 'Edit', edit_event_application_path(@applicant),
+                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+        </div>
 
-    <p class='required-field'>
-      <label><b>Age: </b></label>
-      <%= @applicant.age %>
-    </p>
+      </div>
 
-    <p class='required-field'>
-      <label><b>Sex: </b></label>
-      <%= @applicant.sex %>
-    </p>
+      <div class="event-application-resume-container">
+        <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
+          <p>There was error loading the resume, try refreshing the page to see if the
+            problem will be resolved. If the issue persists, contact the tech team.</p>
+        </object>
+      </div>
 
-    <p class='required-field'>
-      <label><b>University: </b></label>
-      <%= @applicant.university %>
-    </p>
-
-    <p class='required-field'>
-      <label><b>Major: </b></label>
-      <%= @applicant.major %>
-    </p>
-
-    <p class='required-field'>
-      <label><b>Graduation Year: </b></label>
-      <%= @applicant.grad_year %>
-    </p>
-
-    <p class='required-field'>
-      <label><b>Food Restrictions: </b></label>
-      <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
-    </p>
-
-    <p class='required-field'>
-      <label><b>T-Shirt Size: </b></label>
-      <%= @applicant.t_shirt %>
-    </p>
-
-    <p>
-      <label><b>Linkedin URL: </b></label>
-      <%= @applicant.linkedin.empty? ? 'N/A' : @applicant.linkedin %>
-    </p>
-
-    <p>
-      <label><b>Github URL: </b></label>
-      <%= @applicant.github.empty? ? 'N/A' : @applicant.github %>
-    </p>
-
-    <p class='required-field'>
-      <label><b>Have you been to a hackathon before?:</b></label>
-      <%= @applicant.previous_hackathon_attendance ? 'Yes' : 'No'%>
-    </p>
-
-    <p class='required-field'>
-      <label><b>Will you need transportation to UMass?:</b></label>
-      <%= @applicant.transportation ? 'Yes' : 'No'%>
-    </p>
-
-    <% if @applicant.transportation %>
-        <p>
-          <label><b>Where do you need transportation from?</b></label>
-          <%= @applicant.transportation_location%>
-        </p>
-    <% end %>
-
-
-    <p>
-      <label><b>Programming Skills: </b></label>
-      <% if @applicant.programming_skills_list == '{}' %>
-        <%= 'N/A '%>
-      <% else %>
-        <%= @applicant.programming_skills_list %>
-      <% end %>
-    </p>
-
-    <p>
-      <label><b>Hardware Skills: </b></label>
-      <% if @applicant.hardware_skills_list == '{}' %>
-        <%= 'N/A' %>
-      <% else %>
-        <%= @applicant.hardware_skills_list %>
-      <% end %>
-    </p>
-
-    <p>
-      <% if @applicant.interested_in_hardware_hacks %>
-        <label><b>Interested hardware hacks: </b></label>
-        <%= @applicant.interested_hardware_hacks_list %>
-      <% else %>
-        <label><b>Are you interested in hardware hacks?: </b></label>
-        <%= 'No' %>
-      <% end %>
-    </p>
-
-    <p>
-      <label><b>How did you hear about HackUMass?: </b></label>
-      <% if @applicant.how_did_you_hear_about_hackumass.empty? %>
-        <%= 'N/A' %>
-      <% else %>
-        <%= @applicant.how_did_you_hear_about_hackumass %>
-      <% end %>
-    </p>
-
-    <p>
-      <label>
-        <b>
-          What hardware do you want to see at HackUMass V or future HackUMass?:
-        </b>
-      </label>
-      <% if @applicant.future_hardware_for_hackumass.empty?  %>
-        <%= 'N/A' %>
-      <% else %>
-        <%= @applicant.future_hardware_for_hackumass %>
-      <% end %>
-    </p>
-
-    <% if is_admin_or_organizer? %>
-      <%# Only show this field when the applicants disagrees to the
-      Term & Conditions but the form is somehow still submitted. %>
-      <% if !@applicant.waiver_liability_agreement %>
-        <p class='required-field'>
-          <span class='error'>
-          <label><b>Terms & Condition: </b></label>
-          <%= @applicant.waiver_liability_agreement ? 'AGREED' : 'DISAGREED' %>
-          </span>
-        </p>
-      <% end %>
-
-      <%= button_to 'Accept',
-          {controller:'event_applications', action: 'status_updated',
-          params: {new_status:'accepted', id: @applicant.user_id}},
-          {class: 'btn btn-success btn-sm button'} %>
-
-      <%= button_to 'Deny',
-          {controller:'event_applications', action: 'status_updated',
-          params: {new_status:'denied', id: @applicant.user_id}},
-          {class: 'btn btn-danger btn-sm button'} %>
-
-      <%= button_to 'Waitlist',
-          {controller:'event_applications', action: 'status_updated',
-          params: {new_status:'waitlisted', id: @applicant.user_id}},
-          {class: 'btn btn-warning btn-sm button'} %>
-
-        <%= button_to 'RSVP', {controller:'event_applications', action: 'app_rsvp', params: {application: @event_application}}, {class: 'btn btn-info btn-sm button'} %>
-
-      <% if @event_application.flag %>
-        <%= button_to 'Unflag',
-          {controller:'event_applications', action: 'unflag_application',
-          params: {application: @event_application}},
-          {class: 'btn btn-primary btn-sm button'} %>
-      <% else %>
-        <%= button_to 'Flag',
-          {controller:'event_applications', action: 'flag_application',
-          params: {application: @event_application}},
-          {class: 'btn btn-primary btn-sm button'} %>
-      <% end %>
-    <% end %>
-
-    <%# Needed to turn off turbo-link so that persistent works when editing the
-    applicants form. %>
-    <%= link_to 'Edit', edit_event_application_path(@applicant),
-      {data: {turbolinks: false}, class: 'btn btn-default btn-sm button'} %>
-
+    </div>
   </div>
 </div>
-
-</div>
-
-<% if is_admin_or_organizer? %>
-  <br/><div id = 'button-container'>
-    <%=
-      link_to '<< Previous Applicant',
-      event_application_path(@applicant.id-1),
-      class: 'btn btn-default',
-      id: 'prev-button'
-    %>
-    <%=
-      link_to 'Next Applicant >>',
-      event_application_path(@applicant.id+1),
-      class: 'btn btn-default',
-      id: 'next-button'
-    %>
-  </div>
-<% end %>

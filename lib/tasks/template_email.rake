@@ -8,7 +8,7 @@ namespace :template_email do
     app_mailing_list = EventApplication.where(:check_in => true)
 
     app_mailing_list.each do |app|
-      UserMailer.template_email(app, 'Thank you for attending HackUMass V! <> Win an Amazon Echo Dot',).deliver_now
+      UserMailer.template_email(app, 'Thank you for attending HackUMass VI! <> Win an Amazon Echo Dot',).deliver_now
       email_count += 1
     end
 

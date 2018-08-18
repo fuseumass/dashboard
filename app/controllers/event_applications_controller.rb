@@ -2,7 +2,7 @@ class EventApplicationsController < ApplicationController
   # imports helper methods to the controller
   include EventApplicationsHelper
 
-  before_action :is_feature_enabled
+  # before_action :is_feature_enabled
   before_action :set_event_application, only: %i[show edit update destroy]
   before_action :check_permissions, only: %i[index destroy status_updated]
   autocomplete :university, :name, full: true
@@ -174,7 +174,7 @@ class EventApplicationsController < ApplicationController
     params.require(:event_application).permit(:name, :phone, :age, :sex, :university, :major, :grad_year,
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
                    :resume, :linkedin_url, :github_url, :prev_attendance,
-                   :referral_info, :future_hardware_suggestion,
+                   :referral_info, :future_hardware_suggestion, :education_lvl,
                    :waiver_liability_agreement, programming_skills:[], hardware_skills:[])
   end
 

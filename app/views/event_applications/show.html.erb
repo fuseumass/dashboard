@@ -59,8 +59,8 @@
         <div class="card-body event-application-card-padding">
 
           <% if admin_or_organizer? %>
-            <label class='required-field-key'>
-              Required Fields for the Applicant
+            <label class='event-application-required-field event-application-flex-end-container'>
+              Required Fields for the Applicant &nbsp;
             </label>
           <% end %>
 
@@ -85,8 +85,13 @@
           </p>
 
           <p class='required-field'>
-            <label><b>Sex: </b></label>
+            <label><b>Gender: </b></label>
             <%= @applicant.sex %>
+          </p>
+
+          <p class='required-field'>
+            <label><b>Education Level: </b></label>
+            <%= @applicant.education_lvl %>
           </p>
 
           <p class='required-field'>

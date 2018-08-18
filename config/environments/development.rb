@@ -54,13 +54,24 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.delivery_method = :smtp
+  # SMTP settings for amazon ses
+  # config.action_mailer.smtp_settings = {
+  #     :address => "email-smtp.us-east-1.amazonaws.com",
+  #     :port => 587,
+  #     :user_name => 'AKIAIS5JEPUJFKVSFKXA', #Your SMTP user
+  #     :password => 'Aji7htpSp4KUt2oNJpq+sfOuz/xgXoMEgZuht/Wnz4j/', #Your SMTP password
+  #     :authentication => :login,
+  #     :enable_starttls_auto => true
+  # }
+
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-      :address => "email-smtp.us-east-1.amazonaws.com",
+      :address => "smtp.gmail.com",
       :port => 587,
-      :user_name => 'AKIAI5ELW7IPJCGSWUQA', #Your SMTP user
-      :password => 'AnTH9NIGs7h6wJGae0wVSd6pO81KGpoChqb9Jr2uPFQx', #Your SMTP password
-      :authentication => :login,
+      :domain => "gmail.com",
+      :user_name => 'donotreply.hackumass@gmail.com', #Your SMTP user
+      :password => 'eR499@Z0', #Your SMTP password
+      :authentication => :plain,
       :enable_starttls_auto => true
   }
 
@@ -72,4 +83,16 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # setup paperclip to use AWS S3
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_region: 'us-east-1',
+      s3_protocol: 'https',
+      s3_credentials: {
+          bucket: 'hackumass-vi-dev',
+          access_key_id: 'AKIAJ5P3U5WOPYCC6CJQ',
+          secret_access_key: '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'
+      }
+  }
 end

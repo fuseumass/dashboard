@@ -20,9 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-
-en:
   activerecord:
     attributes:
       event_application:
@@ -36,10 +33,9 @@ en:
         grad_year: "graduation year"
         food_restrictions: "Do you have any food allergies or dietary 
         restrictions that we should know about?"
-        t_shirt: "t-shirt size"
+        t_shirt_size: "t-shirt size"
         resume: "resume"
-        previous_hackathon_attendance: "Have you been to a hackathon before?"
-        transportation: "Will you need transportation to UMass?"
-        how_did_you_hear_about_hackumass: "How did you hear about hackumass?"
-        future_hardware_for_hackumass: "What hardware do you want to see at 
-        HackUMass V or future HackUMass?"
+        prev_attendance: "Have you been to a hackathon before?"
+        referral_info: "How did you hear about hackumass?"
+        future_hardware_suggestion: "What hardware do you want to see at HackUMass VI or future HackUMass?"
+        education_lvl: "education level"

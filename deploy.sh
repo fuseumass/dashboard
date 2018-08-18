@@ -15,7 +15,7 @@ echo ' '
 
 # Asset precompilation
 echo 'Precompiling Assets...'
-RAILS_ENV=production bundle exec rake assets:precompile
+bundle exec rake assets:precompile
 echo 'Assets precompiled succesfully ✅'
 echo ' '
 
@@ -36,7 +36,7 @@ echo 'Heroku Build Sucessfull ✅'
 echo ' '
 
 # Put the app on maintenance mode and migrate the database
-echo 'Skipping maintenance mode. No migrations found. ✅'
+# echo 'Skipping maintenance mode. No migrations found. ✅'
 echo 'Application entering maintenance mode...'
 heroku maintenance:on -a hackumass-web
 echo ' '

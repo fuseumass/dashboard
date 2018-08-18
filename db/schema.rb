@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_040748) do
+ActiveRecord::Schema.define(version: 2018_08_18_171735) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_08_11_040748) do
     t.text "referral_info"
     t.text "future_hardware_suggestion"
     t.boolean "waiver_liability_agreement"
+    t.string "education_lvl"
   end
 
   create_table "events", force: :cascade do |t|

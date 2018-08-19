@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :check_permissions, only: %i[index]
 
   def index
     @projects = Project.all
@@ -62,5 +63,11 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:title, :description, :link, :team_members)
+    end
+
+    def check_permissions
+      unless current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have the permissions to see all projects'
+      end
     end
 end

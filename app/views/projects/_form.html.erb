@@ -1,16 +1,31 @@
-<div class="col-lg-8">
-  <%= form_with(model: project, local: true) do |form| %>
-  <% if project.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<div class="card-body">
 
-    <ul>
-      <% project.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
+ <noscript>
+    Hello, <%= current_user.first_name %>! It seems like you have javascript
+    currently disable. In order to have everything function properly during
+    the sign up, please enable javascript for the duration of the sign up.
+    Thank you cooperation and we hope you see at HackUMass!
+  </noscript>
+
+  <div class="col-lg-8">
+    <%= form_with(model: project, local: true) do |form| %>
+      <% if project.errors.any? %>
+        <div id="card">
+          <div class="card-status bg-danger"></div>
+          <div class="card-header">
+            <h3 class="page-title">
+            <%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:
+           </h3>
+          </div>
+        <div class="card-body projects-error-card-padding">
+          <ul>
+            <% project.errors.full_messages.each do |message| %>
+              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '')  %></li>
+            <% end %>
+          </ul>
+        </div>
+        </div>
+    <% end %>
 
   <div class="form-group">
     <%= form.label :title, class:'control-label' %>
@@ -36,4 +51,5 @@
     <%= form.submit class: 'btn btn-primary' %>
   </div>
   <% end %>
+</div>
 </div>

@@ -32,6 +32,10 @@ module PagesHelper
     controller?("events")
   end
 
+  def is_projects_active?
+      controller?("projects")
+  end
+
   def has_access_to_all_applications?
     current_user.is_organizer? or current_user.is_admin?
   end

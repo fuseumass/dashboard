@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808024842) do
+ActiveRecord::Schema.define(version: 2018_08_18_171735) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -23,10 +23,12 @@ ActiveRecord::Schema.define(version: 20180808024842) do
   end
 
   create_table "event_applications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.string "application_status", default: "undecided"
+    t.string "status", default: "undecided"
+    t.boolean "flag", default: false
     t.string "name"
-    t.string "email"
     t.string "phone"
     t.string "age"
     t.string "sex"
@@ -35,30 +37,20 @@ ActiveRecord::Schema.define(version: 20180808024842) do
     t.string "grad_year"
     t.boolean "food_restrictions"
     t.text "food_restrictions_info"
-    t.string "t_shirt"
-    t.binary "resume_file"
     t.string "resume_file_name"
-    t.string "linkedin"
-    t.string "github"
-    t.boolean "previous_hackathon_attendance"
-    t.boolean "transportation"
-    t.string "transportation_location"
-    t.string "programming_skills_list", default: "{}"
-    t.string "interested_hardware_hacks_list", default: "{}"
-    t.text "how_did_you_hear_about_hackumass"
-    t.text "future_hardware_for_hackumass"
-    t.boolean "waiver_liability_agreement"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "accepted_applicants", default: 0
-    t.integer "rejected_applicants", default: 0
-    t.integer "waitlisted_applicants", default: 0
-    t.boolean "interested_in_hardware_hacks"
-    t.string "hardware_skills_list", default: "{}"
-    t.boolean "flag", default: false
-    t.boolean "rsvp", default: false
-    t.boolean "check_in", default: false
+    t.string "resume_content_type"
     t.integer "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.string "t_shirt_size"
+    t.string "linkedin_url"
+    t.string "github_url"
+    t.boolean "prev_attendance"
+    t.string "programming_skills", default: "{}"
+    t.string "hardware_skills", default: "{}"
+    t.text "referral_info"
+    t.text "future_hardware_suggestion"
+    t.boolean "waiver_liability_agreement"
+    t.string "education_lvl"
   end
 
   create_table "events", force: :cascade do |t|
@@ -69,6 +61,13 @@ ActiveRecord::Schema.define(version: 20180808024842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "time"
+  end
+
+  create_table "feature_flags", force: :cascade do |t|
+    t.string "name"
+    t.boolean "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

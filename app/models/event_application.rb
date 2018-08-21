@@ -5,7 +5,7 @@ class EventApplication < ApplicationRecord
   after_create :submit_email
 
   # give us elastic search functionality in event application
-  # searchkick
+  searchkick
 
   # creates a one to one association with the user
   belongs_to :user

@@ -3,38 +3,45 @@
     <h1 class="page-title"> Home</h1>
   </div>
 
-  <% if current_user.has_applied? %>
-    <center>
-      <div class="col-sm-12 col-lg-5">
-        <div class="card">
-          <div class="card-status bg-purple"></div>
-          <div class="card-body d-flex flex-column">
-            <h2>Hey, <%= current_user.first_name.capitalize %></h2>
-            <div class="text-muted">Looks like we got your application. Yay🎉</div>
-            <p>
-            <div class="text-muted">If there’s anything you would like to change in your application, head out to My Application and make all the edits you want. </div></p>
-            <div class="text-muted">We will let you know of your application status in a few weeks. Thanks for applying!</div>
-            <div class="d-flex align-items-center pt-5 mt-auto">
-            </div>
-          </div>
-        </div>
-      </div>
-    </center>
+
+  <% if current_user.is_admin? %>
+    <%= render 'shared/statistics'%> 
   <% else %>
-    <center>
-      <div class="col-sm-12 col-lg-5">
-        <div class="card">
-          <div class="card-status bg-purple"></div>
-          <div class="card-body d-flex flex-column">
-            <h2>Hey, <%= current_user.first_name.capitalize %>!</h2>
-            <div class="text-muted">Congratulations on making the first steps to participate in HackUMass VI! Now you just need to fill out the application. Click the button below to get started!</div>
-            <div class="d-flex align-items-center pt-5 mt-auto">
+    <% if current_user.has_applied? %>
+      <center>
+        <div class="col-sm-12 col-lg-5">
+          <div class="card">
+            <div class="card-status bg-purple"></div>
+            <div class="card-body d-flex flex-column">
+              <h2>Hey, <%= current_user.first_name.capitalize %></h2>
+              <div class="text-muted">Looks like we got your application. Yay🎉</div>
+              <p>
+              <div class="text-muted">If there’s anything you would like to change in your application, head out to My Application and make all the edits you want. </div></p>
+              <div class="text-muted">We will let you know of your application status in a few weeks. Thanks for applying!</div>
+              <div class="d-flex align-items-center pt-5 mt-auto">
+              </div>
             </div>
-            <%= link_to 'Apply Now!', apply_path,class: 'btn btn-purple' %>
           </div>
         </div>
-      </div>
-    </center>
+      </center>
+    <% else %>
+      <center>
+        <div class="col-sm-12 col-lg-5">
+          <div class="card">
+            <div class="card-status bg-purple"></div>
+            <div class="card-body d-flex flex-column">
+              <h2>Hey, <%= current_user.first_name.capitalize %>!</h2>
+              <div class="text-muted">Congratulations on making the first steps to participate in HackUMass VI! Now you just need to fill out the application. Click the button below to get started!</div>
+              <div class="d-flex align-items-center pt-5 mt-auto">
+              </div>
+              <%= link_to 'Apply Now!', apply_path,class: 'btn btn-purple' %>
+            </div>
+          </div>
+        </div>
+      </center>
+    <% end %>
   <% end %>
+
+
 
 </div>

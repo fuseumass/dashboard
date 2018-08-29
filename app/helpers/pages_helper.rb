@@ -61,7 +61,7 @@ module PagesHelper
   end
 
   def has_access_to_check_in?
-    current_user.is_organizer? or current_user.is_admin?
+    (current_user.is_organizer? or current_user.is_admin?) and is_feature_enabled('check_in')
   end
 
   def has_access_to_applying?

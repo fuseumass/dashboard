@@ -49,5 +49,10 @@ echo 'Skipping maintenance mode. No migrations found. ✅'
 # heroku maintenance:off -a hackumass-web
 echo ' '
 
+echo 'New feature flags detected! Running feature flag script...'
+heroku run rake feature_flags:load_flags
+echo 'Feature flags successfully added to database ✅'
+echo ' '
+
 # All good!
 echo 'HackUMass Web App Has Been Deployed ✅'

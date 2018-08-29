@@ -5,7 +5,7 @@
 
 
   <% if current_user.is_admin? %>
-    <%= render 'shared/statistics'%> 
+  <%= render 'shared/statistics'%>
   <% else %>
     <% if current_user.has_applied? %>
       <center>

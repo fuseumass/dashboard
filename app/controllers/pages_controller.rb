@@ -12,6 +12,16 @@ class PagesController < ApplicationController
       end
     end
 
+    @all_apps_count = EventApplication.all.count
+    @accepted_count = EventApplication.where(status: 'accepted').count
+    @waitlisted_count = EventApplication.where(status: 'waitlisted').count
+    @undecided_count = EventApplication.where(status: 'undecided').count
+    @denied_count = EventApplication.where(status: 'denied').count
+    @flagged_count = EventApplication.where(flag: true).count
+
+    @user_count = User.all.count
+    @hardware_count = HardwareItem.all.count
+
     @hardware_checkouts = current_user.hardware_checkouts
     @upcoming_events = Event.all.order(time: :asc).limit(4)
   end

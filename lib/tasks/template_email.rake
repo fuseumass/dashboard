@@ -4,12 +4,13 @@ namespace :template_email do
 
   task :send => :environment do
     email_count = 0
+    user_mailing_list = User.all
 
-    app_mailing_list = EventApplication.where(:check_in => true)
-
-    app_mailing_list.each do |app|
-      UserMailer.template_email(app, 'Thank you for attending HackUMass VI! <> Win an Amazon Echo Dot',).deliver_now
-      email_count += 1
+    user_mailing_list.each do |user|
+      if !user.has_applied?
+        UserMailer.template_email(user, 'HackUMass VI Applications Are Open!').deliver_now
+        email_count += 1
+      end
     end
 
     puts "Emails sent: #{email_count}"

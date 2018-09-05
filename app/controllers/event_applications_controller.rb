@@ -93,7 +93,7 @@ class EventApplicationsController < ApplicationController
     @flagged_count = EventApplication.where(flag: true).count
 
     if params[:search].present?
-      @posts = EventApplication.search(params[:search])
+      @posts = EventApplication.search(params[:search], page: params[:page], per_page: 20)
     else
       redirect_to event_applications_path
     end
@@ -150,7 +150,7 @@ class EventApplicationsController < ApplicationController
       redirect_to index_path, notice: 'Applications are currently not available. Try again later!'
     else
       if feature_flag.value == false
-        # Redirect user to index if no feature flag is off (false)
+        # Redirect user to index if feature flag is off (false)
         redirect_to index_path, alert: 'Applications are currently not available. Try again later!'
       end
     end

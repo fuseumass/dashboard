@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
+  before_action :is_feature_enabled, only: :check_in
   # allows autocomplete to work on the email field in user and creates a route through pages,
   # :full => true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
   autocomplete :user, :email, :full => true
@@ -11,6 +12,16 @@ class PagesController < ApplicationController
         format.html{redirect_to new_user_session_path}
       end
     end
+
+    @all_apps_count = EventApplication.all.count
+    @accepted_count = EventApplication.where(status: 'accepted').count
+    @waitlisted_count = EventApplication.where(status: 'waitlisted').count
+    @undecided_count = EventApplication.where(status: 'undecided').count
+    @denied_count = EventApplication.where(status: 'denied').count
+    @flagged_count = EventApplication.where(flag: true).count
+
+    @user_count = User.all.count
+    @hardware_count = HardwareItem.all.count
 
     @hardware_checkouts = current_user.hardware_checkouts
     @upcoming_events = Event.all.order(time: :asc).limit(4)
@@ -99,6 +110,19 @@ class PagesController < ApplicationController
 
   def is_invalid_email?(email)
     !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+  end
+
+  def is_feature_enabled
+    feature_flag = FeatureFlag.find_by(name: 'check_in')
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: 'Check In is currently not available. Try again later!'
+    else
+      if feature_flag.value == false
+        # Redirect user to index if feature flag is off (false)
+        redirect_to index_path, alert: 'Check In is currently not available. Try again later!'
+      end
+    end
   end
 
   private

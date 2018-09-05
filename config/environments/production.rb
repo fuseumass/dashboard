@@ -60,24 +60,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'dashboard.hackumass.com' }
 
   config.action_mailer.delivery_method = :smtp
+  
   # SMTP settings for amazon ses
-  # config.action_mailer.smtp_settings = {
-  #     :address => "email-smtp.us-east-1.amazonaws.com",
-  #     :port => 587,
-  #     :user_name => 'AKIAIS5JEPUJFKVSFKXA', #Your SMTP user
-  #     :password => 'Aji7htpSp4KUt2oNJpq+sfOuz/xgXoMEgZuht/Wnz4j/', #Your SMTP password
-  #     :authentication => :login,
-  #     :enable_starttls_auto => true
-  # }
-
-  # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-      :address => "smtp.gmail.com",
+      :address => "email-smtp.us-east-1.amazonaws.com",
       :port => 587,
-      :domain => "gmail.com",
-      :user_name => 'donotreply.hackumass@gmail.com', #Your SMTP user
-      :password => 'eR499@Z0', #Your SMTP password
-      :authentication => :plain,
+      :user_name => 'AKIAIS5JEPUJFKVSFKXA', #Your SMTP user
+      :password => 'Aji7htpSp4KUt2oNJpq+sfOuz/xgXoMEgZuht/Wnz4j/', #Your SMTP password
+      :authentication => :login,
       :enable_starttls_auto => true
   }
 

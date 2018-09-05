@@ -11,6 +11,9 @@ class ProjectsController < ApplicationController
 
 
   def new
+    if current_user.has_published_project?
+      redirect_to project_path(current_user.project)
+    end
     @project = Project.new
   end
 
@@ -21,6 +24,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.user = current_user
 
     respond_to do |format|
       if @project.save
@@ -57,7 +61,11 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      begin
+        @project = Project.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to index_path, alert: 'Looks like we could not find that project (404)'
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

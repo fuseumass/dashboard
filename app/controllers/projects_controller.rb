@@ -1,12 +1,16 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: %i[index]
+  before_action :is_feature_enabled
 
   def index
     @projects = Project.all
   end
 
   def show
+    if @project.user != current_user
+      redirect_to index_path, alert: "You don't have the permissions to see this project."
+    end
   end
 
 
@@ -55,6 +59,19 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def is_feature_enabled
+    feature_flag = FeatureFlag.find_by(name: 'projects')
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: 'Projects are currently not available. Try again later!'
+    else
+      if feature_flag.value == false
+        # Redirect user to index if no feature flag is off (false)
+        redirect_to index_path, alert: 'Projects are currently not available. Try again later!'
+      end
     end
   end
 

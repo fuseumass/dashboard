@@ -132,11 +132,13 @@
             </li>
           <% end %>
 
-          <li class="nav-item">
+          <% if has_access_to_projects? %>
+            <li class="nav-item">
               <%= link_to new_project_path, class: "nav-link #{'active' if is_projects_active?}" do %>
                 <i class="fe fe-layers"></i> Projects</a>
               <% end %>
             </li>
+          <% end %>
 
         </ul>
       </div>

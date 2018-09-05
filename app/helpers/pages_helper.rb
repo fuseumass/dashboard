@@ -60,6 +60,10 @@ module PagesHelper
     (current_user.is_admin? or current_user.is_mentor?) and is_feature_enabled('mentorship_requests')
   end
 
+  def has_access_to_projects?
+    (current_user.is_admin? or current_user.is_accepted?) and is_feature_enabled('projects')
+  end
+
   def has_access_to_admin?
     current_user.is_admin?
   end

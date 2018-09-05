@@ -20,7 +20,7 @@ gem 'groupdate'
 gem 'pry-rails', group: :development
 
 # For easy search on hardware
-gem 'searchkick'
+gem "searchkick", "~> 2.5"
 
 # Stuff for looks
 gem 'sprockets-rails'

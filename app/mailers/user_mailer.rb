@@ -35,9 +35,8 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: @subject)
   end
 
-  def template_email(app, subject)
-    @user = app.user
-    @app = app
+  def template_email(user, subject)
+    @user = user
     @subject = subject
     mail(to: @user.email, subject: @subject)
   end

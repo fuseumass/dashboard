@@ -75,7 +75,6 @@
                 <th>Name</th>
                 <th>University</th>
                 <th>Major</th>
-                <th>Graduation Year</th>
               </tr>
               </thead>
               <tbody>
@@ -100,17 +99,17 @@
                   </td>
                   <td>
                     <a class='table-link' href='<%= show_form %>'>
-                      <%= form.name %>
+                      <%= form.name.titleize %>
                     </a>
                   </td>
                   <td>
                     <a class='table-link' href='<%= show_form %>'>
-                      <%= form.university %>
+                      <%= form.university.titleize %>
                     </a>
                   </td>
                   <td>
                     <a class='table-link' href='<%= show_form %>'>
-                      <%= form.major %>
+                      <%= form.major.titleize %>
                     </a>
                   </td>
                   <td>
@@ -133,7 +132,11 @@
             </div>
 
           <% end %>
-          <%= will_paginate @posts %>
+          <br>
+
+          <center>
+            <%= will_paginate @posts %>
+          </center>
 
         </div>
 

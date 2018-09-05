@@ -10,7 +10,7 @@
   <div class="col-lg-8">
     <%= form_with(model: project, local: true) do |form| %>
       <% if project.errors.any? %>
-        <div id="card">
+        <div class="card">
           <div class="card-status bg-danger"></div>
           <div class="card-header">
             <h3 class="page-title">
@@ -29,22 +29,24 @@
 
   <div class="form-group">
     <%= form.label :title, class:'control-label' %>
-    <%= form.text_field :title, id: :project_title, class: 'form-control' %>
+    <%= form.text_field :title, id: :project_title, class: 'form-control', placeholder: 'Give your team an awesome name! Team names must be unique.' %>
   </div>
 
   <div class="form-group">
     <%= form.label :description, class:'control-label' %>
-    <%= form.text_area :description, id: :project_description, class: 'form-control' %>
+    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 500 words please." %>
   </div>
 
   <div class="form-group">
-    <%= form.label :link, class:'control-label' %>
-    <%= form.text_field :link, id: :project_link, class: 'form-control' %>
+    <div class="control-label">
+      Github Link
+    </div>
+    <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! You can leave this empty if you're a noob and don't use github." %>
   </div>
 
   <div class="form-group">
     <%= form.label :team_members, class:'control-label' %>
-    <%= form.text_field :team_members, id: :project_team_members, class: 'form-control' %>
+    <%= form.text_field :team_members, id: :project_team_members, class: 'form-control', placeholder: 'Please list first and last name separated by commas. Ex: Brian Ramirez, Tanya Asnani' %>
   </div>
 
   <div class="actions">

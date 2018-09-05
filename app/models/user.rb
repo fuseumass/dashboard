@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
   has_one :mentorship_request, dependent: :destroy
+  has_one :project, dependent: :destroy
 
   after_create :welcome_email
 
@@ -38,6 +39,10 @@ class User < ApplicationRecord
 
   def has_applied?
     self.event_application.present?
+  end
+
+  def has_published_project?
+    self.project.present?
   end
 
   def has_mentorship_requests?

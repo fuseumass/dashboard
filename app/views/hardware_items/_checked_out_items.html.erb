@@ -5,7 +5,7 @@
   <tbody>
   	<% @checked_out_items.each do |item| %>
 	    <tr>
-	      <td><%= item.user.full_name %> on <%= item.created_at.strftime('%c')%></td>
+	      <td><%= item.user.full_name.titleize %> on <%= item.created_at.strftime('%A, %b %d at %I:%M %p')%></td>
 	      <td><%= link_to 'Return', item, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %></td>
 	    </tr>
     <% end %>

@@ -1,0 +1,48 @@
+<%= form_with(model: prize, local: true) do |form| %>
+  <% if prize.errors.any? %>
+    <div class="card">
+          <div class="card-status bg-danger"></div>
+          <div class="card-header">
+            <h3 class="page-title">
+            <%= pluralize(prize.errors.count, "error") %> prohibited this prize from being saved:
+           </h3>
+          </div>
+        <div class="card-body projects-error-card-padding">
+          <ul>
+            <% prize.errors.full_messages.each do |message| %>
+              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '')  %></li>
+            <% end %>
+          </ul>
+        </div>
+        </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, class:'control-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, class:'control-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :criteria, class:'control-label' %>
+    <%= form.text_area :criteria, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :sponsor, class:'control-label' %>
+    <%= form.text_field :sponsor, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :priority, class:'control-label' %>
+    <%= form.text_field :priority, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

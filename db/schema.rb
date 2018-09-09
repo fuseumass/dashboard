@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_171735) do
+ActiveRecord::Schema.define(version: 2018_09_09_190233) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -105,6 +105,25 @@ ActiveRecord::Schema.define(version: 2018_08_18_171735) do
     t.datetime "updated_at", null: false
     t.string "help_type"
     t.integer "urgency"
+  end
+
+  create_table "prizes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "criteria"
+    t.string "sponsor"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "link"
+    t.string "team_members"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "universities", force: :cascade do |t|

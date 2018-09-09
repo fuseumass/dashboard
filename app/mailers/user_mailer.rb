@@ -14,7 +14,6 @@ class UserMailer < ApplicationMailer
 
   def accepted_email(user)
     @user = user;
-    attachments['HUMVLiabilityWaivers.pdf'] = File.read('app/assets/attachments/HUMVLiabilityWaivers.pdf')
     mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass!')
   end
 

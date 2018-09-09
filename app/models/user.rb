@@ -81,10 +81,25 @@ class User < ApplicationRecord
     http.use_ssl = true
     req = Net::HTTP::Get.new(url)
 
-    res = http.request(req)
-    begin
+    res = JSON.parse(http.request(req).body)
+    if res["ok"]
       return JSON.parse(res.body)["user"]["name"]
-    rescue NoMethodError
+    else
+      return false
+    end
+  end
+
+  def get_slack_id
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = JSON.parse(http.request(req).body)
+    if res["ok"]
+      return JSON.parse(res.body)["user"]["id"]
+    else
       return false
     end
   end

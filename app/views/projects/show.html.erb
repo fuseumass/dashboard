@@ -1,0 +1,48 @@
+<div class="page-header">
+  <h1 class="page-title"><%= @project.title %></h1>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6 col-xl-8">
+    <div class="card">
+      <div class="card-body">
+
+        <img src="https://thenextdoor.org/wp-content/uploads/2016/11/placeholder-815x458.png" alt="">
+
+        <h2 class="mt-0 mb-4">Description</h2>
+        <p>
+          <%= simple_format(@project.description) %>
+        </p>
+
+        <% if !@project.link.empty? %>
+        <%= link_to @project.link, class: "btn btn-github" do %>
+          <i class="fe fe-github"></i> View on Github</a>
+        <% end %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-status card-status-left bg-blue"></div>
+      <div class="card-header">
+        <h3 class="card-title">Team Members</h3>
+        <div class="card-options">
+          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+          <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <%= @project.team_members %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<br>
+
+<%= link_to 'Back', projects_path %>

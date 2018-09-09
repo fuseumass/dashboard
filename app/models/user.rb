@@ -12,6 +12,13 @@ class User < ApplicationRecord
 
   after_create :welcome_email
 
+  # needed for slack integration
+  require "net/http"
+  require "uri"
+
+  # slack workspace token for HackUMass VI
+  $workspace_token = "xoxp-433043581511-431276410992-433044814679-5a719b1164aa9f95bdf488b36a88d059"
+
   # Use type checkers
   def is_attendee?
   	user_type == 'attendee'
@@ -54,9 +61,10 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
+
+
   def has_slack?
-    puts self.email
-    url = URI("https://slack.com/api/users.lookupByEmail?token=xoxp-433043581511-431276410992-433044814679-5a719b1164aa9f95bdf488b36a88d059&email=" + self.email)
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
@@ -65,5 +73,21 @@ class User < ApplicationRecord
     res = http.request(req)
     JSON.parse(res.body)["ok"]
   end
+
+  def get_slack_username
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = http.request(req)
+    begin
+      return JSON.parse(res.body)["user"]["name"]
+    rescue NoMethodError
+      return false
+    end
+  end
+
 
 end

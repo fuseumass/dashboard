@@ -1,0 +1,61 @@
+<div class="card-body">
+
+ <noscript>
+    Hello, <%= current_user.first_name %>! It seems like you have javascript
+    currently disable. In order to have everything function properly during
+    the sign up, please enable javascript for the duration of the sign up.
+    Thank you cooperation and we hope you see at HackUMass!
+  </noscript>
+
+  <div class="col-lg-8">
+    <%= form_with(model: project, local: true) do |form| %>
+      <% if project.errors.any? %>
+        <div class="card">
+          <div class="card-status bg-danger"></div>
+          <div class="card-header">
+            <h3 class="page-title">
+            <%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:
+           </h3>
+          </div>
+        <div class="card-body projects-error-card-padding">
+          <ul>
+            <% project.errors.full_messages.each do |message| %>
+              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '')  %></li>
+            <% end %>
+          </ul>
+        </div>
+        </div>
+    <% end %>
+
+  <div class="alert alert-info" role="alert">
+    Only <b>one</b> project should be submitted per team. Please make sure to list your team members.
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title, class:'control-label' %>
+    <%= form.text_field :title, id: :project_title, class: 'form-control', placeholder: 'Give your project an awesome name! Project names must be unique.' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, class:'control-label' %>
+    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 500 words please." %>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label">
+      Github Link
+    </div>
+    <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! You can leave this empty if you're a noob and don't use github." %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :team_members, class:'control-label' %>
+    <%= form.text_field :team_members, id: :project_team_members, class: 'form-control', placeholder: 'Please list first and last name separated by commas. Ex: Brian Ramirez, Tanya Asnani' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+  <% end %>
+</div>
+</div>

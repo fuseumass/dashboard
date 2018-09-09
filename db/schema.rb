@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 2018_09_09_190233) do
     t.integer "urgency"
   end
 
+
   create_table "prizes", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -124,6 +125,8 @@ ActiveRecord::Schema.define(version: 2018_09_09_190233) do
     t.string "team_members"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "universities", force: :cascade do |t|

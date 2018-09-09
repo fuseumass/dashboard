@@ -89,7 +89,7 @@ Rails.application.routes.draw do
 
   # Pages Routes End
 
-
+    resources :projects
   # Hardware Routes Start
 
     # Allow autocomplete on hardware checkout page
@@ -113,11 +113,12 @@ Rails.application.routes.draw do
   # Email Routes End
 
   # Feature Flag Routes Start
-    resources :feature_flags, except: [:create, :destroy, :edit, :show] do
-      collection do
-        post 'enable'
-        post 'disable'
-      end
-    end
+   resources :feature_flags, except: [:create, :destroy, :edit, :show] do
+     collection do
+       post 'enable'
+       post 'disable'
+     end
+   end
   # Feature Flag Routes End
+
 end

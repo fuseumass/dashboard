@@ -54,4 +54,16 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
+  def has_slack?
+    puts self.email
+    url = URI("https://slack.com/api/users.lookupByEmail?token=xoxp-433043581511-431276410992-433044814679-5a719b1164aa9f95bdf488b36a88d059&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = http.request(req)
+    JSON.parse(res.body)["ok"]
+  end
+
 end

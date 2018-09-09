@@ -98,7 +98,7 @@ class HardwareItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hardware_item_params
-      params.require(:hardware_item).permit(:name, :count, :link, :category, :available, :upc, :image)
+      params.require(:hardware_item).permit(:name, :count, :link, :category, :available, :upc)
     end
 
     # Randomly and recursively generate a upc number

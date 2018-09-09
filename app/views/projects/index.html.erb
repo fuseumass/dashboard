@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Projects</h1>
+
+<div class="col-12">
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Link</th>
+            <th>Team members</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @projects.each do |project| %>
+          <tr>
+            <td><%= link_to project.title, project %></td>
+            <td><%= truncate(project.description, length: 70) %></td>
+            <td><%= project.link %></td>
+            <td><%= truncate(project.team_members, length: 40) %></td>
+            <!-- <td><%= link_to 'Show', project %></td>
+            <td><%= link_to 'Edit', edit_project_path(project) %></td>
+            <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+
+
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>

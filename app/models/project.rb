@@ -14,7 +14,7 @@ class Project < ApplicationRecord
 	validates_attachment :projectimage,
 											 content_type: { content_type: ['image/jpeg', 'image/jpg', 'image/png'],
 																			 message: 'Image type is not supported.' },
-											 size: { less_than: 1.megabyte,
+											 size: { less_than: 10.megabyte,
 															 message: 'Image file must be under 10MB in size.' }
 
 	def rename_file

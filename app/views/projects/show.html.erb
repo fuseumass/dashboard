@@ -8,7 +8,9 @@
     <div class="card">
       <div class="card-body">
 
-        <img src="https://thenextdoor.org/wp-content/uploads/2016/11/placeholder-815x458.png" alt="">
+        <% unless @project.projectimage.blank? %>
+          <img src="<%= @project.projectimage.url %>" alt="">
+        <% end %>
 
         <h2 class="mt-0 mb-4">Description</h2>
         <p>

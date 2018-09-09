@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prizes</h1>
+
+<div class="row">
+  <% @prizes.each do |prize| %>
+    <div class="col-lg-3">
+      <div class="card card-collapsed">
+            <% if prize.priority == 1 %>
+              <div class="card-status bg-purple"></div>
+            <% end %>
+            <div class="card-header">
+              <h3 class="card-title"> <%= prize.name %> </h3>
+              <div class="card-options">
+                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+              </div>
+            </div>
+            <div class="card-body">
+              <p> <b> Criteria: </b> <%= prize.criteria %> </p>
+              <p> <b> Description: </b> <%= prize.description %> </p>
+              <p> <b> Sponsor: </b> <%= prize.sponsor %> </p>
+            </div>
+        </div>
+    </div>
+  <% end %>
+</div>
+
+
+<br>
+<% if current_user.is_admin? or current_user.is_organizer? %>
+  <%= link_to 'New Prize', new_prize_path %>
+<% end %>

@@ -10,8 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require tabler
-//= require tabler.plugins
 //= require Chart.bundle
 //= require chartkick
 //= require highcharts
@@ -23,5 +21,6 @@
 //= require cable
 //= require event_application
 //= require moment
-//= require bootstrap-datetimepicker
+//= require tabler
+//= require tabler.plugins
 //= require_tree .

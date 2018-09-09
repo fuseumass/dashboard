@@ -83,7 +83,7 @@ class User < ApplicationRecord
 
     res = JSON.parse(http.request(req).body)
     if res["ok"]
-      return JSON.parse(res.body)["user"]["name"]
+      return res["user"]["name"]
     else
       return false
     end
@@ -98,7 +98,7 @@ class User < ApplicationRecord
 
     res = JSON.parse(http.request(req).body)
     if res["ok"]
-      return JSON.parse(res.body)["user"]["id"]
+      return res["user"]["id"]
     else
       return false
     end

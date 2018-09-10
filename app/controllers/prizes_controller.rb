@@ -2,52 +2,39 @@ class PrizesController < ApplicationController
   before_action :set_prize, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:show, :new, :edit]
 
-  # GET /prizes
-  # GET /prizes.json
+
   def index
     @prizes = Prize.all
   end
 
-  # GET /prizes/1
-  # GET /prizes/1.json
   def show
   end
 
-  # GET /prizes/new
   def new
     @prize = Prize.new
   end
 
-  # GET /prizes/1/edit
   def edit
   end
 
-  # POST /prizes
-  # POST /prizes.json
   def create
     @prize = Prize.new(prize_params)
 
     respond_to do |format|
       if @prize.save
-        format.html { redirect_to @prize, notice: 'Prize was successfully created.' }
-        format.json { render :show, status: :created, location: @prize }
+        redirect_to @prize, notice: 'Prize was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @prize.errors, status: :unprocessable_entity }
+        render :new
       end
     end
   end
 
-  # PATCH/PUT /prizes/1
-  # PATCH/PUT /prizes/1.json
   def update
     respond_to do |format|
       if @prize.update(prize_params)
-        format.html { redirect_to @prize, notice: 'Prize was successfully updated.' }
-        format.json { render :show, status: :ok, location: @prize }
+        redirect_to @prize, notice: 'Prize was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @prize.errors, status: :unprocessable_entity }
+        render :edit
       end
     end
   end
@@ -57,8 +44,7 @@ class PrizesController < ApplicationController
   def destroy
     @prize.destroy
     respond_to do |format|
-      format.html { redirect_to prizes_url, notice: 'Prize was successfully destroyed.' }
-      format.json { head :no_content }
+      redirect_to prizes_url, notice: 'Prize was successfully destroyed.'
     end
   end
 

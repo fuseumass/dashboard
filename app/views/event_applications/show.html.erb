@@ -206,6 +206,17 @@
                           {controller: 'event_applications', action: 'status_updated',
                            params: {new_status: 'waitlisted', id: @applicant.user_id}},
                           {class: 'btn btn-warning btn-sm event-application-status-button'} %>
+            <% if @application.flag %>
+              <%= button_to 'Unflag',
+                            {controller: 'event_applications', action: 'unflag_application',
+                             params: {application: @application}},
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
+            <% else %>
+              <%= button_to 'Flag',
+                            {controller: 'event_applications', action: 'flag_application',
+                             params: {application: @application}},
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
+            <% end %>
           <% end %>
 
           <%= button_to 'Edit', edit_event_application_path(@applicant),

@@ -9,7 +9,6 @@ $(document).on('turbolinks:load', function () {
 
 
 $(document).on('ready', function () {
-    console.log(page.action())
     if (!(page.controller() === 'event_applications' && page.action() === 'create' || page.action() === 'update')) {
         return;
     }

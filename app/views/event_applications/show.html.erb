@@ -210,12 +210,12 @@
               <%= button_to 'Unflag',
                             {controller: 'event_applications', action: 'unflag_application',
                              params: {application: @application}},
-                            {class: 'btn btn-success btn-sm event-application-status-button'} %>
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
             <% else %>
               <%= button_to 'Flag',
                             {controller: 'event_applications', action: 'flag_application',
                              params: {application: @application}},
-                            {class: 'btn btn-danger btn-sm event-application-status-button'} %>
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
             <% end %>
           <% end %>
 

@@ -51,7 +51,7 @@ class User < ApplicationRecord
 
   def is_accepted?
     if has_applied?
-      self.event_application.application_status == 'accepted'
+      self.event_application.status == 'accepted'
     end
   end
 

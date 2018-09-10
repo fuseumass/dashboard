@@ -55,6 +55,7 @@
 
   <div class="form-group">
     <%= form.label :projectimage, 'Project Image:', class: 'form-label' %>
+    <p style="color: grey; ">(Project images are not required, but judges love when they can see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.)</p>
     <div class="custom-file">
       <%= form.file_field :projectimage, class:'custom-file-input', onchange:'updateProjectImageFileLabel()', id: 'project_projectimage' %>
       <label class="custom-file-label"> Choose file </label>

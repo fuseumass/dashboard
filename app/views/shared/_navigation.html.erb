@@ -121,6 +121,24 @@
             </li>
           <% end %>
 
+          <% if has_access_to_projects? %>
+
+            <% if current_user.is_admin?%>
+              <li class="nav-item">
+                <%= link_to projects_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+                  <i class="fe fe-layers"></i> Projects</a>
+                <% end %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to new_project_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+                  <i class="fe fe-layers"></i> My Project</a>
+                <% end %>
+              </li>
+            <% end %>
+
+          <% end %>
+
           <% if has_access_to_admin? %>
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" ><i class="fe fe-layers"></i>Admin</a>
@@ -129,14 +147,6 @@
                 <%= link_to 'Emails', emails_path, class: 'dropdown-item'%>
                 <%= link_to 'Feature Flags', feature_flags_path, class: 'dropdown-item'%>
               </div>
-            </li>
-          <% end %>
-
-          <% if has_access_to_projects? %>
-            <li class="nav-item">
-              <%= link_to new_project_path, class: "nav-link #{'active' if is_projects_active?}" do %>
-                <i class="fe fe-layers"></i> Projects</a>
-              <% end %>
             </li>
           <% end %>
 

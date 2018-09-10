@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_09_09_190233) do
 
   create_table "emails", force: :cascade do |t|
@@ -126,6 +127,10 @@ ActiveRecord::Schema.define(version: 2018_09_09_190233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "projectimage_file_name"
+    t.string "projectimage_content_type"
+    t.integer "projectimage_file_size"
+    t.datetime "projectimage_updated_at"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -151,6 +156,8 @@ ActiveRecord::Schema.define(version: 2018_09_09_190233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_type", default: "attendee"
+    t.boolean "rsvp", default: false
+    t.boolean "check_in", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

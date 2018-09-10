@@ -8,19 +8,14 @@
     <div class="card">
       <div class="card-body">
 
-        <img src="https://thenextdoor.org/wp-content/uploads/2016/11/placeholder-815x458.png" alt="">
+        <% unless @project.projectimage.blank? %>
+          <img src="<%= @project.projectimage.url %>" alt="">
+        <% end %>
 
-        <h2 class="mt-0 mb-4">Description</h2>
+        <h2 class="mt-0 mb-4">Description:</h2>
         <p>
           <%= simple_format(@project.description) %>
         </p>
-
-        <% if !@project.link.empty? %>
-        <%= link_to @project.link, class: "btn btn-github" do %>
-          <i class="fe fe-github"></i> View on Github</a>
-        <% end %>
-
-        <% end %>
       </div>
     </div>
   </div>
@@ -39,10 +34,21 @@
         <%= @project.team_members %>
       </div>
     </div>
+
+    <% if !@project.link.empty? %>
+      <%= link_to @project.link, class: "btn btn-github" do %>
+        <i class="fe fe-github"></i> View on Github</a>
+        <br>
+        <br>
+      <% end %>
+    <% end %>
+
+
+    <% if @project.user == current_user %>
+      <%= link_to 'Edit Your Project', edit_project_path(@project), class: 'btn btn-secondary' %>
+    <% end %>
   </div>
 
 </div>
 
 <br>
-
-<%= link_to 'Back', projects_path %>

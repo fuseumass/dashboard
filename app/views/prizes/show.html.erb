@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @prize.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @prize.description %>
+</p>
+
+<p>
+  <strong>Criteria:</strong>
+  <%= @prize.criteria %>
+</p>
+
+<p>
+  <strong>Sponsor:</strong>
+  <%= @prize.sponsor %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @prize.priority %>
+</p>
+
+<%= link_to 'Edit', edit_prize_path(@prize) %> |
+<%= link_to 'Back', prizes_path %>

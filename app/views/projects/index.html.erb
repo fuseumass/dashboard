@@ -19,14 +19,9 @@
           <% @projects.each do |project| %>
           <tr>
             <td><%= link_to project.title, project %></td>
-            <td><%= truncate(project.description, length: 70) %></td>
-            <td><%= project.link %></td>
+            <td><%= truncate(project.description, length: 30) %></td>
+            <td><%= truncate(project.link, length: 22) %></td>
             <td><%= truncate(project.team_members, length: 40) %></td>
-            <!-- <td><%= link_to 'Show', project %></td>
-            <td><%= link_to 'Edit', edit_project_path(project) %></td>
-            <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-
-
           </tr>
           <% end %>
         </tbody>
@@ -36,5 +31,3 @@
 </div>
 
 <br>
-
-<%= link_to 'New Project', new_project_path %>

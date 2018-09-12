@@ -12,6 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2018_09_09_211902) do
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "emails", force: :cascade do |t|
     t.string "subject"
     t.string "message"
@@ -105,6 +120,16 @@ ActiveRecord::Schema.define(version: 2018_09_09_211902) do
     t.datetime "updated_at", null: false
     t.string "help_type"
     t.integer "urgency"
+  end
+
+  create_table "prizes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "criteria"
+    t.string "sponsor"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|

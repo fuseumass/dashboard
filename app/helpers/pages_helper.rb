@@ -36,12 +36,20 @@ module PagesHelper
       controller?("projects")
   end
 
+  def is_prizes_active?
+      controller?("prizes")
+  end
+
   def has_access_to_all_applications?
     current_user.is_organizer? or current_user.is_admin?
   end
 
   def has_access_to_events?
     #current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
+  end
+
+  def has_access_to_prizes?
+    (current_user.is_accepted? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('prizes')
   end
 
   def has_access_to_mailing?

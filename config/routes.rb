@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :prizes
   # Our Root URL Links to the index page (duh)
   root 'pages#index'
 

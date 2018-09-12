@@ -13,6 +13,13 @@ class User < ApplicationRecord
 
   after_create :welcome_email
 
+  # needed for slack integration
+  require "net/http"
+  require "uri"
+
+  # slack workspace token for HackUMass VI
+  $workspace_token = "xoxp-433043581511-431276410992-433044814679-5a719b1164aa9f95bdf488b36a88d059"
+
   # Use type checkers
   def is_attendee?
   	user_type == 'attendee'
@@ -58,5 +65,49 @@ class User < ApplicationRecord
   def welcome_email
     UserMailer.welcome_email(self).deliver_now
   end
+
+
+
+  def has_slack?
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = http.request(req)
+    JSON.parse(res.body)["ok"]
+  end
+
+  def get_slack_username
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = JSON.parse(http.request(req).body)
+    if res["ok"]
+      return res["user"]["name"]
+    else
+      return false
+    end
+  end
+
+  def get_slack_id
+    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(url)
+
+    res = JSON.parse(http.request(req).body)
+    if res["ok"]
+      return res["user"]["id"]
+    else
+      return false
+    end
+  end
+
 
 end

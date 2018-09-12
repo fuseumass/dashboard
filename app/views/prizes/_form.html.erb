@@ -19,27 +19,28 @@
 
   <div class="form-group">
     <%= form.label :name, class:'control-label' %>
-    <%= form.text_field :name, class: 'form-control' %>
+    <%= form.text_field :name, class: 'form-control', placeholder: 'Give it a name! Is this an Amazon Echo? A GTX 1080? ' %>
   </div>
 
   <div class="form-group">
     <%= form.label :description, class:'control-label' %>
-    <%= form.text_area :description, class: 'form-control' %>
+    <%= form.text_area :description, class: 'form-control', placeholder: 'Describe the prize. You can just google a description for the item and paste it here...' %>
   </div>
 
   <div class="form-group">
     <%= form.label :criteria, class:'control-label' %>
-    <%= form.text_area :criteria, class: 'form-control' %>
+    <%= form.text_area :criteria, class: 'form-control', placeholder: 'What do hackers need to do in order to win this prize? Use an API? Create a hack that helps people?' %>
   </div>
 
   <div class="form-group">
     <%= form.label :sponsor, class:'control-label' %>
-    <%= form.text_field :sponsor, class: 'form-control' %>
+    <%= form.text_field :sponsor, class: 'form-control', placeholder: 'Who is sponsoring the prize? Google? Amazon? Write HackUMass otherwise.' %>
   </div>
 
   <div class="form-group">
     <%= form.label :priority, class:'control-label' %>
-    <%= form.text_field :priority, class: 'form-control' %>
+    <p style="color: grey">(If a prize is of priority "1", it will be displayed first. Prizes with priority of "3" will be displayed last.)</p>
+    <%= form.text_field :priority, class: 'form-control', placeholder: 'Type 1, 2, or 3' %>
   </div>
 
   <div class="actions">

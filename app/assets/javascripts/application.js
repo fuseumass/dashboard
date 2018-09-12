@@ -20,7 +20,7 @@
 //= require turbolinks
 //= require cable
 //= require event_application
-//= require moment
 //= require tabler
 //= require tabler.plugins
+//= require moment
 //= require_tree .

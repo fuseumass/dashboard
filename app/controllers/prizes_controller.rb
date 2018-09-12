@@ -1,10 +1,10 @@
 class PrizesController < ApplicationController
   before_action :set_prize, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:show, :new, :edit]
-
+  before_action :is_feature_enabled
 
   def index
-    @prizes = Prize.all
+    @prizes = Prize.all.order(priority: :desc)
   end
 
   def show
@@ -19,32 +19,36 @@ class PrizesController < ApplicationController
 
   def create
     @prize = Prize.new(prize_params)
-
-    respond_to do |format|
-      if @prize.save
-        redirect_to @prize, notice: 'Prize was successfully created.'
-      else
-        render :new
-      end
+    if @prize.save
+      redirect_to @prize, notice: 'Prize was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @prize.update(prize_params)
-        redirect_to @prize, notice: 'Prize was successfully updated.'
-      else
-        render :edit
-      end
+    if @prize.update(prize_params)
+      redirect_to @prize, notice: 'Prize was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /prizes/1
-  # DELETE /prizes/1.json
   def destroy
     @prize.destroy
-    respond_to do |format|
-      redirect_to prizes_url, notice: 'Prize was successfully destroyed.'
+    redirect_to prizes_url, notice: 'Prize was successfully destroyed.'
+  end
+
+  def is_feature_enabled
+    feature_flag = FeatureFlag.find_by(name: 'prizes')
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: 'Projects are currently not available. Try again later!'
+    else
+      if feature_flag.value == false
+        # Redirect user to index if no feature flag is off (false)
+        redirect_to index_path, alert: 'Projects are currently not available. Try again later!'
+      end
     end
   end
 

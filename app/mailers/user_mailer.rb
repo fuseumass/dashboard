@@ -27,7 +27,7 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'HackUMass VI Application Status Update')
   end
 
-  def reminder_email(user, message, subject)
+  def reminder_email(user, subject, message)
     @user = user
     @message = message
     @subject = subject

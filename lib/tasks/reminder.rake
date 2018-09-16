@@ -5,7 +5,7 @@ namespace :reminder do
 
   task :send_email => :environment do
 
-    @users = User.where(email: "ryan@umass.edu")
+    @users = User.all
     count = 0
 
     @users.each do |user|

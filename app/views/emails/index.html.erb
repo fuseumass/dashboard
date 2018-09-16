@@ -25,11 +25,11 @@
             <% @emails.each do |email| %>
               <tr>
                 <td><%= link_to email.subject, email %></td>
-                <td><%= email.message %></td>
+                <td><%= truncate(email.message , length: 30)%></td>
                 <td><%= email.mailing_list %></td>
                 <td><%= email.status %></td>
                 <td><%= email.sent_by %></td>
-                <td><%= email.created_at %></td>
+                <td><%= email.created_at.strftime('%A, %b %d at %I:%M %p') %></td>
               </tr>
             <% end %>
           </tbody>

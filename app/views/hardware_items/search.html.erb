@@ -1,7 +1,10 @@
-<h1>Hardware Inventory</h1>
+<div class="page-header">
+  <h1 class="page-title">Hardware Inventory</h1>
+</div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+
+<div class="card">
+  <div class="card-body">
       <%= form_tag search_hardware_items_path, method: :get, class:'col-lg-12' do%>
           <div class="input-group">
           <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for hardware items by name', :autofocus => true%>
@@ -13,47 +16,55 @@
     </div>
 </div>
 
-<table class="table table-striped table-hover ">
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <thead>
+        <tr>
+          <% if current_user.is_organizer? or current_user.is_admin? %>
+              <th>UPC</th>
+          <% end %>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Count</th>
+          <th>Available</th>
+          <th>Link</th>
+        </tr>
+      </thead>
 
-  <thead>
-    <tr>
-      <% if current_user.is_organizer? or current_user.is_admin? %>
-          <th>UPC</th>
-      <% end %>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Count</th>
-      <th>Available</th>
-      <th>Link</th>
-    </tr>
-  </thead>
+      <tbody>
+      <% @hardware_items.each do |item| %><a href=""></a>
+        <tr>
+          <% if current_user.is_organizer? or current_user.is_admin? %>
+              <td><%= link_to item.upc, item %></td>
+          <% end %>
+          <td><%= item.name %></td>
+          <td><%= item.category %></td>
+          <td><%= item.count %></td>
+          <% if item.is_available? == 'Yes' %>
+              <td> <span class="label label-success"><%= item.is_available? %></span></td>
+          <% else %>
+              <td> <span class="label label-danger"><%= item.is_available? %></span></td>
+          <% end %>
 
-  <tbody>
-  <% @hardware_items.each do |item| %><a href=""></a>
-    <tr>
-      <% if current_user.is_organizer? or current_user.is_admin? %>
-          <td><%= link_to item.upc, item %></td>
-      <% end %>
-      <td><%= item.name %></td>
-      <td><%= item.category %></td>
-      <td><%= item.count %></td>
-      <% if item.is_available? == 'Yes' %>
-          <td> <span class="label label-success"><%= item.is_available? %></span></td>
-      <% else %>
-          <td> <span class="label label-danger"><%= item.is_available? %></span></td>
-      <% end %>
+          <% if item.link.nil? or item.link.empty? %>
+              <td>--</td>
+          <% else %>
+              <td><a href="<%= item.link %>" target="_blank">Link</a></td>
+          <% end %>
 
-      <% if item.link.nil? or item.link.empty? %>
-          <td>--</td>
-      <% else %>
-          <td><a href="<%= item.link %>" target="_blank">Link</a></td>
+        </tr>
       <% end %>
+      </tbody>
 
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+    </table>
+
+  </div>
+</div>
+
 
 <br>
 
-<%= link_to 'New Hardware Item', new_hardware_item_path, class: 'btn btn-primary' %>
+<% if current_user.is_admin? or current_user.is_organizer? %>
+  <%= link_to 'New Hardware Item', new_hardware_item_path, class: 'btn btn-primary' %>
+<% end %>

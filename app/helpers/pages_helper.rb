@@ -58,7 +58,7 @@ module PagesHelper
   end
 
   def has_access_to_hardware?
-    (current_user.rsvp and is_feature_enabled('hardware'))
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('hardware')
   end
 
   def has_access_to_mentorship?

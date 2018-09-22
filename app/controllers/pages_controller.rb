@@ -25,6 +25,17 @@ class PagesController < ApplicationController
 
     @hardware_checkouts = current_user.hardware_checkouts
     @upcoming_events = Event.all.order(time: :asc).limit(4)
+
+    qrcode = RQRCode::QRCode.new(current_user.email)
+    @qr_image = qrcode.as_png(
+          resize_gte_to: false,
+          resize_exactly_to: false,
+          fill: 'white',
+          color: 'black',
+          size: 280,
+          border_modules: 4,
+          module_px_size: 6,
+          file: nil )
   end
 
   def admin

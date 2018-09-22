@@ -6,7 +6,10 @@
         <h3 class="card-title">Check In! 👾</h3>
       </div>
       <div class="card-body d-flex flex-column">
-        <p><div class="text-muted">Use the QR Code above, to check in!</div></p>
+        <center>
+          <%= image_tag @qr_image.to_data_url, style: 'height: 300px; width:300px' %>
+        </center>
+        <p><div class="text-muted">Once you arrive, use the QR Code above, to check in at the welcome desk.</div></p>
         <div class="text-muted">If for some reason your QR Code can't be scanned, you can still check in using your email address which is <b><%= current_user.email %></b> </div>
       </div>
     </div>

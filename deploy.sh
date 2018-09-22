@@ -35,24 +35,38 @@ echo ' '
 echo 'Heroku Build Sucessfull ✅'
 echo ' '
 
-# Put the app on maintenance mode and migrate the database
-echo 'Skipping maintenance mode. No migrations found. ✅'
-# echo 'Application entering maintenance mode...'
-# heroku maintenance:on -a hackumass-web
-# echo ' '
-# echo 'Migrating databases....'
-# heroku run rake db:migrate -a hackumass-web
-# echo ' '
-# echo 'Database Migration Successful ✅'
-# echo ' '
-# echo 'Application exiting maintenance mode...'
-# heroku maintenance:off -a hackumass-web
-echo ' '
+# Migrations
+echo 'Do you want to migrate the production database? (type y or n)'
+read migrate
+if [[ $migrate = 'y' ]]; then
+  echo 'Application entering maintenance mode...'
+  heroku maintenance:on -a hackumass-web
+  echo ' '
+  echo 'Migrating databases....'
+  heroku run rake db:migrate -a hackumass-web
+  echo ' '
+  echo 'Database Migration Successful ✅'
+  echo ' '
+  echo 'Application exiting maintenance mode...'
+  heroku maintenance:off -a hackumass-web
+  echo ' '
+else
+  echo 'Skipping maintenance mode. No migrations found. ✅'
+fi
 
-# echo 'New feature flags detected! Running feature flag script...'
-# heroku run rake feature_flags:load_flags
-# echo 'Feature flags successfully added to database ✅'
-# echo ' '
+# Feature flag updates
+echo 'Do you want to update the feature flag? (type y or n)'
+read fflag
+if [[ $fflag = 'y' ]]; then
+  echo 'Running feature flag script...'
+  heroku run rake feature_flags:load_flags
+  echo ' '
+  echo 'Feature flags successfully added to database ✅'
+  echo ' '
+
+else
+  echo 'Skipping feature flag script ✅'
+fi
 
 # All good!
 echo 'HackUMass Web App Has Been Deployed ✅'

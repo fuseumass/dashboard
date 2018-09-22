@@ -75,6 +75,9 @@ Rails.application.routes.draw do
       get :autocomplete_user_email, :on => :collection
     end
 
+    # Allow users to rsvp for the event
+    get 'rsvp' => 'pages#rsvp'
+
     # Allow adding permissions to users
     get 'add_permissions' => 'pages#add_permissions'
 

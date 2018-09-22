@@ -39,7 +39,7 @@ class PagesController < ApplicationController
     unless user_email.nil? #Only validate for an email when the email is in the params
 
       if user_email.empty?
-        flash[:alert] = 'Error! Cannot check in user without an email'
+        flash[:alert] = 'Error! Cannot check in user without an email.'
         return
       end
 
@@ -47,15 +47,13 @@ class PagesController < ApplicationController
 
       user = User.where(:email => user_email).first
       if user.nil?
-        redirect_to check_in_path, alert: " Error! Couldn't find user with email: '#{user_email}'."
+        redirect_to check_in_path, alert: "Error! Couldn't find user with email: #{user_email}"
         return
       end
 
-
-      app = user.event_application
-      app.check_in = true
-      if app.save(:validate => false)
-        redirect_to check_in_path, notice: 'User has been check in successfully'
+      user.check_in = true
+      if user.save
+        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been check in successfully"
         return
       end
 

@@ -1,6 +1,6 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:show, :edit, :create, :update, :destroy]
+  before_action :check_permissions, only: [:show, :edit, :create, :update, :destroy, :new]
   before_action :is_feature_enabled
 
   def search

@@ -49,27 +49,24 @@ module PagesHelper
   end
 
   def has_access_to_prizes?
-    (current_user.is_accepted? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('prizes')
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('prizes')
   end
 
-  def has_access_to_mailing?
-    false
-  end
 
   def current_user_application
     event_application_path(current_user.event_application)
   end
 
   def has_access_to_hardware?
-    is_feature_enabled('hardware')
+    (current_user.rsvp and is_feature_enabled('hardware'))
   end
 
   def has_access_to_mentorship?
-    (current_user.is_admin? or current_user.is_mentor?) and is_feature_enabled('mentorship_requests')
+    (current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?) and is_feature_enabled('mentorship_requests')
   end
 
   def has_access_to_projects?
-    (current_user.is_admin? or current_user.is_accepted?) and is_feature_enabled('projects')
+    (current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor? or current_user.rsvp) and is_feature_enabled('projects')
   end
 
   def has_access_to_admin?

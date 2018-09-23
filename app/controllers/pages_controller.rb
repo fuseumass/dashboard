@@ -19,12 +19,15 @@ class PagesController < ApplicationController
     @undecided_count = EventApplication.where(status: 'undecided').count
     @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
-
     @user_count = User.all.count
     @hardware_count = HardwareItem.all.count
 
     @hardware_checkouts = current_user.hardware_checkouts
     @upcoming_events = Event.all.order(time: :asc).limit(4)
+
+    @project_count = Project.all.count
+    @prize_count = Prize.all.count
+    @event_count = Event.all.count
 
     qrcode = RQRCode::QRCode.new(current_user.email)
     @qr_image = qrcode.as_png(
@@ -45,6 +48,8 @@ class PagesController < ApplicationController
   end
 
   def check_in
+    @check_in_count = User.where(check_in: true).count
+    @rsvp_count = User.where(rsvp: true).count
 
     user_email = params[:email]
     unless user_email.nil? #Only validate for an email when the email is in the params

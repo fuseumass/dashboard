@@ -3,10 +3,10 @@
     <div class="card p-3">
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-purple mr-3">
-          <i class="fe fe-flag"></i>
+          <i class="fe fe-calendar"></i>
         </span>
         <div>
-          <h4 class="m-0">0</h4>
+          <h4 class="m-0"><%= @event_count %></h4>
           <small class="text-muted">Listed Events</small>
         </div>
       </div>
@@ -19,7 +19,7 @@
           <i class="fe fe-box"></i>
         </span>
         <div>
-          <h4 class="m-0">0</h4>
+          <h4 class="m-0"><%= @prize_count %></h4>
           <small class="text-muted">Listed Prizes</small>
         </div>
       </div>
@@ -42,11 +42,11 @@
     <div class="card p-3">
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-blue mr-3">
-          <i class="fe fe-users"></i>
+          <i class="fe fe-inbox"></i>
         </span>
         <div>
-          <h4 class="m-0"><%= @user_count %></h4>
-          <small class="text-muted">Registered Users</small>
+          <h4 class="m-0"><%= @project_count %></h4>
+          <small class="text-muted">Listed Projects</small>
         </div>
       </div>
     </div>

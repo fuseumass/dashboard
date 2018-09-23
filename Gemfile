@@ -11,10 +11,6 @@ ruby '~> 2.5.0'
 # QR Code generating gem
 gem 'rqrcode'
 
-# Jquery datetime picker
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
-gem 'momentjs-rails', '>= 2.9.0'
-
 # Graphs and all that jazz for statistics
 gem 'chartkick'
 gem 'groupdate'

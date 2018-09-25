@@ -15,7 +15,11 @@
           <%= render 'shared/home_pages/undecided_view'%>
       <% elsif current_user.event_application.status == 'accepted' %>
         <% if current_user.rsvp %>
-          <%= render 'shared/home_pages/rsvp_view'%>
+          <% if current_user.check_in %>
+            <%= render 'shared/home_pages/checked_in_view'%>
+          <% else %>
+            <%= render 'shared/home_pages/rsvp_view'%>
+          <% end %>
         <% else %>
           <%= render 'shared/home_pages/accepted_view'%>
         <% end %>

@@ -16,6 +16,7 @@
 //= require chartkick
 //= require highcharts
 //= require jquery
+//= require countdown
 //= require jquery_ujs
 //= require jquery-ui
 //= require autocomplete-rails

@@ -43,11 +43,11 @@ class PrizesController < ApplicationController
     feature_flag = FeatureFlag.find_by(name: 'prizes')
     # Redirect user to index if no feature flag has been found
     if feature_flag.nil?
-      redirect_to index_path, notice: 'Projects are currently not available. Try again later!'
+      redirect_to index_path, notice: 'Prizes are currently not available. Try again later!'
     else
       if feature_flag.value == false
         # Redirect user to index if no feature flag is off (false)
-        redirect_to index_path, alert: 'Projects are currently not available. Try again later!'
+        redirect_to index_path, alert: 'Prizes are currently not available. Try again later!'
       end
     end
   end

@@ -1,3 +1,7 @@
+<div class="page-header">
+  <h1 class="page-title">Events</h1>
+</div>
+
 <% if @events.empty? %>
     <center><h3>Looks like there aren't any events yet....</h3></center>
 <% end %>
@@ -8,10 +12,9 @@
       <% group.each do |event| %>
             <div class="col-sm-6 col-md-4">
               <div class="thumbnail">
-                <%= image_tag event.image.url, class: 'img-responsive' %>
                 <div class="caption" style="margin-top: -5%">
                   <h3><%= event.title %></h3>
-                  <p><b>Time:</b> <%= event.time.strftime("%b %e, %l:%M %p")%></p>
+                  <p><b>Start Time:</b> <%= event.start_time.strftime("%b %e, %l:%M %p")%></p>
                   <p><b>Location:</b> <%= event.location %></p>
                   <p><b>Description:</b> <br>
                     <%= event.description %></p>
@@ -32,4 +35,3 @@
 <% if current_user.is_admin? %>
   <%= link_to 'New Event', new_event_path, class: 'btn btn-primary' %>
 <% end %>
-

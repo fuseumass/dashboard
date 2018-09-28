@@ -8,7 +8,7 @@
     <thead>
     <tr>
       <th>Title</th>
-      <th>Help Type</th>
+      <th>Tech</th>
       <th>Urgency</th>
       <th>Status</th>
       <th>Submitted on</th>
@@ -21,7 +21,7 @@
         <tr>
 
           <td><%= link_to truncate(request.title), request %></td>
-          <td><%= request.help_type %></td>
+          <td><%= truncate(request.tech.join(", ")) %></td>
           <td><%= request.urgency %></td>
           <td><%= request.status %></td>
           <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>

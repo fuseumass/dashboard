@@ -34,9 +34,9 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <strong>Tech involved:</strong>
-        <% @mentorship_request.tech.each do |teh| %>
+        <% @mentorship_request.tech.each do |tech| %>
           <span class="badge badge-primary">
-            <%= teh %>
+            <%= tech %>
           </span>
         <% end %>
       </div>
@@ -80,7 +80,10 @@
         <% if current_user.is_admin? %>
         <%= link_to 'Delete', mentorship_request_path(@mentorship_request), method: :delete, class: 'btn btn-danger' %>
         <%= link_to 'Edit', edit_mentorship_request_path(@mentorship_request), class: 'btn btn-warning' %>
-        <%= button_to 'Slack', "https://hackumassvi.slack.com/messages/" + @mentee_id, class: 'btn btn-purple' %>
+        <%= button_to 'Slack', 
+                      {controller:'mentorship_requests', action: 'message_on_slack', 
+                      params: {mentorship_request: @mentorship_request}},
+                      {class: 'btn btn-purple'} %>
         <% end %>
         <%= button_to 'Mark as Resolved',
                       {controller:'mentorship_requests', action: 'mark_as_resolved',

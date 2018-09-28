@@ -1,6 +1,10 @@
-<h1>Editing Event</h1>
+<div class="page-header">
+  <h1 class="page-title">Edit Event</h1>
+</div>
 
-<%= render 'form', event: @event %>
+<div class="col-lg-8">
+  <%= render 'form', event: @event %>
+</div>
 
 <%= link_to 'Show', @event %> |
 <%= link_to 'Back', events_path %>

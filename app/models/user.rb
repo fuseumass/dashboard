@@ -66,8 +66,6 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
-
-
   def has_slack?
     url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 

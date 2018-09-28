@@ -24,6 +24,8 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
     @mentorship_request.user = current_user
     @mentorship_request.status = 'pending'
+    puts "BABABA"
+    puts @mentorship_request.tech
 
     if @mentorship_request.save
       redirect_to index_path, notice: 'Your mentorship request was successfully created. Now, Head out to the mentorship table!'
@@ -33,7 +35,7 @@ class MentorshipRequestsController < ApplicationController
   end
 
   def update
-    if @mentorship_request.update(mentorship_request_params)
+    if @mentorship_request.update!(mentorship_request_params)
       redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.'
     else
       render :edit
@@ -85,7 +87,7 @@ class MentorshipRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mentorship_request_params
-      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :help_type, :status, :urgency)
+      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :help_type, :status, :urgency, tech:[])
     end
 
     def check_permissions

@@ -13,7 +13,7 @@
 
 
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <%= f.label :help_type, "What type of problem are you having?", class:"col-lg-2 control-label" %>
           <div class="col-lg-10">
             <div class="radio">
@@ -35,7 +35,7 @@
               </label>
             </div>
           </div>
-      </div>
+      </div> -->
 
   <div class="form-group">
         <%= f.label :urgency, "How urgent is your problem?", class:"col-lg-2 control-label" %>
@@ -65,8 +65,93 @@
               </label>
             </div>
           </div>
+          <div class='form-group'>
+          <%= f.label :tech,
+                      'Technology related to issue: (select all that apply)',
+                      class: 'form-label' %>
+          <div class='custom-controls-stacked'>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'HTML/CSS',
+                              nil %> HTML/CSS
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Javascript/NodeJS',
+                              nil %> Javascript/NodeJS
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'PHP',
+                              nil %> PHP
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'SQL',
+                              nil %> SQL
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Ruby',
+                              nil %> Ruby
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Java',
+                              nil %> Java
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Kotlin',
+                              nil %> Kotlin
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Swift',
+                              nil %> Swift
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Objective C',
+                              nil %> Objective C
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'C/C++/C#',
+                              nil %> C/C++/C#
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Python',
+                              nil %> Python
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Arduino',
+                              nil %> Arduino
+            </label>
+            <label class="custom-control custom-checkbox">
+              <%= f.check_box :tech,
+                              {multiple: true},
+                              'Raspberry Pi',
+                              nil %> Raspberry Pi
+            </label>
+          </div>
+        </div>
       </div>
-  
+                  
       <div class="form-group">
         <div class="col-lg-12">
           <%= f.text_area :title, placeholder: "Tell us what exactly is going wrong. Keep this under a paragraph, you'll have a chance to elaborate more with your chosen mentor.", class: "form-control", rows: "5", id: "textArea", style: 'background: #ecf0f1' %>

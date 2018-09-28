@@ -2,10 +2,9 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: :index
 
-  # GET /events
-  # GET /events.json
+
   def index
-    @events = Event.order(start_time: :asc).paginate(page: params[:page], per_page: 2)
+    @events = Event.order(start_time: :asc).paginate(page: params[:page], per_page: 10)
   end
 
 

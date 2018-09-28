@@ -23,9 +23,7 @@ class MentorshipRequestsController < ApplicationController
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
     @mentorship_request.user = current_user
-    @mentorship_request.status = 'pending'
-    puts "BABABA"
-    puts @mentorship_request.tech
+    @mentorship_request.status = 'Waiting'
 
     if @mentorship_request.save
       redirect_to index_path, notice: 'Your mentorship request was successfully created. Now, Head out to the mentorship table!'
@@ -50,7 +48,7 @@ class MentorshipRequestsController < ApplicationController
 
   def mark_as_resolved
       request = MentorshipRequest.find(params[:mentorship_request])
-      request.status = 'resolved'
+      request.status = 'Resolved'
       request.save!
 
       flash[:success] = 'Request Successfully Resolved'
@@ -59,11 +57,19 @@ class MentorshipRequestsController < ApplicationController
 
   def mark_as_denied
     request = MentorshipRequest.find(params[:mentorship_request])
-    request.status = 'denied'
+    request.status = 'Denied'
     request.save!
 
     flash[:success] = 'Request Successfully denied'
     redirect_to mentorship_requests_path
+  end
+
+  def message_on_slack
+    request = MentorshipRequest.find(params[:mentorship_request])
+    slack_id = User.find(request.user_id).get_slack_id
+    request.status = "Contacted"
+    request.save
+    redirect_to "https://hackumassvi.slack.com/messages/" + slack_id
   end
 
   def is_feature_enabled

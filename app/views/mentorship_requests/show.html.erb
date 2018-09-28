@@ -1,14 +1,54 @@
 <%= link_to 'Back', mentorship_requests_path, class: 'btn btn-deault' %>
 
-<h3><%= @mentorship_request.user.first_name %>'s Request</h3>
+<div class="card">
+  <h3 class="card-header">
+    <%= @mentorship_request.user.first_name %>'s Request
+    <div style="margin-left: 2%;" class="badge badge-primary"> #<%= @mentorship_request.id%> </div>
+  </h5>
+  <div class="card-body">
+    <div class="panel-body">
+      <strong>Request Urgency: <br></strong>
+      <% if  @mentorship_request.urgency == 0 %>
+          <h4><span class="label label-default">Not Urgent</span></h4>
+      <% elsif @mentorship_request.urgency == 1 %>
+          <h4><span class="label label-info">Mildly Urgent</span></h4>
+      <% elsif @mentorship_request.urgency == 2 %>
+          <h4><span class="label label-warning">Urgent</span></h4>
+      <% elsif @mentorship_request.urgency == 3 %>
+          <h4><span class="label label-danger">Drastically Urgent</span></h4>
+      <% end %>
+    </div>
+    <h5 class="card-title"><%= @mentorship_request.title%></h5>
+    <p class="card-text">
+      
+      <% @mentorship_request.tech.each do |tech| %>
+        <div class="badge badge-primary"> <%= tech %> </div>
+      <% end %>
+    </p>
+    <div class="btn-group" role="group">
+      <%= link_to 'Slack', 
+                    {controller:'mentorship_requests', action: 'message_on_slack', 
+                    params: {mentorship_request: @mentorship_request}},
+                    class: "btn btn-purple", role: "button", tag: "button" %>
+      <%= link_to 'Mark Resolved',
+                    {controller:'mentorship_requests', action: 'mark_as_resolved',
+                      params: {mentorship_request: @mentorship_request}},
+                      class: "btn btn-success", role: "button", tag: "button" %>
+      <%= link_to 'Deny',
+                    {controller:'mentorship_requests', action: 'mark_as_denied',
+                      params: {mentorship_request: @mentorship_request}},
+                    class: "btn btn-danger", role: "button", tag: "button" %>
+    </div>
+  </div>
+</div>
 
-<div class="row">
+<%# <div class="row">
   <div class="col-md-4 col-sm-6">
     <div class="panel panel-default">
       <div class="panel-body">
         <strong> Contact Info: <br></strong>
         <%= @mentorship_request.user.full_name %> <br>
-        <%= @mentorship_request.user.email %>
+        <%# <%= @mentorship_request.user.email %>
       </div>
     </div>
   </div>
@@ -95,7 +135,7 @@
                       {class: 'btn btn-danger button'} %>
       </div>
     </div>
-  </div>
+  </div> %>
 </div>
 
 

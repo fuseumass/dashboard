@@ -34,8 +34,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <strong>Tech involved:</strong>
-        <!-- TODO someone needs to tell me what I did wrong here omg wtf is this (Ryan) -->
-        <% JSON.parse(@mentorship_request.tech).each do |teh| %>
+        <% @mentorship_request.tech.each do |teh| %>
           <span class="badge badge-primary">
             <%= teh %>
           </span>

@@ -1,5 +1,6 @@
 class MentorshipRequest < ApplicationRecord
 	validates_presence_of :user, :title, :status, :urgency
+	serialize :tech, Array
 	# validates :help_type, format: {with: /\S/, message: "Please choose one."}
 	belongs_to :user
 end

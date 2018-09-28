@@ -26,7 +26,20 @@
         <% elsif @mentorship_request.urgency == 3 %>
             <h4><span class="label label-danger">Drastically Urgent</span></h4>
         <% end %>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-4 col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <strong>Tech involved:</strong>
+        <!-- TODO someone needs to tell me what I did wrong here omg wtf is this (Ryan) -->
+        <% JSON.parse(@mentorship_request.tech).each do |teh| %>
+          <span class="badge badge-primary">
+            <%= teh %>
+          </span>
+        <% end %>
       </div>
     </div>
   </div>

@@ -27,13 +27,18 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :time, class:'control-label' %> (Format mm/dd/yyyy HH:mm:ss)<br>
-    <%= f.datetime_field  :time %>
+    <%= f.label :host, class:'control-label' %>
+    <%= f.text_field :host, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :image, 'Event Image', class:'control-label' %>
-    <%= f.file_field :image %>
+    <%= f.label :start_time, class:'control-label' %> (Format mm/dd/yyyy HH:mm AM or PM)<br>
+    <%= f.datetime_field :start_time, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_time, class:'control-label' %> (Format mm/dd/yyyy HH:mm AM or PM)<br>
+    <%= f.datetime_field :end_time, class: 'form-control' %>
   </div>
 
   <div class="form-group">

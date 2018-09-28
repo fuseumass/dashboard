@@ -109,22 +109,3 @@
     </div>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-body d-flex flex-column">
-        <center><h4>Users Signups <span class="badge badge-primary"><%= User.where("created_at >= ?", Time.parse("2018-08-17 13:30:00 UTC")).count %></span></h4></center>
-        <%= line_chart User.where("created_at >= ?", Time.parse("2018-08-17 13:30:00 UTC")).group_by_day(:created_at).count %>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-body d-flex flex-column">
-        <center><h4>Applications Submitted <span class="badge badge-primary"><%= EventApplication.all.count %></span></h4></center>
-        <%= line_chart EventApplication.all.group_by_day(:created_at).count %>
-      </div>
-    </div>
-  </div>
-</div>

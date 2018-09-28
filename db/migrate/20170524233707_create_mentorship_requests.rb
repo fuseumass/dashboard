@@ -6,7 +6,8 @@ class CreateMentorshipRequests < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :type
       t.string :status
-
+      t.string :tech, array: true, default: '{}'
+      
       t.timestamps
     end
   end

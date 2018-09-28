@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       collection do
         post 'mark_as_resolved'
         post 'mark_as_denied'
+        post 'redirect_to_slack_message'
       end
     end
 

@@ -1,7 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit]
-  before_action :is_feature_enabled
+  # before_action :is_feature_enabled
 
   def index
     @mentorship_requests = MentorshipRequest.all.order(created_at: :desc)
@@ -9,6 +9,7 @@ class MentorshipRequestsController < ApplicationController
 
 
   def show
+    @mentee_id = User.find(@mentorship_request.user_id).get_slack_id
   end
 
   def new

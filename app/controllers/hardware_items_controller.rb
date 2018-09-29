@@ -18,7 +18,7 @@ class HardwareItemsController < ApplicationController
   end
 
   def index
-    @hardware_items = HardwareItem.all
+    @hardware_items = HardwareItem.all.order(name: :asc).paginate(page: params[:page], per_page: 20)
   end
 
   def show

@@ -4,7 +4,7 @@ class PrizesController < ApplicationController
   before_action :is_feature_enabled
 
   def index
-    @prizes = Prize.all.order(priority: :desc)
+    @prizes = Prize.all.order(priority: :asc)
   end
 
   def show
@@ -20,7 +20,7 @@ class PrizesController < ApplicationController
   def create
     @prize = Prize.new(prize_params)
     if @prize.save
-      redirect_to @prize, notice: 'Prize was successfully created.'
+      redirect_to prizes_path
     else
       render :new
     end

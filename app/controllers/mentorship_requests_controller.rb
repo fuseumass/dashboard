@@ -93,7 +93,7 @@ class MentorshipRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mentorship_request_params
-      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :help_type, :status, :urgency, tech:[])
+      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :status, :urgency, tech:[])
     end
 
     def check_permissions

@@ -164,6 +164,11 @@
           <%= f.text_area :description, placeholder: "Tell us what exactly is going wrong. Keep this under a paragraph, you'll have a chance to elaborate more with your chosen mentor.", class: "form-control", rows: "5", id: "textArea"%>
         </div>
 
+    <div class="form-group">
+      <label class="form-label">Screenshot</label>
+      <%= f.file_field :screenshot %>
+    </div>
+    
 
     <div class="form-group">
       <%= f.submit "Jesus Take The Wheel!",

@@ -47,11 +47,11 @@ Rails.application.routes.draw do
   # Mentorship Request Routes Start
 
     # Create all routes but index
-    resources :mentorship_requests do
+    resources :mentorship_requests, constraints: { id: /\d+/ } do
       collection do
-        post 'mark_as_resolved'
-        post 'mark_as_denied'
-        post 'message_on_slack'
+        put 'mark_as_resolved'
+        put 'mark_as_denied'
+        get 'message_on_slack'
       end
     end
 

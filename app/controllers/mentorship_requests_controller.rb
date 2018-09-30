@@ -9,7 +9,6 @@ class MentorshipRequestsController < ApplicationController
 
 
   def show
-    @mentee_id = User.find(@mentorship_request.user_id).get_slack_id
   end
 
   def new
@@ -67,9 +66,13 @@ class MentorshipRequestsController < ApplicationController
   def message_on_slack
     request = MentorshipRequest.find(params[:mentorship_request])
     slack_id = User.find(request.user_id).get_slack_id
-    request.status = "Contacted"
-    request.save
-    redirect_to "https://hackumassvi.slack.com/messages/" + slack_id
+    if slack_id
+      request.status = "Contacted"
+      request.save
+      redirect_to "https://hackumassvi.slack.com/messages/" + slack_id
+    else
+      redirect_to request, alert: 'This user is not signed up on slack.'
+    end
   end
 
   def is_feature_enabled
@@ -93,7 +96,7 @@ class MentorshipRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mentorship_request_params
-      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :status, :urgency, tech:[])
+      params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :status, :urgency,  :description, :screenshot, tech:[])
     end
 
     def check_permissions

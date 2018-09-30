@@ -1,9 +1,9 @@
 <%= link_to 'Back', mentorship_requests_path, class: 'btn btn-deault' %>
-
+<h2> <%= @mentorship_request.user.first_name %>'s Request  </h2>
 <div class="card">
   <h3 class="card-header">
-    <%= @mentorship_request.user.first_name %>'s Request
-    <div style="margin-left: 2%;" class="badge badge-primary"> #<%= @mentorship_request.id%> </div>
+    <%= @mentorship_request.title %>
+    <div style="margin-left: 2%; background-color: #926dde;" class="badge badge-primary"> #<%= @mentorship_request.id%> </div>
   </h5>
   <div class="card-body">
     <div class="panel-body">
@@ -18,124 +18,36 @@
           <h4><span class="label label-danger">Drastically Urgent</span></h4>
       <% end %>
     </div>
-    <h5 class="card-title"><%= @mentorship_request.title%></h5>
+    <h5 class="card-title"><%= @mentorship_request.description%></h5>
     <p class="card-text">
       
       <% @mentorship_request.tech.each do |tech| %>
-        <div class="badge badge-primary"> <%= tech %> </div>
+        <div style="background-color: #926dde;" class="badge badge-primary"> <%= tech %> </div>
       <% end %>
     </p>
     <div class="btn-group" role="group">
       <%= link_to 'Slack', 
-                    {controller:'mentorship_requests', action: 'message_on_slack', 
+                    {controller:'mentorship_requests', action: 'message_on_slack',
                     params: {mentorship_request: @mentorship_request}},
-                    class: "btn btn-purple", role: "button", tag: "button" %>
+                    class: "btn btn-purple", role: "button", tag: "button", method: :get %>
       <%= link_to 'Mark Resolved',
                     {controller:'mentorship_requests', action: 'mark_as_resolved',
                       params: {mentorship_request: @mentorship_request}},
-                      class: "btn btn-success", role: "button", tag: "button" %>
+                      class: "btn btn-success", role: "button", tag: "button", method: :put %>
       <%= link_to 'Deny',
                     {controller:'mentorship_requests', action: 'mark_as_denied',
                       params: {mentorship_request: @mentorship_request}},
-                    class: "btn btn-danger", role: "button", tag: "button" %>
+                    class: "btn btn-danger", role: "button", tag: "button",  method: :put %>
     </div>
   </div>
+  <% if @mentorship_request.screenshot.exists? %>
+  <div class="card">
+    <div class="card-body">
+      <div class="card-header">
+        <h4>Screenshot</h4>
+      </div>
+      <%= image_tag @mentorship_request.screenshot.url %>
+    </div>
+  </div>
+  <% end %>
 </div>
-
-<%# <div class="row">
-  <div class="col-md-4 col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong> Contact Info: <br></strong>
-        <%= @mentorship_request.user.full_name %> <br>
-        <%# <%= @mentorship_request.user.email %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4 col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong>Request Urgency: <br></strong>
-        <% if  @mentorship_request.urgency == 0 %>
-            <h4><span class="label label-default">Not Urgent</span></h4>
-        <% elsif @mentorship_request.urgency == 1 %>
-            <h4><span class="label label-info">Mildly Urgent</span></h4>
-        <% elsif @mentorship_request.urgency == 2 %>
-            <h4><span class="label label-warning">Urgent</span></h4>
-        <% elsif @mentorship_request.urgency == 3 %>
-            <h4><span class="label label-danger">Drastically Urgent</span></h4>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4 col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong>Tech involved:</strong>
-        <% @mentorship_request.tech.each do |tech| %>
-          <span class="badge badge-primary">
-            <%= tech %>
-          </span>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4 col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong>Status: <br></strong>
-        <% if @mentorship_request.status == 'resolved' %>
-            <h4><span class="label label-success"><%= @mentorship_request.status.capitalize%></span></h4>
-        <% elsif@mentorship_request.status == 'denied' %>
-            <h4><span class="label label-danger"><%= @mentorship_request.status.capitalize%></span></h4>
-        <% else %>
-            <h4><span class="label label-default"><%= @mentorship_request.status.capitalize%></span></h4>
-        <% end %>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong>What's the problem ?: <br></strong>
-        <%= @mentorship_request.title %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="col-lg-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <strong>Actions: <br></strong>
-        <% if current_user.is_admin? %>
-        <%= link_to 'Delete', mentorship_request_path(@mentorship_request), method: :delete, class: 'btn btn-danger' %>
-        <%= link_to 'Edit', edit_mentorship_request_path(@mentorship_request), class: 'btn btn-warning' %>
-        <%= button_to 'Slack', 
-                      {controller:'mentorship_requests', action: 'message_on_slack', 
-                      params: {mentorship_request: @mentorship_request}},
-                      {class: 'btn btn-purple'} %>
-        <% end %>
-        <%= button_to 'Mark as Resolved',
-                      {controller:'mentorship_requests', action: 'mark_as_resolved',
-                       params: {mentorship_request: @mentorship_request}},
-                      {class: 'btn btn-success button'} %>
-        <%= button_to 'Mark as Denied',
-                      {controller:'mentorship_requests', action: 'mark_as_denied',
-                       params: {mentorship_request: @mentorship_request}},
-                      {class: 'btn btn-danger button'} %>
-      </div>
-    </div>
-  </div> %>
-</div>
-
-

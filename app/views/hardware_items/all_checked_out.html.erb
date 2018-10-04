@@ -22,7 +22,7 @@
           <tr>
             <th>Hardware Item</th>
             <th>Attendee Name</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -31,7 +31,8 @@
           <tr>
             <td><%= checkout.hardware_item.name %></td>
             <td><%= checkout.user.full_name %></td>
-            <td><%= link_to 'Return', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %></td>
+            <td><%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>
+            <a href="https://hackumassvi.slack.com/messages/<%= checkout.user.get_slack_id %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Message <%= checkout.user.get_slack_username %></a></td>
           </tr>
         <% end %>
         </tbody>

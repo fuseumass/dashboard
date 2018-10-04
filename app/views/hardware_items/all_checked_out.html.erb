@@ -1,0 +1,43 @@
+<br>
+<div class="col-lg-2">
+<%= link_to 'Go Back to Hardware', hardware_items_path, class: 'btn btn-secondary btn-block' %>
+</div>
+
+
+<div class="page-header">
+  <h1 class="page-title">All Checked Out Items</h1>
+</div>
+
+<% if @all_hardware_checkouts.empty? %>
+  <div class="card">
+    <div class="card-body text-center">
+      <h2>Looks like there are no hardware checkouts..</h2>
+    </div>
+  </div>
+<% else %>
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+        <thead>
+          <tr>
+            <th>Hardware Item</th>
+            <th>Attendee Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @all_hardware_checkouts.each do |checkout| %><a href=""></a>
+          <tr>
+            <td><%= checkout.hardware_item.name %></td>
+            <td><%= checkout.user.full_name %></td>
+            <td><%= link_to 'Return', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %></td>
+          </tr>
+        <% end %>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+<% end %>

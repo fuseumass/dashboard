@@ -7,8 +7,8 @@ namespace :template_email do
     user_mailing_list = User.all
 
     user_mailing_list.each do |user|
-      if !user.has_applied?
-        UserMailer.template_email(user, 'HackUMass VI Applications Are Open!').deliver_now
+      if user.is_accepted?
+        UserMailer.template_email(user, 'Get Hyped for HackUMass VI').deliver_now
         email_count += 1
       end
     end

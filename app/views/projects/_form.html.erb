@@ -62,6 +62,63 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <div class="control-label">
+      Inspiration
+    </div>
+    <%= form.text_area :inspiration, id: :project_inspiration, class: 'form-control', placeholder: "What inspired you to do this project? " %>
+  </div>
+
+  <div class="form-group">
+  <div class="control-label">
+      What it does
+    </div>
+    <%= form.text_area :does_what, id: :project_does_what, class: 'form-control', placeholder: "What does your project do?" %>
+  </div>
+
+  <div class="form-group">
+   <div class="control-label">
+      How we built it
+    </div>
+    <%= form.text_area :built_how, id: :project_built_how, class: 'form-control', placeholder: "How did you build your project? " %>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label">
+      Challenges we faced
+    </div>
+    <%= form.text_area :challenges, id: :project_challenges, class: 'form-control', placeholder: "What were some of the challenges you faced while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label">
+      Accomplishments that we're proud of
+    </div>
+    <%= form.text_area :accomplishments, id: :project_accomplishments, class: 'form-control', placeholder: "What were some of your accomplishments while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label">
+      What we learned
+    </div>
+    <%= form.text_area :learned, id: :project_learned, class: 'form-control', placeholder: "What were some things you learned while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+   <div class="control-label">
+      What's next
+    </div>
+    <%= form.text_area :next, id: :project_next, class: 'form-control', placeholder: "What's next for your project? " %>
+  </div>
+
+   <div class="form-group">
+    <div class="control-label">
+      Built With
+    </div>
+    <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
+  </div>
+
+
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

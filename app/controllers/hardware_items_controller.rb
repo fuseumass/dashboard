@@ -1,6 +1,6 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:index, :show, :edit, :create, :update, :destroy, :new]
+  before_action :check_permissions
   before_action :is_feature_enabled
 
   def search
@@ -61,6 +61,10 @@ class HardwareItemsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def all_checked_out
+    @all_hardware_checkouts = HardwareCheckout.all
   end
 
 

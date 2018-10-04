@@ -24,9 +24,9 @@
         <h4><%= event.title.titleize%></h4>
       <% end %>
 
-      <p class="text-muted"><b>Location:</b> <%= event.location%></p>
+      <p class="text-muted"><b>Location:</b> <%= event.location%> | <b>Hosted by:</b> <%= event.host%></p>
       <div style="margin-bottom: 1em"><%= event.description%></div>
-      <%= event.start_time.strftime('%A, %b %d from %I:%M %p')%> to <%= event.end_time.strftime('%I:%M %p')%>
+      <p><%= event.start_time.strftime('%A, %b %d from %I:%M %p')%> to <%= event.end_time.strftime('%I:%M %p')%></p>
 
     </div>
   </div>

@@ -4,7 +4,11 @@ class MentorshipRequestsController < ApplicationController
   # before_action :is_feature_enabled
 
   def index
-    @mentorship_requests = MentorshipRequest.all.order(created_at: :desc)
+
+    @search = MentorshipRequest.ransack(params[:q])
+
+    @mentorship_requests = @search.result
+    ##@search.build_condition
   end
 
 

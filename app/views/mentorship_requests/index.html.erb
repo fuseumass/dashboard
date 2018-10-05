@@ -4,16 +4,38 @@
 
 
 <div class = "card">
+  <div class = "card-body">
+  <div class = "form-group">
+  <div class = "row gutters-xs">
+  <div class = "col">
+    <%= search_form_for @search do |f| %>
+
+      <%= f.text_field :title_or_user_first_name_or_user_last_name_cont, class: "form-control", placeholder: "Search by Title or User.." %>
+    </div>
+    <span class = "col-auto">
+      <%= f.button :button, type: :submit, class: "btn btn-secondary" do%>
+        <i class = "fe fe-search"> </i>
+        <% end %>
+      </span>
+      <% end %>
+    </div>
+    </div>
+    <%=link_to "Reset Search", mentorship_requests_path %>
+    </div>
+  
+  
+
+  
   <table class="table table-striped table-hover ">
 
     <thead>
     <tr>
-      <th>Title</th>
-      <th>Tech Type</th>
-      <th>Urgency</th>
+      <th><%= sort_link @search, :title, "Title"%></th>
+      <th><%= sort_link @search, :tech, "Type" %></th>
+      <th><%= sort_link @search, :urgency, "Urgency" %></th>
       <th>Status</th>
-      <th>Submitted on</th>
-      <th>Submitted by</th>
+      <th><%= sort_link @search, :created_at, "Time" %></th>
+      <th><%= sort_link @search, :id, "By" %></th>
     </tr>
     </thead>
 
@@ -32,6 +54,7 @@
     <% end %>
     </tbody>
   </table>
+  </div>
   </div>
 
 <br>

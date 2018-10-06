@@ -6,6 +6,7 @@ class MentorshipRequest < ApplicationRecord
 	belongs_to :user
 	
 	ransacker :name_case_insensitive, type: :string do
-		arel_table[:name].lower
-	  end
+		arel_table[:title].lower
+	end
+
 end

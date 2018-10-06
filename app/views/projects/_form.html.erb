@@ -118,6 +118,12 @@
     <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
   </div>
 
+  <div class="form-group">
+    <div class="control-label">
+      Prize we're going for
+    </div>
+    <%= form.select :prize, Prize.all.collect { |x| x.name } ,id: :project_prize, :prompt => 'Select One' %>
+  </div>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

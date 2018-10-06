@@ -18,7 +18,14 @@
 
 
 <% if current_user.is_admin? or current_user.is_organizer? %>
-  <%= link_to 'Create New Hardware Item', new_hardware_item_path, class: 'btn btn-primary btn-block', style: '' %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= link_to 'Create New Hardware Item', new_hardware_item_path, class: 'btn btn-secondary btn-block', style: '' %>
+    </div>
+    <div class="col-lg-6">
+      <%= link_to 'View All Checked-Out Items', all_checked_out_hardware_items_path, class: 'btn btn-secondary btn-block', style: '' %>
+    </div>
+  </div>
 <% end %>
 
 <br>

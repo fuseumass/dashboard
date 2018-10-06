@@ -1,6 +1,6 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:destroy, :edit]
+  before_action :check_permissions, only: [:destroy, :edit, :new]
   # before_action :is_feature_enabled
 
   def index
@@ -8,7 +8,6 @@ class MentorshipRequestsController < ApplicationController
     @search = MentorshipRequest.ransack(params[:q])
 
     @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 10)
-    ##@search.build_condition
   end
 
 
@@ -104,7 +103,7 @@ class MentorshipRequestsController < ApplicationController
     end
 
     def check_permissions
-      unless current_user.is_admin? or current_user.is_mentor?
+      unless current_user.is_admin? or current_user.is_mentor? or current_user.number_of_requests < 5
         redirect_to index_path, alert: 'You do not have the permissions to visit this section of mentorship'
       end
     end

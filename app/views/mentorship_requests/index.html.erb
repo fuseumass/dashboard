@@ -1,3 +1,68 @@
+
+<% if @current_user.is_attendee? %>
+  <div class="page-header">
+    <h1 class="page-title">Your Mentorship Requests</h1>
+  </div>
+
+<% if @current_user.has_mentorship_requests? %>
+
+  <% if @current_user.number_of_requests < 5 %>
+  You have <div class = "badge badge-info"> <%= 5 - @current_user.number_of_requests %></div> remaining requests.
+  <p>
+  <center><%= link_to new_mentorship_request_url do %> <button type="button" class="btn btn-pill btn-primary btn-lg">Make a request.</button> <% end%> </center>
+  <% else %>
+  You have no remaining requests. Be patient, a mentor will resolve your current requests soon!
+  <% end %>
+  <p>
+
+
+  <% @current_user.valid_requests.each do |mentorship_request|%>
+  <div class="card">
+  <h3 class="card-header">
+    <%= mentorship_request.title %>
+    <div style="margin-left: 2%; background-color: #926dde;" class="badge badge-primary"> #<%= mentorship_request.id%> </div>
+  </h5>
+  <div class="card-body">
+    <div class="panel-body">
+      <strong>Request Urgency: <br></strong>
+      <% if  mentorship_request.urgency == 0 %>
+          <h4><span class="label label-default">Not Urgent</span></h4>
+      <% elsif mentorship_request.urgency == 1 %>
+          <h4><span class="label label-info">Mildly Urgent</span></h4>
+      <% elsif mentorship_request.urgency == 2 %>
+          <h4><span class="label label-warning">Urgent</span></h4>
+      <% elsif mentorship_request.urgency == 3 %>
+          <h4><span class="label label-danger">Drastically Urgent</span></h4>
+      <% end %>
+    </div>
+    <h5 class="card-title"><%= mentorship_request.description%></h5>
+    <h5 class="card-title"><strong>Status:</strong> 
+    <% if mentorship_request.status == 'Waiting' %>
+    <div class = "badge badge-warning">Waiting </div>
+    <% else %>
+    <div class = "badge badge-success"> Contacted </div> Check Slack!
+    </h5>
+    <% end %>
+    <p class="card-text">
+      
+      <% mentorship_request.tech.each do |tech| %>
+        <div style="background-color: #926dde;" class="badge badge-primary"> <%= tech %> </div>
+      <% end %>
+    </p>
+    </div>
+    </div>
+    <% end %>
+    
+<% else %>
+  <div class="card">
+  <h3 class="card-header">
+    Make a request
+    </h5>
+    </div>
+<% end %>
+  
+
+<% else %>
 <div class="page-header">
   <h1 class="page-title">Mentorship Dashboard</h1>
 </div>
@@ -37,7 +102,7 @@
 
     <thead>
     <tr>
-      <th><%= sort_link @search, :title, :name_case_insensitive, "Title"%></th>
+      <th><%= sort_link @search, :name_case_insensitive, "Title"%></th>
       <th><%= sort_link @search, :tech, "Type" %></th>
       <th><%= sort_link @search, :urgency, "Urgency" %></th>
       <th>Status</th>
@@ -62,9 +127,10 @@
     </tbody>
   </table>
   <%= will_paginate @mentorship_requests%>
+  </h2>
+  </button>
   </div>
-  </div>
-  </div>
+  <% end %>
 
 
 <br>

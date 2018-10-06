@@ -10,27 +10,34 @@
   <div class = "col">
     <%= search_form_for @search do |f| %>
 
-      <%= f.text_field :title_or_user_first_name_or_user_last_name_cont, class: "form-control", placeholder: "Search by Title or User.." %>
+      <%= f.text_field :title_or_user_first_name_or_user_last_name_or_user_id_cont, class: "form-control", placeholder: "Search by Title or User/UserID.." %>
     </div>
     <span class = "col-auto">
       <%= f.button :button, type: :submit, class: "btn btn-secondary" do%>
         <i class = "fe fe-search"> </i>
         <% end %>
       </span>
+    <span class = "col-auto">
+    <%= link_to mentorship_requests_path do %> 
+      <button class = "btn btn-secondary"> 
+      <i class = "fe fe-x-circle"></i>
+      </button>
+     </span>
+     <% end %>
       <% end %>
     </div>
     </div>
-    <%=link_to "Reset Search", mentorship_requests_path %>
+    
     </div>
   
   
 
   
-  <table class="table table-striped table-hover ">
+  <table class="table table-hover">
 
     <thead>
     <tr>
-      <th><%= sort_link @search, :title, "Title"%></th>
+      <th><%= sort_link @search, :title, :name_case_insensitive, "Title"%></th>
       <th><%= sort_link @search, :tech, "Type" %></th>
       <th><%= sort_link @search, :urgency, "Urgency" %></th>
       <th>Status</th>
@@ -43,10 +50,10 @@
     <% @mentorship_requests.each do |request| %><a href=""></a>
         <tr>
 
-          <td><%= link_to truncate(request.title), request %></td>
+          <td><%= truncate(request.title) %></td>
           <td><%= truncate(request.tech.join(", ")) %></td>
           <td><%= request.urgency %></td>
-          <td><%= request.status %></td>
+          <td><%= request.status %> <%= link_to request do %> <button class = "btn btn-secondary"> <i class= "fe fe-eye"> </i> </button> <% end %></td>
           <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>
           <td><%= request.user.full_name%></td>
         </tr>
@@ -54,7 +61,10 @@
     <% end %>
     </tbody>
   </table>
+  <%= will_paginate @mentorship_requests%>
   </div>
   </div>
+  </div>
+
 
 <br>

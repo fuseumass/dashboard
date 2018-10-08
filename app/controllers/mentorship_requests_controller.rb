@@ -7,7 +7,7 @@ class MentorshipRequestsController < ApplicationController
 
     @search = MentorshipRequest.ransack(params[:q])
 
-    @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 20)
+    @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 15)
   end
 
 

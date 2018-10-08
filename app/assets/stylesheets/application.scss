@@ -25,16 +25,13 @@ body {
  position: relative;
 }
 .page-main {
- min-height: 100vh; /* will cover the 100% of viewport */
+ min-height: 88vh; /* will cover the 100% of viewport */
  overflow: hidden;
  display: block;
  position: relative;
- padding-bottom: 100px; /* height of your footer */
 }
 
 footer {
- position: absolute;
- display: inline-block;
  bottom: 0;
  width: 100%;
 }

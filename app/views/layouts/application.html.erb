@@ -30,11 +30,10 @@
             <!-- This is where every component will load -->
             <%= yield %>
           </div>
-
-          <% if user_signed_in? %>
-            <%= render 'shared/footer' %>
-          <% end %>
     </div>
+    <% if user_signed_in? %>
+      <%= render 'shared/footer' %>
+    <% end %>
   </div>
 
   </body>

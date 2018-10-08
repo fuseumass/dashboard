@@ -2,14 +2,32 @@
   <h1 class="page-title">Your Mentorship Requests</h1>
 </div>
 
+<% if @current_user.number_of_requests < 5 %>
+  <div class="row">
+    <div class="col-lg-4 offset-4">
+      <div class="card">
+        <h3 class="card-header">Submit a Request</h3>
+        <div class="card-body">
+          <center><i class="fe fe-users" style="font-size: 5rem"></i></center>
+          <br>
+          <p>Do you need help with your hack? Submit a mentorship requests and shortly after, a mentor will slack you!</p>
+          <p>If a mentor doesn't slack you in 15 minutes then head out to the mentorship table or come say hi in the #mentorship channel.</p>
+          <center><%= link_to '<i class="fe fe-users mr-2"></i>Submit a Request'.html_safe, new_mentorship_request_path, class: 'btn btn-secondary' %></center>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
 <% if @current_user.has_mentorship_requests? %>
-  <% if @current_user.number_of_requests < 5 %>
+  <% if @current_user.number_of_requests > 2 and @current_user.number_of_requests < 5%>
     <div class="alert alert-icon alert-primary" role="alert">
       <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Hey there!</b> You can only have 5 mentorship requests open at the same time. You currently have <%= 5 - @current_user.number_of_requests %> requests left.
     </div>
-    <center><%= link_to 'Submit a new request', new_mentorship_request_path, class: 'btn btn-info' %></center>
+
     <br>
-  <% else %>
+  <% elsif @current_user.number_of_requests == 5%>
     <div class="alert alert-icon alert-danger" role="alert">
       <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <b>Oh boi...</b> It looks like you have 5 unresolved mentorship requests. You will need to resolve them before you request for more help.
     </div>
@@ -19,7 +37,7 @@
     <div class="card">
       <h3 class="card-header">
         <%= mentorship_request.title %>
-        <div style="margin-left: 2%;" class="badge badge-primary"> Request ID: #<%= mentorship_request.id%> </div>
+        <div style="margin-left: 2%;" class="badge badge-secondary"> Request ID: #<%= mentorship_request.id%> </div>
       </h3>
       <div class="card-body">
         <h4>
@@ -50,14 +68,8 @@
         <%= link_to 'Nevermind I Figured It Out!',
                       {controller:'mentorship_requests', action: 'mark_as_resolved',
                         params: {mentorship_request: mentorship_request}},
-                        class: "btn btn-success", role: "button", tag: "button", method: :put %>
+                        class: "btn btn-secondary", role: "button", tag: "button", method: :put %>
       </div>
     </div>
   <% end %>
-<% else %>
-  <div class="card">
-    <h3 class="card-header">
-      Make a request
-    </h5>
-  </div>
 <% end %>

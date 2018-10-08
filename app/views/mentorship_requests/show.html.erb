@@ -4,16 +4,6 @@
 <br>
 
 <h2> <%= @mentorship_request.user.first_name %>'s Request  </h2>
-<% if @mentorship_request.screenshot.exists? %>
-<div class="card">
-  <div class="card-body">
-    <div class="card-header">
-      <h4>Screenshot</h4>
-    </div>
-    <%= image_tag @mentorship_request.screenshot.url %>
-  </div>
-</div>
-<% end %>
 <div class="card">
   <h3 class="card-header">
     <%= @mentorship_request.title %>
@@ -54,3 +44,12 @@
                     class: "btn btn-danger", role: "button", tag: "button",  method: :put %>
   </div>
 </div>
+
+<% if @mentorship_request.screenshot.exists? %>
+  <div class="card">
+    <h3 class="card-header">Screenshot</h3>
+    <div class="card-body">
+      <%= image_tag @mentorship_request.screenshot.url %>
+    </div>
+  </div>
+<% end %>

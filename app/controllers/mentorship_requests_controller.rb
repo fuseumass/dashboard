@@ -28,7 +28,7 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request.status = 'Waiting'
 
     if @mentorship_request.save
-      redirect_to index_path, notice: 'Your mentorship request was successfully created. Now, Head out to the mentorship table!'
+      redirect_to index_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
     else
       render :new
     end

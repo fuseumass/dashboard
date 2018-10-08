@@ -1,36 +1,50 @@
-<%= link_to 'Back', mentorship_requests_path, class: 'btn btn-deault' %>
+<br>
+<%= link_to 'Go Back to Dashboard', mentorship_requests_path, class: 'btn btn-secondary' %>
+<br>
+<br>
+
 <h2> <%= @mentorship_request.user.first_name %>'s Request  </h2>
+<% if @mentorship_request.screenshot.exists? %>
+<div class="card">
+  <div class="card-body">
+    <div class="card-header">
+      <h4>Screenshot</h4>
+    </div>
+    <%= image_tag @mentorship_request.screenshot.url %>
+  </div>
+</div>
+<% end %>
 <div class="card">
   <h3 class="card-header">
     <%= @mentorship_request.title %>
-    <div style="margin-left: 2%; background-color: #926dde;" class="badge badge-primary"> #<%= @mentorship_request.id%> </div>
+    <div style="margin-left: 2%" class="badge badge-secondary"> Request ID: #<%= @mentorship_request.id%></div>
   </h5>
   <div class="card-body">
-    <div class="panel-body">
-      <strong>Request Urgency: <br></strong>
-      <% if  @mentorship_request.urgency == 0 %>
-          <h4><span class="label label-default">Not Urgent</span></h4>
+    <h4>
+      <strong>Request Urgency:</strong>
+      <% if @mentorship_request.urgency == 0 %>
+        <span class="badge badge-info">Not Urgent</span>
       <% elsif @mentorship_request.urgency == 1 %>
-          <h4><span class="label label-info">Mildly Urgent</span></h4>
+        <span class="badge badge-warning">Mildly Urgent</span>
       <% elsif @mentorship_request.urgency == 2 %>
-          <h4><span class="label label-warning">Urgent</span></h4>
+        <span class="badge badge-danger">Urgent</span>
       <% elsif @mentorship_request.urgency == 3 %>
-          <h4><span class="label label-danger">Drastically Urgent</span></h4>
+        <span class="badge badge-danger">Drastically Urgent</span>
       <% end %>
-    </div>
+    </h4>
     <h5 class="card-title"><%= @mentorship_request.description%></h5>
     <p class="card-text">
-      
+
       <% @mentorship_request.tech.each do |tech| %>
-        <div style="background-color: #926dde;" class="badge badge-primary"> <%= tech %> </div>
+        <div class="badge badge-secondary"> <%= tech %> </div>
       <% end %>
     </p>
-    <div class="btn-group" role="group">
-      <%= link_to 'Slack', 
+
+      <%= link_to '<i class="fe fe-slack mr-2"></i>Message on Slack'.html_safe,
                     {controller:'mentorship_requests', action: 'message_on_slack',
                     params: {mentorship_request: @mentorship_request}},
-                    class: "btn btn-purple", role: "button", tag: "button", method: :get %>
-      <%= link_to 'Mark Resolved',
+                    class: "btn btn-dark", role: "button", tag: "button", target: '_blank', method: :get %>
+      <%= link_to 'Mark as Resolved',
                     {controller:'mentorship_requests', action: 'mark_as_resolved',
                       params: {mentorship_request: @mentorship_request}},
                       class: "btn btn-success", role: "button", tag: "button", method: :put %>
@@ -38,16 +52,5 @@
                     {controller:'mentorship_requests', action: 'mark_as_denied',
                       params: {mentorship_request: @mentorship_request}},
                     class: "btn btn-danger", role: "button", tag: "button",  method: :put %>
-    </div>
   </div>
-  <% if @mentorship_request.screenshot.exists? %>
-  <div class="card">
-    <div class="card-body">
-      <div class="card-header">
-        <h4>Screenshot</h4>
-      </div>
-      <%= image_tag @mentorship_request.screenshot.url %>
-    </div>
-  </div>
-  <% end %>
 </div>

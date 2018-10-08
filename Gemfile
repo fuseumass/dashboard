@@ -119,3 +119,6 @@ gem 'will_paginate'
 
 # Gem use to track and report errors on website
 gem 'sentry-raven'
+
+# Search and filtering
+gem 'ransack'

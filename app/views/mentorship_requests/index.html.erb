@@ -1,34 +1,5 @@
-<div class="page-header">
-  <h1 class="page-title">Mentorship Dashboard</h1>
-</div>
-
-
-  <table class="table table-striped table-hover ">
-
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Help Type</th>
-      <th>Urgency</th>
-      <th>Status</th>
-      <th>Submitted on</th>
-      <th>Submitted by</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @mentorship_requests.each do |request| %><a href=""></a>
-        <tr>
-
-          <td><%= link_to truncate(request.title), request %></td>
-          <td><%= request.help_type %></td>
-          <td><%= request.urgency %></td>
-          <td><%= request.status %></td>
-          <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>
-          <td><%= request.user.full_name%></td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-<br>
+<% if @current_user.is_attendee? %>
+  <%= render 'attendee_view'%>
+<% else %>
+  <%= render 'mentor_view'%>
+<% end %>

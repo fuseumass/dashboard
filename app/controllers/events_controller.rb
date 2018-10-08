@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: :index
+  before_action :is_feature_enabled
 
-  # GET /events
-  # GET /events.json
+
   def index
-    @events = Event.order(time: :asc)
+    @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
   end
 
 
@@ -46,6 +46,19 @@ class EventsController < ApplicationController
     redirect_to events_url, notice: 'Event was successfully destroyed.'
   end
 
+  def is_feature_enabled
+    feature_flag = FeatureFlag.find_by(name: 'events')
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: 'Schedule are currently not available. Try again later!'
+    else
+      if feature_flag.value == false
+        # Redirect user to index if no feature flag is off (false)
+        redirect_to index_path, alert: 'Schedule are currently not available. Try again later!'
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -54,7 +67,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :location, :time, :created_by, :thumbnail, :image)
+      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image)
     end
 
     #  Only admins and organizers have the ability to create, update, edit, show, and destroy Events

@@ -60,7 +60,9 @@ ActiveRecord::Schema.define(version: 2018_09_30_015740) do
     t.string "created_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "time"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "host"
   end
 
   create_table "feature_flags", force: :cascade do |t|
@@ -135,6 +137,15 @@ ActiveRecord::Schema.define(version: 2018_09_30_015740) do
     t.string "projectimage_content_type"
     t.integer "projectimage_file_size"
     t.datetime "projectimage_updated_at"
+    t.string "inspiration"
+    t.string "does_what"
+    t.string "built_how"
+    t.string "challenges"
+    t.string "accomplishments"
+    t.string "learned"
+    t.string "next"
+    t.string "built_with"
+    t.string "prize"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 

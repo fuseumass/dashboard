@@ -1,29 +1,40 @@
+<div class="page-header">
+  <h1 class="page-title"><%= @prize.name %></h1>
+</div>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @prize.name %>
-</p>
+<div class="col-lg-6">
+  <div class="card">
+    <div class="card-status bg-purple"></div>
+    <div class="card-header">
+      <h3 class="card-title">Prize Info</h3>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>Description:</strong>
+        <%= @prize.description %>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @prize.description %>
-</p>
+      <p>
+        <strong>Criteria:</strong>
+        <%= @prize.criteria %>
+      </p>
 
-<p>
-  <strong>Criteria:</strong>
-  <%= @prize.criteria %>
-</p>
+      <p>
+        <strong>Sponsor:</strong>
+        <%= @prize.sponsor %>
+      </p>
 
-<p>
-  <strong>Sponsor:</strong>
-  <%= @prize.sponsor %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= @prize.priority %>
-</p>
-
-<%= link_to 'Edit', edit_prize_path(@prize) %> |
-<%= link_to 'Back', prizes_path %>
+      <p>
+        <strong>Priority:</strong>
+        <%= @prize.priority %>
+      </p>
+      <%= link_to 'Edit', edit_prize_path(@prize), class: 'btn btn-warning' %>
+      <% if current_user.is_admin? %>
+        <%= link_to 'Delete', prize_path(@prize), :method => :delete, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= link_to 'Go Back to Prizes', prizes_path, class: 'btn btn-secondary' %>

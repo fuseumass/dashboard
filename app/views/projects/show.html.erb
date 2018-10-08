@@ -16,6 +16,53 @@
         <p>
           <%= simple_format(@project.description) %>
         </p>
+
+        <h2 class="mt-0 mb-4">Inspiration:</h2>
+        <p>
+          <%= simple_format(@project.inspiration) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">What it does:</h2>
+        <p>
+          <%= simple_format(@project.does_what) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">How we built it:</h2>
+        <p>
+          <%= simple_format(@project.built_how) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">Challenges we ran into:</h2>
+        <p>
+          <%= simple_format(@project.challenges) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">Accomplishments that we're proud of:</h2>
+        <p>
+          <%= simple_format(@project.accomplishments) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">What we learned:</h2>
+        <p>
+          <%= simple_format(@project.learned) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">What's next:</h2>
+        <p>
+          <%= simple_format(@project.learned) %>
+        </p>
+
+        <h2 class="mt-0 mb-4">Built with:</h2>
+        <p>
+          <%= simple_format(@project.built_with) %>
+        </p>
+
+
+        <h2 class="mt-0 mb-4">Prize we're going for:</h2>
+        <p>
+          <%= simple_format(@project.prize) %>
+        </p>
+
       </div>
     </div>
   </div>
@@ -25,10 +72,6 @@
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-header">
         <h3 class="card-title">Team Members</h3>
-        <div class="card-options">
-          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-          <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-        </div>
       </div>
       <div class="card-body">
         <%= @project.team_members %>

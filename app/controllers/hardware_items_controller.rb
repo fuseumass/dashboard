@@ -1,6 +1,6 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:show, :edit, :create, :update, :destroy, :new]
+  before_action :check_permissions
   before_action :is_feature_enabled
 
   def search
@@ -18,7 +18,7 @@ class HardwareItemsController < ApplicationController
   end
 
   def index
-    @hardware_items = HardwareItem.all
+    @hardware_items = HardwareItem.all.order(name: :asc).paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -61,6 +61,10 @@ class HardwareItemsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def all_checked_out
+    @all_hardware_checkouts = HardwareCheckout.all
   end
 
 
@@ -114,7 +118,7 @@ class HardwareItemsController < ApplicationController
     # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
     def check_permissions
       unless current_user.is_admin? or current_user.is_organizer?
-        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+        redirect_to index_path, alert: 'You do not have the permissions to visit this section of hardware.'
       end
     end
 

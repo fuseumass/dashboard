@@ -32,34 +32,108 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :title, class:'control-label' %>
+    <h3>
+      What is the name of your project?
+    </h3>
     <%= form.text_field :title, id: :project_title, class: 'form-control', placeholder: 'Give your project an awesome name! Project names must be unique.' %>
   </div>
 
   <div class="form-group">
-    <%= form.label :description, class:'control-label' %>
+    <h3>
+      Describe your project!
+    </h3>
     <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 500 words please." %>
   </div>
 
   <div class="form-group">
-    <div class="control-label">
-      Github Link
-    </div>
+    <h3>
+      Do you have a github link?
+    </h3>
     <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! You can leave this empty if you're a noob and don't use github." %>
   </div>
 
   <div class="form-group">
-    <%= form.label :team_members, class:'control-label' %>
+    <h3>
+      Who made this amazing Hack?
+    </h3>
     <%= form.text_field :team_members, id: :project_team_members, class: 'form-control', placeholder: 'Please list first and last name separated by commas. Ex: Brian Ramirez, Tanya Asnani' %>
   </div>
 
   <div class="form-group">
-    <%= form.label :projectimage, 'Project Image:', class: 'form-label' %>
+    <h3>
+      Do you have a project image?
+    </h3>
     <p style="color: grey; ">(Project images are not required, but judges love when they can see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.)</p>
     <div class="custom-file">
       <%= form.file_field :projectimage, class:'custom-file-input', onchange:'updateProjectImageFileLabel()', id: 'project_projectimage' %>
       <label class="custom-file-label"> Choose file </label>
     </div>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What inspired you to make this?
+    </h3>
+    <%= form.text_area :inspiration, id: :project_inspiration, class: 'form-control', placeholder: "What inspired you to do this project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What does your project do?
+    </h3>
+    <%= form.text_area :does_what, id: :project_does_what, class: 'form-control', placeholder: "What does your project do?" %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      How did you build it?
+    </h3>
+    <%= form.text_area :built_how, id: :project_built_how, class: 'form-control', placeholder: "How did you build your project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What challenges did you face?
+    </h3>
+    <%= form.text_area :challenges, id: :project_challenges, class: 'form-control', placeholder: "What were some of the challenges you faced while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What accomplishments are you proud of?
+    </h3>
+    <%= form.text_area :accomplishments, id: :project_accomplishments, class: 'form-control', placeholder: "What were some of your accomplishments while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What did you learn while building this?
+    </h3>
+    <%= form.text_area :learned, id: :project_learned, class: 'form-control', placeholder: "What were some things you learned while doing this project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What's next for your project?
+    </h3>
+    <%= form.text_area :next, id: :project_next, class: 'form-control', placeholder: "What's next for your project? " %>
+  </div>
+
+   <div class="form-group">
+     <h3>
+       What did you build it with?
+     </h3>
+    <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
+  </div>
+
+  <div class="form-group">
+    <h3>
+      What prizes are you going for?
+    </h3>
+    <%= form.select :prize,
+        Prize.all.collect { |x| x.name },
+        {prompt: 'Select a prize'},
+        {class: 'form-control custom-select'} %>
   </div>
 
   <div class="actions">

@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h1 class="page-title">Mentorship Dashboard</h1>
+</div>
+
+<% if [true, false].sample %>
+  <div class="alert alert-icon alert-primary" role="alert">
+    <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Pro Tip</b> You can click on table the headers to sort the table. Try sorting requests by urgency and help those that need it the most.
+  </div>
+<% end %>
+
+<div class = "card">
+  <div class = "card-body">
+    <div class = "form-group">
+      <div class = "row gutters-xs">
+        <div class = "col">
+          <%= search_form_for @search do |f| %>
+          <%= f.text_field :title_or_user_first_name_or_user_last_name_or_user_id_cont, class: "form-control", placeholder: "Search by Title or User/UserID.." %>
+        </div>
+        <span class = "col-auto">
+          <%= f.button :button, type: :submit, class: "btn btn-secondary" do%>
+            Search
+          <% end %>
+        </span>
+        <span class = "col-auto">
+          <%= link_to mentorship_requests_path do %>
+          <button class = "btn btn-secondary">
+            Clear
+          </button>
+          <% end %>
+        </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th><%= sort_link @search, :name_case_insensitive, "Title"%></th>
+        <th><%= sort_link @search, :tech, "Type" %></th>
+        <th><%= sort_link @search, :urgency, "Urgency" %></th>
+        <th>Status</th>
+        <th><%= sort_link @search, :created_at, "Time" %></th>
+        <th><%= sort_link @search, :id, "By" %></th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mentorship_requests.each do |request| %><a href=""></a>
+        <tr>
+          <td><%= request.id %></td>
+          <td><%= truncate(request.title) %></td>
+          <td><%= truncate(request.tech.join(", ")) %></td>
+          <td><%= request.urgency %></td>
+          <td><%= request.status %>
+          <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>
+          <td><%= request.user.full_name%></td>
+          <td><%= link_to request do %> <button class = "btn btn-secondary btn-sm"> <i class= "fe fe-eye"> </i> </button> <% end %></td></td>
+        </tr>
+    </div>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @mentorship_requests%>
+</h2>
+</button>
+</div>

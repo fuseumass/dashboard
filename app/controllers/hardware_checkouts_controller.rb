@@ -59,7 +59,7 @@ class HardwareCheckoutsController < ApplicationController
 
     # Flash a good message
     flash[:success] = "Hardware Successfully Returned"
-    redirect_to hardware_item_path(@item)
+    redirect_to hardware_items_path
   end
 
   private

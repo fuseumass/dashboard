@@ -105,6 +105,7 @@ Rails.application.routes.draw do
     resources :hardware_items do
       collection do
         get 'search'
+        get 'all_checked_out' => 'hardware_items#all_checked_out'
       end
     end
 

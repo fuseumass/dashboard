@@ -45,7 +45,7 @@ module PagesHelper
   end
 
   def has_access_to_events?
-    #current_user.did_check_in? or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('events')
   end
 
   def has_access_to_prizes?
@@ -66,7 +66,7 @@ module PagesHelper
   end
 
   def has_access_to_projects?
-    (current_user.check_in and current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor? or current_user.rsvp) and is_feature_enabled('projects')
+    (current_user.check_in and current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('projects')
   end
 
   def has_access_to_admin?

@@ -1,35 +1,44 @@
+<div class="page-header">
+  <h1 class="page-title">Schedule</h1>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <b>Just FYI:</b> This is a live schedule! More events, workshops, and talks will be added before the hackathon begins and even during the hackathon.
+</div>
+
 <% if @events.empty? %>
     <center><h3>Looks like there aren't any events yet....</h3></center>
 <% end %>
 
 
-<% @events.in_groups_of(3, false).each do |group| %>
-    <div class="row">
-      <% group.each do |event| %>
-            <div class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <%= image_tag event.image.url, class: 'img-responsive' %>
-                <div class="caption" style="margin-top: -5%">
-                  <h3><%= event.title %></h3>
-                  <p><b>Time:</b> <%= event.time.strftime("%b %e, %l:%M %p")%></p>
-                  <p><b>Location:</b> <%= event.location %></p>
-                  <p><b>Description:</b> <br>
-                    <%= event.description %></p>
-                  <% if current_user.is_admin? %>
-                    <%= link_to 'Show', event_path(event), class: 'btn btn-primary' %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-      <% end %>
+
+<% @events.each do |event| %>
+  <div class="card card-aside">
+    <div class="card-aside-column text-center" style="background-color: #764ba2; flex:none;width:9em">
+      <h2 style="color:white; margin-top:55%" style="vertical-align:middle"><%= event.start_time.strftime('%I:%M%p') %></h2>
     </div>
+    <div class="card-body d-flex flex-column">
+      <% if current_user.is_admin? %>
+      <h4> <%= link_to event.title.titleize, event %></h4>
+      <% else %>
+        <h4><%= event.title.titleize%></h4>
+      <% end %>
+
+      <p class="text-muted"><b>Location:</b> <%= event.location%> | <b>Hosted by:</b> <%= event.host%></p>
+      <div style="margin-bottom: 1em"><%= event.description%></div>
+      <p><%= event.start_time.strftime('%A, %b %d from %I:%M %p')%> to <%= event.end_time.strftime('%I:%M %p')%></p>
+
+    </div>
+  </div>
 <% end %>
 
+<center>
+  <%= will_paginate @events %>
+</center>
 
 
 <br>
 
 <% if current_user.is_admin? %>
-  <%= link_to 'New Event', new_event_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Event', new_event_path, class: 'btn btn-secondary' %>
 <% end %>
-

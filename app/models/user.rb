@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :hardware_checkouts, dependent: :destroy
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
-  has_one :mentorship_request, dependent: :destroy
+  has_many :mentorship_request, dependent: :destroy
   has_one :project, dependent: :destroy
 
   after_create :welcome_email
@@ -54,6 +54,14 @@ class User < ApplicationRecord
 
   def has_mentorship_requests?
     self.mentorship_request.present?
+  end
+
+  def number_of_requests
+    self.mentorship_request.where(status: 'Waiting').count + self.mentorship_request.where(status: 'Contacted').count
+  end
+
+  def valid_requests
+    self.mentorship_request.where(status: 'Waiting') + self.mentorship_request.where(status: 'Contacted')
   end
 
   def is_accepted?

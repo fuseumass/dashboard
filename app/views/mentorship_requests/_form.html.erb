@@ -11,34 +11,127 @@
     </div>
   <% end %>
 
-
-
+  <div class = "my-3 my-md-5">
+    <div class = "container">
+    <div class = "row">
+    <div class = "col-12">
+    <div class = "card">
+    <div class = "card-body">
       <div class="form-group">
-        <%= f.label :help_type, "What type of problem are you having?", class:"col-lg-2 control-label" %>
-          <div class="col-lg-10">
-            <div class="radio">
-              <label>
-                <%= f.radio_button :help_type, "bug", id:"optionsRadios1"%>
-                <%= "Bug: Your code does not do what you want it to, or just doesn't compile." %>
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <%= f.radio_button :help_type, "feature", id:"optionsRadios2"%>
-                <%= "Feature: You're not sure how to implement something, in your code or otherwise." %>
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <%= f.radio_button :help_type, "other", id:"optionsRadios3"%>
-                <%= "Other: None of the things listed above, miscellaneous." %>
-              </label>
-            </div>
+        <label class="form-label">Title</label>
+        <%= f.text_field :title, placeholder: "Describe your problem in a couple words.", class: "form-control", rows: "5", id: "textArea"%>
+        </div>
+
+      <div class='form-group'>
+          <%= f.label :tech,
+                      'Technology related to issue: (select all that apply)',
+                      class: 'form-label' %>
+          <div class='selectgroup selectgroup-pills'>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'HTML/CSS',
+                              nil %>
+                              <span class = "selectgroup-button">HTML/CSS</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Javascript/NodeJS',
+                              nil %> 
+                              <span class = "selectgroup-button">Javascript/NodeJS</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'PHP',
+                              nil %> 
+                              <span class = "selectgroup-button">PHP</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'SQL',
+                              nil %> 
+                              <span class = "selectgroup-button">SQL</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Ruby',
+                              nil %> 
+                              <span class = "selectgroup-button">Ruby</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Java',
+                              nil %> 
+                              <span class = "selectgroup-button">Java</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Kotlin',
+                              nil %>
+                              <span class = "selectgroup-button">Kotlin</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Swift',
+                              nil %> 
+                              <span class = "selectgroup-button">Swift</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Objective C',
+                              nil %> 
+                              <span class = "selectgroup-button">Objective C</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'C/C++/C#',
+                              nil %> 
+                              <span class = "selectgroup-button">C/C++/C#</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Python',
+                              nil %> 
+                              <span class = "selectgroup-button">Python</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Arduino',
+                              nil %> 
+                              <span class = "selectgroup-button">Arduino</span>
+            </label>
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Raspberry Pi',
+                              nil %>
+                              <span class = "selectgroup-button">Raspberry Pi</span>
+            </label>
+
+            <label class="selectgroup-item">
+              <%= f.check_box :tech,
+                              {multiple: true, :class => "selectgroup-input"},
+                              'Misc',
+                              nil %>
+                              <span class = "selectgroup-button">None/Other</span>
+            </label>
           </div>
-      </div>
+        </div>
+      
 
   <div class="form-group">
-        <%= f.label :urgency, "How urgent is your problem?", class:"col-lg-2 control-label" %>
+        <label class="form-label">How urgent is your problem?</label>
           <div class="col-lg-10">
             <div class="radio">
               <label>
@@ -65,17 +158,27 @@
               </label>
             </div>
           </div>
-      </div>
-  
-      <div class="form-group">
-        <div class="col-lg-12">
-          <%= f.text_area :title, placeholder: "Tell us what exactly is going wrong. Keep this under a paragraph, you'll have a chance to elaborate more with your chosen mentor.", class: "form-control", rows: "5", id: "textArea", style: 'background: #ecf0f1' %>
-        </div>
-      </div>
 
+  <div class="form-group">
+        <label class="form-label">Description</label>
+          <%= f.text_area :description, placeholder: "Tell us what exactly is going wrong. Keep this under a paragraph, you'll have a chance to elaborate more with your chosen mentor.", class: "form-control", rows: "5", id: "textArea"%>
+        </div>
 
     <div class="form-group">
-      <%= f.submit class: 'btn btn-primary', style: 'margin-top:5%'%>
+      <label class="form-label">Screenshot</label>
+      <%= f.file_field :screenshot %>
     </div>
+    
+
+    <div class="form-group">
+      <%= f.submit "Jesus Take The Wheel!",
+       class: 'btn btn-primary', style: 'margin-top:5%'%>
+    </div>
+
+    </div>
+    </div>
+      </div>
+      </div>
+
 
 <% end %>

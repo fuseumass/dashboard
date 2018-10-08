@@ -10,22 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_154209) do
-
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
-    t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
-    t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string "locked_by"
-    t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
+ActiveRecord::Schema.define(version: 2018_09_30_015740) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -117,11 +102,17 @@ ActiveRecord::Schema.define(version: 2018_10_05_154209) do
     t.integer "user_id"
     t.integer "mentor_id"
     t.string "title"
+    t.string "description"
     t.string "status"
+    t.string "tech", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "help_type"
     t.integer "urgency"
+    t.string "screenshot_file_name"
+    t.string "screenshot_content_type"
+    t.integer "screenshot_file_size"
+    t.datetime "screenshot_updated_at"
   end
 
   create_table "prizes", force: :cascade do |t|

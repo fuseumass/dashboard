@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
     end
 
     def check_permissions
-      unless current_user.is_admin?
+      unless current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
         redirect_to index_path, alert: 'You do not have the permissions to see all projects'
       end
     end

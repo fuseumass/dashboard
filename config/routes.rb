@@ -79,6 +79,8 @@ Rails.application.routes.draw do
     # Allow users to rsvp for the event
     get 'rsvp' => 'pages#rsvp'
 
+    get 'join_slack' => 'pages#join_slack'
+
     # Allow users to rsvp for the event
     get 'unrsvp' => 'pages#unrsvp'
 

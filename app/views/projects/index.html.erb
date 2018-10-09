@@ -8,6 +8,7 @@
       <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
         <thead>
           <tr>
+            <th>Table #</th>
             <th>Title</th>
             <th>Description</th>
             <th>Link</th>
@@ -18,6 +19,7 @@
         <tbody>
           <% @projects.each do |project| %>
           <tr>
+            <td><%= project.id %></td>
             <td><%= link_to project.title, project %></td>
             <td><%= truncate(project.description, length: 30) %></td>
             <td><%= truncate(project.link, length: 22) %></td>

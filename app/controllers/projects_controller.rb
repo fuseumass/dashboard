@@ -8,8 +8,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if @project.user != current_user
-      redirect_to index_path, alert: "You don't have the permissions to see this project."
+    if current_user.is_attendee?
+      if @project.user != current_user
+        redirect_to index_path, alert: "You don't have the permissions to see this project."
+      end
     end
   end
 

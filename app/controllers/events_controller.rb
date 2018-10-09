@@ -10,6 +10,7 @@ class EventsController < ApplicationController
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
       end
     end
+    @all_events = Event.where("end_time > ?", Time.now).order(start_time: :asc)
     @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
   end
 

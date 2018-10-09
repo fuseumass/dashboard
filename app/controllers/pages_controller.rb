@@ -47,6 +47,9 @@ class PagesController < ApplicationController
     @all_mentors = User.where(user_type: 'mentor')
   end
 
+  def join_slack
+  end
+
   def check_in
     @check_in_count = User.where(check_in: true).count
     @rsvp_count = User.where(rsvp: true).count
@@ -74,7 +77,7 @@ class PagesController < ApplicationController
 
       user.check_in = true
       if user.save
-        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been check in successfully"
+        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been checked in successfully"
         return
       end
 

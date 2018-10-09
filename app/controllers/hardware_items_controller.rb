@@ -4,6 +4,11 @@ class HardwareItemsController < ApplicationController
   before_action :is_feature_enabled
 
   def search
+    if current_user.is_attendee?
+      if !current_user.has_slack?
+        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
+      end
+    end
     if params[:search].present?
       if is_upc?(params[:search].to_i)
         item = HardwareItem.where(upc: params[:search])
@@ -18,6 +23,13 @@ class HardwareItemsController < ApplicationController
   end
 
   def index
+
+    if current_user.is_attendee?
+      if !current_user.has_slack?
+        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
+      end
+    end
+
     @hardware_items = HardwareItem.all.order(name: :asc).paginate(page: params[:page], per_page: 20)
   end
 

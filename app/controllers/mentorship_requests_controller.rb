@@ -5,6 +5,12 @@ class MentorshipRequestsController < ApplicationController
 
   def index
 
+    if current_user.is_attendee? or current_user.is_mentor?
+      if !current_user.has_slack?
+        redirect_to join_slack_path, alert: 'You will need to join slack before you access our mentorship page.'
+      end
+    end
+
     @search = MentorshipRequest.ransack(params[:q])
 
     @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 15)

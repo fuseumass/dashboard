@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = 'hackumass.com'
+    headers['Access-Control-Allow-Origin'] = 'hackumass.com/*'
   end
 
   # Automatically re-route user to login except when user is logging in or

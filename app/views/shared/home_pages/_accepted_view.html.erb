@@ -11,6 +11,7 @@
         <p><div class="text-muted">By clicking the RSVP button you are letting us know that you will <b> definitely</b> come to the event. We will be reserving swag, food and more for you. So please only RSVP if you are 100% sure you’ll be attending.</div></p>
         <br>
           <%= link_to 'RSVP For The Event', rsvp_path, class: 'btn btn-success' %>
+          <br>
           <%= link_to "Sorry I Can't Participate", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you will not come? By doing this you will be moving your application status from accepted to declined. There is no way to get accepted after clicking the okay button. Are you sure you want to decline your acceptance?' } %>
       </div>
     </div>
@@ -30,7 +31,6 @@
         <p><b>Boston</b> buses will be leaving from Boston University at <b>02:30 PM</b>.</p>
         <p>All pickup times are subject to change since we might be upgrading all our buses to coach and or adding more buses if needed. We will keep you updated if anything changes.</p>
         <p> <b>You will need to RSVP before you can sign up for a bus.</b> </p>
-        <%= link_to 'RSVP For The Event', rsvp_path, class: 'btn btn-success' %>
       </div>
     </div>
   </div>

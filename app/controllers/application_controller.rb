@@ -6,8 +6,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :auth_user
   before_action :set_raven_context
+  after_filter  :set_access_control_headers
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
+
+
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = 'hackumass.com'
+  end
 
   # Automatically re-route user to login except when user is logging in or
   # signing up or hardware api call or event api call

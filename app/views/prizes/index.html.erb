@@ -2,31 +2,30 @@
 
 <h1>Prizes</h1>
 
-<div class="row">
-  <% @prizes.in_groups_of(3, false).each do |group| %>
-    <% group.each do |prize| %>
-      <div class="col-lg-4">
-        <div class="card">
-              <% if prize.priority == 1 %>
-                <div class="card-status bg-purple"></div>
+<div class="prizes">
+  <% @prizes.each do |prize| %>
+    <div class="prize-item">
+      <div class="card">
+            <% if prize.priority == 1 %>
+              <div class="card-status bg-purple"></div>
+            <% end %>
+            <div class="card-header">
+              <% if current_user.is_admin? or current_user.is_organizer? %>
+                <h3 class="card-title"> <%= link_to prize.name, prize%> </h3>
+              <% else %>
+                <h3 class="card-title"> <%= prize.name %> </h3>
               <% end %>
-              <div class="card-header">
-                <% if current_user.is_admin? or current_user.is_organizer? %>
-                  <h3 class="card-title"> <%= link_to prize.name, prize%> </h3>
-                <% else %>
-                  <h3 class="card-title"> <%= prize.name %> </h3>
-                <% end %>
-              </div>
-              <div class="card-body">
-                <p> <b> Criteria: </b> <%= prize.criteria %> </p>
-                <p> <b> Description: </b> <%= prize.description %> </p>
-                <p> <b> Sponsored by: </b> <%= prize.sponsor %> </p>
-              </div>
-          </div>
-      </div>
-    <% end %>
+            </div>
+            <div class="card-body">
+              <p> <b> Criteria: </b> <%= prize.criteria %> </p>
+              <p> <b> Description: </b> <%= prize.description %> </p>
+              <p> <b> Sponsored by: </b> <%= prize.sponsor %> </p>
+            </div>
+        </div>
+    </div>
   <% end %>
 </div>
+
 
 
 <br>

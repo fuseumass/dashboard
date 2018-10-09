@@ -82,3 +82,14 @@ footer {
 .pagination {
   display: block;
 }
+
+.prizes { /* Masonry container */
+    column-count: 3;
+    column-gap: 1em;
+}
+
+.prize-item { /* Masonry bricks or child elements */
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}

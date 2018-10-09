@@ -19,7 +19,6 @@
           <p><b>Hello!</b> Please join our slack! Once you join slack, you will be able to talk to <b>mentors</b>, check out our <b>hardware</b>, see our <b>prizes</b>, and more. </p>
           <p><b>FYI</b>, You must create your slack account with this email: <b><%= current_user.email %> </b>. Otherwise you might encounter some problems...</p>
           <a href="https://join.slack.com/t/hackumassvi/shared_invite/enQtNDQwOTU5MTU0MTAwLTU4NTNiNTk0MGIxYTJlMTMyOGZjZGQ1MmU2NGYyZmYzZTc3MTQ4YWQ4YWFlMDZhZTQ0YmIwNjQ5YjRjOWRiMDM" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Join Our Slack</a>
-
         </div>
       </div>
     </div>
@@ -37,8 +36,10 @@
         <center>
           <%= image_tag @qr_image.to_data_url, style: 'height: 300px; width:300px' %>
         </center>
-        <p><div class="text-muted">Once you arrive, use the QR Code above, to check in at the welcome desk.</div></p>
-        <div class="text-muted">If for some reason your QR Code can't be scanned, you can still check in using your email address which is <b><%= current_user.email %></b> </div>
+        <p><div>Once you arrive, use the QR Code above, to check in at the welcome desk.</div></p>
+        <p><div>If for some reason your QR Code can't be scanned, you can still check in using your email address which is <b><%= current_user.email %></b> </div></p>
+        <p>We understand stuff happens, so if you can't come to the event for any reason, please let us know by clicking the button below.</p>
+        <%= link_to "Sorry I Can't Participate", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you will not come? By doing this you will be moving your application status from accepted to declined. There is no way to get accepted after clicking the okay button. Are you sure you want to decline your acceptance?' } %>
       </div>
     </div>
   </div>
@@ -77,5 +78,7 @@
       </div>
     </div>
   </div>
+
+
 
 </div>

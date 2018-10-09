@@ -151,14 +151,17 @@ class PagesController < ApplicationController
   def rsvp
     current_user.rsvp = true
     current_user.save
-    flash[:success] = "You Successfully RSVP for the Event"
+    flash[:success] = "You Successfully RSVP'd for the Event"
     redirect_to root_path
   end
 
   def unrsvp
     current_user.rsvp = false
     current_user.save
-    flash[:success] = "Thanks for letting us know you can't make it. If you change your mind, just RSVP again!"
+    current_user.event_application.status = 'denied'
+    current_user.event_application.save(:validate => false)
+    UserMailer.denied_email(current_user).deliver_now
+    flash[:success] = "You Successfully cancelled your participation in the event. Sorry to see you go..."
     redirect_to root_path
   end
 

@@ -2,6 +2,61 @@
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
       <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-green mr-3">
+          <i class="fe fe-user-check"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @checked_in_user_count %></h4>
+          <small class="text-muted">Checked In Users</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-red mr-3">
+          <i class="fe fe-user"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @rsvp_user_count %></h4>
+          <small class="text-muted">RSVP'd Users</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-blue mr-3">
+          <i class="fe fe-cpu"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @hardware_checkouts_count %></h4>
+          <small class="text-muted">Hardware Checkouts</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-orange mr-3">
+          <i class="fe fe-users"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @mentorship_requests_count %></h4>
+          <small class="text-muted">Mentorship Requests</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-purple mr-3">
           <i class="fe fe-calendar"></i>
         </span>
@@ -16,7 +71,7 @@
     <div class="card p-3">
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-teal mr-3">
-          <i class="fe fe-box"></i>
+          <i class="fe fe-award"></i>
         </span>
         <div>
           <h4 class="m-0"><%= @prize_count %></h4>
@@ -41,7 +96,7 @@
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
       <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-blue mr-3">
+        <span class="stamp stamp-md bg-pink mr-3">
           <i class="fe fe-inbox"></i>
         </span>
         <div>
@@ -53,58 +108,15 @@
   </div>
 </div>
 
-<div class="row row-cards">
-  <div class="col-6 col-sm-4 col-lg-2">
+<div class="row">
+  <div class="col-lg-12">
     <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @all_apps_count%></div>
-        <div class="text-muted mb-4">Total Applications</div>
+      <div class="card-status bg-purple"></div>
+      <div class="card-header">
+          <h3 class="card-title">Upcoming Events</h3>
       </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm-4 col-lg-2">
-    <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @undecided_count%></div>
-        <div class="text-muted mb-4">Undecided</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm-4 col-lg-2">
-    <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @waitlisted_count%></div>
-        <div class="text-muted mb-4">Waitlisted</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm-4 col-lg-2">
-    <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @accepted_count %></div>
-        <div class="text-muted mb-4">Accepted</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm-4 col-lg-2">
-    <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @denied_count %></div>
-        <div class="text-muted mb-4">Denied</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-6 col-sm-4 col-lg-2">
-    <div class="card">
-      <div class="card-body p-3 text-center">
-        <br>
-        <div class="h1 m-0"><%= @flagged_count %></div>
-        <div class="text-muted mb-4">Flagged</div>
+      <div class="card-body">
+        Something cool will be here
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ class PagesController < ApplicationController
       end
     end
 
+    # Stuff used for Admin Page
     @all_apps_count = EventApplication.all.count
     @accepted_count = EventApplication.where(status: 'accepted').count
     @waitlisted_count = EventApplication.where(status: 'waitlisted').count
@@ -21,9 +22,13 @@ class PagesController < ApplicationController
     @flagged_count = EventApplication.where(flag: true).count
     @user_count = User.all.count
     @hardware_count = HardwareItem.all.count
+    @hardware_checkouts_count = HardwareCheckout.all.count
+    @mentorship_requests_count = MentorshipRequest.all.count
+    @checked_in_user_count = User.where(check_in: true).count
+    @rsvp_user_count = User.where(rsvp: true).count
 
     @hardware_checkouts = current_user.hardware_checkouts
-    @upcoming_events = Event.all.order(time: :asc).limit(4)
+    @upcoming_events = Event.all.order(start_time: :asc).limit(4)
 
     @project_count = Project.all.count
     @prize_count = Prize.all.count

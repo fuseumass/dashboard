@@ -15,15 +15,24 @@ class MentorshipRequestsController < ApplicationController
 
   def index
 
+    if params[:sortby]
+      if params[:asc] == "true"
+        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " ASC")
+      else
+        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " DESC")
+      end
+      
+    else
+      @mentorship_requests = MentorshipRequest.all
+    end
+
     if current_user.is_attendee? or current_user.is_mentor?
       if !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our mentorship page.'
       end
     end
-
-    @requests = MentorshipRequest.order(created_at: :asc)
-
-    @mentorship_requests = @requests.paginate(page: params[:page], per_page: 15)
+    
+    @mentorship_requests = MentorshipRequest.paginate(page: params[:page], per_page: 15)
   end
 
 

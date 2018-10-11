@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         put 'mark_as_resolved'
         put 'mark_as_denied'
         get 'message_on_slack'
+        get 'search'
       end
     end
 

@@ -1,7 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :edit, :show]
-  before_action :is_feature_enabled
+  # before_action :is_feature_enabled
 
   def index
 

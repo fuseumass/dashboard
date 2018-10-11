@@ -1,1 +1,118 @@
-<h1>This is a mentor view! Cool</h1>
+<% if current_user.has_slack? %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-status card-status-left bg-dark"></div>
+      <div class="card-body d-flex flex-column">
+        <p><b>Thanks!</b> You joined our Slack! try checking out the <b>#mentorship</b> channel! See if people need help with their hacks or forming teams.</p>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
+      </div>
+    </div>
+  </div>
+</div>
+<% else %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-status card-status-left bg-purple"></div>
+        <div class="card-body d-flex flex-column">
+          <p><b>Hi there!</b> Thanks for being a mentor! In order to help attendees you will need to join out Slack</p>
+          <p><b>FYI</b>, You must create your slack account with this email: <b><%= current_user.email %> </b>. Otherwise you might encounter some problems...</p>
+          <a href="https://join.slack.com/t/hackumassvi/shared_invite/enQtNDQwOTU5MTU0MTAwLTU4NTNiNTk0MGIxYTJlMTMyOGZjZGQ1MmU2NGYyZmYzZTc3MTQ4YWQ4YWFlMDZhZTQ0YmIwNjQ5YjRjOWRiMDM" target="_blank" class="btn btn-purple"><i class="fe fe-slack mr-2"></i>Join Our Slack</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-purple"></div>
+      <div class="card-header">
+        <h3 class="card-title">Upcoming Events</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>very long long long long title long title long title</td>
+              <td>Initial commit</td>
+            </tr>
+            <tr>
+              <td>Ronald Bradley</td>
+              <td>Initial commit</td>
+            </tr>
+            <tr>
+              <td>Ronald Bradley</td>
+              <td>Initial commit</td>
+            </tr>
+            <tr>
+              <td>Ronald Bradley</td>
+              <td>Initial commit</td>
+            </tr>
+            <tr>
+              <td>Ronald Bradley</td>
+              <td>Initial commit</td>
+            </tr>
+            <tr>
+              <td>Ronald Bradley</td>
+              <td>Initial commit</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-body d-flex flex-column">
+          <%= link_to "View All", events_path, class: 'btn btn-secondary'%>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-orange"></div>
+      <div class="card-header">
+        <h3 class="card-title">Latest Mentorship Requests</b></h3>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h3>NY & Boston Buses:</h3>
+
+        <p>The New York bus will be departing from <b>55 Washington Square S, New York, NY 10012 at 11:45AM on Friday Oct 12th.</b> </p>
+        <p>The Boston Buses will be departing from <b>263 Bay State Road, Boston, MA  at 2:30PM on Friday Oct 12th</b>.</p>
+        <p>We have heard all your requests, but sadly we were not able to secure another bus for Boston in such short notice. Therefore, we will not be able to offer seats to those in the bus waitlist.</p>
+        <p> <b>If you are taking a bus, please join the Slack channel, there we will be able to help you if there are any problems.</b> </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-dark"></div>
+      <div class="card-header">
+        <h3 class="card-title">Slack Channels‍</h3>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <p><div>HackUMass happens at the Integrated Learning Center(ILC) at the University of Massachusetts Amherst.</div></p>
+        <p><div>If you’re driving to the event, you must park in Lot 44, Lot 20, or Lot 22 and then walk over to our venue. Check out our venue on Google Maps if you have problems navigating campus.</div></p>
+        <div>If you have any questions, ask us know at team@hackumass.com </div>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=boston_bus" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #Boston Bus channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=new_york_bus" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #New York Bus channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=new_york_bus" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #New York Bus channel</a>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

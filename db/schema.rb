@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_053411) do
     t.string "screenshot_content_type"
     t.integer "screenshot_file_size"
     t.datetime "screenshot_updated_at"
+    t.string "searchtech"
   end
 
   create_table "prizes", force: :cascade do |t|

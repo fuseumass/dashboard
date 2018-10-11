@@ -3,7 +3,7 @@ class Project < ApplicationRecord
 	before_create :rename_file
 	before_update :rename_file
 
-	validates_presence_of :title, :description, :team_members, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :prize, message: '%{attribute} can\'t be blank.'
+	validates_presence_of :title, :description, :team_members, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :prizes, message: '%{attribute} can\'t be blank.'
 	validates_uniqueness_of :title, message: '%{attribute} has already been taken.'
 
 	belongs_to :user

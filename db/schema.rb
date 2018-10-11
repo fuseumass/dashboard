@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_154209) do
+ActiveRecord::Schema.define(version: 2018_10_11_053411) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_154209) do
     t.string "learned"
     t.string "next"
     t.string "built_with"
-    t.string "prize"
+    t.string "prizes", default: "{}"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 

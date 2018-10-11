@@ -60,7 +60,11 @@
 
         <h2 class="mt-0 mb-4">Prize we're going for:</h2>
         <p>
-          <%= simple_format(@project.prize) %>
+          <% if @project.prizes != "{}" %>
+            <%= @project.prizes.tr('"', '').tr('[]', '') %>
+          <% else %>
+            No Prizes Chosen
+          <% end %>
         </p>
 
       </div>

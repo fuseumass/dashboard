@@ -130,10 +130,24 @@
     <h3>
       What prizes are you going for?
     </h3>
-    <%= form.select :prize,
-        Prize.all.collect { |x| x.name },
-        {prompt: 'Select a prize'},
-        {class: 'form-control custom-select'} %>
+    <div class='form-group'>
+        <%= form.label :prizes,
+                    'Technology related to issue: (select all that apply)',
+                    class: 'form-label' %>
+        <div class='selectgroup selectgroup-pills'>
+          <% Prize.all.each do |prize| %>
+            <label class="selectgroup-item">
+              <%= form.check_box :prizes,
+                              {multiple: true, :class => "selectgroup-input"},
+                              "#{prize.name}",
+                              nil %>
+                              <span class = "selectgroup-button"><%= prize.name %></span>
+            </label>
+          <% end %>
+
+
+        </div>
+      </div>
   </div>
 
   <div class="actions">

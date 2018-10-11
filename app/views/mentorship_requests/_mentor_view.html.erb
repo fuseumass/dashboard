@@ -2,66 +2,54 @@
   <h1 class="page-title">Mentorship Dashboard</h1>
 </div>
 
-<% if [true, false].sample %>
-  <div class="alert alert-icon alert-primary" role="alert">
-    <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Pro Tip</b> You can click on a table header to sort the table. Try sorting requests by urgency and help those that need it the most.
-  </div>
-<% end %>
-
-<div class = "card">
-  <div class = "card-body">
-    <div class = "form-group">
-      <div class = "row gutters-xs">
-        <div class = "col">
-          <%= search_form_for @search do |f| %>
-          <%= f.text_field :title_or_user_first_name_or_user_last_name_or_user_id_cont, class: "form-control", placeholder: "Search by Title or User/UserID.." %>
-        </div>
-        <span class = "col-auto">
-          <%= f.button :button, type: :submit, class: "btn btn-secondary" do%>
-            Search
-          <% end %>
-        </span>
-        <span class = "col-auto">
-          <%= link_to mentorship_requests_path do %>
-          <button class = "btn btn-secondary">
-            Clear
-          </button>
-          <% end %>
-        </span>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <div class="form-group">
-          <h5> Sort by </h5>
-          <%= link_to 'ID'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "id"}},
-                    class: "btn btn-dark", role: "button", tag: "button", target: '_blank' %>
-          <%= link_to 'Urgency',
-                        {controller:'mentorship_requests', action: 'index',
-                          params: {sortby: "urgency"}},
-                        class: "btn btn-danger", role: "button", tag: "button" %>
-    </div>
-</div>
-
 <div class="card">
   <div class="table-responsive">
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
       <thead>
         <tr>
+          
           <th>View</th>
           <th>ID</th>
-          <th><%= sort_link @search, :name_case_insensitive, "Title"%></th>
-          <th><%= sort_link @search, :tech, "Type" %></th>
-          <th><%= sort_link @search, :urgency, "Urgency" %></th>
+          <th>Title</th>
+          <th>Tech</th>
+          <% if params[:asc] == "true" and params[:sortby] == "urgency" %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: false }}%>
+                    <i class="fe fe-arrow-up"></i>
+                    </th>
+          <% elsif params[:asc] == "false" and params[:sortby] == "urgency" %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: true }}%>
+                    <i class="fe fe-arrow-down"></i>
+                    </th>
+          <% else %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: :true }}%>
+                    </th>
+          <% end %>
           <th>Status</th>
-          <th><%= sort_link @search, :created_at, "Time" %></th>
-          <th><%= sort_link @search, :id, "By" %></th>
+          <% if params[:asc] == "true" and params[:sortby] == "created_at" %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: false }}%>
+                    <i class="fe fe-arrow-up"></i>
+                    </th>
+          <% elsif params[:asc] == "false" and params[:sortby] == "created_at" %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: true }}%>
+                    <i class="fe fe-arrow-down"></i>
+                    </th>
+          <% else %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: :true }}%>
+                    </th>
+          <% end %>
+          <th>By</th>
         </tr>
       </thead>
       <tbody>

@@ -153,6 +153,20 @@
   </div>
 </div>
 
+<div class='card'>
+  <div class='card-body'>
+  <h3>
+  For judging purposes, do you need a wall outlet?
+  </h3>
+    <%= form.check_box(:power)%>
+    <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
+  </div>
+</div>
+
+
+
+
+
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

@@ -4,9 +4,6 @@ class MentorshipRequest < ApplicationRecord
 	validates_attachment_content_type :screenshot, :content_type => /image/
 	serialize :tech, Array
 	belongs_to :user
+	searchkick
 	
-	ransacker :name_case_insensitive, type: :string do
-		arel_table[:title].lower
-	end
-
 end

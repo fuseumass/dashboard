@@ -3,6 +3,16 @@ class MentorshipRequestsController < ApplicationController
   before_action :check_permissions, only: [:destroy, :edit, :show]
   # before_action :is_feature_enabled
 
+
+
+  def search
+    if params[:search].present?
+      @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
+    else
+      redirect_to mentorship_requests_path
+    end
+  end
+
   def index
 
     if current_user.is_attendee? or current_user.is_mentor?
@@ -11,9 +21,9 @@ class MentorshipRequestsController < ApplicationController
       end
     end
 
-    @search = MentorshipRequest.ransack(params[:q])
+    @requests = MentorshipRequest.order(created_at: :asc)
 
-    @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 15)
+    @mentorship_requests = @requests.paginate(page: params[:page], per_page: 15)
   end
 
 

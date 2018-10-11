@@ -35,6 +35,21 @@
 </div>
 
 <div class="card">
+    <div class="card-body">
+        <div class="form-group">
+          <h5> Sort by </h5>
+          <%= link_to 'ID'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "id"}},
+                    class: "btn btn-dark", role: "button", tag: "button", target: '_blank' %>
+          <%= link_to 'Urgency',
+                        {controller:'mentorship_requests', action: 'index',
+                          params: {sortby: "urgency"}},
+                        class: "btn btn-danger", role: "button", tag: "button" %>
+    </div>
+</div>
+
+<div class="card">
   <div class="table-responsive">
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
       <thead>

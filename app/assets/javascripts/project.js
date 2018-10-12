@@ -21,3 +21,13 @@ function updateProjectImageFileLabel() {
         fileLabel.innerHTML = fileName;
     }
 }
+
+function updateRequestImageFileLabel() {
+    var fileLabel = document.getElementsByClassName('custom-file-label')[0];
+    var resumeFileField = document.getElementById('request_requestimage');
+    if(resumeFileField) {
+        var pathArray = resumeFileField.value.split('\\');
+        var fileName = pathArray[pathArray.length-1];
+        fileLabel.innerHTML = fileName;
+    }
+}

@@ -6,6 +6,10 @@
   <div class="alert alert-icon alert-primary" role="alert">
     <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Pro Tip</b> You can click on a table header to sort the table. Try sorting requests by urgency and help those that need it the most.
   </div>
+<% else %>
+  <div class="alert alert-icon alert-primary" role="alert">
+    <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Pro Tip</b> You can make a search based on status. Try searching "Waiting" to see all the requests in waiting status.
+  </div>
 <% end %>
 
 <div class = "card">
@@ -38,7 +42,7 @@
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
       <thead>
         <tr>
-          
+
           <th>View</th>
           <th>ID</th>
           <th>Title</th>

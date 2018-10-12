@@ -14,7 +14,7 @@
       <div class = "row gutters-xs">
         <div class = "col">
           <%= form_tag search_mentorship_requests_path, method: :get do %>
-          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by Title or User/UserID.." %>
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search any request..." %>
         </div>
         <span class = "col-auto">
           <%= submit_tag 'Search', class: "btn btn-secondary"%>
@@ -33,21 +33,6 @@
 </div>
 
 <div class="card">
-    <div class="card-body">
-        <div class="form-group">
-          <h5> Sort by </h5>
-          <%= link_to 'ID'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "id"}},
-                    class: "btn btn-dark", role: "button", tag: "button", target: '_blank' %>
-          <%= link_to 'Urgency',
-                        {controller:'mentorship_requests', action: 'index',
-                          params: {sortby: "urgency"}},
-                        class: "btn btn-danger", role: "button", tag: "button" %>
-    </div>
-</div>
-
-<div class="card">
   <div class="table-responsive">
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
             <thead>
@@ -59,39 +44,39 @@
           <th>Tech</th>
           <% if params[:asc] == "true" and params[:sortby] == "urgency" %>
           <th><%= link_to 'Urgency'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "urgency", asc: false }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "urgency", asc: false })}%>
                     <i class="fe fe-arrow-up"></i>
                     </th>
           <% elsif params[:asc] == "false" and params[:sortby] == "urgency" %>
           <th><%= link_to 'Urgency'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "urgency", asc: true }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "urgency", asc: true })}%>
                     <i class="fe fe-arrow-down"></i>
                     </th>
           <% else %>
           <th><%= link_to 'Urgency'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "urgency", asc: :true }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "urgency", asc: :true })}%>
                     </th>
           <% end %>
           <th>Status</th>
           <% if params[:asc] == "true" and params[:sortby] == "created_at" %>
           <th><%= link_to 'Time'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "created_at", asc: false }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "created_at", asc: false })}%>
                     <i class="fe fe-arrow-up"></i>
                     </th>
           <% elsif params[:asc] == "false" and params[:sortby] == "created_at" %>
           <th><%= link_to 'Time'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "created_at", asc: true }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "created_at", asc: true })}%>
                     <i class="fe fe-arrow-down"></i>
                     </th>
           <% else %>
           <th><%= link_to 'Time'.html_safe,
-                    {controller:'mentorship_requests', action: 'index',
-                    params: {sortby: "created_at", asc: :true }}%>
+                    {controller:'mentorship_requests', action: 'search',
+                    params: params.to_unsafe_h.merge({sortby: "created_at", asc: true })}%>
                     </th>
           <% end %>
           <th>By</th>
@@ -103,7 +88,9 @@
             <td><%= link_to request do %> <button class = "btn btn-secondary btn-sm"> <i class= "fe fe-eye"> </i> </button> <% end %></td>
             <td><%= request.id %></td>
             <td><%= truncate(request.title) %></td>
-            <td><%= truncate(request.tech.join(", ")) %></td>
+            <td><% request.tech.each do |tech| %>
+            <div class="badge badge-secondary"><%= tech %></div><% end %>
+            </td>
             <td><%= request.urgency %></td>
             <td><%= request.status %>
             <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>

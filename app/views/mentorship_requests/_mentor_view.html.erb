@@ -14,7 +14,7 @@
       <div class = "row gutters-xs">
         <div class = "col">
           <%= form_tag search_mentorship_requests_path, method: :get do %>
-          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by Title or User/UserID.." %>
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search any request.." %>
         </div>
         <span class = "col-auto">
           <%= submit_tag 'Search', class: "btn btn-secondary"%>
@@ -89,7 +89,9 @@
             <td><%= link_to request do %> <button class = "btn btn-secondary btn-sm"> <i class= "fe fe-eye"> </i> </button> <% end %></td>
             <td><%= request.id %></td>
             <td><%= truncate(request.title) %></td>
-            <td><%= truncate(request.tech.join(", ")) %></td>
+            <td><% request.tech.each do |tech| %>
+            <div class="badge badge-secondary"><%= tech %></div><% end %>
+            </td>
             <td><%= request.urgency %></td>
             <td><%= request.status %>
             <td><%= request.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %e, %l:%M %p") %></td>

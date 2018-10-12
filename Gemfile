@@ -122,3 +122,6 @@ gem 'sentry-raven'
 
 # Search and filtering
 gem 'ransack'
+
+# Generate PDF
+gem 'hexapdf'

@@ -131,4 +131,9 @@ Rails.application.routes.draw do
    end
   # Feature Flag Routes End
 
+  # Judging Routes Begin
+  get 'judgings' => 'judging#index'
+  post 'generateforms' => 'judging#generateforms'
+  get "#{Rails.root}/public/judging/judging.pdf", :to => redirect('/judging/judging.pdf')
+  # Judging Routes End
 end

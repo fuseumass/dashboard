@@ -28,7 +28,8 @@ class PagesController < ApplicationController
     @rsvp_user_count = User.where(rsvp: true).count
 
     @hardware_checkouts = current_user.hardware_checkouts
-    @upcoming_events = Event.all.order(start_time: :asc).limit(4)
+    @upcoming_events = Event.where("end_time > ?", Time.now).order(start_time: :asc).limit(5)
+    @latest_requests = MentorshipRequest.order(created_at: :desc).limit(5)
 
     @project_count = Project.all.count
     @prize_count = Prize.all.count

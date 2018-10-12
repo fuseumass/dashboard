@@ -7,23 +7,24 @@ class MentorshipRequestsController < ApplicationController
 
   def search
     if params[:search].present?
-      @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
+      if params[:sortby] == "urgency"
+        if params[:asc] == "true"
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :asc})
+        else
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :desc})
+        end
+      elsif params[:sortby] == "created_at"
+        if params[:asc] == "true"
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :asc})
+        else
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :desc})
+        end
+      else 
+        @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
+      end
     else
       redirect_to mentorship_requests_path
-    end
-
-    if params[:sortby]
-      if params[:asc] == "true"
-        @mentorship_requests = @mentorship_requests.all.order(params[:sortby] + " ASC")
-      else
-        @mentorship_requests = @mentorship_requests.all.order(params[:sortby] + " DESC")
-      end
-      
-    else
-      @mentorship_requests = @mentorship_requests.all
-    end
-
-    @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)    
+    end 
   end
 
   def index

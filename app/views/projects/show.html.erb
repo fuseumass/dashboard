@@ -57,7 +57,6 @@
           <%= simple_format(@project.built_with) %>
         </p>
 
-
         <h2 class="mt-0 mb-4">Prize we're going for:</h2>
         <p>
           <% if @project.prizes != "{}" %>
@@ -65,6 +64,14 @@
           <% else %>
             No Prizes Chosen
           <% end %>
+        </p>
+
+        <p style="color:red">
+        <% if @project.power == true %>
+          This project requires a wall outlet.
+        <% else %>
+          This project does not require a wall outlet.
+        <% end %>
         </p>
 
       </div>
@@ -82,6 +89,28 @@
       </div>
     </div>
 
+    <div class="card">
+      <div class="card-status card-status-left bg-blue"></div>
+      <div class="card-header">
+        <h3 class="card-title">Table Number</h3>
+      </div>
+      <div class="card-body">
+        <center>
+          <% if !@project.table_id.nil? %>
+          <h1>
+            Table <%= @project.table_id %>
+          </h1>
+          <% else %>
+          <h1>
+            Table TBD
+          </h1>
+          <% end %>
+        </center>
+      </div>
+    </div>
+
+
+  
     <% if !@project.link.empty? %>
       <%= link_to @project.link, class: "btn btn-github" do %>
         <i class="fe fe-github"></i> View on Github</a>
@@ -95,6 +124,8 @@
       <%= link_to 'Edit Your Project', edit_project_path(@project), class: 'btn btn-secondary' %>
     <% end %>
   </div>
+
+ 
 
 </div>
 

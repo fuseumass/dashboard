@@ -42,7 +42,7 @@
     <h3>
       Describe your project!
     </h3>
-    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 500 words please." %>
+    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 100 words please." %>
   </div>
 
   <div class="form-group">
@@ -125,30 +125,47 @@
      </h3>
     <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
   </div>
+  <div class="card">
+  <div class=card-body>
+    <div class="form-group">
+      <h3>
+        What prizes are you going for?
+      </h3>
+      <div class='form-group'>
+          <%= form.label :prizes,
+                      'Select all the prizes that your hack is related to',
+                      class: 'form-label' %>
+          <div class='selectgroup selectgroup-pills'>
+            <% Prize.all.each do |prize| %>
+              <label class="selectgroup-item">
+                <%= form.check_box :prizes,
+                                {multiple: true, :class => "selectgroup-input"},
+                                "#{prize.name}",
+                                nil %>
+                                <span class = "selectgroup-button"><%= prize.name %></span>
+              </label>
+            <% end %>
 
-  <div class="form-group">
-    <h3>
-      What prizes are you going for?
-    </h3>
-    <div class='form-group'>
-        <%= form.label :prizes,
-                    'Technology related to issue: (select all that apply)',
-                    class: 'form-label' %>
-        <div class='selectgroup selectgroup-pills'>
-          <% Prize.all.each do |prize| %>
-            <label class="selectgroup-item">
-              <%= form.check_box :prizes,
-                              {multiple: true, :class => "selectgroup-input"},
-                              "#{prize.name}",
-                              nil %>
-                              <span class = "selectgroup-button"><%= prize.name %></span>
-            </label>
-          <% end %>
 
-
-        </div>
+          </div>
       </div>
+    </div>
   </div>
+</div>
+
+<div class='card'>
+  <div class='card-body'>
+  <h3>
+  For judging purposes, do you need a wall outlet?
+  </h3>
+    <%= form.check_box(:power)%>
+    <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
+  </div>
+</div>
+
+
+
+
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

@@ -19,12 +19,12 @@ class MentorshipRequestsController < ApplicationController
         else
           @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :desc})
         end
-      else 
+      else
         @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
       end
     else
       redirect_to mentorship_requests_path
-    end 
+    end
   end
 
   def index
@@ -35,7 +35,7 @@ class MentorshipRequestsController < ApplicationController
       else
         @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " DESC")
       end
-      
+
     else
       @mentorship_requests = MentorshipRequest.all
     end
@@ -45,7 +45,7 @@ class MentorshipRequestsController < ApplicationController
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our mentorship page.'
       end
     end
-    
+
     @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)
   end
 
@@ -145,7 +145,7 @@ class MentorshipRequestsController < ApplicationController
     end
 
     def check_permissions
-      unless current_user.is_admin? or current_user.is_mentor?
+      unless current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
         redirect_to mentorship_requests_path, alert: 'You do not have the permissions to visit this section of mentorship'
       end
     end

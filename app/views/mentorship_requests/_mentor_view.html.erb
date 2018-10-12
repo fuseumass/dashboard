@@ -94,7 +94,7 @@
             <td><%= request.id %></td>
             <td><%= truncate(request.title) %></td>
             <td><% request.tech.each do |tech| %>
-            <div class="badge badge-secondary"><%= tech %></div><% end %>
+              <div class="badge badge-secondary"><%= tech %></div><% end %>
             </td>
             <td><%= request.urgency %></td>
             <td><%= request.status %>

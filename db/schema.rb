@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_10_11_053411) do
 
   create_table "emails", force: :cascade do |t|
@@ -155,6 +156,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_053411) do
     t.string "next"
     t.string "built_with"
     t.string "prizes", default: "{}"
+    t.boolean "power"
+    t.integer "table_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 

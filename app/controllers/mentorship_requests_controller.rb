@@ -11,6 +11,19 @@ class MentorshipRequestsController < ApplicationController
     else
       redirect_to mentorship_requests_path
     end
+
+    if params[:sortby]
+      if params[:asc] == "true"
+        @mentorship_requests = @mentorship_requests.all.order(params[:sortby] + " ASC")
+      else
+        @mentorship_requests = @mentorship_requests.all.order(params[:sortby] + " DESC")
+      end
+      
+    else
+      @mentorship_requests = @mentorship_requests.all
+    end
+
+    @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)    
   end
 
   def index
@@ -32,7 +45,7 @@ class MentorshipRequestsController < ApplicationController
       end
     end
     
-    @mentorship_requests = MentorshipRequest.paginate(page: params[:page], per_page: 15)
+    @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)
   end
 
 

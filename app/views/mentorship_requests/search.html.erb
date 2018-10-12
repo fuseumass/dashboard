@@ -50,15 +50,50 @@
 <div class="card">
   <div class="table-responsive">
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-      <thead>
+            <thead>
         <tr>
+          
           <th>View</th>
           <th>ID</th>
           <th>Title</th>
-          <th>Type</th>
-          <th>Urgency</th>
+          <th>Tech</th>
+          <% if params[:asc] == "true" and params[:sortby] == "urgency" %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: false }}%>
+                    <i class="fe fe-arrow-up"></i>
+                    </th>
+          <% elsif params[:asc] == "false" and params[:sortby] == "urgency" %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: true }}%>
+                    <i class="fe fe-arrow-down"></i>
+                    </th>
+          <% else %>
+          <th><%= link_to 'Urgency'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "urgency", asc: :true }}%>
+                    </th>
+          <% end %>
           <th>Status</th>
-          <th>Time</th>
+          <% if params[:asc] == "true" and params[:sortby] == "created_at" %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: false }}%>
+                    <i class="fe fe-arrow-up"></i>
+                    </th>
+          <% elsif params[:asc] == "false" and params[:sortby] == "created_at" %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: true }}%>
+                    <i class="fe fe-arrow-down"></i>
+                    </th>
+          <% else %>
+          <th><%= link_to 'Time'.html_safe,
+                    {controller:'mentorship_requests', action: 'index',
+                    params: {sortby: "created_at", asc: :true }}%>
+                    </th>
+          <% end %>
           <th>By</th>
         </tr>
       </thead>

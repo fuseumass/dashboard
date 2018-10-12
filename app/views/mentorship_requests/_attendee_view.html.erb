@@ -69,6 +69,7 @@
                       {controller:'mentorship_requests', action: 'mark_as_resolved',
                         params: {mentorship_request: mentorship_request}},
                         class: "btn btn-secondary", role: "button", tag: "button", method: :put %>
+        <%= link_to 'Edit This Request', edit_mentorship_request_path(mentorship_request), class: 'btn btn-secondary' %>
       </div>
     </div>
   <% end %>

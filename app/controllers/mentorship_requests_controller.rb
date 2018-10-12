@@ -1,7 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:destroy, :edit, :show]
-  # before_action :is_feature_enabled
+  before_action :check_permissions, only: [:destroy, :show]
+  before_action :is_feature_enabled
 
 
 
@@ -62,6 +62,9 @@ class MentorshipRequestsController < ApplicationController
 
 
   def edit
+    if @mentorship_request.user != current_user
+      redirect_to mentorship_requests_path, alert: 'You cannot edit a mentorship requests that is not yours'
+    end
   end
 
   def create
@@ -70,7 +73,7 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request.status = 'Waiting'
 
     if @mentorship_request.save
-      redirect_to index_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
+      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
     else
       render :new
     end
@@ -78,7 +81,7 @@ class MentorshipRequestsController < ApplicationController
 
   def update
     if @mentorship_request.update!(mentorship_request_params)
-      redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.'
+      redirect_to mentorship_requests_path, notice: 'Mentorship request was successfully updated.'
     else
       render :edit
     end

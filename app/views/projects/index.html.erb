@@ -2,34 +2,42 @@
 
 <h1>Projects</h1>
 
-<div class="col-12">
-  <div class="card">
-    <div class="table-responsive">
-      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-        <thead>
-          <tr>
-            <th>Table #</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Link</th>
-            <th>Team members</th>
-          </tr>
-        </thead>
+<% if @projects.empty? %>
+  <center>
+    <h3>Seems like there are no projects submitted...</he>
+  </center>
+<% else %>
+  <div class="col-12">
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+          <thead>
+            <tr>
+              <th>Table #</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Link</th>
+              <th>Team members</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <% @projects.each do |project| %>
-          <tr>
-            <td><%= project.id %></td>
-            <td><%= link_to project.title, project %></td>
-            <td><%= truncate(project.description, length: 30) %></td>
-            <td><%= truncate(project.link, length: 22) %></td>
-            <td><%= truncate(project.team_members, length: 40) %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+          <tbody>
+            <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.id %></td>
+              <td><%= link_to project.title, project %></td>
+              <td><%= truncate(project.description, length: 30) %></td>
+              <td><%= truncate(project.link, length: 22) %></td>
+              <td><%= truncate(project.team_members, length: 40) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
+
+
 
 <br>

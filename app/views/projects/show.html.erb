@@ -60,7 +60,7 @@
         <h2 class="mt-0 mb-4">Prize we're going for:</h2>
         <p>
           <% if @project.prizes != "{}" %>
-            <%= @project.prizes.tr('"', '').tr('[]', '') %>
+            <%= @project.prizes %>
           <% else %>
             No Prizes Chosen
           <% end %>
@@ -110,7 +110,7 @@
     </div>
 
 
-  
+
     <% if !@project.link.empty? %>
       <%= link_to @project.link, class: "btn btn-github" do %>
         <i class="fe fe-github"></i> View on Github</a>
@@ -125,7 +125,7 @@
     <% end %>
   </div>
 
- 
+
 
 </div>
 

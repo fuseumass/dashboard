@@ -77,7 +77,7 @@ class HardwareItemsController < ApplicationController
   end
 
   def all_checked_out
-    @all_hardware_checkouts = HardwareCheckout.all
+    @all_hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
   end
 
 

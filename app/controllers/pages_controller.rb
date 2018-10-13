@@ -76,7 +76,7 @@ class PagesController < ApplicationController
         return
       end
 
-      if user.event_application.status != 'accepted'
+      if user.event_application and user.event_application.status != 'accepted'
         redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event."
         return
       end

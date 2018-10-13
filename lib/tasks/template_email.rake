@@ -2,12 +2,12 @@ namespace :template_email do
 
   task :send => :environment do
     email_count = 0
-    user_mailing_list = User.all
 
-    user_mailing_list.each do |user|
-      if user.is_accepted?
-        UserMailer.template_email(user, 'Hardware, Prizes and More!').deliver_now
-        email_count += 1
+    all_checkouts = HardwareCheckout.all
+    all_checkouts.each do |checkout|
+      if checkout.user.has_slack? == false
+        UserMailer.template_email(user, 'URGENT Slack Needed For Hardware').deliver_now
+        email_count++
       end
     end
     puts "Emails sent: #{email_count}"

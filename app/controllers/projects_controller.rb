@@ -4,7 +4,15 @@ class ProjectsController < ApplicationController
   before_action :is_feature_enabled
 
   def index
-    @projects = Project.all
+    @projects = Project.all.paginate(page: params[:page], per_page: 20)
+  end
+
+  def search
+    if params[:search].present?
+      @projects = Project.search(params[:search], page: params[:page], per_page: 20)
+    else
+      redirect_to projects_path
+    end
   end
 
   def show

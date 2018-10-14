@@ -5,5 +5,7 @@
 <div class="col-5">
   <%= button_to 'Generate Judging Forms',
                 {controller: 'judging', action: 'generateforms'},
-                {class: 'btn btn-red btn-block'} %>
+                {class: 'btn btn-red btn-block', form: {target: '_blank'}} %>
+
+
 </div>

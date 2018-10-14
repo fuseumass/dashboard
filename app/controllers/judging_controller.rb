@@ -8,12 +8,13 @@ class JudgingController < ApplicationController
   PAPER_LETTER_SIZE_WIDTH = 792
   PAPER_LETTER_SIZE_HEIGHT = 612
   ONE_INCH_MARGIN = 72
-  UNDERLINE = "_________________________________________________________________________________\n"
+  UNDERLINE = "_______________________________________________________\n"
 
   def index
   end
 
   def generateforms
+    @starting_point
     projects = Project.order(power: :asc)
     if projects.size.positive?
       doc = HexaPDF::Document.new
@@ -23,7 +24,30 @@ class JudgingController < ApplicationController
         id = index + 1
         project.table_id = id
         project.save
-        create_judge_form(doc, id, name, team_member)
+        image = "#{Rails.root}/app/assets/images/rubric.png"
+        canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
+
+        update_font(canvas, 22, :bold)
+        canvas.text("HackUMass VI Judging Sheet\n", at: [80,550])
+
+        update_font(canvas, 11, :bold)
+        canvas.text("Project Name:\n", at:[80, 515])
+        canvas.text("#{name}\n", at:[160, 515])
+        canvas.text("#{UNDERLINE}", at:[153, 515])
+
+        canvas.text("Team Members:\n", at:[80, 490])
+        canvas.text("#{team_member}\n", at:[170, 490])
+        canvas.text("#{UNDERLINE}", at:[165, 490])
+
+        update_font(canvas, 18, :bold)
+        canvas.text("Table Number\n", at:[600, 550])
+        canvas.text("#{id}\n", at:[645, 520])
+
+        box = HexaPDF::Layout::Box.new(content_width: 140, content_height: 60)
+        box.style.border(width: 1, style: :solid)
+        box.draw(canvas, 590, 510)
+
+        canvas.image(image, at: [80,30], width: 650, height: 450)
       end
       doc.write("#{Rails.root}/public/judging/judging.pdf", optimize: true)
       redirect_to "#{Rails.root}/public/judging/judging.pdf"

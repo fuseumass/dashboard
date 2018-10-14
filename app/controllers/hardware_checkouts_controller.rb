@@ -33,6 +33,10 @@ class HardwareCheckoutsController < ApplicationController
       redirect_to hardware_item_path(@item), alert: 'Cannot find user with that email'
       return
     else
+      if checkout_to_user.has_slack? == false
+        redirect_to hardware_item_path(@item), alert: 'This user is not on Slack and CANNOT checkout hardware'
+        return
+      end
       # if the email is legit checkout the item to the user and reduce the item count
       @hardware_checkout.user = checkout_to_user
       @item.count -= 1

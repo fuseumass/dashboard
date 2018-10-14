@@ -1,3 +1,145 @@
-<div class="alert alert-icon alert-primary" role="alert">
-  <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Hello there!</b> This is the organizer dashboard! This page will be updated very soon. Stay Tuned.
+<div class="row">
+  <div class="col-sm-12 col-lg-6 offset-lg-3">
+    <div class="card">
+      <div class="card-body d-flex flex-column">
+        <h1 id="countdown"></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-green mr-3">
+          <i class="fe fe-user-check"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @checked_in_user_count %></h4>
+          <small class="text-muted">Checked In Users</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-red mr-3">
+          <i class="fe fe-user"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @rsvp_user_count %></h4>
+          <small class="text-muted">RSVP'd Users</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-blue mr-3">
+          <i class="fe fe-cpu"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @hardware_checkouts_count %></h4>
+          <small class="text-muted">Hardware Checkouts</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-orange mr-3">
+          <i class="fe fe-users"></i>
+        </span>
+        <div>
+          <h4 class="m-0"><%= @mentorship_requests_count %></h4>
+          <small class="text-muted">Mentorship Requests</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-purple"></div>
+      <div class="card-header">
+        <h3 class="card-title">Upcoming Events</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @upcoming_events.each do |event| %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.start_time.strftime('%I:%M %p')%> - <%= event.end_time.strftime('%I:%M %p')%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="card-body d-flex flex-column">
+          <%= link_to "View All", events_path, class: 'btn btn-secondary'%>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-orange"></div>
+      <div class="card-header">
+        <h3 class="card-title">Latest Mentorship Requests</b></h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @latest_requests.each do |request| %>
+              <tr>
+                <td><%=link_to truncate(request.title), request%> </td>
+                <td><%= request.status %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="card-body d-flex flex-column">
+          <%= link_to "View All", mentorship_requests_path, class: 'btn btn-secondary'%>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-dark"></div>
+      <div class="card-header">
+        <h3 class="card-title">Slack Channels‍</h3>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <p><div>Our Slack has more than 800 hackers in it! Check it out and help attendees form teams, create awesome hacks, and have fun!</div></p>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=team_forming" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #Team Forming channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=random" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #random channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
+
+      </div>
+    </div>
+  </div>
 </div>

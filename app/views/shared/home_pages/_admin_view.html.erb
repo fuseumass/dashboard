@@ -108,15 +108,83 @@
   </div>
 </div>
 
+
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-sm-12 col-lg-4">
     <div class="card">
       <div class="card-status bg-purple"></div>
       <div class="card-header">
-          <h3 class="card-title">Something cool...</h3>
+        <h3 class="card-title">Upcoming Events</h3>
       </div>
-      <div class="card-body">
-        Something cool will be here soon...
+      <div class="table-responsive">
+        <table class="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @upcoming_events.each do |event| %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.start_time.strftime('%I:%M %p')%> - <%= event.end_time.strftime('%I:%M %p')%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="card-body d-flex flex-column">
+          <%= link_to "View All", events_path, class: 'btn btn-secondary'%>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-orange"></div>
+      <div class="card-header">
+        <h3 class="card-title">Latest Mentorship Requests</b></h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @latest_requests.each do |request| %>
+              <tr>
+                <td><%=link_to truncate(request.title), request%> </td>
+                <td><%= request.status %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="card-body d-flex flex-column">
+          <%= link_to "View All", mentorship_requests_path, class: 'btn btn-secondary'%>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="card">
+      <div class="card-status bg-dark"></div>
+      <div class="card-header">
+        <h3 class="card-title">Slack Channels‍</h3>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <p><div>Our Slack has more than 800 hackers in it! Check it out and help attendees form teams, create awesome hacks, and have fun!</div></p>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=team_forming" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #Team Forming channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=random" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #random channel</a>
+        <br>
+        <a href="https://hackumassvi.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
+
       </div>
     </div>
   </div>

@@ -1,9 +1,44 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:destroy, :edit, :show]
+  before_action :check_permissions, only: [:destroy, :show]
   before_action :is_feature_enabled
 
+
+
+  def search
+    if params[:search].present?
+      if params[:sortby] == "urgency"
+        if params[:asc] == "true"
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :asc})
+        else
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :desc})
+        end
+      elsif params[:sortby] == "created_at"
+        if params[:asc] == "true"
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :asc})
+        else
+          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :desc})
+        end
+      else
+        @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
+      end
+    else
+      redirect_to mentorship_requests_path
+    end
+  end
+
   def index
+
+    if params[:sortby]
+      if params[:asc] == "true"
+        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " ASC")
+      else
+        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " DESC")
+      end
+
+    else
+      @mentorship_requests = MentorshipRequest.all
+    end
 
     if current_user.is_attendee? or current_user.is_mentor?
       if !current_user.has_slack?
@@ -11,9 +46,7 @@ class MentorshipRequestsController < ApplicationController
       end
     end
 
-    @search = MentorshipRequest.ransack(params[:q])
-
-    @mentorship_requests = @search.result.paginate(page: params[:page], per_page: 15)
+    @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)
   end
 
 
@@ -29,6 +62,9 @@ class MentorshipRequestsController < ApplicationController
 
 
   def edit
+    if @mentorship_request.user != current_user
+      redirect_to mentorship_requests_path, alert: 'You cannot edit a mentorship requests that is not yours'
+    end
   end
 
   def create
@@ -37,7 +73,7 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request.status = 'Waiting'
 
     if @mentorship_request.save
-      redirect_to index_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
+      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
     else
       render :new
     end
@@ -45,7 +81,7 @@ class MentorshipRequestsController < ApplicationController
 
   def update
     if @mentorship_request.update!(mentorship_request_params)
-      redirect_to @mentorship_request, notice: 'Mentorship request was successfully updated.'
+      redirect_to mentorship_requests_path, notice: 'Mentorship request was successfully updated.'
     else
       render :edit
     end
@@ -112,7 +148,7 @@ class MentorshipRequestsController < ApplicationController
     end
 
     def check_permissions
-      unless current_user.is_admin? or current_user.is_mentor?
+      unless current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
         redirect_to mentorship_requests_path, alert: 'You do not have the permissions to visit this section of mentorship'
       end
     end

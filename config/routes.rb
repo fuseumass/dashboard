@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         put 'mark_as_resolved'
         put 'mark_as_denied'
         get 'message_on_slack'
+        get 'search'
       end
     end
 
@@ -98,7 +99,11 @@ Rails.application.routes.draw do
 
   # Pages Routes End
 
-    resources :projects
+    resources :projects do
+      collection do
+        get 'search'
+      end
+    end
   # Hardware Routes Start
 
     # Allow autocomplete on hardware checkout page

@@ -27,8 +27,8 @@
         </div>
     <% end %>
 
-  <div class="alert alert-info" role="alert">
-    Only <b>one</b> project should be submitted per team. Please make sure to list your team members.
+  <div class="alert alert-icon alert-primary" role="alert">
+    <i class="fe fe-bell mr-2" aria-hidden="true"></i> Just a reminder, only <b>one</b> project should be submitted per team. Please make sure to list your team members.
   </div>
 
   <div class="form-group">
@@ -42,7 +42,7 @@
     <h3>
       Describe your project!
     </h3>
-    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 500 words please." %>
+    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! But don't be a try hard, no more than 100 words please." %>
   </div>
 
   <div class="form-group">

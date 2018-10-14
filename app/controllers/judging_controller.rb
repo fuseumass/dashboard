@@ -21,7 +21,10 @@ class JudgingController < ApplicationController
       doc = HexaPDF::Document.new
       projects.each_with_index do |project, index|
         # project.table_id = table_number_counter
-        # project.save
+        if project.power.nil?
+          project.power = false
+        end
+        project.save
         table_number_counter += 1
         image = "#{Rails.root}/app/assets/images/rubric.png"
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas

@@ -15,15 +15,14 @@ class JudgingController < ApplicationController
 
   def generateforms
     @starting_point
+    table_number_counter = 1
     projects = Project.order(power: :asc)
     if projects.size.positive?
       doc = HexaPDF::Document.new
       projects.each_with_index do |project, index|
-        name = project.title
-        team_member = project.team_members
-        id = index + 1
-        project.table_id = id
-        project.save
+        # project.table_id = table_number_counter
+        # project.save
+        table_number_counter += 1
         image = "#{Rails.root}/app/assets/images/rubric.png"
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
@@ -32,16 +31,21 @@ class JudgingController < ApplicationController
 
         update_font(canvas, 11, :bold)
         canvas.text("Project Name:\n", at:[80, 515])
-        canvas.text("#{name}\n", at:[160, 515])
+        canvas.text("#{project.title}\n", at:[160, 515])
         canvas.text("#{UNDERLINE}", at:[153, 515])
 
         canvas.text("Team Members:\n", at:[80, 490])
-        canvas.text("#{team_member}\n", at:[170, 490])
+        canvas.text("#{project.team_members}\n", at:[170, 490])
         canvas.text("#{UNDERLINE}", at:[165, 490])
 
         update_font(canvas, 18, :bold)
         canvas.text("Table Number\n", at:[600, 550])
-        canvas.text("#{id}\n", at:[645, 520])
+        if project.power
+          canvas.text("#{project.table_id} TBL\n", at:[645, 520])
+        else
+          canvas.text("#{project.table_id}\n", at:[645, 520])
+        end
+
 
         box = HexaPDF::Layout::Box.new(content_width: 140, content_height: 60)
         box.style.border(width: 1, style: :solid)

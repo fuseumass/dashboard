@@ -66,7 +66,7 @@ module PagesHelper
   end
 
   def has_access_to_projects?
-    (current_user.check_in or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('projects')
+    (current_user.check_in or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?)
   end
 
   def has_access_to_admin?

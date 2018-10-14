@@ -99,7 +99,11 @@ Rails.application.routes.draw do
 
   # Pages Routes End
 
-    resources :projects
+    resources :projects do
+      collection do
+        get 'search'
+      end
+    end
   # Hardware Routes Start
 
     # Allow autocomplete on hardware checkout page

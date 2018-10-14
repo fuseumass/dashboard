@@ -1,10 +1,17 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: %i[index]
-  before_action :is_feature_enabled
 
   def index
-    @projects = Project.all
+    @projects = Project.all.paginate(page: params[:page], per_page: 20)
+  end
+
+  def search
+    if params[:search].present?
+      @projects = Project.search(params[:search], page: params[:page], per_page: 20)
+    else
+      redirect_to projects_path
+    end
   end
 
   def show
@@ -19,8 +26,13 @@ class ProjectsController < ApplicationController
   def new
     if current_user.has_published_project?
       redirect_to project_path(current_user.project)
+    else
+      if is_feature_enabled?
+        @project = Project.new
+      else
+        redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
+      end
     end
-    @project = Project.new
   end
 
 
@@ -59,21 +71,18 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to index_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  def is_feature_enabled
+  def is_feature_enabled?
     feature_flag = FeatureFlag.find_by(name: 'projects')
     # Redirect user to index if no feature flag has been found
     if feature_flag.nil?
-      redirect_to index_path, notice: 'Projects are currently not available. Try again later!'
+      return false
     else
-      if feature_flag.value == false
-        # Redirect user to index if no feature flag is off (false)
-        redirect_to index_path, alert: 'Projects are currently not available. Try again later!'
-      end
+      return feature_flag.value
     end
   end
 

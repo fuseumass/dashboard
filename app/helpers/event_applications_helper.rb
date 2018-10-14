@@ -36,6 +36,11 @@ module EventApplicationsHelper
     current_user.user_type == 'admin' || current_user.user_type == 'organizer'
   end
 
+  def admin?
+    current_user.user_type == 'admin'
+  end
+
+
   def lack_permission_msg
     'Sorry, but you seem to lack the permission to go to that part of the website.'
   end

@@ -33,7 +33,11 @@
         <tbody>
           <% @projects.each do |project| %>
           <tr>
-            <td><%= project.id %></td>
+            <% if project.table_id.nil? %>
+              <td>TBD</td>
+            <% else %>
+              <td><%= project.table_id %></td>
+            <% end %>
             <td><%= link_to truncate(project.title, length: 15), project %></td>
             <td><%= truncate(project.description, length: 30) %></td>
             <td><%= truncate(project.link, length: 22) %></td>

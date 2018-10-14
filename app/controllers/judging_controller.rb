@@ -15,7 +15,7 @@ class JudgingController < ApplicationController
 
   def generateforms
     @starting_point
-    table_number_counter = 1
+    table_number_counter = 0
     projects = Project.order(power: :asc)
     if projects.size.positive?
       doc = HexaPDF::Document.new
@@ -41,9 +41,9 @@ class JudgingController < ApplicationController
         update_font(canvas, 18, :bold)
         canvas.text("Table Number\n", at:[600, 550])
         if project.power
-          canvas.text("#{project.table_id} TBL\n", at:[645, 520])
+          canvas.text("#{table_number_counter} TBL\n", at:[645, 520])
         else
-          canvas.text("#{project.table_id}\n", at:[645, 520])
+          canvas.text("#{table_number_counter}\n", at:[645, 520])
         end
 
 

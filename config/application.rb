@@ -14,9 +14,12 @@ module HackumassWeb
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'Eastern Time (US & Canada)'
 
+    tokens=YAML.load_file('config/secrets.yml')
+
     # Variables neeeded for configuration of hackathon dashboard
-    HACKATHON_NAME = "HackHer"
-    HACKATHON_VERSION = "2018" # Could also be a roman numeral or other number, will be concatenated with the hackathon name where necessary
+    HACKATHON_NAME = "HackUMass"
+    HACKATHON_VERSION = "VII" # Could also be a roman numeral or other number, will be concatenated with the hackathon name where necessary
+    SLACK_WORKSPACE_TOKEN = tokens["slack"]
   end
 end
 

@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Congratulations! Welcome to HackUMass!</title>
+  <title>Congratulations! Welcome to <%= HackumassWeb::Application::HACKATHON_NAME %>!</title>
   <style type="text/css">
     @media only screen and (max-width: 620px) {
       table[class=body] h1 {
@@ -70,7 +70,7 @@
     <td class="container" style="font-family:sans-serif;font-size:14px;vertical-align:top;display:block;max-width:580px;padding:10px;width:580px;Margin:0 auto !important;">
       <div class="content" style="box-sizing:border-box;display:block;Margin:0 auto;max-width:580px;padding:10px;">
         <!-- START CENTERED WHITE CONTAINER -->
-        <span class="preheader" style="color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;">Welcome to HackUMass VI. You're in.</span>
+        <span class="preheader" style="color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;">Welcome to <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %>. You're in.</span>
         <table class="main" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;background:#fff;border-radius:3px;width:100%;">
           <!-- START MAIN CONTENT AREA -->
           <tr>
@@ -80,11 +80,11 @@
                   <td style="font-family:sans-serif;font-size:14px;vertical-align:top;">
                     <img src="https://i.imgur.com/UgacdbZ.png" style="display:block;margin:auto" alt="Hack Logo">
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Hi <%= @user.first_name %>,</p>
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Congratulations! You’ve been accepted to participate in HackUMass.</p>
+                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Congratulations! You’ve been accepted to participate in <%= HackumassWeb::Application::HACKATHON_NAME %>.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">The event is from October 12th-14th at the University of Massachusetts Amherst. In order to participate, make sure you go to our website and <b>RSVP</b>! There, you will find more information about traveling, and how to get to the event.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">If you have any questions please visit our website at <a href='https://www.hackumass.com' target='_blank'>www.hackumass.com</a>. If you can’t find your answer on our website, then please feel free to shoot us an email at <a href='mailto:team@hackumass.com'>team@hackumass.com</a></p>
                     <% if @user.event_application.age.to_i < 18 %>
-                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">In addition, if you're younger than 18 years old, please fill out the attached form and bring it to HackUMass VI on the day of the event.
+                      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">In addition, if you're younger than 18 years old, please fill out the attached form and bring it to <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %> on the day of the event.
                         <a href="http://hackumass.com/legal/HUMVLiabilityWaiverForm.pdf"> Download Form Here!</a></p>
                     <% end %>
                     <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;box-sizing:border-box;width:100%;">
@@ -103,7 +103,7 @@
                       </tbody>
                     </table>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Thanks again for registering for our event, and we look forward to seeing you there!
-                      <br>- The HackUMass Team</p>
+                      <br>- The <%= HackumassWeb::Application::HACKATHON_NAME %> Team</p>
                   </td>
                 </tr>
               </table>
@@ -116,7 +116,7 @@
           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
             <tr>
               <td class="content-block powered-by" style="font-family:sans-serif;font-size:14px;vertical-align:top;color:#999999;font-size:12px;text-align:center;">
-                Made with ❤ by the HackUMass Tech Team
+                Made with ❤ by the <%= HackumassWeb::Application::HACKATHON_NAME %> Tech Team
               </td>
             </tr>
           </table>

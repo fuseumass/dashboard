@@ -16,6 +16,7 @@ module HackumassWeb
 
     # Variables neeeded for configuration of hackathon dashboard
     HACKATHON_NAME = "HackHer"
+    HACKATHON_VERSION = "2018" # Could also be a roman numeral or other number, will be concatenated with the hackathon name where necessary
   end
 end
 

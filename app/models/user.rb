@@ -17,7 +17,7 @@ class User < ApplicationRecord
   require "net/http"
   require "uri"
 
-  # slack workspace token for HackUMass VI
+  # slack workspace token for your hackathon
   $workspace_token = "xoxp-433043581511-431276410992-433044814679-5a719b1164aa9f95bdf488b36a88d059"
 
   # Use type checkers

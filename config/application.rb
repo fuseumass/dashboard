@@ -21,7 +21,7 @@ module HackumassWeb
     HACKATHON_NAME = "HackUMass"
     HACKATHON_VERSION = "VII" # Could also be a roman numeral or other number, will be concatenated with the hackathon name where necessary
     MAIN_WEBSITE = "https://hackumass.com"
-    DASHBOARD_URL = "https://dashboard.hackumass.com"
+    DASHBOARD_URL = "dashboard.hackumass.com"
     DONOTREPLY = "donotreply.hackumass@gmail.com"
     CONTACT_EMAIL = "team@hackumass.com"
 

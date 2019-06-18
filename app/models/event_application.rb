@@ -103,9 +103,9 @@ class EventApplication < ApplicationRecord
         parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
         self.flag = parser.length < 400 || !resume_contains(name, parser) || !(resume_contains(university, parser) || !resume_contains(major, parser))
       rescue
-        errors.add(:invalid_resume, 'Resume file is invalid. Please make
-          sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
-          if you have any more problem uploading your resume.')
+        errors.add(:invalid_resume, "Resume file is invalid. Please make
+          sure that the file is a OCR PDF. Contact us at \'#{HackumassWeb::Application::CONTACT_EMAIL}\'
+          if you have any more problem uploading your resume.")
       end
     end
   end

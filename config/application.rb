@@ -16,9 +16,18 @@ module HackumassWeb
 
     tokens=YAML.load_file('config/secrets.yml')
 
+    # ----------- BEGIN YOUR CONFIGURATION HERE ------------
     # Variables neeeded for configuration of hackathon dashboard
     HACKATHON_NAME = "HackUMass"
     HACKATHON_VERSION = "VII" # Could also be a roman numeral or other number, will be concatenated with the hackathon name where necessary
+    MAIN_WEBSITE = "https://hackumass.com"
+    DASHBOARD_URL = "https://dashboard.hackumass.com"
+    DONOTREPLY = "donotreply.hackumass@gmail.com"
+    CONTACT_EMAIL = "team@hackumass.com"
+
+    # ----------- DO NOT EDIT BELOW THIS LINE ------------
+    # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file
+    # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
     SLACK_WORKSPACE_TOKEN = tokens["slack"]
   end
 end

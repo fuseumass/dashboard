@@ -1,7 +1,7 @@
 class FeatureFlagsController < ApplicationController
   before_action :set_feature_flag, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions
-  helper_method :snake_case_to_title #Allow this method to be called in view directly
+  helper_method :snake_case_to_title_string #Allow this method to be called in view directly
 
   def index
     @feature_flags = FeatureFlag.all
@@ -15,7 +15,7 @@ class FeatureFlagsController < ApplicationController
     flag.save
 
     # Tell user flag is enabled, and format name nicely
-    flash[:success] = "Flag Enabled: " + snake_case_to_title(flag.name)
+    flash[:success] = "Flag Enabled: " + snake_case_to_title_string(flag.name)
 
     redirect_to feature_flags_path
   end
@@ -27,7 +27,7 @@ class FeatureFlagsController < ApplicationController
     flag.value = false
     flag.save
 
-    flash[:success] = "Flag Disabled: " + snake_case_to_title(flag.name)
+    flash[:success] = "Flag Disabled: " + snake_case_to_title_string(flag.name)
 
     redirect_to feature_flags_path
   end
@@ -59,7 +59,7 @@ class FeatureFlagsController < ApplicationController
 
   # Converts a string in snake case to a title-like format.
   # "snake_case_example" -> "Snake case example"
-  def snake_case_to_title (snake_case_string)
+  def snake_case_to_title_string (snake_case_string)
     #Replace all underscores with spaces to improve readability
     if snake_case_string.include? '_'
       snake_case_string.sub! '_', ' '

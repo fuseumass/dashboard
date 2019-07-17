@@ -1,29 +1,33 @@
 class FeatureFlagsController < ApplicationController
   before_action :set_feature_flag, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions
+  helper_method :snake_case_to_title_string #Allow this method to be called in view directly
 
   def index
     @feature_flags = FeatureFlag.all
   end
 
   def enable
-    flagId = params[:flag]
-    flag = FeatureFlag.find(flagId)
+    flag_id = params[:flag]
+    flag = FeatureFlag.find(flag_id)
+    # Enable the feature flag and update in database
     flag.value = true
     flag.save
 
-    flash[:success] = "Flag successfully enabled"
+    # Tell user flag is enabled, and format name nicely
+    flash[:success] = "Flag Enabled: " + snake_case_to_title_string(flag.name)
 
     redirect_to feature_flags_path
   end
 
   def disable
-    flagId = params[:flag]
-    flag = FeatureFlag.find(flagId)
+    flag_id = params[:flag]
+    flag = FeatureFlag.find(flag_id)
+    # Disable the feature flag and update in database
     flag.value = false
     flag.save
 
-    flash[:success] = "Flag successfully disabled"
+    flash[:success] = "Flag Disabled: " + snake_case_to_title_string(flag.name)
 
     redirect_to feature_flags_path
   end
@@ -33,9 +37,11 @@ class FeatureFlagsController < ApplicationController
 
     respond_to do |format|
       if @feature_flag.save
-        format.html { redirect_to @feature_flag, notice: 'Feature flag was successfully created.' }
+        # If successful in creating the new feature flag
+        format.html { redirect_to @feature_flag, notice: 'Feature flag successfully created.' }
         format.json { render :show, status: :created, location: @feature_flag }
       else
+        # If there was an error creating the new feature flag
         format.html { render :new }
         format.json { render json: @feature_flag.errors, status: :unprocessable_entity }
       end
@@ -45,9 +51,27 @@ class FeatureFlagsController < ApplicationController
   def destroy
     @feature_flag.destroy
     respond_to do |format|
-      format.html { redirect_to feature_flags_url, notice: 'Feature flag was successfully destroyed.' }
+      # Permanently remove flag
+      format.html { redirect_to feature_flags_url, notice: 'Feature flag successfully destroyed.'}
       format.json { head :no_content }
     end
+  end
+
+  # Converts a string in snake case to a title-like format.
+  # "snake_case_example" -> "Snake case example"
+  def snake_case_to_title_string (snake_case_string)
+    #Replace all underscores with spaces to improve readability
+    if snake_case_string.include? '_'
+      snake_case_string.sub! '_', ' '
+    end
+
+    # If the string has at least 2 characters, we should capitalize the first letter
+    if snake_case_string.length > 1
+      first_char = snake_case_string[0].upcase
+      snake_case_string =  first_char + snake_case_string[1..-1]
+    end
+
+    snake_case_string # Return
   end
 
   private
@@ -56,7 +80,7 @@ class FeatureFlagsController < ApplicationController
       @feature_flag = FeatureFlag.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Check parameters to ensure only whitelisted ones are able to be passed through.
     def feature_flag_params
       params.require(:feature_flag).permit(:name, :value)
     end

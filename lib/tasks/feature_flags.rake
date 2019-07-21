@@ -7,7 +7,7 @@ namespace :feature_flags do
 
     feature_flag_names.each do |flag_name|
       unless FeatureFlag.where(name: flag_name).exists?
-        FeatureFlag.create(name: flag_name, value: false)
+        FeatureFlag.create(name: flag_name, value: false, display_name: display_names[flag_name])
         puts "Creating #{flag_name} feature flag."
       end
     end

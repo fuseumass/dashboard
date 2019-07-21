@@ -1,7 +1,7 @@
 class PrizesController < ApplicationController
   before_action :set_prize, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:show, :new, :edit]
-  before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($Prizes) }
 
   def index
     if current_user.is_attendee?
@@ -42,19 +42,6 @@ class PrizesController < ApplicationController
   def destroy
     @prize.destroy
     redirect_to prizes_url, notice: 'Prize was successfully destroyed.'
-  end
-
-  def is_feature_enabled
-    feature_flag = FeatureFlag.find_by(name: 'prizes')
-    # Redirect user to index if no feature flag has been found
-    if feature_flag.nil?
-      redirect_to index_path, notice: 'Prizes are currently not available. Try again later!'
-    else
-      if feature_flag.value == false
-        # Redirect user to index if no feature flag is off (false)
-        redirect_to index_path, alert: 'Prizes are currently not available. Try again later!'
-      end
-    end
   end
 
   private

@@ -21,6 +21,29 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path unless user_is_authenticated?
   end
 
+  #global variables for feature_flags
+  $Applications = 'event_applications'
+  $MentorshipRequests = 'mentorship_requests'
+  $Projects = 'projects'
+  $Events = 'events'
+  $Prizes = 'prizes'
+  $CheckIn = 'check_in'
+  $Hardware = 'hardware'
+
+  # generic method is_feature_enabled
+  def is_feature_enabled(feature_flag_name)
+    feature_flag = FeatureFlag.find_by(name: feature_flag_name)
+    # Redirect user to index if no feature flag has been found
+    if feature_flag.nil?
+      redirect_to index_path, notice: "#{feature_flag.display_name} are currently not available. Try again later!"
+    else
+      if feature_flag.value == false
+        # Redirect user to index if feature flag is off (false)
+        redirect_to index_path, alert: "#{feature_flag.display_name} are currently not available. Try again later!"
+      end
+    end
+  end
+
   protected
 
   # Additional parameters needed for devise

@@ -22,7 +22,7 @@
             </span>
             <% end %>
           </td>
-          <td style="vertical-align: middle"><%= snake_case_to_title(feature_flag.name) %></td>
+          <td style="vertical-align: middle"><%= snake_case_to_title_string(feature_flag.name) %></td>
           <td style="vertical-align: middle">
             <% if feature_flag.value == true%>
             <%= button_to 'Disable',

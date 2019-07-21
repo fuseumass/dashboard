@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_10_11_053411) do
+ActiveRecord::Schema.define(version: 2019_07_21_160412) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -80,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_053411) do
     t.boolean "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "display_name"
+    t.string "description"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

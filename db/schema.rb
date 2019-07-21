@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2019_07_21_160412) do
     t.string "education_lvl"
   end
 
+  create_table "event_updates", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "permissions_list", default: "{}"
+    t.boolean "read"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -114,6 +123,7 @@ ActiveRecord::Schema.define(version: 2019_07_21_160412) do
     t.string "screenshot_content_type"
     t.integer "screenshot_file_size"
     t.datetime "screenshot_updated_at"
+    t.string "searchtech"
   end
 
   create_table "prizes", force: :cascade do |t|

@@ -7,9 +7,14 @@ namespace :feature_flags do
 
     feature_flag_names.each do |flag_name|
       unless FeatureFlag.where(name: flag_name).exists?
-        FeatureFlag.create(name: flag_name, value: false, display_name: display_names[flag_name])
+        FeatureFlag.create(name: flag_name, value: false)
         puts "Creating #{flag_name} feature flag."
       end
+    end
+
+    feature_flag_names.each do |flag_name|
+      FeatureFlag.where(name: flag_name).update_all(display_name: display_names[flag_name])
+      puts "Updating #{flag_name} feature flag."
     end
 
     puts 'All Feature flags created successfully!'

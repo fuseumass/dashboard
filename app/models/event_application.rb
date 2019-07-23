@@ -145,4 +145,16 @@ class EventApplication < ApplicationRecord
     UserMailer.submit_email(user).deliver_now
   end
 
+  # Generating CSV for all Event Applications
+	def self.to_csv
+		CSV.generate do |csv|
+			
+			csv << EventApplication.attribute_names
+		
+			EventApplication.find_each do |app|
+				csv << app.attributes.values
+		  	end
+		end
+	end
+
 end

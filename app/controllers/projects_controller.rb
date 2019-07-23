@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @userCSV.to_csv, filename: "projects.csv" }
+      format.csv { send_data @projectsCSV.to_csv, filename: "projects.csv" }
     end
   end
 

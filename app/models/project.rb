@@ -31,4 +31,16 @@ class Project < ApplicationRecord
 		errors.delete(:projectimage) unless errors[:projectimage].blank?
 	end
 
+	# Generating CSV for all projects
+	def self.to_csv
+		CSV.generate do |csv|
+			
+			csv << Project.attribute_names
+		
+			Project.find_each do |project|
+				csv << project.attributes.values
+		  	end
+		end
+	end
+
 end

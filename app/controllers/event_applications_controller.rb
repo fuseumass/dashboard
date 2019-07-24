@@ -28,6 +28,13 @@ class EventApplicationsController < ApplicationController
     @applications = @applications.order(created_at: :asc)
     @posts = @applications.paginate(page: params[:page], per_page: 20)
 
+    @appsCSV = EventApplication.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @appsCSV.to_csv, filename: "event_applications.csv" }
+    end
+
   end
 
   def show

@@ -31,7 +31,7 @@ class EventApplicationsController < ApplicationController
   end
 
   def show
-    # variable use in erb file
+    # variable used in erb file
     @applicant = @application
     @status = @application.status
     @user = @application.user
@@ -100,7 +100,7 @@ class EventApplicationsController < ApplicationController
     end
   end
 
-  # updates the application status of the applicants
+  # updates the application status of the applicants.
   def status_updated
     new_status = params[:new_status]
     id = params[:id]
@@ -113,7 +113,7 @@ class EventApplicationsController < ApplicationController
 
 
 
-    # Send email when status changes
+    # Send email when status changes.
     if new_status == 'accepted'
       UserMailer.accepted_email(application.user).deliver_now
     elsif new_status == 'denied'
@@ -146,12 +146,12 @@ class EventApplicationsController < ApplicationController
 
   def is_feature_enabled
     feature_flag = FeatureFlag.find_by(name: 'event_applications')
-    # Redirect user to index if no feature flag has been found
+    # Redirect user to index if no feature flag has been found.
     if feature_flag.nil?
       redirect_to index_path, notice: 'Applications are currently not available. Try again later!'
     else
       if feature_flag.value == false
-        # Redirect user to index if feature flag is off (false)
+        # Redirect user to index if feature flag is off (false).
         redirect_to index_path, alert: 'Applications are currently not available. Try again later!'
       end
     end
@@ -169,7 +169,6 @@ class EventApplicationsController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def event_application_params
     params.require(:event_application).permit(:name, :phone, :age, :sex, :university, :major, :grad_year,
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
@@ -178,7 +177,7 @@ class EventApplicationsController < ApplicationController
                    :waiver_liability_agreement, programming_skills:[], hardware_skills:[])
   end
 
-  # Only admins and organizers have the ability to all permission except delete
+  # Only admins and organizers have the ability to all permission except delete.
   def check_permissions
     redirect_to index_path, alert: lack_permission_msg unless admin_or_organizer?
   end

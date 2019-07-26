@@ -124,8 +124,8 @@ class EventApplicationsController < ApplicationController
   end
 
   def flag_application
-    appId = params[:application]
-    app = EventApplication.find(appId)
+    app_id = params[:application]
+    app = EventApplication.find(app_id)
     app.flag = true
     app.save(:validate => false)
 
@@ -135,8 +135,8 @@ class EventApplicationsController < ApplicationController
   end
 
   def unflag_application
-    appId = params[:application]
-    app = EventApplication.find(appId)
+    app_id = params[:application]
+    app = EventApplication.find(app_id)
     app.flag = false
     app.save(:validate => false)
     flash[:success] = "Flag successfully removed"

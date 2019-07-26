@@ -3,7 +3,7 @@
     Hello, <%= current_user.first_name %>! It seems like you have javascript
     currently disable. In order to have everything function properly during
     the sign up, please enable javascript for the duration of the sign up.
-    Thank you cooperation and we hope you see at HackUMass!
+    Thank you for your cooperation and we hope you see at our hackathon!
   </noscript>
 
   <div id="javascript-container">
@@ -78,7 +78,7 @@
 
         <%= f.text_field :major,
                          class: 'form-control',
-                         placeholder: 'Please list your major or N/A if your still in High School',
+                         placeholder: 'Please list your major or N/A if you are still in High School',
                          data: {autocomplete: autocomplete_major_name_event_applications_path} %>
       </div>
 
@@ -289,7 +289,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :referral_info,
-                    'How did you hear about HackUMass?:',
+                    'How did you hear about our hackathon?:',
                     class: 'form-label' %>
         <%= f.text_area :referral_info,
                         rows: '5',
@@ -302,7 +302,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :future_hardware_suggestion,
-                    'What hardware do you want to see at HackUMass VI or future HackUMass?:',
+                    'What hardware do you want to see at our hackathon or our future hackathons?:',
                     class: 'form-label' %>
         <%= f.text_area :future_hardware_suggestion,
                         rows: '5',
@@ -315,7 +315,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :waiver_liability_agreement,
-                    'Please agree to the following Terms & Conditions for HackUMass VI:',
+                    'Please agree to the following Terms & Conditions for HackUmass:',
                     class: 'form-label event-application-required-field' %>
         <%= f.check_box :waiver_liability_agreement, {}, true, false %>
         I agree to the terms of both the <a href="https://goo.gl/jMXKsO">

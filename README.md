@@ -41,9 +41,7 @@ create_table "event_applications", force: :cascade do |t|
 
 
 ## What URL can be given to participants to apply
-* <%= render 'shared/home_pages/new_user_view'%>
-* devise/registration/new
-* get 'apply' => 'event_applications#new'
+* https://dashboard.hackumass.com/event_applications/new
 
 ---
 ## What questions are the questions that our application has?
@@ -54,21 +52,19 @@ create_table "event_applications", force: :cascade do |t|
 * Linkedin, Github URLs
 * Programming and Hardware skills
 
-
 ---
 ## What files manage event applications (Model, View, & Controller)
 
-### app/models/event_application
+### Model - app/models/event_application
 * Validates all the field inputs by the applicant
 * Validates for Resume using active storage gem
 
-### event_applications_controller
-* Has methods which create, show, update and destroy applications
-
-### app/views/event_applications
+### View - app/views/event_applications
 * index.html.erb - Applications
 * _form.html.erb - Sign Up Form - for new Applicants
 
+### Controller - event_applications_controller
+* Has methods which create, show, update and destroy applications
 
 ---
 ## How to add/remove questions in the event application
@@ -77,8 +73,16 @@ create_table "event_applications", force: :cascade do |t|
 
 ---
 ## What special styling and or javascript is there in Event Applications
-* event_application.scss
-* event_application.js
+### CSS - event_application.scss
+* Different Nav button containers - Background color is global instead of a local one
+* Other styling includes status margin, resume container, error text
+
+### Javascript - 
+* Reload function is to make all the hidden field persist through refresh and reloads.
+* Number auto format - Formats the phone number to something like ``(XXX) XXX-XXXX``
+* charCounter - Count number of characters in the text box
+* unhide, hide - toggles the view to unhide and hide from the viewer by changing CSS display
+* toggleHiddenField - toggles hideField and unhideField with respect to the checkbox being unchecked or checked
 
 ---
 ## How do we verify resumes
@@ -92,3 +96,4 @@ create_table "event_applications", force: :cascade do |t|
 
 ---
 ## Link to the Amazon S3 Documentation that will explain how to set up the bucket
+* https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html

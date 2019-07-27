@@ -1,18 +1,27 @@
-FROM ruby:2.5.5
+FROM ruby:2.5
 
-RUN apt-get update
-RUN apt-get install -y build-essential 
+# Installs dependencies to run Rails on the ruby:2.5 image
+RUN apt-get update && apt-get install -y \ 
+  build-essential \ 
+  nodejs
 
-COPY Gemfile ./Gemfile
-COPY Gemfile.lock ./Gemfile.lock
+# Configure the main working directory
+WORKDIR /usr/src/app
 
-WORKDIR /app
-ENV PATH="/root/.local/bin:${PATH}"
-
-
-RUN gem install bundler -v 1.16.6
-
+# Installs gems listed in the Gemfile.lock
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+# Copys th main application
+COPY . .
+
+# Runs the starting rake command (db:migrate listed as a placeholder for issue #21)
+RUN bundle exec rake db:migrate
+RUN bundle exec rake db:seed
+RUN bundle exec rake feature_flags:load_flags
+
+# Exposes the 3000 port to access it outside of the image
 EXPOSE 3000
-CMD ["bundle", "exec", "rails", "server"]
+
+# Default command that runs when the container starts
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

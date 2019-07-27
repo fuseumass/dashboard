@@ -1,4 +1,5 @@
 ## Database Schema
+* We have a SQL database consisting of the following columns
 ```sql
 create_table "event_applications", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -33,24 +34,61 @@ create_table "event_applications", force: :cascade do |t|
 ```
 ---
 ## What is the Event Application
+* All about Applications, Applicants.
+* Create, delete, update applications/applicants
 
 ---
+
+
 ## What URL can be given to participants to apply
+* <%= render 'shared/home_pages/new_user_view'%>
+* devise/registration/new
+* get 'apply' => 'event_applications#new'
 
 ---
 ## What questions are the questions that our application has?
+* Name, Phone, Age, Sex
+* University, major, graduation year
+* Food restrictions
+* Resume
+* Linkedin, Github URLs
+* Programming and Hardware skills
+
 
 ---
 ## What files manage event applications (Model, View, & Controller)
 
+### app/models/event_application
+* Validates all the field inputs by the applicant
+* Validates for Resume using active storage gem
+
+### event_applications_controller
+* Has methods which create, show, update and destroy applications
+
+### app/views/event_applications
+* index.html.erb - Applications
+* _form.html.erb - Sign Up Form - for new Applicants
+
+
 ---
 ## How to add/remove questions in the event application
+* Controller, with a create method ?
+* app/views/_form.html.erb - Change it from the backend
 
 ---
 ## What special styling and or javascript is there in Event Applications
+* event_application.scss
+* event_application.js
 
 ---
 ## How do we verify resumes
+* Models/event_application
+* Checks if there is an attached file 
+* Checks the content type is PDF and size is less than 2MB
+* Uses Paperclip/active_storage to parse the Resume
+* Checks if the resume has major, university, length>=400
+* Renames the resume to {id}_{first_name}_{last_name}
+
 
 ---
 ## Link to the Amazon S3 Documentation that will explain how to set up the bucket

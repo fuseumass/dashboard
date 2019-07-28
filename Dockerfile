@@ -14,13 +14,8 @@ COPY . .
 # Installs gems listed in the Gemfile.lock
 RUN bundle install
 
-# Runs the starting rake command (db:migrate listed as a placeholder for issue #21)
-RUN bundle exec rake db:migrate
-RUN bundle exec rake db:seed
-RUN bundle exec rake feature_flags:load_flags
-
 # Exposes the 3000 port to access it outside of the image
 EXPOSE 3000
 
 # Default command that runs when the container starts
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bash", "./docker_set_up.sh"]

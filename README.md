@@ -41,7 +41,7 @@ create_table "event_applications", force: :cascade do |t|
 
 
 ## What URL can be given to participants to apply
-* https://dashboard.hackumass.com/event_applications/new
+* localhost:3000/apply.html
 
 ---
 ## What questions are the questions that our application has?
@@ -67,11 +67,6 @@ create_table "event_applications", force: :cascade do |t|
 * Has methods which create, show, update and destroy applications
 
 ---
-## How to add/remove questions in the event application
-* Controller, with a create method ?
-* app/views/_form.html.erb - Change it from the backend
-
----
 ## What special styling and or javascript is there in Event Applications
 ### CSS - event_application.scss
 * Different Nav button containers - Background color is global instead of a local one
@@ -92,8 +87,3 @@ create_table "event_applications", force: :cascade do |t|
 * Uses Paperclip/active_storage to parse the Resume
 * Checks if the resume has major, university, length>=400
 * Renames the resume to {id}_{first_name}_{last_name}
-
-
----
-## Link to the Amazon S3 Documentation that will explain how to set up the bucket
-* https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html

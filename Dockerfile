@@ -8,12 +8,11 @@ RUN apt-get update && apt-get install -y \
 # Configure the main working directory
 WORKDIR /usr/src/app
 
-# Installs gems listed in the Gemfile.lock
-COPY Gemfile Gemfile.lock ./
-RUN bundle install
-
-# Copys th main application
+# Copies the main application to run install dependencies and rake files
 COPY . .
+
+# Installs gems listed in the Gemfile.lock
+RUN bundle install
 
 # Runs the starting rake command (db:migrate listed as a placeholder for issue #21)
 RUN bundle exec rake db:migrate

@@ -30,7 +30,7 @@ class JudgingController < ApplicationController
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
         update_font(canvas, 22, :bold)
-        canvas.text("HackUMass VI Judging Sheet\n", at: [80,550])
+        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,550])
 
         update_font(canvas, 11, :bold)
         canvas.text("Project Name:\n", at:[80, 515])
@@ -68,7 +68,7 @@ class JudgingController < ApplicationController
     canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
     update_font(canvas, 22, :bold)
 
-    canvas.text("HackUMass VI Judging Sheet\n", at: [ONE_INCH_MARGIN, @starting_point])
+    canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [ONE_INCH_MARGIN, @starting_point])
 
     update_font(canvas, 11, :bold)
 

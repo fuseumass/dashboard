@@ -1,30 +1,30 @@
 class UserMailer < ApplicationMailer
 
-  default from: 'donotreply.hackumass@gmail.com'
+  default from: "#{HackumassWeb::Application::DONOTREPLY}"
 
   def welcome_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'Thank you for signing up for HackUMass VI!')
+    mail(to: @user.email, subject: "Thank you for signing up for #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}!")
   end
 
   def submit_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'Thank you for submitting your HackUMass VI application!')
+    mail(to: @user.email, subject: "Thank you for submitting your #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} application!")
   end
 
   def accepted_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'Congratulations! Welcome to HackUMass!')
+    mail(to: @user.email, subject: "Congratulations! Welcome to #{HackumassWeb::Application::HACKATHON_NAME}!")
   end
 
   def denied_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'HackUMass VI Application Status Update')
+    mail(to: @user.email, subject: "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Application Status Update")
   end
 
   def waitlisted_email(user)
     @user = user;
-    mail(to: @user.email, subject: 'HackUMass VI Application Status Update')
+    mail(to: @user.email, subject: "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Application Status Update")
   end
 
   def reminder_email(user, subject, message)

@@ -180,11 +180,18 @@
             Only show this field when the applicants disagrees to the
             Term & Conditions but the form is somehow still submitted
           -->
-          <% unless @applicant.waiver_liability_agreement %>
-            <p class='required-field'>
+          <% unless @applicant.waiver_liability_agreement and @applicant.mlh_agreement %>
+            <p class='required-field'> # Display HackUMass Terms Status
             <span class='event-application-error-text'>
               <label><b>Terms & Condition: </b></label>
               <%= @applicant.waiver_liability_agreement ? 'AGREED' : 'DISAGREED' %>
+            </span>
+            </p>
+
+            <p class='required-field'> # Display MLH Terms Status
+            <span class='event-application-error-text'>
+              <label><b>Terms & Condition: </b></label>
+              <%= @applicant.mlh_agreement ? 'AGREED' : 'DISAGREED' %>
             </span>
             </p>
           <% end %>

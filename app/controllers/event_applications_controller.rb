@@ -169,7 +169,7 @@ class EventApplicationsController < ApplicationController
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
                    :resume, :linkedin_url, :github_url, :prev_attendance,
                    :referral_info, :future_hardware_suggestion, :education_lvl,
-                   :waiver_liability_agreement, programming_skills:[], hardware_skills:[])
+                   :waiver_liability_agreement, :mlh_agreement, programming_skills:[], hardware_skills:[])
   end
 
   # Only admins and organizers have the ability to all permission except delete

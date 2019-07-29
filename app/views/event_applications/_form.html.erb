@@ -3,7 +3,7 @@
     Hello, <%= current_user.first_name %>! It seems like you have javascript
     currently disable. In order to have everything function properly during
     the sign up, please enable javascript for the duration of the sign up.
-    Thank you cooperation and we hope you see at HackUMass!
+    Thank you cooperation and we hope you see at <%= HackumassWeb::Application::HACKATHON_NAME %>!
   </noscript>
 
   <div id="javascript-container">
@@ -289,7 +289,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :referral_info,
-                    'How did you hear about HackUMass?:',
+                    "How did you hear about #{HackumassWeb::Application::HACKATHON_NAME}?:",
                     class: 'form-label' %>
         <%= f.text_area :referral_info,
                         rows: '5',
@@ -302,7 +302,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :future_hardware_suggestion,
-                    'What hardware do you want to see at HackUMass VI or future HackUMass?:',
+                    "What hardware do you want to see at #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} or future #{HackumassWeb::Application::HACKATHON_NAME}?:",
                     class: 'form-label' %>
         <%= f.text_area :future_hardware_suggestion,
                         rows: '5',
@@ -315,7 +315,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :waiver_liability_agreement,
-                    'Please agree to the following Terms & Conditions for HackUMass VI:',
+                    "Please agree to the following Terms & Conditions for #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}:",
                     class: 'form-label event-application-required-field' %>
         <%= f.check_box :waiver_liability_agreement, {}, true, false %>
         I agree to the terms of both the <a href="https://goo.gl/jMXKsO">

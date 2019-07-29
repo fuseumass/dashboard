@@ -31,6 +31,9 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[waiver_liability_agreement],
                         message: 'Please agree to the Terms & Conditions.'
 
+  validates_presence_of %i[mlh_agreement],
+                        message: 'Please agree to the MLH Terms & Conditions.'
+
   # validation for phone field:
   # checks to see that the user put down a valid phone number
   validates :phone,
@@ -148,9 +151,9 @@ class EventApplication < ApplicationRecord
   # Generating CSV for all Event Applications
 	def self.to_csv
 		CSV.generate do |csv|
-			
+
 			csv << EventApplication.attribute_names
-		
+
 			EventApplication.find_each do |app|
 				csv << app.attributes.values
 		  	end

@@ -329,6 +329,20 @@
         Liability Waiver</a>.
       </div>
 
+      <div class="form-group event-application-form-group">
+        <%= f.label :mlh_agreement,
+                    'Please agree to the following MLH Terms & Conditions:',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.check_box :mlh_agreement, {}, true, false %>
+        I have read and agree to the <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+        MLH Code of Conduct</a>. I authorize you to share my application/registration
+        information for event administration, ranking, MLH administration, pre- and post-event
+        informational emails, and occasional messages about hackathons
+        in-line with the <a href="https://mlh.io/privacy">MLH Privacy Policy</a>.
+        I further agree to the terms of both the <a href="https://mlh.io/privacy">
+        MLH Contest Terms and Conditions</a> and the <a href="https://mlh.io/privacy">MLH Privacy Policy</a>.
+      </div>
+
       <% if editing_application? %>
         <div class="event-application-flex-end-container">
           <%= f.submit 'Update Application',

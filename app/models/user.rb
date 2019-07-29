@@ -17,8 +17,8 @@ class User < ApplicationRecord
   require "net/http"
   require "uri"
 
-  # slack workspace token for HackUMass VI
-  $workspace_token = ***REMOVED***
+  # slack workspace token for your hackathon
+  $workspace_token = "#{HackumassWeb::Application::SLACK_WORKSPACE_TOKEN}"
 
   # Use type checkers
   def is_attendee?

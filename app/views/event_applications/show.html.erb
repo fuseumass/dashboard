@@ -153,7 +153,7 @@
           </p>
 
           <p>
-            <label><b>How did you hear about HackUMass?: </b></label>
+            <label><b>How did you hear about <%= HackumassWeb::Application::HACKATHON_NAME %>?: </b></label>
             <% if @applicant.referral_info.empty? %>
               <%= 'N/A' %>
             <% else %>
@@ -164,7 +164,7 @@
           <p>
             <label>
               <b>
-                What hardware do you want to see at HackUMass VI or future HackUMass?:
+                What hardware do you want to see at <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %> or future <%= HackumassWeb::Application::HACKATHON_NAME %>?:
               </b>
             </label>
             <% if @applicant.future_hardware_suggestion.empty? %>
@@ -180,11 +180,18 @@
             Only show this field when the applicants disagrees to the
             Term & Conditions but the form is somehow still submitted
           -->
-          <% unless @applicant.waiver_liability_agreement %>
-            <p class='required-field'>
+          <% unless @applicant.waiver_liability_agreement and @applicant.mlh_agreement %>
+            <p class='required-field'> # Display HackUMass Terms Status
             <span class='event-application-error-text'>
               <label><b>Terms & Condition: </b></label>
               <%= @applicant.waiver_liability_agreement ? 'AGREED' : 'DISAGREED' %>
+            </span>
+            </p>
+
+            <p class='required-field'> # Display MLH Terms Status
+            <span class='event-application-error-text'>
+              <label><b>Terms & Condition: </b></label>
+              <%= @applicant.mlh_agreement ? 'AGREED' : 'DISAGREED' %>
             </span>
             </p>
           <% end %>

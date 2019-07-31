@@ -1,7 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :show]
-  before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($MentorshipRequests) }
 
 
 
@@ -133,6 +133,7 @@ class MentorshipRequestsController < ApplicationController
   end
   # Contact user on slack and mark request status to contacted
 
+<<<<<<< HEAD
   def is_feature_enabled
     feature_flag = FeatureFlag.find_by(name: 'mentorship_requests')
     # Redirect user to index if no feature flag has been found
@@ -146,6 +147,8 @@ class MentorshipRequestsController < ApplicationController
     end
   end
 
+=======
+>>>>>>> 0883b54d9326168c1eab64b84d29ce180215f1e2
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mentorship_request

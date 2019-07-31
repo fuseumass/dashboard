@@ -7,23 +7,26 @@ class FeatureFlagsController < ApplicationController
   end
 
   def enable
-    flagId = params[:flag]
-    flag = FeatureFlag.find(flagId)
+    flag_id = params[:flag]
+    flag = FeatureFlag.find(flag_id)
+    # Enable the feature flag and update in database
     flag.value = true
     flag.save
 
-    flash[:success] = "Flag successfully enabled"
+    # Tell user flag is enabled, and format name nicely
+    flash[:success] = "Flag Enabled: " + flag.display_name
 
     redirect_to feature_flags_path
   end
 
   def disable
-    flagId = params[:flag]
-    flag = FeatureFlag.find(flagId)
+    flag_id = params[:flag]
+    flag = FeatureFlag.find(flag_id)
+    # Disable the feature flag and update in database
     flag.value = false
     flag.save
 
-    flash[:success] = "Flag successfully disabled"
+    flash[:success] = "Flag Disabled: " + flag.display_name
 
     redirect_to feature_flags_path
   end
@@ -33,9 +36,11 @@ class FeatureFlagsController < ApplicationController
 
     respond_to do |format|
       if @feature_flag.save
-        format.html { redirect_to @feature_flag, notice: 'Feature flag was successfully created.' }
+        # If successful in creating the new feature flag
+        format.html { redirect_to @feature_flag, notice: 'Feature flag successfully created.' }
         format.json { render :show, status: :created, location: @feature_flag }
       else
+        # If there was an error creating the new feature flag
         format.html { render :new }
         format.json { render json: @feature_flag.errors, status: :unprocessable_entity }
       end
@@ -45,7 +50,8 @@ class FeatureFlagsController < ApplicationController
   def destroy
     @feature_flag.destroy
     respond_to do |format|
-      format.html { redirect_to feature_flags_url, notice: 'Feature flag was successfully destroyed.' }
+      # Permanently remove flag
+      format.html { redirect_to feature_flags_url, notice: 'Feature flag successfully destroyed.'}
       format.json { head :no_content }
     end
   end
@@ -56,7 +62,7 @@ class FeatureFlagsController < ApplicationController
       @feature_flag = FeatureFlag.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Check parameters to ensure only whitelisted ones are able to be passed through.
     def feature_flag_params
       params.require(:feature_flag).permit(:name, :value)
     end

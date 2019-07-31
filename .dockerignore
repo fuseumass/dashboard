@@ -1,0 +1,21 @@
+# Files to ignore when building the docker container
+
+# Ignores Git files
+.git
+.gitignore
+README.md
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+#
+# OS X
+#
+.DS_Store

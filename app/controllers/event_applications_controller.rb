@@ -2,7 +2,7 @@ class EventApplicationsController < ApplicationController
   # imports helper methods to the controller
   include EventApplicationsHelper
 
-  before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($Applications) }
   before_action :set_event_application, only: %i[show edit update destroy]
   before_action :check_permissions, only: %i[index destroy status_updated]
   autocomplete :university, :name, full: true
@@ -27,6 +27,13 @@ class EventApplicationsController < ApplicationController
     end
     @applications = @applications.order(created_at: :asc)
     @posts = @applications.paginate(page: params[:page], per_page: 20)
+
+    @appsCSV = EventApplication.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @appsCSV.to_csv, filename: "event_applications.csv" }
+    end
 
   end
 
@@ -144,19 +151,6 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
-  def is_feature_enabled
-    feature_flag = FeatureFlag.find_by(name: 'event_applications')
-    # Redirect user to index if no feature flag has been found
-    if feature_flag.nil?
-      redirect_to index_path, notice: 'Applications are currently not available. Try again later!'
-    else
-      if feature_flag.value == false
-        # Redirect user to index if feature flag is off (false)
-        redirect_to index_path, alert: 'Applications are currently not available. Try again later!'
-      end
-    end
-  end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event_application
@@ -175,7 +169,7 @@ class EventApplicationsController < ApplicationController
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
                    :resume, :linkedin_url, :github_url, :prev_attendance,
                    :referral_info, :future_hardware_suggestion, :education_lvl,
-                   :waiver_liability_agreement, programming_skills:[], hardware_skills:[])
+                   :waiver_liability_agreement, :mlh_agreement, programming_skills:[], hardware_skills:[])
   end
 
   # Only admins and organizers have the ability to all permission except delete

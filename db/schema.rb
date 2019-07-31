@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_10_11_233048) do
+=======
+
+ActiveRecord::Schema.define(version: 2019_07_26_233422) do
+>>>>>>> 0883b54d9326168c1eab64b84d29ce180215f1e2
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -51,6 +56,10 @@ ActiveRecord::Schema.define(version: 2018_10_11_233048) do
     t.text "future_hardware_suggestion"
     t.boolean "waiver_liability_agreement"
     t.string "education_lvl"
+<<<<<<< HEAD
+=======
+    t.boolean "mlh_agreement"
+>>>>>>> 0883b54d9326168c1eab64b84d29ce180215f1e2
   end
 
   create_table "events", force: :cascade do |t|
@@ -70,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_233048) do
     t.boolean "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "display_name"
+    t.string "description"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

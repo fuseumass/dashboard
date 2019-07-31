@@ -81,7 +81,7 @@
                     <img src="https://i.imgur.com/UgacdbZ.png" style="display:block;margin:auto" alt="Hack Logo">
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Hi <%= @user.first_name %>,</p>
 
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">HackUMass is happening this Friday! This is the last email you will receive before the event, <b> all communication from now on will be happening through Slack, so make sure to join through our website</b>.</p>
+                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;"><%= HackumassWeb::Application::HACKATHON_NAME %> is happening this Friday! This is the last email you will receive before the event, <b> all communication from now on will be happening through Slack, so make sure to join through our website</b>.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">We have gotten a few emails from people letting us know that they won’t be able to make it. We understand stuff happens, so <b> if you can’t come to the event please go to our website and click the “Sorry I Can’t Participate” button</b>. By clicking this button you are declining your invite and your application will be denied.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">After lots of requests, hardware is officially released! Head out to our website and click on the Hardware tab to checkout over 100 hardware items that are accessible to you. Along with hardware, our prize list is also available on the website. You should now have everything you need in order to start thinking of your strategy for the hackathon.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Regarding buses, sadly we were not able to secure another bus from Boston so we will not be able to offer seats to those in the bus waitlist. For bus pickup locations and pickup times, check our website and Slack channels.</p>
@@ -94,7 +94,7 @@
                             <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;width:auto;">
                               <tbody>
                               <tr>
-                                <td style="font-family:sans-serif;font-size:14px;vertical-align:top;background-color:#ffffff;border-radius:5px;text-align:center;background-color:#3498db;"> <a href="https://dashboard.hackumass.com" target="_blank" style="text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#764BA2;border-color:#764BA2;color:#ffffff;">Go to our website</a> </td>
+                                <td style="font-family:sans-serif;font-size:14px;vertical-align:top;background-color:#ffffff;border-radius:5px;text-align:center;background-color:#3498db;"> <a href="https://<%= HackumassWeb::Application::DASHBOARD_URL %>" target="_blank" style="text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#764BA2;border-color:#764BA2;color:#ffffff;">Go to our website</a> </td>
                               </tr>
                               </tbody>
                             </table>
@@ -104,7 +104,7 @@
                       </table>
 
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">See you Friday,<br>
-                      The HackUMass Team</p>
+                      The <%= HackumassWeb::Application::HACKATHON_NAME %> Team</p>
 
                   </td>
                 </tr>
@@ -118,7 +118,7 @@
           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
             <tr>
               <td class="content-block powered-by" style="font-family:sans-serif;font-size:14px;vertical-align:top;color:#999999;font-size:12px;text-align:center;">
-                Made with ❤ by the HackUMass Tech Team
+                Made with ❤ by the <%= HackumassWeb::Application::HACKATHON_NAME %> Tech Team
               </td>
             </tr>
           </table>

@@ -1,7 +1,7 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: [:index, :search]
-  # before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($Hardware) }
 
   def search
     if current_user and current_user.is_attendee?
@@ -84,19 +84,6 @@ class HardwareItemsController < ApplicationController
   def destroy
     @hardware_item.destroy
     redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.'
-  end
-
-  def is_feature_enabled
-    feature_flag = FeatureFlag.find_by(name: 'hardware')
-    # Redirect user to index if no feature flag has been found
-    if feature_flag.nil?
-      redirect_to index_path, notice: 'Hardware is currently not available. Try again later'
-    else
-      if feature_flag.value == false
-        # Redirect user to index if no feature flag is off (false)
-        redirect_to index_path, alert: 'Hardware is currently not available. Try again later'
-      end
-    end
   end
 
   private

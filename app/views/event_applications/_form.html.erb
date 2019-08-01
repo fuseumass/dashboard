@@ -1,3 +1,12 @@
+<%
+=begin%>
+    This file is for the applicants of the hackathon and displays the form for a person's application within the browser. 
+    It prompts the user for their information and collects it like name or age etc.
+    It also includes the event waiver liability agreement.
+    Before an applicant can fill out the application it ensures that the user doesn't have javascript disabled.
+<%
+=end%>
+
 <div class="card-body">
   <noscript>
     Hello, <%= current_user.first_name %>! It seems like you have javascript
@@ -6,7 +15,7 @@
     Thank you for your cooperation and we hope you see at our hackathon!
   </noscript>
 
-  <div id="javascript-container">
+   <div id="javascript-container">
     <%= form_for(@application, html: {multipart: true}) do |f| %>
       <label class="event-application-required-field event-application-flex-end-container">
         Indicates required field &nbsp;

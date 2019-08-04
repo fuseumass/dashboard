@@ -4,13 +4,13 @@ class EventApplication < ApplicationRecord
   before_update :rename_file
   after_create :submit_email
 
-  # give us elastic search functionality in event application
+  # gives us elastic search functionality in event application.
   searchkick
 
-  # creates a one to one association with the user
+  # creates a one to one association with the user.
   belongs_to :user
 
-  # checks to see that all the required fields are presence
+  # checks to see that all the required fields are present.
   validates_presence_of %i[name university major],
                         message: 'Please enter %{attribute}. This field is required.'
 
@@ -31,11 +31,13 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[waiver_liability_agreement],
                         message: 'Please agree to the Terms & Conditions.'
 
+  # checks to see that the user put down a valid phone number.
+
   validates_presence_of %i[mlh_agreement],
                         message: 'Please agree to the MLH Terms & Conditions.'
 
-  # validation for phone field:
   # checks to see that the user put down a valid phone number
+
   validates :phone,
             allow_blank: true,
             if: -> { phone.present? },
@@ -46,23 +48,20 @@ class EventApplication < ApplicationRecord
                       maximum: 14,
                       message: 'Your phone number must be 10 digits long.' }
 
-  # validation for linkedin field:
-  # checks to see that the user put down a proper linkedin link
+  # checks to see that the user put down a proper linkedin link.
   validates_format_of %i[linkedin_url],
                       if: -> { linkedin_url.present? },
                       with: %r{\A(https:\/\/)?(www.)?linkedin.com\/in\/\S+\z},
                       message: 'Your Linkedin URL is invalid. Example format: https://linkedin.com/in/yourprofile'
 
-  # validation for github field:
-  # checks to see that the user put down a proper github link
+  # checks to see that the user put down a proper github link.
   validates_format_of %i[github_url],
                       if: -> { github_url.present? },
                       with: %r{\A(https:\/\/)?(www.)?github.com\/\S+\z},
                       message: 'Your Github URL is invalid. Example format: https://github.com/yourgithub'
 
-  # additional validation for name field:
   # checks to see that the user inputs a name that has more than 2 characters and
-  # that the characters only contain letters, periods, dashes and apostrophes
+  # that the characters only contain letters, periods, dashes and apostrophes.
   validates :name,
             if: -> { name.present? },
             length: { minimum: 2,
@@ -73,26 +72,24 @@ class EventApplication < ApplicationRecord
                       with: /\A^[\p{L}\s'.-]+\z/,
                       message: 'Name can only contain letters, periods, dashes and apostrophes.' }
 
-  # validation for all textbox inputs:
   # checks to see that all textbox answer (excluding the food restrictions textbox)
-  # must be less than or equal to 500 characters long
+  # must be less than or equal to 500 characters long.
   validates_length_of %i[referral_info future_hardware_suggestion],
                       maximum: 500,
                       message: 'Your textbox answers must be less than %{count} characters long.'
 
-  # extra config for resume file
+  # extra config for resume file.
   has_attached_file :resume,
                     path: 'resume/:filename'
 
-  # validates the resume attachments:
-  # checks to see that the file is under 1.5MB and that the resume is a PDF
+  # checks to see that the file is under 1.5MB and that the resume is a PDF.
   validates_attachment :resume,
                        content_type: { content_type: 'application/pdf',
                                        message: 'Resume file must be a PDF.' },
                        size: { less_than: 2.megabyte,
                                message: 'Resume file must be under 2MB in size.' }
 
-  # checks to see that the user resume is legit
+  # checks to see that the user resume is legit.
   validate :resume_legitimacy,
            if: -> { resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
 
@@ -113,7 +110,7 @@ class EventApplication < ApplicationRecord
     end
   end
 
-  # checks to see if the resume file contains the given string
+  # checks to see if the resume file contains the given string.
   def resume_contains(string, resume_file)
     string.downcase!
     return true if resume_file.include?(string.delete(' '))
@@ -143,7 +140,7 @@ class EventApplication < ApplicationRecord
     errors.delete(:resume) if errors[:resume].length > 0 && !errors[:resume].include?(presence_msg)
   end
 
-  # send email confirmation to user once they submit there application
+  # send email confirmation to user once they submit there application.
   def submit_email
     UserMailer.submit_email(user).deliver_now
   end

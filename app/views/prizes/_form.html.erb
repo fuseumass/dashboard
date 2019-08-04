@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <%= form.label :sponsor, class:'control-label' %>
-    <%= form.text_field :sponsor, class: 'form-control', placeholder: 'Who is sponsoring the prize? Google? Amazon? Write HackUMass otherwise.' %>
+    <%= form.text_field :sponsor, class: 'form-control', placeholder: "Who is sponsoring the prize? Google? Amazon? Write #{HackumassWeb::Application::HACKATHON_NAME} otherwise." %>
   </div>
 
   <div class="form-group">

@@ -12,7 +12,8 @@
     Hello, <%= current_user.first_name %>! It seems like you have javascript
     currently disable. In order to have everything function properly during
     the sign up, please enable javascript for the duration of the sign up.
-    Thank you for your cooperation and we hope you see at our hackathon!
+
+    Thank you cooperation and we hope you see at <%= HackumassWeb::Application::HACKATHON_NAME %>!
   </noscript>
 
    <div id="javascript-container">
@@ -298,7 +299,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :referral_info,
-                    'How did you hear about our hackathon?:',
+                    "How did you hear about #{HackumassWeb::Application::HACKATHON_NAME}?:",
                     class: 'form-label' %>
         <%= f.text_area :referral_info,
                         rows: '5',
@@ -311,7 +312,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :future_hardware_suggestion,
-                    'What hardware do you want to see at our hackathon or our future hackathons?:',
+                    "What hardware do you want to see at #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} or future #{HackumassWeb::Application::HACKATHON_NAME}?:",
                     class: 'form-label' %>
         <%= f.text_area :future_hardware_suggestion,
                         rows: '5',
@@ -324,7 +325,7 @@
 
       <div class="form-group event-application-form-group">
         <%= f.label :waiver_liability_agreement,
-                    'Please agree to the following Terms & Conditions for HackUmass:',
+                    "Please agree to the following Terms & Conditions for #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}:",
                     class: 'form-label event-application-required-field' %>
         <%= f.check_box :waiver_liability_agreement, {}, true, false %>
         I agree to the terms of both the <a href="https://goo.gl/jMXKsO">
@@ -336,6 +337,20 @@
         you agree to UMass' <a href="http://hackumass.com/legal/HUMVPhotoRelease.pdf">
         Photo Release</a> requirement and <a href="http://hackumass.com/legal/HUMVLiabilityWaiver.pdf">
         Liability Waiver</a>.
+      </div>
+
+      <div class="form-group event-application-form-group">
+        <%= f.label :mlh_agreement,
+                    'Please agree to the following MLH Terms & Conditions:',
+                    class: 'form-label event-application-required-field' %>
+        <%= f.check_box :mlh_agreement, {}, true, false %>
+        I have read and agree to the <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+        MLH Code of Conduct</a>. I authorize you to share my application/registration
+        information for event administration, ranking, MLH administration, pre- and post-event
+        informational emails, and occasional messages about hackathons
+        in-line with the <a href="https://mlh.io/privacy">MLH Privacy Policy</a>.
+        I further agree to the terms of both the <a href="https://mlh.io/privacy">
+        MLH Contest Terms and Conditions</a> and the <a href="https://mlh.io/privacy">MLH Privacy Policy</a>.
       </div>
 
       <% if editing_application? %>

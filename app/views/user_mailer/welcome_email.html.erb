@@ -80,7 +80,7 @@
                   <td style="font-family:sans-serif;font-size:14px;vertical-align:top;">
                     <img src="https://i.imgur.com/UgacdbZ.png" style="display:block;margin:auto" alt="Hack Logo">
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Hi <%= @user.first_name %>,</p>
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Congratulations on creating an account for HackUMass.</p>
+                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Congratulations on creating an account for <%= HackumassWeb::Application::HACKATHON_NAME %>.</p>
                     <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">You can start or complete your application by clicking the button below. Applications will close soon so be sure to finish your application on time.</p>
                     <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;box-sizing:border-box;width:100%;">
                       <tbody>
@@ -89,7 +89,7 @@
                           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;width:auto;">
                             <tbody>
                             <tr>
-                              <td style="font-family:sans-serif;font-size:14px;vertical-align:top;background-color:#ffffff;border-radius:5px;text-align:center;background-color:#3498db;"> <a href="https://dashboard.hackumass.com/apply" target="_blank" style="text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#764BA2;border-color:#764BA2;color:#ffffff;">Apply Now!</a> </td>
+                              <td style="font-family:sans-serif;font-size:14px;vertical-align:top;background-color:#ffffff;border-radius:5px;text-align:center;background-color:#3498db;"> <a href="https://<%= HackumassWeb::Application::DASHBOARD_URL %>/apply" target="_blank" style="text-decoration:underline;background-color:#ffffff;border:solid 1px #3498db;border-radius:5px;box-sizing:border-box;color:#3498db;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;background-color:#764BA2;border-color:#764BA2;color:#ffffff;">Apply Now!</a> </td>
                             </tr>
                             </tbody>
                           </table>
@@ -97,8 +97,8 @@
                       </tr>
                       </tbody>
                     </table>
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">We look forward to having you at HackUMass!
-                      <br>- The HackUMass Team</p>
+                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">We look forward to having you at <%= HackumassWeb::Application::HACKATHON_NAME %>!
+                      <br>- The <%= HackumassWeb::Application::HACKATHON_NAME %> Team</p>
                   </td>
                 </tr>
               </table>
@@ -111,7 +111,7 @@
           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
             <tr>
               <td class="content-block powered-by" style="font-family:sans-serif;font-size:14px;vertical-align:top;color:#999999;font-size:12px;text-align:center;">
-                Made with ❤ by the HackUMass Tech team
+                Made with ❤ by the <%= HackumassWeb::Application::HACKATHON_NAME %> Tech team
               </td>
             </tr>
           </table>

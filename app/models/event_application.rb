@@ -32,6 +32,12 @@ class EventApplication < ApplicationRecord
                         message: 'Please agree to the Terms & Conditions.'
 
   # checks to see that the user put down a valid phone number.
+
+  validates_presence_of %i[mlh_agreement],
+                        message: 'Please agree to the MLH Terms & Conditions.'
+
+  # checks to see that the user put down a valid phone number
+
   validates :phone,
             allow_blank: true,
             if: -> { phone.present? },
@@ -97,9 +103,9 @@ class EventApplication < ApplicationRecord
         parser = PDF::Reader.new(resume).page(1).text.downcase!.tr!("\n", ' ').squeeze!(' ')
         self.flag = parser.length < 400 || !resume_contains(name, parser) || !(resume_contains(university, parser) || !resume_contains(major, parser))
       rescue
-        errors.add(:invalid_resume, 'Resume file is invalid. Please make
-          sure that the file is a OCR PDF. Contact us at \'team@hackumass.com\'
-          if you have any more problem uploading your resume.')
+        errors.add(:invalid_resume, "Resume file is invalid. Please make
+          sure that the file is a OCR PDF. Contact us at \'#{HackumassWeb::Application::CONTACT_EMAIL}\'
+          if you have any more problem uploading your resume.")
       end
     end
   end
@@ -138,5 +144,17 @@ class EventApplication < ApplicationRecord
   def submit_email
     UserMailer.submit_email(user).deliver_now
   end
+
+  # Generating CSV for all Event Applications
+	def self.to_csv
+		CSV.generate do |csv|
+
+			csv << EventApplication.attribute_names
+
+			EventApplication.find_each do |app|
+				csv << app.attributes.values
+		  	end
+		end
+	end
 
 end

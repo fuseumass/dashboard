@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>We're sorry, but something went wrong (500)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
   body {
@@ -55,13 +55,12 @@
 </head>
 
 <body>
-  <!-- This file lives in public/404.html -->
+  <!-- This file lives in public/500.html -->
   <div class="dialog">
     <div>
-      <h1>Hey there! It seems like the page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
+      <h1>Opppsssss! We're sorry, but something went wrong.</h1>
     </div>
-    <p><a href="https://dashboard.hackumass.com">Go back to safety!</a></p>
+    <p>We are so sorry this happened! Do you want to <a href="https://<%= HackumassWeb::Application::DASHBOARD_URL %>">Go back to safety!</a></p>
   </div>
 </body>
 </html>

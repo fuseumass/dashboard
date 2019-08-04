@@ -1,7 +1,7 @@
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :show]
-  before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($MentorshipRequests) }
 
 
 
@@ -13,15 +13,18 @@ class MentorshipRequestsController < ApplicationController
         else
           @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :desc})
         end
+        # Sort and display requests by urgency
       elsif params[:sortby] == "created_at"
         if params[:asc] == "true"
           @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :asc})
         else
           @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :desc})
         end
+        # Sort and display requests by when created
       else
         @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
       end
+      # Display 20 mentorship requests on page
     else
       redirect_to mentorship_requests_path
     end
@@ -45,7 +48,7 @@ class MentorshipRequestsController < ApplicationController
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our mentorship page.'
       end
     end
-
+    # Redirect to join slack page if user isn't on slack
     @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)
   end
 
@@ -59,13 +62,14 @@ class MentorshipRequestsController < ApplicationController
     end
     @mentorship_request = MentorshipRequest.new
   end
-
+  # Create new mentorship request if user has under 5 unresolved requests
 
   def edit
     if @mentorship_request.user != current_user
-      redirect_to mentorship_requests_path, alert: 'You cannot edit a mentorship requests that is not yours'
+      redirect_to mentorship_requests_path, alert: 'You cannot edit a mentorship request that is not yours.'
     end
   end
+  # Block edits on mentorship requests of other users
 
   def create
     @mentorship_request = MentorshipRequest.new(mentorship_request_params)
@@ -75,9 +79,10 @@ class MentorshipRequestsController < ApplicationController
     if @mentorship_request.save
       redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
     else
-      render :new
+      render :new # New mentorship request if previous is unsuccessful 
     end
   end
+  # Create new mentorship request and flash good message if successful 
 
   def update
     if @mentorship_request.update!(mentorship_request_params)
@@ -86,12 +91,14 @@ class MentorshipRequestsController < ApplicationController
       render :edit
     end
   end
+  # Edit and update mentorship request
 
 
   def destroy
     @mentorship_request.destroy
     redirect_to mentorship_requests_url, notice: 'Mentorship request was successfully destroyed.'
   end
+  # Permanently delete mentorship request
 
   def mark_as_resolved
       request = MentorshipRequest.find(params[:mentorship_request])
@@ -101,15 +108,17 @@ class MentorshipRequestsController < ApplicationController
       flash[:success] = 'Request Successfully Resolved'
       redirect_to mentorship_requests_path
   end
+  # Mark request status as resolved
 
   def mark_as_denied
     request = MentorshipRequest.find(params[:mentorship_request])
     request.status = 'Denied'
     request.save!
 
-    flash[:success] = 'Request Successfully denied'
+    flash[:success] = 'Request Successfully Denied'
     redirect_to mentorship_requests_path
   end
+  # Mark request status as denied
 
   def message_on_slack
     request = MentorshipRequest.find(params[:mentorship_request])
@@ -122,34 +131,38 @@ class MentorshipRequestsController < ApplicationController
       redirect_to request, alert: 'This user is not signed up on slack.'
     end
   end
+  # Contact user on slack and mark request status to contacted
 
+<<<<<<< HEAD
   def is_feature_enabled
     feature_flag = FeatureFlag.find_by(name: 'mentorship_requests')
     # Redirect user to index if no feature flag has been found
     if feature_flag.nil?
-      redirect_to index_path, notice: 'Mentorship is currently not available. Try again later'
+      redirect_to index_path, notice: 'Mentorship is currently not available. Try again later.'
     else
       if feature_flag.value == false
-        # Redirect user to index if no feature flag is off (false)
-        redirect_to index_path, alert: 'Mentorship is currently not available. Try again later'
+        # Redirect user to index if feature flag is off (false)
+        redirect_to index_path, alert: 'Mentorship is currently not available. Try again later.'
       end
     end
   end
 
+=======
+>>>>>>> 0883b54d9326168c1eab64b84d29ce180215f1e2
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mentorship_request
       @mentorship_request = MentorshipRequest.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Check parameters to ensure only whitelisted ones are able to be passed through.
     def mentorship_request_params
       params.require(:mentorship_request).permit(:user_id, :mentor_id, :title, :status, :urgency,  :description, :screenshot, tech:[])
     end
 
     def check_permissions
       unless current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
-        redirect_to mentorship_requests_path, alert: 'You do not have the permissions to visit this section of mentorship'
+        redirect_to mentorship_requests_path, alert: 'You do not have the permissions to visit this section of mentorship.'
       end
     end
 

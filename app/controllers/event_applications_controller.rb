@@ -2,7 +2,7 @@ class EventApplicationsController < ApplicationController
   # imports helper methods to the controller
   include EventApplicationsHelper
 
-  before_action -> { is_feature_enabled($Applications) }
+  before_action :is_feature_enabled
   before_action :set_event_application, only: %i[show edit update destroy]
   before_action :check_permissions, only: %i[index destroy status_updated]
   autocomplete :university, :name, full: true

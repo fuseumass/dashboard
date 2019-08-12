@@ -51,19 +51,9 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { :host => 'dashboard.hackumass.com' }
 
   # Do not send emails while in development
-  config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.delivery_method = :smtp
-  
-  # SMTP settings for amazon ses
-  config.action_mailer.smtp_settings = {
-      :address => "email-smtp.us-east-1.amazonaws.com",
-      :port => 587,
-      :user_name => ***REMOVED***, #Your SMTP user
-      :password => ***REMOVED***, #Your SMTP password
-      :authentication => :login,
-      :enable_starttls_auto => true
-  }
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_caching = false
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
@@ -79,8 +69,8 @@ Rails.application.configure do
       s3_protocol: 'https',
       s3_credentials: {
           bucket: 'hackumass-vi-dev',
-          access_key_id: ***REMOVED***,
-          secret_access_key: ***REMOVED***
+          access_key_id: 'XXX',
+          secret_access_key: 'XXX'
       }
   }
 end

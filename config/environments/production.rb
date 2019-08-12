@@ -65,8 +65,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address => "email-smtp.us-east-1.amazonaws.com",
       :port => 587,
-      :user_name => ***REMOVED***, #Your SMTP user
-      :password => ***REMOVED***, #Your SMTP password
+      :user_name => ENV['AWS_KEY'], #Your SMTP user
+      :password => ENV['AWS_SECRET'], #Your SMTP password
       :authentication => :login,
       :enable_starttls_auto => true
   }
@@ -101,11 +101,11 @@ Rails.application.configure do
   # setup paperclip to use AWS S3
   config.paperclip_defaults = {
       storage: :s3,
-      s3_region: 'us-east-1',
+      s3_region: ENV['AWS_REGION'],
       s3_credentials: {
-          bucket: 'hackumass-vi',
-          access_key_id: ***REMOVED***,
-          secret_access_key: ***REMOVED***
+          bucket: ENV['AWS_BUCKET'],
+          access_key_id: ENV['AWS_KEY'],
+          secret_access_key: ENV['AWS_SECRET']
       }
   }
 end

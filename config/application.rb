@@ -14,7 +14,6 @@ module HackumassWeb
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'Eastern Time (US & Canada)'
 
-    tokens=YAML.load_file('config/secrets.yml')
     config=YAML.load_file('config/hackathon.yml')
 
     # ----------- BEGIN YOUR CONFIGURATION HERE ------------
@@ -29,11 +28,11 @@ module HackumassWeb
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file
     # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
-    SLACK_WORKSPACE_TOKEN = tokens["slack"]
+    SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
   end
 end
 
 Raven.configure do |config|
-  config.dsn = '***REMOVED***
+  config.dsn = ENV['SENTRY_DSN']
   config.environments = %w[ production ]
 end

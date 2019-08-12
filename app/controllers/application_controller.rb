@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
 
-
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
   end

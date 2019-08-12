@@ -1,0 +1,3 @@
+[submodule "hackathon-config"]
+	path = hackathon-config
+	url = git@github.com:hackumass/redpandahacks-config

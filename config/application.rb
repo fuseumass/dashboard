@@ -14,7 +14,12 @@ module HackumassWeb
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'Eastern Time (US & Canada)'
 
-    config=YAML.load_file('config/hackathon.yml')
+    config=YAML.load_file('hackathon-config/hackathon.yml')
+
+    COPY_FOLDER = File.expand_path('hackathon-config/copy')
+    def copy_for(name)
+      "#{COPY_FOLDER}/#{name}.html.erb"
+    end
 
     # ----------- BEGIN YOUR CONFIGURATION HERE ------------
     # Variables neeeded for configuration of hackathon dashboard
@@ -29,6 +34,7 @@ module HackumassWeb
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file
     # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
     SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
+    SLACK_JOIN_URL = ENV['SLACK_JOIN_URL']
   end
 end
 

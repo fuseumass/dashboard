@@ -2,7 +2,7 @@ class EventApplicationsController < ApplicationController
   # imports helper methods to the controller
   include EventApplicationsHelper
 
-  before_action :is_feature_enabled
+  before_action -> { is_feature_enabled($Applications) }
   before_action :set_event_application, only: %i[show edit update destroy]
   before_action :check_permissions, only: %i[index destroy status_updated]
   autocomplete :university, :name, full: true
@@ -151,21 +151,7 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
-  def is_feature_enabled
-    feature_flag = FeatureFlag.find_by(name: 'event_applications')
-    # Redirect user to index if no feature flag has been found.
-    if feature_flag.nil?
-      redirect_to index_path, notice: 'Applications are currently not available. Try again later!'
-    else
-      if feature_flag.value == false
-        # Redirect user to index if feature flag is off (false).
-        redirect_to index_path, alert: 'Applications are currently not available. Try again later!'
-      end
-    end
-  end
-  
-  
-  private
+   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event_application
     begin

@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Simple Transactional Email</title>
+  <title><%= HackumassWeb::Application::HACKATHON_NAME %> Submission</title>
   <style type="text/css">
     @media only screen and (max-width: 620px) {
       table[class=body] h1 {
@@ -78,11 +78,9 @@
               <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
                 <tr>
                   <td style="font-family:sans-serif;font-size:14px;vertical-align:top;">
-                    <img src="https://i.imgur.com/UgacdbZ.png" style="display:block;margin:auto" alt="Hack Logo">
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Hi <%= @user.first_name %>,</p>
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Thanks so much for submitting your application for <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %>. We will give your application a look and let you know within a few weeks.</p>
-                    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">We hope to see you this fall,
-                      <br> <%= HackumassWeb::Application::HACKATHON_NAME %> Team</p>
+                  <%= render 'partial/hackathonlogo', locals: {width: "300", height: ""} %>
+                  <%= render file: HackumassWeb::Application::copy_for('user_mailer/submit_email_body.html.erb') %>  
+                    
                   </td>
                 </tr>
               </table>

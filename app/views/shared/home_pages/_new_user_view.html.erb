@@ -3,11 +3,15 @@
     <div class="card">
       <div class="card-status bg-warning"></div>
       <div class="card-body d-flex flex-column">
-        <h2>Hey, <%= current_user.first_name.capitalize %>!</h2>
-        <div class="text-muted">Congratulations on making the first steps to participate in <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %>! In order to particpate, you will need to fill out an application. <b>Sadly, our applications are closed, but you can still apply for the waitlist!</b> </div>
-        <div class="d-flex align-items-center pt-5 mt-auto">
-        </div>
-        <%= link_to 'Apply For Waitlist', apply_path,class: 'btn btn-warning' %>
+        <% if HackumassWeb::Application::is_feature_enabled($Applications) %>
+          <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/new_user_applications_open') %>  
+        <% else %>
+          <% if HackumassWeb::Application::USE_WAITLISTS %>
+            <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/new_user_applications_waitlisted') %>  
+          <% else %>
+            <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/new_user_applications_closed') %>  
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

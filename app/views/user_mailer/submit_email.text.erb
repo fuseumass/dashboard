@@ -1,6 +1,1 @@
-Hi <%= @user.first_name %> ,
-
-Thanks so much for submitting your application for <%= HackumassWeb::Application::HACKATHON_NAME %> VI. We will give your application a look and let you know within a few weeks.
-
-We hope to see you this fall,,
-<%= HackumassWeb::Application::HACKATHON_NAME %> Team
+<%= render file: HackumassWeb::Application::copy_for('user_mailer/submit_email_body.text.erb') %>  

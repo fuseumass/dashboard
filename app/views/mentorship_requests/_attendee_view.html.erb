@@ -6,14 +6,7 @@
   <div class="row">
     <div class="col-lg-4 offset-4">
       <div class="card">
-        <h3 class="card-header">Submit a Request</h3>
-        <div class="card-body">
-          <center><i class="fe fe-users" style="font-size: 5rem"></i></center>
-          <br>
-          <p>Do you need help with your hack? Submit a mentorship requests and shortly after, a mentor will slack you!</p>
-          <p>If a mentor doesn't slack you in 15 minutes then head out to the mentorship table or come say hi in the #mentorship channel.</p>
-          <center><%= link_to '<i class="fe fe-users mr-2"></i>Submit a Request'.html_safe, new_mentorship_request_path, class: 'btn btn-secondary' %></center>
-        </div>
+        <%= render file: HackumassWeb::Application::copy_for('mentorship_requests/attendee_view_submit_request') %>
       </div>
     </div>
   </div>
@@ -22,15 +15,9 @@
 
 <% if @current_user.has_mentorship_requests? %>
   <% if @current_user.number_of_requests > 2 and @current_user.number_of_requests < 5%>
-    <div class="alert alert-icon alert-primary" role="alert">
-      <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Hey there!</b> You can only have 5 mentorship requests open at the same time. You currently have <%= 5 - @current_user.number_of_requests %> requests left.
-    </div>
-
-    <br>
+    <%= render file: HackumassWeb::Application::copy_for('mentorship_requests/attendee_view_remaining_requests') %>
   <% elsif @current_user.number_of_requests == 5%>
-    <div class="alert alert-icon alert-danger" role="alert">
-      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <b>Oh boi...</b> It looks like you have 5 unresolved mentorship requests. You will need to resolve them before you request for more help.
-    </div>
+    <%= render file: HackumassWeb::Application::copy_for('mentorship_requests/attendee_view_max_requests') %>
   <% end %>
 
   <% @current_user.valid_requests.each do |mentorship_request|%>
@@ -65,11 +52,11 @@
             <div class="badge badge-secondary"> <%= tech %> </div>
           <% end %>
         </p>
-        <%= link_to 'Nevermind I Figured It Out!',
+        <%= link_to 'Never mind, I figured it out!',
                       {controller:'mentorship_requests', action: 'mark_as_resolved',
                         params: {mentorship_request: mentorship_request}},
                         class: "btn btn-secondary", role: "button", tag: "button", method: :put %>
-        <%= link_to 'Edit This Request', edit_mentorship_request_path(mentorship_request), class: 'btn btn-secondary' %>
+        <%= link_to 'Edit this request', edit_mentorship_request_path(mentorship_request), class: 'btn btn-secondary' %>
       </div>
     </div>
   <% end %>

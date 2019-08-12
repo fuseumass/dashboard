@@ -16,9 +16,7 @@
       <div class="card">
         <div class="card-status card-status-left bg-purple"></div>
         <div class="card-body d-flex flex-column">
-          <p><b>Hi there!</b> Thanks for being a mentor! In order to help attendees you will need to join out Slack</p>
-          <p><b>FYI</b>, You must create your slack account with this email: <b><%= current_user.email %> </b>. Otherwise you might encounter some problems...</p>
-          <a href="https://join.slack.com/t/hackumassvi/shared_invite/enQtNDQwOTU5MTU0MTAwLTU4NTNiNTk0MGIxYTJlMTMyOGZjZGQ1MmU2NGYyZmYzZTc3MTQ4YWQ4YWFlMDZhZTQ0YmIwNjQ5YjRjOWRiMDM" target="_blank" class="btn btn-purple"><i class="fe fe-slack mr-2"></i>Join Our Slack</a>
+          <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/mentor_no_slack') %>  
         </div>
       </div>
     </div>
@@ -87,21 +85,6 @@
   </div>
 
   <div class="col-sm-12 col-lg-4">
-    <div class="card">
-      <div class="card-status bg-dark"></div>
-      <div class="card-header">
-        <h3 class="card-title">Slack Channels‍</h3>
-      </div>
-      <div class="card-body d-flex flex-column">
-        <p><div>Our Slack has more than 800 hackers in it! Check it out and help attendees form teams, create awesome hacks, and have fun!</div></p>
-        <br>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=team_forming" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #Team Forming channel</a>
-        <br>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=random" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #random channel</a>
-        <br>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
-
-      </div>
-    </div>
+    <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/slack_channels') %>  
   </div>
 </div>

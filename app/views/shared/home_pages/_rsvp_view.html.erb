@@ -4,8 +4,7 @@
     <div class="card">
       <div class="card-status card-status-left bg-dark"></div>
       <div class="card-body d-flex flex-column">
-        <p><b>Congrats!</b> You joined our slack! Make sure to download the app and add the <%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %> workspace so you can easily access channels through this website. After you download the app, try to introduce yourself in the <b>#introductions</b> channel.</p>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=introductions" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #introductions channel</a>
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/rsvp_participant') %>  
       </div>
     </div>
   </div>
@@ -14,16 +13,16 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-status card-status-left bg-dark"></div>
+        <div class="card-status card-status-left bg-purple"></div>
         <div class="card-body d-flex flex-column">
-          <p><b>Hello!</b> Please join our slack! Once you join slack, you will be able to talk to <b>mentors</b>, check out our <b>hardware</b>, see our <b>prizes</b>, and more. </p>
-          <p><b>FYI</b>, You must create your slack account with this email: <b><%= current_user.email %> </b>. Otherwise you might encounter some problems...</p>
-          <a href="https://join.slack.com/t/hackumassvi/shared_invite/enQtNDQwOTU5MTU0MTAwLTU4NTNiNTk0MGIxYTJlMTMyOGZjZGQ1MmU2NGYyZmYzZTc3MTQ4YWQ4YWFlMDZhZTQ0YmIwNjQ5YjRjOWRiMDM" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Join Our Slack</a>
+          <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/participant_no_slack') %>  
         </div>
       </div>
     </div>
   </div>
 <% end %>
+
+
 
 <div class="row">
   <div class="col-sm-12 col-lg-4">

@@ -1,9 +1,1 @@
-Hi <%= @user.first_name %>!
-
-Thanks for applying to <%= HackumassWeb::Application::HACKATHON_NAME %>! Unfortunately we’ll have to ask you to hold on a little longer… You’ve been waitlisted! We received an overwhelming number of applicants this year and unfortunately due to our venue's space limitations, we are unable to offer you an immediate spot at the event. We’ll be sending out invitations to those on our waitlist soon, so stay tuned!
-
-Thanks again for applying!
-
-- The <%= HackumassWeb::Application::HACKATHON_NAME %> Team
-
-
+<%= render file: HackumassWeb::Application::copy_for('user_mailer/waitlisted_email_body.text.erb') %>  

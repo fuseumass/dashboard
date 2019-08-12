@@ -27,8 +27,12 @@ module HackumassWeb
     HACKATHON_VERSION = config["version"]
     MAIN_WEBSITE = config["main_website"]
     DASHBOARD_URL = config["dashboard_url"]
-    DONOTREPLY = config["donotreply"]
-    CONTACT_EMAIL = config["contact_email"]
+    LOGO_PATH = config["logos"]["primary_path"]
+    NAV_LOGO_PATH = config["logos"]["nav_path"]
+    DONOTREPLY = config["emails"]["donotreply"]
+    CONTACT_EMAIL = config["emails"]["contact"]
+    SLACK_SUBDOMAIN = config["slack"]["subdomain"]
+    USE_WAITLISTS = config["use_waitlists"]
 
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file

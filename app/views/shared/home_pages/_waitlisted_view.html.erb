@@ -3,13 +3,7 @@
     <div class="card">
       <div class="card-status bg-warning"></div>
       <div class="card-body d-flex flex-column">
-        <h2>Hey, <%= current_user.first_name.capitalize %></h2>
-        <div class="text-muted">Thanks for applying to <%= HackumassWeb::Application::HACKATHON_NAME %>!</div>
-        <p>
-        <div class="text-muted">Unfortunately we’ll have to ask you to hold on a little longer… You’ve been waitlisted. We received an overwhelming number of applicants this year and unfortunately due to our venue's space limitations, we are unable to offer you an immediate spot at the event. We’ll be sending out invitations to those on our waitlist soon, so stay tuned!</div></p>
-        <div class="text-muted">We will let you know of your application status soon. Thanks for applying!</div>
-        <div class="d-flex align-items-center pt-5 mt-auto">
-        </div>
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/waitlisted_participant') %>  
       </div>
     </div>
   </div>

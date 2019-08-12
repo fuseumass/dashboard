@@ -34,7 +34,7 @@
             <td><%= checkout.user.full_name %></td>
             <td><%= checkout.created_at.strftime('%A, %b %d at %I:%M %p') %></td>
             <td><%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>
-            <a href="https://hackumassvi.slack.com/messages/<%= checkout.user.get_slack_id %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Message on Slack</a></td>
+            <a href="https://<%= HackumassWeb::Application::SLACK_SUBDOMAIN %>.slack.com/messages/<%= checkout.user.get_slack_id %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Message on Slack</a></td>
           </tr>
         <% end %>
         </tbody>

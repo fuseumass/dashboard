@@ -3,14 +3,7 @@
     <div class="card">
       <div class="card-status bg-danger"></div>
       <div class="card-body d-flex flex-column">
-        <h2>Hey, <%= current_user.first_name.capitalize %></h2>
-        <p>
-        <div class="text-muted">Unfortunately we don’t have enough room to accommodate everyone who wants to participate and we’ve had to reject your application. We hope that you’ll continue your enthusiasm for hacking and apply to other awesome hackathons.</div></p>
-        <div class="text-muted">Thanks again for applying to <%= HackumassWeb::Application::HACKATHON_NAME %>, and we hope that you’ll apply again next year.</div>
-        <br>
-        <center>
-          <a href="https://mlh.io/seasons/na-2019/events" class="btn btn-secondary">Checkout Other Hackathons</a>
-        </center>
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/denied_participant') %>  
       </div>
     </div>
   </div>

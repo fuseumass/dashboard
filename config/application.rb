@@ -18,7 +18,11 @@ module HackumassWeb
 
     COPY_FOLDER = File.expand_path('hackathon-config/copy')
     def copy_for(name)
-      "#{COPY_FOLDER}/#{name}.html.erb"
+      if name.end_with?(".erb")
+        "#{COPY_FOLDER}/#{name}"
+      else
+        "#{COPY_FOLDER}/#{name}.html.erb"
+      end
     end
 
     # ----------- BEGIN YOUR CONFIGURATION HERE ------------

@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
     if current_user.has_published_project?
       redirect_to project_path(current_user.project)
     else
-      if is_feature_enabled?
+      if check_feature_flag?($Projects)
         @project = Project.new
       else
         redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
@@ -79,16 +79,6 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to index_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
-    end
-  end
-
-  def is_feature_enabled?
-    feature_flag = FeatureFlag.find_by(name: 'projects')
-    # Redirect user to index if no feature flag has been found
-    if feature_flag.nil?
-      return false
-    else
-      return feature_flag.value
     end
   end
 

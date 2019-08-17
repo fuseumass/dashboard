@@ -41,15 +41,15 @@ module PagesHelper
   end
 
   def has_access_to_all_applications?
-    (current_user.is_organizer? or current_user.is_admin?) and is_feature_enabled('event_applications')
+    (current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($Applications)
   end
 
   def has_access_to_events?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('events')
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Events)
   end
 
   def has_access_to_prizes?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('prizes')
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Prizes)
   end
 
 
@@ -58,11 +58,11 @@ module PagesHelper
   end
 
   def has_access_to_hardware?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and is_feature_enabled('hardware')
+    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Hardware)
   end
 
   def has_access_to_mentorship?
-    (current_user.check_in or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?) and is_feature_enabled('mentorship_requests')
+    (current_user.check_in or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?) and check_feature_flag?($MentorshipRequests)
   end
 
   def has_access_to_projects?
@@ -74,11 +74,11 @@ module PagesHelper
   end
 
   def has_access_to_check_in?
-    (current_user.is_organizer? or current_user.is_admin?) and is_feature_enabled('check_in')
+    (current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($CheckIn)
   end
 
   def has_access_to_applying?
-    current_user.is_attendee? and is_feature_enabled('event_applications')
+    current_user.is_attendee? and check_feature_flag?($Applications)
   end
 
   def already_applied?
@@ -93,13 +93,11 @@ module PagesHelper
     target_action.include?(params[:action])
   end
 
-  def is_feature_enabled(name)
-    feature_flag = FeatureFlag.find_by(name: name)
-    if feature_flag.nil?
-      false
-    else
-      feature_flag.value
-    end
+  # TODO: Remove this duplicate code somehow
+  # Move all feature flag logic and functions to a common module that can be imported everywhere
+  def check_feature_flag?(feature_flag_name)
+    feature_flag = FeatureFlag.find_by(name: feature_flag_name)
+    return feature_flag.value || feature_flag.nil?
   end
 
 end

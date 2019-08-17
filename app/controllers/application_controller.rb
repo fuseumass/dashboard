@@ -29,17 +29,16 @@ class ApplicationController < ActionController::Base
   $CheckIn = 'check_in'
   $Hardware = 'hardware'
 
-  # generic method is_feature_enabled
+  def check_feature_flag?(feature_flag_name)
+    feature_flag = FeatureFlag.find_by(name: feature_flag_name)
+    return feature_flag.value || feature_flag.nil?
+  end
+  
   def is_feature_enabled(feature_flag_name)
     feature_flag = FeatureFlag.find_by(name: feature_flag_name)
-    # Redirect user to index if no feature flag has been found
-    if feature_flag.nil?
+    # Redirect user to index if no feature flag has been found or if it's false
+    if !check_feature_flag?(feature_flag_name)
       redirect_to index_path, notice: "#{feature_flag.display_name} are currently not available. Try again later!"
-    else
-      if feature_flag.value == false
-        # Redirect user to index if feature flag is off (false)
-        redirect_to index_path, alert: "#{feature_flag.display_name} are currently not available. Try again later!"
-      end
     end
   end
 

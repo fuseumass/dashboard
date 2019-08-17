@@ -33,7 +33,8 @@ class ApplicationController < ActionController::Base
     feature_flag = FeatureFlag.find_by(name: feature_flag_name)
     return feature_flag.value || feature_flag.nil?
   end
-  
+  helper_method :check_feature_flag?
+
   def is_feature_enabled(feature_flag_name)
     feature_flag = FeatureFlag.find_by(name: feature_flag_name)
     # Redirect user to index if no feature flag has been found or if it's false

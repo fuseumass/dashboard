@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_233422) do
+ActiveRecord::Schema.define(version: 2019_08_18_212159) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_233422) do
     t.string "name"
     t.string "phone"
     t.string "age"
-    t.string "sex"
     t.string "university"
     t.string "major"
     t.string "grad_year"
@@ -52,6 +51,8 @@ ActiveRecord::Schema.define(version: 2019_07_26_233422) do
     t.boolean "waiver_liability_agreement"
     t.string "education_lvl"
     t.boolean "mlh_agreement"
+    t.string "gender"
+    t.string "pronoun"
   end
 
   create_table "events", force: :cascade do |t|

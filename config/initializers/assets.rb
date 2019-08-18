@@ -7,9 +7,13 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 
 Rails.application.config.assets.paths << Rails.root.join("hackathon-config", "assets", "images")
+Rails.application.config.assets.paths << Rails.root.join("hackathon-config", "assets", "stylesheets")
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( event_application.js )
+# Manually add PNG and CSS files in the custom hackathon-config assets folders
 Rails.application.config.assets.precompile += ['*.png']
+Rails.application.config.assets.precompile += %w( custom.css )
+

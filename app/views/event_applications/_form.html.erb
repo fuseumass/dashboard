@@ -53,13 +53,23 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :sex,
-                    'Gender:',
-                    class: 'form-label event-application-required-field' %>
-        <%= f.select :sex,
-                     ['Male', 'Female', 'Other'],
-                     {include_blank: true},
-                     {class: 'form-control custom-select'} %>
+       <%= f.label :gender,
+                   'What gender do you identify as?',
+                   class: 'form-label event-application-required-field' %>
+       <%= f.select :gender,
+                    ['Man', 'Woman', 'Non-binary', 'Agender', 'Other'],
+                    {include_blank: true},
+                    {class: 'form-control custom-select'} %>
+      </div>
+
+      <div class="form-group">
+       <%= f.label :pronoun,
+                   'What pronouns do you go by?',
+                   class: 'form-label event-application-required-field' %>
+       <%= f.select :pronoun,
+                    ['she/her', 'he/him', 'they/them', 'ze/zir', 'other'],
+                    {include_blank: true},
+                    {class: 'form-control custom-select'} %>
       </div>
 
       <div class="form-group">

@@ -63,14 +63,20 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # setup paperclip to use AWS S3
-  config.paperclip_defaults = {
-      storage: :s3,
-      s3_region: 'us-east-1',
-      s3_protocol: 'https',
-      s3_credentials: {
-          bucket: 'hackumass-vi-dev',
-          access_key_id: 'XXX',
-          secret_access_key: 'XXX'
-      }
+  # config.paperclip_defaults = {
+  #     storage: :s3,
+  #     s3_region: 'us-east-1',
+  #     s3_protocol: 'https',
+  #     s3_credentials: {
+  #         bucket: 'hackumass-vi-dev',
+  #         access_key_id: 'XXX',
+  #         secret_access_key: 'XXX'
+  #     }
+  # }
+  Paperclip::Attachment.default_options[:storage] = :azure
+  Paperclip::Attachment.default_options[:azure_credentials] = {
+      storage_account_name: 'xxx',
+      storage_access_key:   'xxx',
+      container:            'xxx'
   }
 end

@@ -99,13 +99,22 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # setup paperclip to use AWS S3
-  config.paperclip_defaults = {
-      storage: :s3,
-      s3_credentials: {
-          bucket: ENV['AWS_BUCKET'],
-          access_key_id: ENV['AWS_KEY'],
-          secret_access_key: ENV['AWS_SECRET'],
-          s3_region: ENV['AWS_REGION']
-      }
+  # config.paperclip_defaults = {
+  #     storage: :s3,
+  #     s3_credentials: {
+  #         bucket: ENV['AWS_BUCKET'],
+  #         access_key_id: ENV['AWS_KEY'],
+  #         secret_access_key: ENV['AWS_SECRET'],
+  #         s3_region: ENV['AWS_REGION']
+  #     }
+  # }
+
+  # Use Azure in prod
+  Paperclip::Attachment.default_options[:storage] = :azure
+  Paperclip::Attachment.default_options[:azure_credentials] = {
+    storage_account_name: ENV['AZURE_STORAGE_ACCOUNT'],
+    storage_access_key:   ENV['AZURE_STORAGE_ACCESS_KEY'],
+    container:            ENV['AZURE_CONTAINER_NAME']
   }
+
 end

@@ -107,6 +107,8 @@ gem 'aws-sdk', '< 3.0'
 
 # File upload
 gem 'paperclip'
+# Azure gem for file storage
+gem 'paperclip-azure', '~> 1.0'
 
 # Use to help parse pdf file (specifically the resume files)
 gem 'pdf-reader'

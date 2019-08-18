@@ -11,7 +11,7 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[name university major],
                         message: 'Please enter %{attribute}. This field is required.'
 
-  validates_presence_of %i[sex age t_shirt_size education_lvl],
+  validates_presence_of %i[gender pronoun age t_shirt_size education_lvl],
                         message: 'Please select your %{attribute}. This field is required.'
 
   validates_presence_of %i[resume],

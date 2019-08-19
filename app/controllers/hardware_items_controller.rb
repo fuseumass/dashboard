@@ -16,7 +16,7 @@ class HardwareItemsController < ApplicationController
           redirect_to hardware_item_path(item.first)
         end
       end
-      @hardware_items = HardwareItem.search(params[:search])
+      @hardware_items = HardwareItem.where("lower(name) LIKE lower(?) OR lower(category) LIKE lower(?) OR lower(link) LIKE lower(?)", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     else
       @hardware_items = HardwareItem.all
     end

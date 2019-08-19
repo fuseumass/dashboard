@@ -105,14 +105,6 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    elasticsearch (6.1.0)
-      elasticsearch-api (= 6.1.0)
-      elasticsearch-transport (= 6.1.0)
-    elasticsearch-api (6.1.0)
-      multi_json
-    elasticsearch-transport (6.1.0)
-      faraday
-      multi_json
     erubi (1.7.1)
     execjs (2.7.0)
     faraday (0.15.2)
@@ -252,10 +244,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    searchkick (2.5.0)
-      activemodel (>= 4.1)
-      elasticsearch (>= 1)
-      hashie
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
     spring (2.0.2)
@@ -325,7 +313,6 @@ DEPENDENCIES
   ransack
   rqrcode
   sass-rails (~> 5.0)
-  searchkick (~> 2.5)
   sentry-raven
   spring
   spring-watcher-listen (~> 2.0.0)

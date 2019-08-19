@@ -14,7 +14,17 @@ class ProjectsController < ApplicationController
 
   def search
     if params[:search].present?
-      @projects = Project.search(params[:search], page: params[:page], per_page: 20)
+      # @projects = Project.search(params[:search], page: params[:page], per_page: 20)
+      @projects = Project.joins(:user).where("lower(users.first_name) LIKE lower(?) OR
+                                              lower(users.last_name) LIKE lower(?) OR
+                                              lower(users.email) LIKE lower(?) OR
+                                              lower(team_members) LIKE lower(?) OR
+                                              lower(title) LIKE lower(?) OR
+                                              lower(link) LIKE lower(?) OR
+                                              table_id = ?",
+                                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+                                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+    @projects = @projects.paginate(page: params[:page], per_page: 20)
     else
       redirect_to projects_path
     end

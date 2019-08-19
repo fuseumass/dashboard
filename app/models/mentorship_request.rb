@@ -4,6 +4,5 @@ class MentorshipRequest < ApplicationRecord
 	validates_attachment_content_type :screenshot, :content_type => /image/
 	serialize :tech, Array
 	belongs_to :user
-	searchkick
 	
 end

@@ -24,6 +24,28 @@
         Indicates required field &nbsp;
       </label>
 
+      <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
+        <%= f.fields_for :custom_fields do |o| %>
+          <%= o.label c['name'].to_sym,
+                      c['text'],
+                      class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
+          <% if c['options'] %>
+            <%= o.select c['name'].to_sym,
+                        options_for_select(c['options']),
+                        {include_blank: true},
+                        {class: 'form-control custom-select'} %>
+          <% else %>
+            <%= o.text_field c['name'].to_sym,
+                              class: 'form-control' %>
+          <% end %>
+        <% end %>
+        
+        Name: <%= c['name'] %>
+        Text: <%= c['text'] %>
+        Options: <%= c['options'] %>
+
+      <% end %>
+
       <div class="form-group">
         <%= f.label :name,
                     'Full Name:',

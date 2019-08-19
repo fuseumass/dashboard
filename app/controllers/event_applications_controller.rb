@@ -101,7 +101,16 @@ class EventApplicationsController < ApplicationController
     @flagged_count = EventApplication.where(flag: true).count
 
     if params[:search].present?
-      @posts = EventApplication.search(params[:search], page: params[:page], per_page: 20)
+      @posts = EventApplication.joins(:user).where("lower(users.first_name) LIKE lower(?) OR 
+                                                    lower(users.last_name) LIKE lower(?) OR 
+                                                    lower(users.email) LIKE lower(?) OR 
+                                                    lower(major) LIKE lower(?) OR
+                                                    lower(name) LIKE lower(?) OR 
+                                                    lower(university) LIKE lower(?) OR
+                                                    lower(status) LIKE lower(?)", 
+                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", 
+                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @posts = @posts.paginate(page: params[:page], per_page: 20)
     else
       redirect_to event_applications_path
     end

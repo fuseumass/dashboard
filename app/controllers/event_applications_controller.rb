@@ -68,7 +68,13 @@ class EventApplicationsController < ApplicationController
   def create
     @application = EventApplication.new(event_application_params)
     @application.user = current_user
-    @application.status = 'waitlisted'
+    if HackumassWeb::Application::APPLICATIONS_MODE == 'open'
+      @application.status = 'undecided'
+    elsif HackumassWeb::Application::APPLICATIONS_MODE == 'waitlist'
+      @application.status = 'waitlisted'
+    else
+      @application.status = 'denied'
+    end
 
     if @application.save
       redirect_to index_path, notice: 'Thank you for submitting your application!'

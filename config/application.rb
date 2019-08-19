@@ -37,7 +37,7 @@ module HackumassWeb
     DONOTREPLY = config["emails"]["donotreply"]
     CONTACT_EMAIL = config["emails"]["contact"]
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]
-    USE_WAITLISTS = config["use_waitlists"]
+    APPLICATIONS_MODE = config["applications"]["mode"]
 
     EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"]
 

@@ -1,5 +1,4 @@
 class HardwareItem < ApplicationRecord
-  searchkick
   validates_presence_of :name, :count, :category
   validates_numericality_of :count
   validates_uniqueness_of :upc

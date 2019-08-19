@@ -7,24 +7,15 @@ class MentorshipRequestsController < ApplicationController
 
   def search
     if params[:search].present?
-      if params[:sortby] == "urgency"
-        if params[:asc] == "true"
-          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :asc})
-        else
-          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {urgency: :desc})
-        end
-        # Sort and display requests by urgency
-      elsif params[:sortby] == "created_at"
-        if params[:asc] == "true"
-          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :asc})
-        else
-          @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20, order: {created_at: :desc})
-        end
-        # Sort and display requests by when created
-      else
-        @mentorship_requests = MentorshipRequest.search(params[:search], page: params[:page], per_page: 20)
-      end
-      # Display 20 mentorship requests on page
+      @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
+                                                                   lower(status) LIKE lower(?) OR
+                                                                   lower(users.first_name) LIKE lower(?) OR
+                                                                   lower(users.last_name) LIKE lower(?) OR
+                                                                   lower(urgency) LIKE lower(?) OR
+                                                                   lower(tech) LIKE lower(?)", 
+                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 20)
     else
       redirect_to mentorship_requests_path
     end

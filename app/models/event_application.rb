@@ -4,9 +4,6 @@ class EventApplication < ApplicationRecord
   before_update :rename_file
   after_create :submit_email
 
-  # gives us elastic search functionality in event application.
-  searchkick
-
   # creates a one to one association with the user.
   belongs_to :user
 

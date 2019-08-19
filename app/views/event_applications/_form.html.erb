@@ -32,7 +32,7 @@
                         class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
             <% if c['options'] %>
               <%= o.select c['name'].to_sym,
-                          options_for_select(c['options'], :selected => @application[:custom_fields][c['name'].to_sym]),
+                          c['options'],
                           {include_blank: true},
                           {class: 'form-control custom-select'} %>
             <% else %>

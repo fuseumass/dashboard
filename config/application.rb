@@ -15,6 +15,7 @@ module HackumassWeb
     config.time_zone = 'Eastern Time (US & Canada)'
 
     config=YAML.load_file('hackathon-config/hackathon.yml')
+    event_application_config=YAML.load_file('hackathon-config/event_application.yml') || {} if File.exists?('hackathon-config/event_application.yml')
 
     COPY_FOLDER = File.expand_path('hackathon-config/copy')
     def copy_for(name)
@@ -37,6 +38,8 @@ module HackumassWeb
     CONTACT_EMAIL = config["emails"]["contact"]
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]
     USE_WAITLISTS = config["use_waitlists"]
+
+    EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"]
 
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file

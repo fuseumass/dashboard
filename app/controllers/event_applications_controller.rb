@@ -173,11 +173,20 @@ class EventApplicationsController < ApplicationController
   end
 
   def event_application_params
+    custom_fields_items = []
+    HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c|
+      if c['options']
+        custom_fields_items << {c['name'].to_sym => []}
+      else
+        custom_fields_items << c['name'].to_sym
+      end
+    end
     params.require(:event_application).permit(:name, :phone, :age, :gender, :pronoun, :university, :major, :grad_year,
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
                    :resume, :linkedin_url, :github_url, :prev_attendance,
                    :referral_info, :future_hardware_suggestion, :education_lvl,
-                   :waiver_liability_agreement, :mlh_agreement, programming_skills:[], hardware_skills:[])
+                   :waiver_liability_agreement, :mlh_agreement, programming_skills:[], hardware_skills:[],
+                   custom_fields: [:color,:live])
   end
 
   # Only admins and organizers have the ability to all permission except delete.

@@ -89,8 +89,21 @@ class EventApplication < ApplicationRecord
   # checks to see that the user resume is legit.
   validate :resume_legitimacy,
            if: -> { resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
+  
+  validate :custom_field_validation
 
   private
+
+  def custom_field_validation
+    puts "custom fields: #{custom_fields}"
+    HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c|
+      if c['required']
+        if custom_fields[c['name']] == nil or custom_fields[c['name']] == ''
+          errors.add(:missing_custom_field, "Please fill out this field: #{c['text']}")
+        end
+      end
+    end
+  end
 
   def resume_legitimacy
     if age.to_i > 17

@@ -4,6 +4,8 @@ class EventApplication < ApplicationRecord
   before_update :rename_file
   after_create :submit_email
 
+  MIN_RESUME_AGE = 17
+
   # creates a one to one association with the user.
   belongs_to :user
 
@@ -15,7 +17,8 @@ class EventApplication < ApplicationRecord
                         message: 'Please select your %{attribute}. This field is required.'
 
   validates_presence_of %i[resume],
-                        message: 'Please upload your resume. This field is required.'
+                        message: 'Please upload your resume. This field is required.',
+                        if: -> { age.to_i > MIN_RESUME_AGE }
 
   validates_inclusion_of %i[food_restrictions prev_attendance],
                          in: [true, false],
@@ -99,14 +102,14 @@ class EventApplication < ApplicationRecord
     HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c|
       if c['required']
         if custom_fields[c['name']] == nil or custom_fields[c['name']] == ''
-          errors.add(:missing_custom_field, "Please fill out this field: #{c['text']}")
+          errors.add("missing_custom_field_#{c['name']}".to_sym, "Please fill out this field: #{c['text']}")
         end
       end
     end
   end
 
   def resume_legitimacy
-    if age.to_i > 17
+    if age.to_i > MIN_RESUME_AGE
       resume_path = Paperclip.io_adapters.for(self.resume).path
       resume = File.open(resume_path, 'rb')
       begin

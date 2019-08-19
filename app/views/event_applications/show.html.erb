@@ -71,6 +71,13 @@
             </label>
           <% end %>
 
+          <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
+            <p class='required-field'>
+              <label title="<%= c['name'] %>"><b><%= c['text'] %>: </b></label>
+              <%= @applicant.custom_fields[c['name']] %>
+            </p>
+          <% end %>
+
           <p class='required-field'>
             <label><b>Name: </b></label>
             <%= @applicant.name %>

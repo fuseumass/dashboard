@@ -5,6 +5,7 @@ $(document).on('turbolinks:load', function () {
     unhideField(document.getElementById('javascript-container'));
     charCounter();
     toggleHiddenField('event_application_food_restrictions_info', 'event_application_food_restrictions_true');
+    updateAge();
 });
 
 
@@ -15,6 +16,7 @@ $(document).on('ready', function () {
     unhideField(document.getElementById('javascript-container'));
     charCounter();
     toggleHiddenField('event_application_food_restrictions_info', 'event_application_food_restrictions_true');
+    updateAge();
 });
 
 
@@ -193,5 +195,25 @@ function updateResumeFileLabel() {
         var pathArray = resumeFileField.value.split('\\');
         var fileName = pathArray[pathArray.length-1];
         fileLabel.innerHTML = fileName;
+    }
+}
+
+MIN_RESUME_AGE = 17;
+function updateAge() {
+    var age = document.getElementById('event_application_age').value;
+    age = parseInt(age);
+
+    var resumeLabel = document.querySelector('label[for=event_application_resume]');
+    if (age) {
+        if (age <= MIN_RESUME_AGE) {
+            resumeLabel.classList.remove('event-application-required-field');
+            resumeLabel.classList.add('resume-optional');
+        } else {
+            resumeLabel.classList.add('event-application-required-field');
+            resumeLabel.classList.remove('resume-optional');
+        }
+    } else {
+        resumeLabel.classList.add('event-application-required-field');
+        resumeLabel.classList.remove('resume-optional');
     }
 }

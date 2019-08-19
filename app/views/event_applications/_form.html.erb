@@ -32,7 +32,7 @@
                         class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
             <% if c['options'] %>
               <%= o.select c['name'].to_sym,
-                          options_for_select(c['options']),
+                          options_for_select(c['options'], :selected => @application[:custom_fields][c['name'].to_sym]),
                           {include_blank: true},
                           {class: 'form-control custom-select'} %>
             <% else %>
@@ -68,7 +68,7 @@
         <%= f.select :age,
                      (14..50).map { |i| i.to_s},
                      {include_blank: true},
-                     {class: 'form-control custom-select'} %>
+                     {class: 'form-control custom-select', 'onblur': 'updateAge()', 'onchange': 'updateAge()'} %>
       </div>
 
       <div class="form-group">

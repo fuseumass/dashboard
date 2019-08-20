@@ -4,7 +4,9 @@ class EventApplication < ApplicationRecord
   before_update :rename_file
   after_create :submit_email
 
-  MIN_RESUME_AGE = 17
+  def min_resume_age
+    HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0
+  end
 
   # creates a one to one association with the user.
   belongs_to :user
@@ -18,9 +20,9 @@ class EventApplication < ApplicationRecord
 
   validates_presence_of %i[resume],
                         message: 'Please upload your resume. This field is required.',
-                        if: -> { age.to_i > MIN_RESUME_AGE }
+                        if: -> { age.to_i > min_resume_age() and !Rails.env.development? }
 
-  validates_inclusion_of %i[food_restrictions prev_attendance],
+  validates_inclusion_of %i[food_restrictions],
                          in: [true, false],
                          message: 'Please pick an answer for \'%{attribute}\'. This field is required.'
 
@@ -29,11 +31,11 @@ class EventApplication < ApplicationRecord
                         message: 'Please list your dietary restrictions and/or food allergies.'
 
   validates_presence_of %i[waiver_liability_agreement],
+                        if: -> { !HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['hide_event_toc'] },
                         message: 'Please agree to the Terms & Conditions.'
 
-  # checks to see that the user put down a valid phone number.
-
   validates_presence_of %i[mlh_agreement],
+                        if: -> { !HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['hide_mlh_toc'] },
                         message: 'Please agree to the MLH Terms & Conditions.'
 
   # checks to see that the user put down a valid phone number
@@ -48,18 +50,6 @@ class EventApplication < ApplicationRecord
                       maximum: 14,
                       message: 'Your phone number must be 10 digits long.' }
 
-  # checks to see that the user put down a proper linkedin link.
-  validates_format_of %i[linkedin_url],
-                      if: -> { linkedin_url.present? },
-                      with: %r{\A(https:\/\/)?(www.)?linkedin.com\/in\/\S+\z},
-                      message: 'Your Linkedin URL is invalid. Example format: https://linkedin.com/in/yourprofile'
-
-  # checks to see that the user put down a proper github link.
-  validates_format_of %i[github_url],
-                      if: -> { github_url.present? },
-                      with: %r{\A(https:\/\/)?(www.)?github.com\/\S+\z},
-                      message: 'Your Github URL is invalid. Example format: https://github.com/yourgithub'
-
   # checks to see that the user inputs a name that has more than 2 characters and
   # that the characters only contain letters, periods, dashes and apostrophes.
   validates :name,
@@ -71,12 +61,6 @@ class EventApplication < ApplicationRecord
             format: { if: -> { errors[:name].length.zero? },
                       with: /\A^[\p{L}\s'.-]+\z/,
                       message: 'Name can only contain letters, periods, dashes and apostrophes.' }
-
-  # checks to see that all textbox answer (excluding the food restrictions textbox)
-  # must be less than or equal to 500 characters long.
-  validates_length_of %i[referral_info future_hardware_suggestion],
-                      maximum: 500,
-                      message: 'Your textbox answers must be less than %{count} characters long.'
 
   # extra config for resume file.
   has_attached_file :resume,
@@ -91,25 +75,35 @@ class EventApplication < ApplicationRecord
 
   # checks to see that the user resume is legit.
   validate :resume_legitimacy,
-           if: -> { resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
+           if: -> { !Rails.env.development? && resume.present? && errors[:resume].length.zero? || errors[:resume].to_s.include?('contents') }
   
   validate :custom_field_validation
 
   private
 
   def custom_field_validation
-    puts "custom fields: #{custom_fields}"
     HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c|
       if c['required']
-        if custom_fields[c['name']] == nil or custom_fields[c['name']] == ''
-          errors.add("missing_custom_field_#{c['name']}".to_sym, "Please fill out this field: #{c['text']}")
+        if custom_fields[c['name']] == nil or custom_fields[c['name']] == '' or custom_fields[c['name']].length == 0
+          errors.add("missing_custom_field_#{c['name']}".to_sym, "Please fill out this field: #{c['label']}")
+        end
+      end
+      if c['validate_regex'] and custom_fields[c['name']] and custom_fields[c['name']].length > 0
+        r = Regexp.new c['validate_regex']
+        if !r.match?(custom_fields[c['name']])
+          errors.add("regex_custom_fields_#{c['name']}".to_sym, c['validate_error'] ? c['validate_error'] : "Invalid entry for field: #{c['label']}")
+        end
+      end
+      if c['max_chars']
+        if custom_fields[c['name']] and custom_fields[c['name']].length > c['max_chars']
+          errors.add("too_long_custom_fields_#{c['name']}".to_sym, "The value for '#{c['label']}' is too long! The maximum length is #{c['max_chars']} characters")
         end
       end
     end
   end
 
   def resume_legitimacy
-    if age.to_i > MIN_RESUME_AGE
+    if age.to_i > min_resume_age() and !Rails.env.development?
       resume_path = Paperclip.io_adapters.for(self.resume).path
       resume = File.open(resume_path, 'rb')
       begin

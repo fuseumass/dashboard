@@ -39,7 +39,8 @@ module HackumassWeb
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]
     APPLICATIONS_MODE = config["applications"]["mode"]
 
-    EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"]
+    EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []
+    EVENT_APPLICATION_OPTIONS = event_application_config["options"] or {}
 
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_18_222059) do
+ActiveRecord::Schema.define(version: 2019_08_19_205021) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_08_18_222059) do
     t.boolean "mlh_agreement"
     t.string "gender"
     t.string "pronoun"
-    t.json "custom_fields", default: "{}"
+    t.json "custom_fields"
   end
 
   create_table "events", force: :cascade do |t|

@@ -129,7 +129,15 @@ function charCounter(endIndex) {
 
     for (var x = 0; x < endIndex; x++) {
         var currLength = textBox[x].value.length;
+        var maxLength = textCounter[x].innerHTML.substring(textCounter[x].innerHTML.indexOf('of') + 3);
         var oldText = textCounter[x].innerHTML.substring(textCounter[x].innerHTML.indexOf('of'));
+        if (parseInt(currLength) > parseInt(maxLength)) {
+            textCounter[x].style.color = 'red';
+            textCounter[x].style.fontWeight = 'bold';
+        } else {
+            textCounter[x].style.color = 'inherit';
+            textCounter[x].style.fontWeight = 'inherit';
+        }
         textCounter[x].innerHTML = currLength + ' ' + oldText;
     }
 }
@@ -198,14 +206,13 @@ function updateResumeFileLabel() {
     }
 }
 
-MIN_RESUME_AGE = 17;
 function updateAge() {
     var age = document.getElementById('event_application_age').value;
     age = parseInt(age);
 
     var resumeLabel = document.querySelector('label[for=event_application_resume]');
     if (age) {
-        if (age <= MIN_RESUME_AGE) {
+        if (age <= window.MIN_RESUME_AGE) {
             resumeLabel.classList.remove('event-application-required-field');
             resumeLabel.classList.add('resume-optional');
         } else {

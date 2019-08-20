@@ -6,7 +6,14 @@
     Before an applicant can fill out the application it ensures that the user doesn't have javascript disabled.
 <%
 =end%>
-
+<script>
+window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0 %>;
+</script>
+<style>
+.resume-optional:after {
+  content: ' (Note: this is optional because you are under age <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0 %>.) ';
+}
+</style>
 <div class="card-body">
   <noscript>
     Hello, <%= current_user.first_name %>! Wow, you're clearly an next-level haxor
@@ -23,25 +30,6 @@
       <label class="event-application-required-field event-application-flex-end-container">
         Indicates required field &nbsp;
       </label>
-
-      <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
-        <%= f.fields_for :custom_fields, OpenStruct.new(@application.custom_fields) do |o| %>
-          <div class="form-group">
-            <%= o.label c['name'].to_sym,
-                        c['text'],
-                        class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
-            <% if c['options'] %>
-              <%= o.select c['name'].to_sym,
-                          c['options'],
-                          {include_blank: true},
-                          {class: 'form-control custom-select'} %>
-            <% else %>
-              <%= o.text_field c['name'].to_sym,
-                                class: 'form-control' %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
 
       <div class="form-group">
         <%= f.label :name,
@@ -180,195 +168,80 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :linkedin_url,
-                    'Linkedin URL:',
-                    class: 'form-label' %>
-        <%= f.text_field :linkedin_url,
-                        class: 'form-control',
-                        novalidate: 'novalidate' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :github_url,
-                    'GitHub URL:',
-                    class: 'form-label' %>
-        <%= f.text_field :github_url,
-                        class: 'form-control',
-                        novalidate: 'novalidate'%>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :prev_attendance,
-                    'Have you been to a hackathon before?:',
-                    class: 'form-label event-application-required-field' %>
-        <div class="custom-controls-stacked">
-          <label class="custom-control custom-radio custom-control-inline">
-            <%= f.radio_button :prev_attendance, true, class: 'custom-control-input' %>
-            <span class="custom-control-label">Yes</span>
-          </label>
-          <label class="custom-control custom-radio custom-control-inline">
-            <%= f.radio_button :prev_attendance, false, class: 'custom-control-input' %>
-            <span class="custom-control-label">No</span>
-          </label>
-        </div>
-      </div>
-
-      <div class='form-group'>
-        <%= f.label :programming_skills,
-                    'Programming Skills (select all that apply):',
-                    class: 'form-label' %>
-        <div class='custom-controls-stacked'>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'HTML/CSS',
-                            nil %> HTML/CSS
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Javascript/NodeJS',
-                            nil %> Javascript/NodeJS
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'PHP',
-                            nil %> PHP
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'SQL',
-                            nil %> SQL
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Ruby',
-                            nil %> Ruby
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Java',
-                            nil %> Java
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Kotlin',
-                            nil %> Kotlin
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Swift',
-                            nil %> Swift
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Objective C',
-                            nil %> Objective C
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'C/C++/C#',
-                            nil %> C/C++/C#
-          </label>
-          <label class="custom-control custom-checkbox">
-            <%= f.check_box :programming_skills,
-                            {multiple: true},
-                            'Python',
-                            nil %> Python
-          </label>
-        </div>
-      </div>
-
-      <div class='form-group'>
-        <%= f.label :hardware_skills,
-                    'Hardware Skills (select all that apply):',
-                    class: 'form-label' %>
-        <div class='custom-controls-stacked'>
-          <div class='checkbox'>
-            <label class="custom-control custom-checkbox">
-              <%= f.check_box :hardware_skills,
-                              {multiple: true},
-                              'Embedded Systems',
-                              nil %> Embedded Systems
-            </label>
-            <label class="custom-control custom-checkbox">
-              <%= f.check_box :hardware_skills,
-                              {multiple: true},
-                              'Robotics',
-                              nil %> Robotics
-            </label>
-            <label class="custom-control custom-checkbox">
-              <%= f.check_box :hardware_skills,
-                              {multiple: true},
-                              'Wireless Communications',
-                              nil %> Wireless Communications
-            </label>
-            <label class="custom-control custom-checkbox">
-              <%= f.check_box :hardware_skills,
-                              {multiple: true},
-                              'Circuits',
-                              nil %> Circuits
-            </label>
-            <label class="custom-control custom-checkbox">
-              <%= f.check_box :hardware_skills,
-                              {multiple: true},
-                              '3D Printing',
-                              nil %> 3D Printing
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group event-application-form-group">
-        <%= f.label :referral_info,
-                    "How did you hear about #{HackumassWeb::Application::HACKATHON_NAME}?:",
-                    class: 'form-label' %>
-        <%= f.text_area :referral_info,
+      <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
+        <%= f.fields_for :custom_fields, OpenStruct.new(@application.custom_fields) do |o| %>
+          <div class="form-group<% if c['hidden'] %> event-application-hidden<% end %>">
+            <%= o.label c['name'].to_sym,
+                        "#{c['label']}:",
+                        class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
+            <% if c['type'] == 'select' %>
+              <%= o.select c['name'].to_sym,
+                          c['options'],
+                          {include_blank: true},
+                          {class: 'form-control custom-select'} %>
+            <% elsif c['type'] == 'multiselect' %>
+              <div class='custom-controls-stacked'>
+                <% c['options'].each do |option| %>
+                  <label class="custom-control custom-checkbox">
+                    <%= o.check_box c['name'].to_sym,
+                                    {multiple: true},
+                                    option,
+                                    nil %> <%= option %>
+                  </label>
+                <% end %>
+              </div>
+            <% elsif c['type'] == 'boolean' %>
+              <div class="custom-controls-stacked">
+                <label class="custom-control custom-radio custom-control-inline">
+                  <%= o.radio_button c['name'].to_sym,
+                                    true,
+                                    class: 'custom-control-input',
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                  <span class="custom-control-label">Yes</span>
+                </label>
+                <label class="custom-control custom-radio custom-control-inline">
+                  <%= o.radio_button c['name'].to_sym,
+                                    false,
+                                    class: 'custom-control-input',
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                  <span class="custom-control-label">No</span>
+                </label>
+              </div>
+            <% elsif c['type'] == 'textarea' %>
+              <%= o.text_area c['name'].to_sym,
                         rows: '5',
                         class: 'form-control text-box',
-                        onkeyup: 'charCounter(2)' %>
-        <div class="form-label-small event-application-flex-end-container text-box-counter">
-          0 of 500
+                        onkeyup: 'charCounter()' %>
+              <div class="form-label-small event-application-flex-end-container text-box-counter">
+                0 of <%= c['max_chars'] or 500 %>
+              </div>
+            <% else %>
+              <%= o.text_field c['name'].to_sym,
+                                class: 'form-control' %>
+            <% end %>
+          <% end %>
         </div>
-      </div>
+      <% end %>
 
-      <div class="form-group event-application-form-group">
-        <%= f.label :future_hardware_suggestion,
-                    "What hardware do you want to see at #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} or future #{HackumassWeb::Application::HACKATHON_NAME}?:",
-                    class: 'form-label' %>
-        <%= f.text_area :future_hardware_suggestion,
-                        rows: '5',
-                        class: 'form-control text-box',
-                        onkeyup: 'charCounter(3)' %>
-        <div class="form-label-small event-application-flex-end-container text-box-counter">
-          0 of 500
+      <% unless HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['hide_event_toc'] %>  
+        <div class="form-group event-application-form-group">
+          <%= f.label :waiver_liability_agreement,
+                      "Please agree to the following Terms & Conditions for #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}:",
+                      class: 'form-label event-application-required-field' %>
+          <%= f.check_box :waiver_liability_agreement, {}, true, false %>
+          <%= render file: HackumassWeb::Application::copy_for('event_applications/form_liability_agreement') %>
         </div>
-      </div>
+      <% end %>
 
-      <div class="form-group event-application-form-group">
-        <%= f.label :waiver_liability_agreement,
-                    "Please agree to the following Terms & Conditions for #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}:",
-                    class: 'form-label event-application-required-field' %>
-        <%= f.check_box :waiver_liability_agreement, {}, true, false %>
-        <%= render file: HackumassWeb::Application::copy_for('event_applications/form_liability_agreement') %>
-      </div>
-
-      <div class="form-group event-application-form-group">
-        <%= f.label :mlh_agreement,
-                    'Please agree to the following MLH Terms & Conditions:',
-                    class: 'form-label event-application-required-field' %>
-        <%= f.check_box :mlh_agreement, {}, true, false %>
-        <%= render file: HackumassWeb::Application::copy_for('event_applications/form_liability_mlh') %>
-      </div>
+      <% unless HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['hide_mlh_toc'] %>  
+        <div class="form-group event-application-form-group">
+          <%= f.label :mlh_agreement,
+                      'Please agree to the following MLH Terms & Conditions:',
+                      class: 'form-label event-application-required-field' %>
+          <%= f.check_box :mlh_agreement, {}, true, false %>
+          <%= render file: HackumassWeb::Application::copy_for('event_applications/form_liability_mlh') %>
+        </div>
+      <% end %>
 
       <% if editing_application? %>
         <div class="event-application-flex-end-container">

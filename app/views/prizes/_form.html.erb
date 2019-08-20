@@ -34,12 +34,11 @@
 
   <div class="form-group">
     <%= form.label :sponsor, class:'control-label' %>
-    <%= form.text_field :sponsor, class: 'form-control', placeholder: "Who is sponsoring the prize? Google? Amazon? Write #{HackumassWeb::Application::HACKATHON_NAME} otherwise." %>
+    <%= form.text_field :sponsor, class: 'form-control', placeholder: "Who is sponsoring the prize? Write #{HackumassWeb::Application::HACKATHON_NAME} otherwise" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :priority, class:'control-label' %>
-    <p style="color: grey">(If a prize is of priority "1", it will be displayed first. Prizes with priority of "3" will be displayed last.)</p>
+    <%= form.label :priority, class:'control-label' %> <br>
     <%= form.radio_button :priority, '1', :checked => true %> 
     <%= label :priority, 'High' %> <br>
     <%= form.radio_button :priority, '2' %>

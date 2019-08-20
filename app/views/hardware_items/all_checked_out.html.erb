@@ -28,7 +28,7 @@
         </thead>
 
         <tbody>
-        <% @all_hardware_checkouts.each do |checkout| %><a href=""></a>
+        <% @all_hardware_checkouts.each do |checkout| %>
           <tr>
             <td><%= truncate(checkout.hardware_item.name) %></td>
             <td><%= checkout.user.full_name %></td>

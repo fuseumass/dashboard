@@ -82,6 +82,5 @@ $error-color: red;
 }
 
 .resume-optional:after {
-  content: ' (Note: this is optional because you are under 18.) ';
   color: $error-color;
 }

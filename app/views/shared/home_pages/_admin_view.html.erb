@@ -108,6 +108,40 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card">
+      <% if check_feature_flag?($Applications) and HackumassWeb::Application::APPLICATIONS_MODE == 'open' %>
+        <div class="card-status bg-green"></div>
+        <div class="card-header">
+          <h3 class="card-title">Event Applications are <b>OPEN</b></h3>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <p>Participants can currently register for the event.</p>
+          <p>To close regular-round applications, set <code>applications.mode</code> to <code>waitlist</code> in hackathon.yml</p>
+        </div>
+      <% elsif HackumassWeb::Application::APPLICATIONS_MODE == 'waitlist' %>
+        <div class="card-status bg-orange"></div>
+        <div class="card-header">
+          <h3 class="card-title">Event Applications are <b>WAITLISTED</b></h3>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <p>Participants can currently register for the event, but will be automatically waitlisted.</p>
+          <p>To close all applications, set <code>applications.mode</code> to <code>closed</code> in hackathon.yml</p>
+        </div>
+      <% else %>
+        <div class="card-status bg-red"></div>
+        <div class="card-header">
+          <h3 class="card-title">Event Applications are <b>CLOSED</b></h3 >
+        </div>
+        <div class="card-body d-flex flex-column">
+          <p>Participants can not currently register for the event. No more applications can be created.</p>
+          <p>To open applications, set <code>applications.mode</code> to <code>open</code> in hackathon.yml and enable the <a href="/feature_flags">Applications feature flag</a>.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-sm-12 col-lg-4">

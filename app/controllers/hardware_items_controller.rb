@@ -94,7 +94,7 @@ class HardwareItemsController < ApplicationController
     # Users who are attendees and don't have slack are not allowed to look at the hardware inventory
     def check_attendee_slack
       if current_user and current_user.is_attendee? and !current_user.has_slack?
-        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
+        redirect_to join_slack_path, alert: 'Please join slack before accessing our hardware inventory.'
       end
     end
 

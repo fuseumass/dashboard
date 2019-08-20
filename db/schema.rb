@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_205021) do
+ActiveRecord::Schema.define(version: 2019_08_20_044737) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -41,13 +41,6 @@ ActiveRecord::Schema.define(version: 2019_08_19_205021) do
     t.integer "resume_file_size"
     t.datetime "resume_updated_at"
     t.string "t_shirt_size"
-    t.string "linkedin_url"
-    t.string "github_url"
-    t.boolean "prev_attendance"
-    t.string "programming_skills", default: "{}"
-    t.string "hardware_skills", default: "{}"
-    t.text "referral_info"
-    t.text "future_hardware_suggestion"
     t.boolean "waiver_liability_agreement"
     t.string "education_lvl"
     t.boolean "mlh_agreement"

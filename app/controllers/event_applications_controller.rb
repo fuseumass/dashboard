@@ -191,9 +191,8 @@ class EventApplicationsController < ApplicationController
     end
     params.require(:event_application).permit(:name, :phone, :age, :gender, :pronoun, :university, :major, :grad_year,
                    :food_restrictions, :food_restrictions_info, :t_shirt_size,
-                   :resume, :linkedin_url, :github_url, :prev_attendance,
-                   :referral_info, :future_hardware_suggestion, :education_lvl,
-                   :waiver_liability_agreement, :mlh_agreement, programming_skills:[], hardware_skills:[],
+                   :resume, :education_lvl,
+                   :waiver_liability_agreement, :mlh_agreement,
                    custom_fields: custom_fields_items)
   end
 

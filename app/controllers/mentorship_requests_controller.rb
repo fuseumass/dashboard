@@ -11,7 +11,7 @@ class MentorshipRequestsController < ApplicationController
                                                                    lower(status) LIKE lower(?) OR
                                                                    lower(users.first_name) LIKE lower(?) OR
                                                                    lower(users.last_name) LIKE lower(?) OR
-                                                                   lower(urgency) LIKE lower(?) OR
+                                                                   CAST(urgency AS CHAR) LIKE ? OR
                                                                    lower(tech) LIKE lower(?)", 
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")

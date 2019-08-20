@@ -40,7 +40,12 @@
   <div class="form-group">
     <%= form.label :priority, class:'control-label' %>
     <p style="color: grey">(If a prize is of priority "1", it will be displayed first. Prizes with priority of "3" will be displayed last.)</p>
-    <%= form.text_field :priority, class: 'form-control', placeholder: 'Type 1, 2, or 3' %>
+    <%= form.radio_button :priority, '1', :checked => true %> 
+    <%= label :priority, 'High' %> <br>
+    <%= form.radio_button :priority, '2' %>
+    <%= label :priority, 'Medium' %> <br>
+    <%= form.radio_button :priority, '3' %>
+    <%= label :priority, 'Low' %> <br>
   </div>
 
   <div class="actions">

@@ -65,8 +65,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address => "email-smtp.us-east-1.amazonaws.com",
       :port => 587,
-      :user_name => ENV['AWS_KEY'], #Your SMTP user
-      :password => ENV['AWS_SECRET'], #Your SMTP password
+      :user_name => ENV['AWS_SMTP_KEY'], #Your SMTP user
+      :password => ENV['AWS_SMTP_SECRET'], #Your SMTP password
       :authentication => :login,
       :enable_starttls_auto => true
   }

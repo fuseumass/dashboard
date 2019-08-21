@@ -136,13 +136,9 @@ class PagesController < ApplicationController
 
   def remove_permissions
     @user = User.find(params[:format])
-    if @user.email == 'bramirez@umass.edu'
-      redirect_to admin_path, alert: "Permission could not be removed. Brian is God."
-    else
-      @user.user_type = 'attendee'
-      @user.save
-      redirect_to admin_path, notice: 'Permission has been removed'
-    end
+    @user.user_type = 'attendee'
+    @user.save
+    redirect_to admin_path, notice: 'Permission has been removed'
   end
 
   def is_invalid_email?(email)

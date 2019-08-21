@@ -7,11 +7,17 @@ class ApplicationController < ActionController::Base
   before_action :auth_user
   before_action :set_raven_context
   after_action  :set_access_control_headers
+  after_action  :set_extra_headers
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
+  end
+  
+  def set_extra_headers
+    headers['X-Powered-By'] = 'The HackUMass Platform <https://platform.hackumass.com>'
+    headers['X-Pandas'] = 'red'
   end
 
   # Automatically re-route user to login except when user is logging in or

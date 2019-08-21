@@ -1,4 +1,4 @@
-# ![Dashboard Logo](app/assets/images/dashboard-logo.png) Dashboard
+# <img src="https://github.com/hackumass/dashboard/raw/master/app/assets/images/dashboard-logo.png" height=32 alt="Dashboard Logo" /> Dashboard
 Welcome to Dashboard. A Ruby on Rails web app used for registration, hardware inventory, hardware checkouts, mentorship, check in, and everything else you would need at a Hackathon. Dashboard is a highly scalable, highly modular tool, built by the [HackHer413](https://hackher413.com) and [HackUMass](https://hackumass.com) tech teams. It has been used for multiple events at UMass Amherst and has served thousands of participants in it's three year closed development cycle.
 
 # Core features

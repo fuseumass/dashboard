@@ -7,7 +7,8 @@ class MentorshipRequestsController < ApplicationController
 
   def search
     if params[:search].present?
-      @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
+      if not Rails.env.production?
+        @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
                                                                    lower(status) LIKE lower(?) OR
                                                                    lower(users.first_name) LIKE lower(?) OR
                                                                    lower(users.last_name) LIKE lower(?) OR
@@ -15,6 +16,16 @@ class MentorshipRequestsController < ApplicationController
                                                                    lower(tech) LIKE lower(?)", 
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      else
+        @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
+                                                                   lower(status) LIKE lower(?) OR
+                                                                   lower(users.first_name) LIKE lower(?) OR
+                                                                   lower(users.last_name) LIKE lower(?) OR
+                                                                   CAST(urgency AS CHAR) LIKE ? OR
+                                                                   lower(array_to_string(tech, ',')) LIKE lower(?)", 
+                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      end
       @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 20)
     else
       redirect_to mentorship_requests_path

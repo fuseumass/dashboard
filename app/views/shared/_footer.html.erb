@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-        <p>Made with <span style="color:#E70F47">❤</span> by the <%= HackumassWeb::Application::HACKATHON_NAME %> Tech team. V 1.0.0 <%= ENV["HEROKU_SLUG_DESCRIPTION"] %></p>
+        <p><%= render 'partial/hackathonfooter' %> <%= ENV["HEROKU_SLUG_DESCRIPTION"] %></p>
       </div>
     </div>
   </div>

@@ -31,3 +31,4 @@
 config/secrets.yml
 
 public/assets/**
+public/assets/.sprocket*

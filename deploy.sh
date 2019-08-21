@@ -18,26 +18,67 @@ echo "Heroku app name: $heroku_name"
 
 echo ' '
 echo "Preparing for deployment to $heroku_name....."
+echo "Fetching local branch heroku-$heroku_name"
+git fetch "heroku-$heroku_name"
+if [[ "$?" != "0" ]]; then
+    echo "Local branch doesn't exist. Do you want to add a new deployment target? (Yy)"
+    read ok
+    if [[ $ok = 'y' ]]; then
+        git remote add "heroku-$heroku_name" "https://git.heroku.com/$heroku_name.git"
+        if [[ "$?" != "0" ]]; then
+            exit 1
+        else
+            echo "Successfully added local branch heroku-$heroku_name for heroku instance $heroku_name"
+            git fetch "heroku-$heroku_name"
+        fi
+    else
+        exit 1
+    fi
+fi
 echo ' '
 
 # Asset precompilation
 echo 'Precompiling Assets...'
-bundle exec rake assets:precompile
+./docker_shell.sh bundle exec rake assets:precompile
 echo 'Assets precompiled succesfully ✅'
 echo ' '
 
+echo 'Checking git submodule configuration...'
+SUBMOD_URL=`git config --file=.gitmodules submodule.hackathon-config.url`
+SUBMOD_CHANGED=0
+if [[ $SUBMOD_URL == git@github.com:* ]]; then
+    echo 'Modifying git submodule to have https URL. The repository will need to be public.'
+    git config --file=.gitmodules submodule.hackathon-config.url `echo $SUBMOD_URL|sed 's/git@github.com:/https:\/\/github.com\//g'`
+    echo 'Updated git submodule URL. Running sync and update...'
+    git submodule sync
+    git submodule update --init --recursive --remote
+    echo 'Submodule changes done.'
+    SUBMOD_CHANGED=1
+fi
+
 # Committing Assets
-echo 'Committing precompiled assets temporarily....'
+echo 'Committing precompiled assets and submodule config temporarily....'
 git add .
-git commit --allow-empty -m "Assets precompiled" 
+git commit --allow-empty -m "Assets precompiled with submodule"
+
 
 # Pushing build to Heroku
 echo ' '
 echo 'Pushing build to Heroku....'
-git push -f heroku master
+git push -f "heroku-$heroku_name" master
 echo ' '
 echo 'Heroku Build Successful ✅'
 echo ' '
+
+if [[ $SUBMOD_CHANGED = 1 ]]; then
+    echo 'Reverting git submodule to old URL....'
+    git config --file=.gitmodules submodule.hackathon-config.url $SUBMOD_URL
+    echo 'Fixed git submodule URL. Running sync and update...'
+    git submodule sync
+    git submodule update --init --recursive --remote
+    echo 'Submodule URL fixed.'
+    echo ' '
+fi
 
 # Undo precompile commit
 echo 'Undoing precompile commit'

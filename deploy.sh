@@ -10,7 +10,14 @@ cat << "EOF"
 EOF
 
 echo ' '
-echo 'Preparing HackUMass Web App For Deployment.....'
+echo 'Are you ready to deploy?'
+echo -n 'Enter the Heroku name of the application: '
+read heroku_name
+echo "Heroku app name: $heroku_name"
+
+
+echo ' '
+echo "Preparing for deployment to $heroku_name....."
 echo ' '
 
 # Asset precompilation
@@ -20,35 +27,38 @@ echo 'Assets precompiled succesfully ✅'
 echo ' '
 
 # Committing Assets
-echo 'Committing precompiled assets to master....'
+echo 'Committing precompiled assets temporarily....'
 git add .
-git commit -m "Assets precompiled"
-git push
-echo ' '
-echo 'Precompiled assets have been pushed to master ✅'
+git commit --allow-empty -m "Assets precompiled" 
 
 # Pushing build to Heroku
 echo ' '
 echo 'Pushing build to Heroku....'
-git push heroku master
+git push -f heroku master
 echo ' '
-echo 'Heroku Build Sucessfull ✅'
+echo 'Heroku Build Successful ✅'
 echo ' '
+
+# Undo precompile commit
+echo 'Undoing precompile commit'
+git reset HEAD~1
+echo 'Undone. Pushing to master....'
+git push
 
 # Migrations
 echo 'Do you want to migrate the production database? (type y or n)'
 read migrate
 if [[ $migrate = 'y' ]]; then
   echo 'Application entering maintenance mode...'
-  heroku maintenance:on -a hackumass-web
+  heroku maintenance:on -a $heroku_name
   echo ' '
   echo 'Migrating databases....'
-  heroku run rake db:migrate -a hackumass-web
+  heroku run rake db:migrate -a $heroku_name
   echo ' '
   echo 'Database Migration Successful ✅'
   echo ' '
   echo 'Application exiting maintenance mode...'
-  heroku maintenance:off -a hackumass-web
+  heroku maintenance:off -a $heroku_name
   echo ' '
 else
   echo 'Skipping maintenance mode. No migrations found. ✅'

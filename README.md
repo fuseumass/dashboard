@@ -5,7 +5,7 @@ Welcome to Dashboard. A Ruby on Rails web app used for registration, hardware in
 
 Dashboard is structured to be relatively easy to set up, while still allowing for the scalability required to run an event for over 1000 people. It's also designed to be easily customizable to the specific needs of your event.
 
-When we say this is the _last_ platform you'll ever need, we aren't kidding. Dashboard includes all of the following functionality right out of the box.
+When we say this is the _only_ platform you'll ever need, we aren't kidding. Dashboard includes all of the following functionality right out of the box.
 
 ## Account management
 Email confirmation? ✅ Forgotten password? ✅ Slack integration? ✅
@@ -54,7 +54,7 @@ If you're feeling a little overwhelmed don't worry. We know it's a lot to transi
 Every hackathon is different. Each event has it's own name, location, transportation instructions, and so much more. We understand that better than anyone. After all, at UMass we use Dashboard for two different events every year. That's why we've created the `hackathon-config` submodule. It's a folder within dashboard that's actually a git repository itself. You just fork the [example config repo](https://github.com/redpandahacks-config) and make all your changes there. Then you can keep track of any changes to your written information or configuration settings there without ever touching a line of Ruby code.
 
 # Extensible options
-With Dashboard we wanted to create an application that's not only simple to customize, but also allows you to meet the complex needs of your event. That's why you'll find countless settings within the [configuration repository](https://github.com/redpandahacks-config). Here's just a small taste of some of the options we've included:
+With Dashboard we wanted to create an application that's not only simple to customize, but also allows you to meet the complex needs of your event. That's why you'll find countless settings within the [configuration repository](https://github.com/hackumass/redpandahacks-config). Here's just a small taste of some of the options we've included:
 
 - Open and close applications
 - Enable and disable a waitlist

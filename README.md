@@ -5,7 +5,7 @@ Welcome to Dashboard. A Ruby on Rails web app used for registration, hardware in
 
 Dashboard is structured to be relatively easy to set up, while still allowing for the scalability required to run an event for over 1000 people. It's also designed to be easily customizable to the specific needs of your event.
 
-When we say this is the _last_ platform you'll ever need. We aren't kidding. Dashboard includes all of the following functionality right out of the box.
+When we say this is the _last_ platform you'll ever need, we aren't kidding. Dashboard includes all of the following functionality right out of the box.
 
 ## Account management
 Email confirmation? ✅ Forgotten password? ✅ Slack integration? ✅
@@ -43,7 +43,7 @@ We've got a fully customizable schedule baked right in. Your admins can edit it,
 ## Projects, Prizes & Judging
 Devpost is great. But sometimes right before submission it can seem like their servers are just a rasberry pi cluster in your old college roommate's closet...
 
-Worry not, we've got it all built right in. You just add the prizes you're offering via our GUI. The participants can then submit their projects and choose what prizes they want. And our platform does the rest. Assigning table numbers? ✅ Automagically printing out rubrics with their info filled in? ✅ Making sure the hacks tha need power outlets can get them? ✅
+Worry not, we've got it all built right in. You just add the prizes you're offering via our GUI. The participants can then submit their projects and choose what prizes they want. And our platform does the rest. Assigning table numbers? ✅ Automagically printing out rubrics with their info filled in? ✅ Making sure the hacks that need power outlets can get them? ✅
 
 You get the idea...
 
@@ -63,7 +63,7 @@ With Dashboard we wanted to create an application that's not only simple to cust
 - Completely custom application questions that [you specify in YAML](https://github.com/hackumass/redpandahacks-config/blob/master/event_application.yml) and we take care of the rest
 
 # Get started using Dashboard
-To get started using Dashboard, please clone this repostitory using `git clone https://github.com/hackumass/dashboard.git` and then go to `https://github.com/hackumass/redpandahacks-config` and follow the instructions there.
+To get started using Dashboard, please clone this repostitory using `git clone https://github.com/hackumass/dashboard.git` and then go to the [example config repo](https://github.com/hackumass/redpandahacks-config) and follow the instructions there.
 
 ## Using Dashbaord?
 Let us know! We'd love to add you to our list of current active users.

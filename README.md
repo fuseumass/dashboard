@@ -1,6 +1,8 @@
 # <img src="https://github.com/hackumass/dashboard/raw/master/app/assets/images/dashboard-logo.png" height=32 alt="Dashboard Logo" /> Dashboard
 Welcome to Dashboard. A Ruby on Rails web app used for registration, hardware inventory, hardware checkouts, mentorship, check in, and everything else you would need at a Hackathon. Dashboard is a highly scalable, highly modular tool, built by the [HackHer413](https://hackher413.com) and [HackUMass](https://hackumass.com) tech teams. It has been used for multiple events at UMass Amherst and has served thousands of participants in it's three year closed development cycle.
 
+**Want to jump right in? You can begin your Dashboard journey by reading <a href="https://github.com/hackumass/dashboard/wiki/0.-Getting-Started">the Getting Started documentation</a>.**
+
 # Core features
 
 Dashboard is structured to be relatively easy to set up, while still allowing for the scalability required to run an event for over 1000 people. It's also designed to be easily customizable to the specific needs of your event.
@@ -64,6 +66,8 @@ With Dashboard we wanted to create an application that's not only simple to cust
 
 # Get started using Dashboard
 To get started using Dashboard, please clone this repostitory using `git clone https://github.com/hackumass/dashboard.git` and then go to the [example config repo](https://github.com/hackumass/redpandahacks-config) and follow the instructions there.
+
+**You can begin your Dashboard journey by reading <a href="https://github.com/hackumass/dashboard/wiki/0.-Getting-Started">the Getting Started documentation</a>.**
 
 ## Using Dashbaord?
 Let us know! We'd love to add you to our list of current active users.

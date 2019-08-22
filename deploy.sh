@@ -18,17 +18,18 @@ echo "Heroku app name: $heroku_name"
 
 echo ' '
 echo "Preparing for deployment to $heroku_name....."
-echo "Fetching local branch heroku-$heroku_name"
+echo "Fetching remote heroku-$heroku_name"
 git fetch "heroku-$heroku_name"
 if [[ "$?" != "0" ]]; then
-    echo "Local branch doesn't exist. Do you want to add a new deployment target? (type y or n)"
+    echo "Git remote doesn't exist. Do you want to add a new deployment target? (type y or n)"
     read ok
     if [[ $ok = 'y' ]]; then
         git remote add "heroku-$heroku_name" "https://git.heroku.com/$heroku_name.git"
         if [[ "$?" != "0" ]]; then
+            echo 'Exiting.'
             exit 1
         else
-            echo "Successfully added local branch heroku-$heroku_name for heroku instance $heroku_name"
+            echo "Successfully added git remote heroku-$heroku_name for heroku instance $heroku_name"
             git fetch "heroku-$heroku_name"
         fi
     else

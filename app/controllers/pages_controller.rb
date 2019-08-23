@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
   before_action -> { is_feature_enabled($CheckIn) }, only: :check_in
+  before_action :check_organizer_permissions, only: :check_in
   # allows autocomplete to work on the email field in user and creates a route through pages,
   # :full => true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
   autocomplete :user, :email, :full => true
@@ -150,19 +151,27 @@ class PagesController < ApplicationController
   end
 
   def rsvp
-    current_user.rsvp = true
-    current_user.save
-    flash[:success] = "You Successfully RSVP'd for the Event"
+    if current_user.event_application and current_user.event_application.status == 'accepted'
+      current_user.rsvp = true
+      current_user.save
+      flash[:success] = "You Successfully RSVP'd for the Event"
+    else
+      flash[:error] = "You can't RSVP to the event if you never applied or weren't accepted!"
+    end
     redirect_to root_path
   end
 
   def unrsvp
     current_user.rsvp = false
     current_user.save
-    current_user.event_application.status = 'denied'
-    current_user.event_application.save(:validate => false)
-    UserMailer.denied_email(current_user).deliver_now
-    flash[:success] = "You Successfully cancelled your participation in the event. Sorry to see you go..."
+    unless current_user.event_application
+      flash[:error] = "You can't un-RSVP if you never applied to the event!"
+    else
+      current_user.event_application.status = 'denied'
+      current_user.event_application.save(:validate => false)
+      UserMailer.denied_email(current_user).deliver_now
+      flash[:success] = "You Successfully cancelled your participation in the event. Sorry to see you go..."
+    end
     redirect_to root_path
   end
 
@@ -172,6 +181,12 @@ class PagesController < ApplicationController
   def check_permissions
     unless current_user.is_admin?
       redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
+    end
+  end
+
+  def check_organizer_permissions
+    unless current_user.is_organizer? or current_user.is_admin?
+      redirect_to index_path, alert: 'You are not an admin or organizer.'
     end
   end
 end

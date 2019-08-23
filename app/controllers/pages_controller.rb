@@ -26,6 +26,7 @@ class PagesController < ApplicationController
     @hardware_checkouts_count = HardwareCheckout.all.count
     @mentorship_requests_count = MentorshipRequest.all.count
     @checked_in_user_count = User.where(check_in: true).count
+    @applications_count = User.where(user_type: 'attendee').where.not(event_application: nil).count
     @rsvp_user_count = User.where(rsvp: true).count
 
     @hardware_checkouts = current_user.hardware_checkouts

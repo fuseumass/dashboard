@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-status card-status-left bg-dark"></div>
       <div class="card-body d-flex flex-column">
-        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/rsvp_participant') %>  
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/rsvp_participant_has_slack') %>  
       </div>
     </div>
   </div>
@@ -29,56 +29,23 @@
     <div class="card">
       <div class="card-status bg-success"></div>
       <div class="card-header">
-        <h3 class="card-title">Check In! 👾</h3>
+        <h3 class="card-title">Check In</h3>
       </div>
       <div class="card-body d-flex flex-column">
         <center>
-          <%= image_tag @qr_image.to_data_url, style: 'height: 300px; width:300px' %>
+          <%= image_tag @qr_image.to_data_url, style: 'height: 300px; width: 300px' %>
         </center>
-        <p><div>Once you arrive, use the QR Code above, to check in at the welcome desk.</div></p>
-        <p><div>If for some reason your QR Code can't be scanned, you can still check in using your email address which is <b><%= current_user.email %></b> </div></p>
-        <p>We understand stuff happens, so if you can't come to the event for any reason, please let us know by clicking the button below.</p>
-        <%= link_to "Sorry I Can't Participate", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you will not come? By doing this you will be moving your application status from accepted to declined. There is no way to get accepted after clicking the okay button. Are you sure you want to decline your acceptance?' } %>
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/rsvp_participant_check_in') %>  
+        <%= link_to "I cannot attend", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you cannot attend? By doing this you will be changing your application status from accepted to declined. This is IRREVERSIBLE -- you cannot be marked as accepted again, and you will be unable to come to the event! Are you sure you want to decline your acceptance?' } %>
       </div>
     </div>
   </div>
 
   <div class="col-sm-12 col-lg-4">
-    <div class="card">
-      <div class="card-status bg-purple"></div>
-      <div class="card-header">
-        <h3 class="card-title">Traveling 🚌 <b>(Bus Sign Up is Over)</b></h3>
-      </div>
-      <div class="card-body d-flex flex-column">
-        <h3>NY & Boston Buses:</h3>
-
-        <p>The New York bus will be departing from <b>55 Washington Square S, New York, NY 10012 at 11:45AM on Friday Oct 12th.</b> </p>
-        <p>The Boston Buses will be departing from <b>263 Bay State Road, Boston, MA  at 2:30PM on Friday Oct 12th</b>.</p>
-        <p>We have heard all your requests, but sadly we were not able to secure another bus for Boston in such short notice. Therefore, we will not be able to offer seats to those in the bus waitlist.</p>
-        <p> <b>If you are taking a bus, please join the Slack channel, there we will be able to help you if there are any problems.</b> </p>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=boston_bus" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #Boston Bus channel</a>
-        <br>
-        <a href="https://hackumassvi.slack.com/app_redirect?channel=new_york_bus" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #New York Bus channel</a>
-      </div>
-    </div>
+    <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/rsvp_view_traveling') %>  
   </div>
 
   <div class="col-sm-12 col-lg-4">
-    <div class="card">
-      <div class="card-status bg-blue"></div>
-      <div class="card-header">
-        <h3 class="card-title">Getting to the Hackathon 🚶‍</h3>
-      </div>
-      <div class="card-body d-flex flex-column">
-        <p><div><%= HackumassWeb::Application::HACKATHON_NAME %> happens at the Integrated Learning Center(ILC) at the University of Massachusetts Amherst.</div></p>
-        <p><div>If you’re driving to the event, you must park in Lot 44, Lot 20, or Lot 22 and then walk over to our venue. Check out our venue on Google Maps if you have problems navigating campus.</div></p>
-        <div>If you have any questions, ask us know at <%= HackumassWeb::Application::CONTACT_EMAIL %> </div>
-        <br>
-        <a href="https://goo.gl/maps/851VYrC6oLJ2" target="_blank" class="btn btn-secondary">See Our Venue on Google Maps</a>
-      </div>
-    </div>
+      <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/accepted_view_location') %>  
   </div>
-
-
-
 </div>

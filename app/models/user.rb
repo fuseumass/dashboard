@@ -75,6 +75,10 @@ class User < ApplicationRecord
   end
 
   def has_slack?
+    if $workspace_token.length == 0
+      return true
+    end
+
     url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 
     http = Net::HTTP.new(url.host, url.port)
@@ -86,6 +90,10 @@ class User < ApplicationRecord
   end
 
   def get_slack_username
+    if $workspace_token.length == 0
+      return false
+    end
+
     url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 
     http = Net::HTTP.new(url.host, url.port)
@@ -101,6 +109,10 @@ class User < ApplicationRecord
   end
 
   def get_slack_id
+    if $workspace_token.length == 0
+      return false
+    end
+    
     url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 
     http = Net::HTTP.new(url.host, url.port)

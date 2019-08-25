@@ -1,59 +1,78 @@
 <div class="row">
-  <div class="col-sm-6 col-lg-3">
-    <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-green mr-3">
-          <i class="fe fe-user-check"></i>
-        </span>
-        <div>
-        <% if check_feature_flag?($CheckIn) %>
-          <h4 class="m-0"><%= @checked_in_user_count %></h4>
-          <small class="text-muted">Checked In Users</small>
-        <% else %>
-          <h4 class="m-0"><%= @all_apps_count %></h4>
-          <small class="text-muted">Total Applications</small>
-        <% end %>
+  <% if check_feature_flag?($CheckIn) %>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card p-3">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-green mr-3">
+            <i class="fe fe-user-check"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @checked_in_user_count %></h4>
+            <small class="text-muted">Checked In Users</small>
+          </div>
         </div>
       </div>
+    </div>
+  <% else %>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card p-3">
+        <a href="<%= event_applications_path %>" class="text-inherit text-decoration-none">
+            <div class="d-flex align-items-center">
+            <span class="stamp stamp-md bg-green mr-3">
+              <i class="fe fe-user-check"></i>
+            </span>
+            <div>
+              <h4 class="m-0"><%= @all_apps_count %></h4>
+              <small class="text-muted">Total Applications</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card p-3">
+      <a href="<%= event_applications_path(rsvp: true) %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-red mr-3">
+            <i class="fe fe-user"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @rsvp_user_count %></h4>
+            <small class="text-muted">RSVP'd Users</small>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-red mr-3">
-          <i class="fe fe-user"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @rsvp_user_count %></h4>
-          <small class="text-muted">RSVP'd Users</small>
+      <a href="<%= all_checked_out_hardware_items_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-blue mr-3">
+            <i class="fe fe-cpu"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @hardware_checkouts_count %></h4>
+            <small class="text-muted">Hardware Checkouts</small>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-blue mr-3">
-          <i class="fe fe-cpu"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @hardware_checkouts_count %></h4>
-          <small class="text-muted">Hardware Checkouts</small>
+      <a href="<%= mentorship_requests_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-orange mr-3">
+            <i class="fe fe-users"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @mentorship_requests_count %></h4>
+            <small class="text-muted">Mentorship Requests</small>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-lg-3">
-    <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-orange mr-3">
-          <i class="fe fe-users"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @mentorship_requests_count %></h4>
-          <small class="text-muted">Mentorship Requests</small>
-        </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
@@ -61,54 +80,62 @@
 <div class="row">
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-purple mr-3">
-          <i class="fe fe-calendar"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @event_count %></h4>
-          <small class="text-muted">Listed Events</small>
+      <a href="<%= events_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-purple mr-3">
+            <i class="fe fe-calendar"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @event_count %></h4>
+            <small class="text-muted">Listed Events</small>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-teal mr-3">
-          <i class="fe fe-award"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @prize_count %></h4>
-          <small class="text-muted">Listed Prizes</small>
+      <a href="<%= prizes_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-teal mr-3">
+            <i class="fe fe-award"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @prize_count %></h4>
+            <small class="text-muted">Listed Prizes</small>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-yellow mr-3">
-          <i class="fe fe-cpu"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @hardware_count %></h4>
-          <small class="text-muted">Hardware Items</small>
+      <a href="<%= hardware_items_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-yellow mr-3">
+            <i class="fe fe-cpu"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @hardware_count %></h4>
+            <small class="text-muted">Hardware Items</small>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-pink mr-3">
-          <i class="fe fe-inbox"></i>
-        </span>
-        <div>
-          <h4 class="m-0"><%= @project_count %></h4>
-          <small class="text-muted">Listed Projects</small>
+      <a href="<%= projects_path %>" class="text-inherit text-decoration-none">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-pink mr-3">
+            <i class="fe fe-inbox"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= @project_count %></h4>
+            <small class="text-muted">Listed Projects</small>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>

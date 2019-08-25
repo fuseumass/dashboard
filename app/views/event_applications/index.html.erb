@@ -32,6 +32,11 @@
           Denied <span class="tag tag-danger"><%= @denied_count%></span></a>
       </li>
 
+      <li class="<%= 'active' if rsvp_is_active?(params) %>">
+        <a href="<%= event_applications_path(rsvp: true) %>">
+          RSVP <span class="tag tag-success"><%= @rsvp_count %></span></a>
+      </li>
+
       <li class="<%= 'active' if flagged_is_active?(params) %>">
         <a href="<%= event_applications_path(flagged: true) %>">
           Flagged <span class="tag tag-danger"> <%= @flagged_count%></span></a>
@@ -93,6 +98,17 @@
                       <% end %>
                           <%= form.status.capitalize %>
                         </span>
+                      
+                      <% if form.flag %>
+                        <span class="tag tag-danger event-application-header-status-margin">
+                          Flagged
+                        </span>
+                      <% end %>
+                      <% if form.user.rsvp %>
+                        <span class="tag tag-success event-application-header-status-margin">
+                          RSVP
+                        </span>
+                      <% end %>
                     </a>
                   </td>
                   <td>

@@ -26,7 +26,10 @@ class JudgingController < ApplicationController
         end
         project.save
         table_number_counter += 1
-        image = "#{Rails.root}/app/assets/images/rubric.png"
+        image = "#{Rails.root}/hackathon-config/assets/images/rubric.png"
+        unless File.exist?(image)
+          image = "#{Rails.root}/app/assets/images/rubric.png"
+        end
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
         update_font(canvas, 22, :bold)

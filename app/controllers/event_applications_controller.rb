@@ -15,6 +15,7 @@ class EventApplicationsController < ApplicationController
     @undecided_count = EventApplication.where(status: 'undecided').count
     @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
+    @rsvp_count = EventApplication.joins(:user).where(users: {rsvp: true}).count
 
     @flagged = params[:flagged]
     @status = params[:status]
@@ -22,6 +23,8 @@ class EventApplicationsController < ApplicationController
       @applications = EventApplication.where({status: @status})
     elsif params[:flagged].present?
       @applications = EventApplication.where(flag: true)
+    elsif params[:rsvp].present?
+      @applications = EventApplication.joins(:user).where(users: {rsvp: true})
     else
       @applications = EventApplication.all
     end

@@ -24,6 +24,10 @@ module EventApplicationsHelper
     params[:flagged].present?
   end
 
+  def rsvp_is_active?(params)
+    params[:rsvp].present?
+  end
+
   def all_is_active?(params)
     !(params[:status].present? || params[:flagged].present?)
   end

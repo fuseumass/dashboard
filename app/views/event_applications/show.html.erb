@@ -44,6 +44,11 @@
               Flagged
             </span>
           <% end %>
+          <% if @applicant.user.rsvp %>
+            <span class="tag tag-success event-application-header-status-margin">
+              RSVP
+            </span>
+          <% end %>
           <% if 'accepted'.eql?(@status) %>
             <span class="tag tag-success event-application-header-status-margin">
               <%= @status.capitalize %>

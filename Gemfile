@@ -31,7 +31,7 @@ gem 'tabler-rubygem'
 gem 'bootstrap', '~> 4.1.1'
 
 # The devise gem helps us authenticate users securely
-gem 'devise', '~> 4.4.0'
+gem 'devise', '~> 4.6.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'

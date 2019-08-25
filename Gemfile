@@ -28,7 +28,7 @@ gem 'sprockets-rails'
 gem 'tabler-rubygem'
 
 # The most beautiful framework
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 
 # The devise gem helps us authenticate users securely
 gem 'devise', '~> 4.6.0'

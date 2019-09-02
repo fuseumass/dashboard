@@ -14,7 +14,6 @@ class HardwareItem < ApplicationRecord
     end
   end
 
-
   def to_csv
     attributes = %w{name upc}
     CSV.generate do |csv|

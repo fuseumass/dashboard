@@ -1,21 +1,19 @@
 class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, except: [:index, :search]
+  before_action :check_permissions, except: [:search, :index]
+  before_action :check_attendee_slack, only: [:search, :index]
   before_action -> { is_feature_enabled($Hardware) }
 
   def search
-    if current_user and current_user.is_attendee?
-      if !current_user.has_slack?
-        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
-      end
-    end
     if params[:search].present?
+      # if a number is searched and it matches the upc of a item, return the item
       if is_upc?(params[:search].to_i)
         item = HardwareItem.where(upc: params[:search])
         if !item.first.nil?
           redirect_to hardware_item_path(item.first)
         end
       end
+      # otherwise, substring match the query for all item's name, category, and link fields
       @hardware_items = HardwareItem.where("lower(name) LIKE lower(?) OR lower(category) LIKE lower(?) OR lower(link) LIKE lower(?)", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     else
       @hardware_items = HardwareItem.all
@@ -23,13 +21,6 @@ class HardwareItemsController < ApplicationController
   end
 
   def index
-
-    if current_user.is_attendee?
-      if !current_user.has_slack?
-        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware inventory.'
-      end
-    end
-
     @all_hardware_items = HardwareItem.all.order(name: :asc)
     @hardware_items = HardwareItem.all.order(name: :asc).paginate(page: params[:page], per_page: 20)
   end
@@ -53,7 +44,6 @@ class HardwareItemsController < ApplicationController
     @hardware_item = HardwareItem.new
   end
 
-
   def edit
   end
 
@@ -67,7 +57,6 @@ class HardwareItemsController < ApplicationController
     end
   end
 
-
   def update
     if @hardware_item.update(hardware_item_params)
       redirect_to hardware_items_path, notice: 'Hardware item was successfully updated.'
@@ -79,7 +68,6 @@ class HardwareItemsController < ApplicationController
   def all_checked_out
     @all_hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
   end
-
 
   def destroy
     @hardware_item.destroy
@@ -96,13 +84,28 @@ class HardwareItemsController < ApplicationController
       end
     end
 
-    def is_upc?(number)
-      number > 0 and number < 1000000000
+    # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
+    def check_permissions
+      unless current_user.is_admin? or current_user.is_organizer?
+        redirect_to index_path, alert: 'You do not have the permissions to visit this section of hardware.'
+      end
+    end
+
+    # Users who are attendees and don't have slack are not allowed to look at the hardware inventory
+    def check_attendee_slack
+      if current_user and current_user.is_attendee? and !current_user.has_slack?
+        redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware page.'
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hardware_item_params
       params.require(:hardware_item).permit(:name, :count, :link, :category, :available, :upc)
+    end
+
+    # Checks if the upc is in range
+    def is_upc?(number)
+      number > 0 and number < 1000000000
     end
 
     # Randomly and recursively generate a upc number
@@ -112,13 +115,6 @@ class HardwareItemsController < ApplicationController
         generate_upc
       else
         random_upc
-      end
-    end
-
-    # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
-    def check_permissions
-      unless current_user.is_admin? or current_user.is_organizer?
-        redirect_to index_path, alert: 'You do not have the permissions to visit this section of hardware.'
       end
     end
 

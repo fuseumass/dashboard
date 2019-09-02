@@ -10,7 +10,7 @@ class HardwareCheckoutsController < ApplicationController
     @item = @hardware_checkout.hardware_item
 
     # get email that was initially passed in the user id field
-    user_email =  params[:hardware_checkout][:user_id]
+    user_email = params[:hardware_checkout][:user_id]
 
     # If there is a problem with the email show an error
     if user_email.nil?
@@ -50,7 +50,6 @@ class HardwareCheckoutsController < ApplicationController
     else
       flash[:alert] = "Could not checkout hardware item"
     end
-
   end
 
 

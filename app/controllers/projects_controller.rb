@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
 
   def search
     if params[:search].present?
-      # @projects = Project.search(params[:search], page: params[:page], per_page: 20)
       @projects = Project.joins(:user).where("lower(users.first_name) LIKE lower(?) OR
                                               lower(users.last_name) LIKE lower(?) OR
                                               lower(users.email) LIKE lower(?) OR
@@ -89,6 +88,18 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to index_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def project_submit_info
+    if current_user.has_published_project?
+      redirect_to project_path(current_user.project)
+    elsif check_feature_flag?($Projects)
+      if current_user.is_admin?
+        redirect_to projects_path
+      end
+    else
+      redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
     end
   end
 

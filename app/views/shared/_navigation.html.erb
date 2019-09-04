@@ -103,7 +103,7 @@
           <% if has_access_to_projects? %>
             <% if current_user.is_attendee?%>
               <li class="nav-item">
-                <%= link_to new_project_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+                <%= link_to project_submit_info_path, class: "nav-link #{'active' if is_projects_active?}" do %>
                   <i class="fe fe-layers"></i> My Project</a>
                 <% end %>
               </li>

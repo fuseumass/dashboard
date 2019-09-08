@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
 
   def search
     if params[:search].present?
-      # @projects = Project.search(params[:search], page: params[:page], per_page: 20)
       @projects = Project.joins(:user).where("lower(users.first_name) LIKE lower(?) OR
                                               lower(users.last_name) LIKE lower(?) OR
                                               lower(users.email) LIKE lower(?) OR

@@ -6,7 +6,7 @@ class Project < ApplicationRecord
 	validates_presence_of :title, :description, :team_members, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :prizes, message: '%{attribute} can\'t be blank.'
 	validates_uniqueness_of :title, message: '%{attribute} has already been taken.'
 
-	belongs_to :user
+	has_many :user
 
 	has_attached_file :projectimage,
 										path: 'project/:filename'
@@ -31,9 +31,9 @@ class Project < ApplicationRecord
 	# Generating CSV for all projects
 	def self.to_csv
 		CSV.generate do |csv|
-			
+
 			csv << Project.attribute_names
-		
+
 			Project.find_each do |project|
 				csv << project.attributes.values
 		  	end

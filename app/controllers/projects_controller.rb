@@ -32,8 +32,8 @@ class ProjectsController < ApplicationController
 
   def show
     if current_user.is_attendee?
-      if @project.user != current_user
-        redirect_to index_path, alert: "You don't have the permissions to see this project."
+      if current_user.project_id != @project.id
+        redirect_to index_path, alert: "You do not have permission to view this project."
       end
     end
   end
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    @project.user = current_user
+    @project.user << current_user
 
     respond_to do |format|
       if @project.save

@@ -37,12 +37,12 @@
           <%= simple_format(@project.challenges) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Accomplishments that we're proud of:</h2>
+        <h2 class="mt-0 mb-4">Accomplishments we're proud of:</h2>
         <p>
           <%= simple_format(@project.accomplishments) %>
         </p>
 
-        <h2 class="mt-0 mb-4">What we learned:</h2>
+        <h2 class="mt-0 mb-4">What we've learned:</h2>
         <p>
           <%= simple_format(@project.learned) %>
         </p>
@@ -57,7 +57,7 @@
           <%= simple_format(@project.built_with) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Prize we're going for:</h2>
+        <h2 class="mt-0 mb-4">Prizes we're going for:</h2>
         <p>
           <% if @project.prizes != "{}" %>
             <%= @project.prizes %>
@@ -85,7 +85,12 @@
         <h3 class="card-title">Team Members</h3>
       </div>
       <div class="card-body">
-        <%= @project.team_members %>
+        <% @project.user.each do |u|  %>
+        <%= u.first_name %>
+        <%= u.last_name %>
+        (<%= u.email %>)
+        <br>
+        <% end %>
       </div>
     </div>
 

@@ -125,12 +125,12 @@
     <% end %>
 
 
-    <% if @project.user == current_user %>
+    <% if @project.id == current_user.project_id %>
       <%= link_to 'Edit Your Project', edit_project_path(@project), class: 'btn btn-secondary' %>
       <br>
     <% end %>
 
-    <% if @project.user == current_user or current_user.is_admin? %>
+    <% if @project.id == current_user.project_id or current_user.is_admin? %>
       <br>
       <%= link_to 'Delete Project', project_path(@project), :method => :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this project? This means you will not be judged!' } %>
     <% end %>

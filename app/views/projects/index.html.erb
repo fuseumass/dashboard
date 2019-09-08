@@ -6,7 +6,7 @@
   <center>
     <h3>Seems like there are no projects submitted...</h3>
   </center>
-   
+
 <% else %>
   <div class="col-12">
     <div class="card">
@@ -33,7 +33,7 @@
               <th>Title</th>
               <th>Description</th>
               <th>Link</th>
-              <th>Team members</th>
+              <th>Team Members</th>
             </tr>
           </thead>
 
@@ -49,7 +49,18 @@
               <td><%= link_to truncate(project.title, length: 30), project %></td>
               <td><%= truncate(project.description, length: 30) %></td>
               <td><%= truncate(project.link, length: 22) %></td>
-              <td><%= truncate(project.team_members, length: 20) %></td>
+              <td>
+                <% proj_users = "" %>
+                <% project.user.each do |u|  %>
+                  <% proj_users << u.first_name + " "%>
+                  <% if u != project.user.last %>
+                    <% proj_users << u.last_name + ", "%>
+                  <% else %>
+                    <% proj_users << u.last_name %>
+                  <% end %>
+                <% end %>
+                <%= truncate(proj_users, length: 30) %>
+              </td>
             </tr>
             <% end %>
           </tbody>

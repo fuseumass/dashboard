@@ -17,7 +17,6 @@ class ProjectsController < ApplicationController
       @projects = Project.joins(:user).where("lower(users.first_name) LIKE lower(?) OR
                                               lower(users.last_name) LIKE lower(?) OR
                                               lower(users.email) LIKE lower(?) OR
-                                              lower(team_members) LIKE lower(?) OR
                                               lower(title) LIKE lower(?) OR
                                               lower(link) LIKE lower(?) OR
                                               table_id = ?",
@@ -103,7 +102,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:title, :description, :link, :team_members, :projectimage, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :power, prizes:[])
+      params.require(:project).permit(:title, :description, :link, :projectimage, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :power, prizes:[])
     end
 
     def check_permissions

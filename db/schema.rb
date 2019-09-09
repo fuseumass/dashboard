@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_08_192614) do
+ActiveRecord::Schema.define(version: 2019_09_09_193614) do
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"
@@ -126,10 +126,8 @@ ActiveRecord::Schema.define(version: 2019_09_08_192614) do
     t.string "title"
     t.string "description"
     t.string "link"
-    t.string "team_members"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.string "projectimage_file_name"
     t.string "projectimage_content_type"
     t.integer "projectimage_file_size"
@@ -145,7 +143,6 @@ ActiveRecord::Schema.define(version: 2019_09_08_192614) do
     t.string "prizes", default: "{}"
     t.boolean "power"
     t.integer "table_id"
-    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "universities", force: :cascade do |t|

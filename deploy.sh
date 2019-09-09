@@ -11,6 +11,21 @@ EOF
 
 echo ' '
 echo 'Are you ready to deploy?'
+
+CONFIG_NAME=$(cat hackathon-config/hackathon.yml | head -n 1 | cut -d ':' -f 2)
+
+if [[ "$CONFIG_NAME" == " RedPandaHacks" ]]; then
+    echo ""
+    echo "WARNING! You are about to deploy with the example configuration repository"
+    echo "(github.com/hackumass/redpandahacks-config). Are you sure you want to do this?"
+    echo "For instructions on how to provide your own configuration repository, read the"
+    echo "Dashboard Wiki (github.com/hackumass/dashboard/wiki)."
+else
+    echo "Deploying with the$CONFIG_NAME configuration repository."
+fi
+
+
+
 echo -n 'Enter the Heroku name of the application: '
 read heroku_name
 echo "Heroku app name: $heroku_name"

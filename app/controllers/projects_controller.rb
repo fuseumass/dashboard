@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
                                               lower(link) LIKE lower(?) OR
                                               table_id = ?",
                                             "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
-                                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+                                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     @projects = @projects.paginate(page: params[:page], per_page: 20)
     else
       redirect_to projects_path

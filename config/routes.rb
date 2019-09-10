@@ -95,7 +95,10 @@ Rails.application.routes.draw do
     get 'add_permissions' => 'pages#index'
 
     # Allow removing permissions from users
-    get 'remove_permissions' => 'pages#remove_permissions'
+    post 'remove_permissions' => 'pages#remove_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'remove_permissions' => 'pages#index'
 
     # Make our URLs prettier
     get 'index' => 'pages#index'

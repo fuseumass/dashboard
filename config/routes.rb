@@ -86,7 +86,10 @@ Rails.application.routes.draw do
     get 'unrsvp' => 'pages#unrsvp'
 
     # Allow adding permissions to users
-    get 'add_permissions' => 'pages#add_permissions'
+    post 'add_permissions' => 'pages#add_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'add_permissions' => 'pages#index'
 
     # Allow removing permissions from users
     get 'remove_permissions' => 'pages#remove_permissions'

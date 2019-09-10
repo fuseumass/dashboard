@@ -28,7 +28,11 @@
           <% @all_admins.each do |user| %>
             <tr>
               <td><%= user.full_name.titleize %></td>
-              <td class="text-right"><%= link_to 'Remove', remove_permissions_path(user), class: 'btn btn-xs btn-danger'%></td>
+              <td class="text-right">
+              <%= form_tag remove_permissions_path(user), method: :post do%>
+                <%= submit_tag "Remove", class: 'btn btn-xs btn-danger'%>
+            <%end%>
+              </td>
             </tr>
           <% end %>
         </table>
@@ -65,7 +69,9 @@
           <% @all_organizers.each do |user| %>
             <tr>
               <td><%= user.full_name %></td>
-              <td class="text-right"><%= link_to 'Remove', remove_permissions_path(user), class: 'btn btn-xs btn-danger' %></td>
+              <td class="text-right"><%= form_tag remove_permissions_path(user), method: :post do%>
+                <%= submit_tag "Remove", class: 'btn btn-xs btn-danger'%>
+            <%end%></td>
             </tr>
           <% end %>
         </table>
@@ -101,7 +107,9 @@
           <% @all_mentors.each do |user| %>
             <tr>
               <td><%= user.full_name %></td>
-              <td class="text-right"><%= link_to 'Remove', remove_permissions_path(user), class: 'btn btn-xs btn-danger'%></td>
+              <td class="text-right"><%= form_tag remove_permissions_path(user), method: :post do%>
+                <%= submit_tag "Remove", class: 'btn btn-xs btn-danger'%>
+            <%end%></td>
             </tr>
           <% end %>
         </table>

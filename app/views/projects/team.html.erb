@@ -4,7 +4,7 @@
 
 <div class="row">
 
-  <div class="col-md-8 col-xl-8">
+  <div class="col-md-12 col-xl-12">
     <div class="card">
       <div class="card-body">
 
@@ -23,59 +23,9 @@
   </div>
 
   <div class="col-md-4 col-xl-4">
-    <div class="card">
-      <div class="card-status card-status-left bg-blue"></div>
-      <div class="card-header">
-        <h3 class="card-title">Team Members</h3>
-      </div>
-      <div class="card-body">
-        <% @project.user.each do |u|  %>
-        <%= u.first_name %>
-        <%= u.last_name %>
-        (<%= u.email %>)
-        <br>
-        <% end %>
-      </div>
-    </div>
+      <%= link_to 'Return to Project', project_path(@project), class: 'btn btn-secondary' %>
+  </div>
 
-    <div class="card">
-      <div class="card-status card-status-left bg-danger"></div>
-      <div class="card-header">
-        <h3 class="card-title">Table Number</h3>
-      </div>
-      <div class="card-body">
-        <center>
-          <% if !@project.table_id.nil? %>
-          <h1 style="color:red">
-            Table <%= @project.table_id %>
-          </h1>
-          <% else %>
-          <h1 style="color:red">
-            Table TBD
-          </h1>
-          <% end %>
-        </center>
-      </div>
-    </div>
-
-    <% if !@project.link.empty? %>
-      <%= link_to @project.link, class: "btn btn-github" do %>
-        <i class="fe fe-github"></i> View on Github</a>
-        <br>
-        <br>
-      <% end %>
-    <% end %>
-
-
-    <% if @project.id == current_user.project_id %>
-      <%= link_to 'Edit Your Project', edit_project_path(@project), class: 'btn btn-secondary' %>
-      <br>
-    <% end %>
-
-    <% if @project.id == current_user.project_id or current_user.is_admin? %>
-      <br>
-      <%= link_to 'Delete Project', project_path(@project), :method => :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this project? This means you will not be judged!' } %>
-    <% end %>
 
   </div>
 

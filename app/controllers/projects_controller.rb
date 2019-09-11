@@ -90,6 +90,17 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def team
+
+    @project = Project.find(current_user.project_id)
+
+    if check_feature_flag?($Projects) and current_user.is_admin?
+      redirect_to projects_path
+    elsif !check_feature_flag?($Projects)
+      redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

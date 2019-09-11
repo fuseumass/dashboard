@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   # Pages Routes End
 
     resources :projects do
+      get 'team' => 'projects#team', :as => :team
       collection do
         get 'search'
       end

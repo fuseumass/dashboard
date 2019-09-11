@@ -101,6 +101,8 @@ Rails.application.routes.draw do
 
     resources :projects do
       get 'team' => 'projects#team', :as => :team
+      get 'add_team_member' => 'projects#add_team_member', :as => :add_team_member
+      get 'remove_team_member' => 'projects#remove_team_member', :as => :remove_team_member
       collection do
         get 'search'
       end

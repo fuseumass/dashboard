@@ -91,7 +91,6 @@ class ProjectsController < ApplicationController
   end
 
   def team
-
     @project = Project.find(current_user.project_id)
 
     if check_feature_flag?($Projects) and current_user.is_admin?
@@ -99,6 +98,14 @@ class ProjectsController < ApplicationController
     elsif !check_feature_flag?($Projects)
       redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
     end
+  end
+
+  def add_team_member
+
+  end
+
+  def remove_team_member
+
   end
 
   private

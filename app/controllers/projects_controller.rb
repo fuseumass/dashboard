@@ -101,7 +101,18 @@ class ProjectsController < ApplicationController
   end
 
   def add_team_member
-
+      @project = Project.find(current_user.project_id)
+      if params[:add_team_member].present?
+        @user = User.where(email: params[:add_team_member]).first
+        if @user.nil?
+          redirect_to project_team_path(@project), alert: "Unable to add team member: #{params[:add_admin]}"
+        else
+          @project.user << @user
+          redirect_to project_team_path(@project), notice: "#{params[:add_team_member]} successfully added to team."
+        end
+      else
+        redirect_to project_team_path(@project), alert: "Unable to add team member. You must specify an email address."
+      end
   end
 
   def remove_team_member

@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_for_team, only: [:team, :add_team_member, :remove_team_member]
   before_action :check_permissions, only: %i[index]
 
   def index
@@ -91,9 +92,9 @@ class ProjectsController < ApplicationController
   end
 
   def team
-    @project = Project.find(current_user.project_id)
-
-    if check_feature_flag?($Projects) and current_user.is_admin?
+    if current_user.project_id != @project.id
+      redirect_to index_path, alert: "You don't have permission to view this project."
+    elsif check_feature_flag?($Projects) and current_user.is_admin?
       redirect_to projects_path
     elsif !check_feature_flag?($Projects)
       redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
@@ -101,11 +102,11 @@ class ProjectsController < ApplicationController
   end
 
   def add_team_member
-      @project = Project.find(current_user.project_id)
+
       if params[:add_team_member].present?
         @user = User.where(email: params[:add_team_member]).first
         if @user.nil?
-          redirect_to project_team_path(@project), alert: "Unable to add team member: #{params[:add_admin]}"
+          redirect_to project_team_path(@project), alert: "Unable to add team member. Ensure the email is spelled correctly."
         else
           @project.user << @user
           redirect_to project_team_path(@project), notice: "#{params[:add_team_member]} successfully added to team."
@@ -116,7 +117,19 @@ class ProjectsController < ApplicationController
   end
 
   def remove_team_member
+    @user = User.find(params[:user_to_remove])
 
+    if @project.user.length <= 1
+      redirect_to project_team_path(@project), alert: "Unable to remove team member. You must have at least one person on a project team. If you still wish to be removed, you can delete the project."
+    elsif @user == current_user
+      @project.user.delete(@user)
+      @project.save
+      redirect_to root_path(@project), notice: "You have removed yourself from the project team."
+    else
+      @project.user.delete(@user)
+      @project.save
+      redirect_to project_team_path(@project), notice: "Removed #{@user.email} from project team."
+    end
   end
 
   private
@@ -124,6 +137,14 @@ class ProjectsController < ApplicationController
     def set_project
       begin
         @project = Project.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to index_path, alert: 'Looks like we could not find that project (404)'
+      end
+    end
+
+    def set_project_for_team
+      begin
+        @project = Project.find(params[:project_id])
       rescue ActiveRecord::RecordNotFound
         redirect_to index_path, alert: 'Looks like we could not find that project (404)'
       end

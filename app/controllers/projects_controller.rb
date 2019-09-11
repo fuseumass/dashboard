@@ -113,6 +113,8 @@ class ProjectsController < ApplicationController
         @user = User.where(email: params[:add_team_member]).first
         if @user.nil?
           redirect_to project_team_path(@project), alert: "Unable to add team member. Ensure the email is spelled correctly."
+        elsif !@user.project_id.nil?
+          redirect_to project_team_path(@project), alert: "Unable to add team member. #{params[:add_team_member]} is already on a team."
         elsif @user.is_admin? or @user.is_mentor? or @user.is_organizer?
           redirect_to project_team_path(@project), alert: "Unable to add administrators, organizers, or mentors as a team member."
         else

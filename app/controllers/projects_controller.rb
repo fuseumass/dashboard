@@ -84,6 +84,12 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+
+    @project.user.each do |user|
+      user.project_id = nil
+      user.save
+    end
+
     @project.destroy
     respond_to do |format|
       format.html { redirect_to index_path, notice: 'Project was successfully destroyed.' }

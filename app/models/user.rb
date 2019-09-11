@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
   has_many :mentorship_request, dependent: :destroy
-  belongs_to :project
+  belongs_to :project, optional: true
 
   after_create :welcome_email
 

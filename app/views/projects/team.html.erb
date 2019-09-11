@@ -7,10 +7,10 @@
   <div class="col-md-12 col-xl-12">
     <div class="card">
       <div class="card-body">
-        <p>Admin allows the user to basically do whatever they want. Be wise and don't give this privilege to anyone who doesn't deserve it. </p>
-        <%= form_tag add_permissions_path, method: :get, class:'col-lg-12' do%>
+        <p>Here you can add other </p>
+        <%= form_tag project_add_team_member_path, method: :get, class:'col-lg-12' do%>
             <div class="input-group">
-              <%= text_field_tag :add_admin, params[:add_admin], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1%>
+              <%= text_field_tag :add_team_member, params[:add_team_member], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1%>
               <span class="input-group-btn">
                   <%= submit_tag 'Add Member', name: nil, class: 'btn btn-danger' %>
                 </span>

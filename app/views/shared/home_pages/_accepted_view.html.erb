@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-sm-12 col-lg-4">
     <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/accepted_view_rsvp') %>
+    <br>
+    <%= link_to 'RSVP', rsvp_path, class: 'btn btn-success' %>
+    <p></p>
+    <%= link_to "Sorry, I can't participate", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you cannot attend? By doing this you will be changing your application status from accepted to declined. This is IRREVERSIBLE -- you cannot be marked as accepted again, and you will be unable to come to the event! Are you sure you want to decline your acceptance?' } %>
   </div>
 
   <div class="col-sm-12 col-lg-4">

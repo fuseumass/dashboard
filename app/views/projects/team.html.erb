@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1 class="page-title">Edit Project Team</h1>
+</div>
+
+<div class="row">
+
+  <div class="col-md-12 col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <p>Here you can add other <%= HackumassWeb::Application::HACKATHON_NAME %> participants to your project team. All participants on your team can edit the project and be given credit for the work done on it. To find the email address to use to add them, have them check their project page.</p>
+        <%= form_tag project_add_team_member_path, method: :post, class:'col-lg-12' do%>
+            <div class="input-group">
+              <%= text_field_tag :add_team_member, params[:add_team_member], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1%>
+              <span class="input-group-btn">
+                  <%= submit_tag 'Add Member', name: nil, class: 'btn btn-danger' %>
+                </span>
+            </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-xl-4">
+    <div class="card">
+      <div class="card-body o-auto" style="height: 15rem">
+        <table class="table card-table">
+          <% @project.user.each do |usr| %>
+            <tr>
+              <td><%= usr.full_name.titleize %></td>
+              <td>
+                <%= form_tag project_remove_team_member_path, method: :post, class:'col-lg-12' do%>
+                  <%= button_tag 'Remove', type: :submit, value: usr.id, name: :user_to_remove,class: 'btn btn-danger' %>
+                <%end%>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8 col-xl-8">
+  </div>
+
+  <div class="col-md-4 col-xl-4">
+      <%= link_to 'Return to Project', project_path(@project), class: 'btn btn-secondary' %>
+  </div>
+
+
+</div>

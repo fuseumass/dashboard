@@ -30,21 +30,39 @@
       </div>
     </div>
   <% end %>
-  <div class="col-sm-6 col-lg-3">
-    <div class="card p-3">
-      <a href="<%= event_applications_path(rsvp: true) %>" class="text-inherit text-decoration-none">
-        <div class="d-flex align-items-center">
-          <span class="stamp stamp-md bg-red mr-3">
-            <i class="fe fe-user"></i>
-          </span>
-          <div>
-            <h4 class="m-0"><%= @rsvp_user_count %></h4>
-            <small class="text-muted">RSVP'd Users</small>
+  <% if HackumassWeb::Application::APPLICATIONS_MODE == 'open' %>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card p-3">
+        <a href="#" class="text-inherit text-decoration-none">
+          <div class="d-flex align-items-center">
+            <span class="stamp stamp-md bg-red mr-3">
+              <i class="fe fe-user"></i>
+            </span>
+            <div>
+              <h4 class="m-0"><%= @user_count %></h4>
+              <small class="text-muted">Registered Accounts</small>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card p-3">
+        <a href="<%= event_applications_path(rsvp: true) %>" class="text-inherit text-decoration-none">
+          <div class="d-flex align-items-center">
+            <span class="stamp stamp-md bg-red mr-3">
+              <i class="fe fe-user"></i>
+            </span>
+            <div>
+              <h4 class="m-0"><%= @rsvp_user_count %></h4>
+              <small class="text-muted">RSVP'd Users</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  <% end %>
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
       <a href="<%= all_checked_out_hardware_items_path %>" class="text-inherit text-decoration-none">

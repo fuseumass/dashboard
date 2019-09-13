@@ -83,13 +83,22 @@ Rails.application.routes.draw do
     get 'join_slack' => 'pages#join_slack'
 
     # Allow users to rsvp for the event
-    get 'unrsvp' => 'pages#unrsvp'
+    post 'unrsvp' => 'pages#unrsvp'
+
+    # Redirect to home page if accessed using get request
+    get 'unrsvp' => 'pages#index'
 
     # Allow adding permissions to users
-    get 'add_permissions' => 'pages#add_permissions'
+    post 'add_permissions' => 'pages#add_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'add_permissions' => 'pages#index'
 
     # Allow removing permissions from users
-    get 'remove_permissions' => 'pages#remove_permissions'
+    post 'remove_permissions' => 'pages#remove_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'remove_permissions' => 'pages#index'
 
     # Make our URLs prettier
     get 'index' => 'pages#index'

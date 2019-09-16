@@ -42,6 +42,12 @@ Rails.application.routes.draw do
 
   # Event Application Routes End
 
+  resources :custom_rsvps, except: [:destroy] do
+
+  end
+
+
+
 
 
   # Mentorship Request Routes Start

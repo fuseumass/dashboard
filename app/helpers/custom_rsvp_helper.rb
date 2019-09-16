@@ -1,0 +1,2 @@
+module CustomRsvpHelper
+end

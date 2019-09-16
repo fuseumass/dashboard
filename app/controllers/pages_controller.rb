@@ -14,6 +14,14 @@ class PagesController < ApplicationController
       end
     end
 
+    if CustomRsvp.where(user_id: @current_user.id).exists?
+      @rsvp = CustomRsvp.where(user_id: @current_user.id).first
+      @rsvp_new = false
+    else
+      @rsvp = CustomRsvp.new
+      @rsvp_new = true
+    end
+
     # Stuff used for Admin Page
     @all_apps_count = EventApplication.all.count
     @accepted_count = EventApplication.where(status: 'accepted').count

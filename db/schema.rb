@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_044737) do
+ActiveRecord::Schema.define(version: 2019_09_15_231752) do
+
+  create_table "custom_rsvps", force: :cascade do |t|
+    t.integer "user_id"
+    t.json "answers"
+    t.index ["user_id"], name: "index_custom_rsvps_on_user_id"
+  end
 
   create_table "emails", force: :cascade do |t|
     t.string "subject"

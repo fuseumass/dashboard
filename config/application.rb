@@ -16,6 +16,7 @@ module HackumassWeb
 
     config=YAML.load_file('hackathon-config/hackathon.yml')
     event_application_config=YAML.load_file('hackathon-config/event_application.yml') || {} if File.exists?('hackathon-config/event_application.yml')
+    rsvp_custom_fields = YAML.load_file('hackathon-config/rsvp_questions.yml') || {} if File.exists?('hackathon-config/rsvp_questions.yml')
 
     COPY_FOLDER = File.expand_path('hackathon-config/copy')
     def copy_for(name)
@@ -41,6 +42,8 @@ module HackumassWeb
 
     EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []
     EVENT_APPLICATION_OPTIONS = event_application_config["options"] or {}
+
+    RSVP_CUSTOM_FIELDS = rsvp_custom_fields["custom_questions"] or []
 
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file

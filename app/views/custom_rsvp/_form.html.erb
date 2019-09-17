@@ -1,0 +1,72 @@
+
+<%= form_for(@rsvp, html: {multipart: true}) do |f| %>
+    <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
+        <%= f.fields_for :answers, OpenStruct.new(@rsvp.answers) do |o| %>
+        <div class="form-group<% if c['hidden'] %> event-application-hidden<% end %>">
+            <%= o.label c['name'].to_sym,
+                        "#{c['label']}:",
+                        class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
+            <% if c['type'] == 'select' %>
+            <%= o.select c['name'].to_sym,
+                        c['options'],
+                        {include_blank: true},
+                        {class: 'form-control custom-select'} %>
+            <% elsif c['type'] == 'multiselect' %>
+            <div class='custom-controls-stacked'>
+                <% c['options'].each do |option| %>
+                <label class="custom-control custom-checkbox">
+                    <%= o.check_box c['name'].to_sym,
+                                    {multiple: true},
+                                    option,
+                                    nil %> <%= option %>
+                </label>
+                <% end %>
+            </div>
+            <% elsif c['type'] == 'boolean' %>
+            <div class="custom-controls-stacked">
+                <label class="custom-control custom-radio custom-control-inline">
+                <%= o.radio_button c['name'].to_sym,
+                                    true,
+                                    class: 'custom-control-input',
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                <span class="custom-control-label">Yes</span>
+                </label>
+                <label class="custom-control custom-radio custom-control-inline">
+                <%= o.radio_button c['name'].to_sym,
+                                    false,
+                                    class: 'custom-control-input',
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                <span class="custom-control-label">No</span>
+                </label>
+            </div>
+            <% elsif c['type'] == 'textarea' %>
+            <%= o.text_area c['name'].to_sym,
+                        rows: '5',
+                        class: 'form-control text-box',
+                        onkeyup: 'charCounter()' %>
+            <div class="form-label-small event-application-flex-end-container text-box-counter">
+                0 of <%= c['max_chars'] or 500 %>
+            </div>
+            <% else %>
+            <%= o.text_field c['name'].to_sym,
+                                class: 'form-control' %>
+            <% end %>
+        <% end %>
+        </div>
+    <% end %>
+
+    <center>
+        <% if @rsvp_new %>
+        <%= f.submit 'Submit RSVP',
+                    type: 'submit',
+                    class: 'btn btn-purple bg-primary-color' %>
+        <% else %>
+        <%= f.submit 'Update RSVP',
+                    type: 'submit',
+                    class: 'btn btn-purple bg-primary-color' %>
+        <% end %>
+    </center>
+    <% end %>
+    <br>
+    <p></p>
+    <%= link_to "Sorry, I can't participate", unrsvp_path, class: 'btn btn-danger', data: { confirm: 'Are you sure you cannot attend? By doing this you will be changing your application status from accepted to declined. This is IRREVERSIBLE -- you cannot be marked as accepted again, and you will be unable to come to the event! Are you sure you want to decline your acceptance?' } %>

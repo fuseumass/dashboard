@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1 class="page-title">Project Creation Information</h1>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    In order to be elegible to be judged and entered to win prizes, you must fist submit your project on Dashboard. Before creating an official submission, review the following requirements:
+    <br>
+    <li> You should only create one project page per team.
+    <li> Every member of the project team must be included in the submission to receive credit.
+    <li> Up to 4 individual prizes are given per team. If there are more than 4 team members, only 4 will receive prizes.
+    <li> You can edit your project submission until the deadline.
+  </div>
+
+  <div class="card-body">
+    The email address associated with your account is: <b style="color: red;"><%= current_user.email%></b>.
+    <br>
+    In order to be added to a project as a contributor, the person creating the new project must add the email address above as a team member.
+  </div>
+
+  <div class="card-body o-auto">
+  <% if has_access_to_projects? %>
+      <%= link_to new_project_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+        <p class="btn btn-dark"> Create New Project</p>
+      <% end %>
+  <% end %>
+  </div>
+</div>

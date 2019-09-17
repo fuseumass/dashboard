@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :hardware_items, through: :hardware_checkouts
   has_one :event_application, dependent: :destroy
   has_many :mentorship_request, dependent: :destroy
-  has_one :project, dependent: :destroy
+  belongs_to :project, optional: true
 
   after_create :welcome_email
 
@@ -112,7 +112,7 @@ class User < ApplicationRecord
     if $workspace_token.length == 0
       return false
     end
-    
+
     url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
 
     http = Net::HTTP.new(url.host, url.port)

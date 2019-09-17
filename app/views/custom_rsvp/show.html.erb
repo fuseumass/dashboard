@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1 class="page-title"><%= @rsvp.user.first_name %> <%= @rsvp.user.last_name %></h1>
+</div>
+
+<div class="col-lg-12">
+
+    <div class="col-sm-12 col-lg-12">
+        <div class="row align-items-center event-application-nav-button-container">
+        <% if @applicant %>
+          <%= link_to 'View Application',
+                      event_application_path(@applicant.id),
+                      class: 'btn btn-purple event-application-nav-button' %>
+        <% else %>
+            <b>The user does not have an event application.</b>
+        <% end %>
+        </div>
+        <div class="card">
+            <div class="card-body d-flex flex-column" style="width: 100%">
+                <%= render "custom_rsvp/form" %>
+            </div>
+        </div>
+    </div>
+</div>

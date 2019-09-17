@@ -1,178 +1,167 @@
 <div class="card-body">
 
- <noscript>
-    Hello, <%= current_user.first_name %>! Wow, you're clearly an next-level haxor
-    if you have Javascript disabled. In order to ensure that everything functions
-    properly during sign up, please enable javascript for the duration of the sign up.
-    <br />
+  <noscript>
+    Hello,
+    <%= current_user.first_name %>! Wow, you're clearly an next-level haxor if you have Javascript disabled. In order to ensure that everything functions properly during sign up, please enable Javascript for the duration of the sign up.
+    <br/>
     Our code is open source, so you should be able to see that we aren't hiding anything sketchy :)
-    <br />
-    Thank you and we hope you see at <%= HackumassWeb::Application::HACKATHON_NAME %>!
+    <br/>
+    Thank you and we hope you see at
+    <%= HackumassWeb::Application::HACKATHON_NAME %>!
   </noscript>
 
   <div class="col-lg-8">
     <%= form_with(model: project, local: true) do |form| %>
-      <% if project.errors.any? %>
-        <div class="card">
-          <div class="card-status bg-danger"></div>
-          <div class="card-header">
-            <h3 class="page-title">
-            <%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:
-           </h3>
-          </div>
+    <% if project.errors.any? %>
+      <div class="card">
+        <div class="card-status bg-danger"></div>
+        <div class="card-header">
+          <h3 class="page-title">
+            <%= pluralize(project.errors.count, "error") %>
+            prohibited this project from being saved:
+          </h3>
+        </div>
         <div class="card-body projects-error-card-padding">
           <ul>
             <% project.errors.values.each do |message| %>
-              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '')  %></li>
+              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %></li>
             <% end %>
           </ul>
         </div>
-        </div>
+      </div>
     <% end %>
 
-  <div class="alert alert-icon alert-primary" role="alert">
-    <i class="fe fe-bell mr-2" aria-hidden="true"></i> Just a reminder, only <b>one</b> project should be submitted per team. Please make sure to list your team members.
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What is the name of your project?
-    </h3>
-    <%= form.text_field :title, id: :project_title, class: 'form-control', placeholder: 'Give your project an awesome name! Project names must be unique.' %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      Describe your project!
-    </h3>
-    <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! Try to have no more than 100 words." %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      Do you have a github link?
-    </h3>
-    <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! Leave blank if you don't have one!" %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      Who made this amazing Hack?
-    </h3>
-    <%= form.text_field :team_members, id: :project_team_members, class: 'form-control', placeholder: 'Please list first and last name separated by commas. Ex: Brian Ramirez, Tanya Asnani' %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      Do you have a project image?
-    </h3>
-    <p style="color: grey; ">(Project images are not required, but judges love when they can see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.)</p>
-    <div class="custom-file">
-      <%= form.file_field :projectimage, class:'custom-file-input', onchange:'updateProjectImageFileLabel()', id: 'project_projectimage' %>
-      <label class="custom-file-label"> Choose file </label>
+    <div class="alert alert-icon alert-primary" role="alert">
+      <i class="fe fe-bell mr-2" aria-hidden="true"></i>
+      Just a reminder, only
+      <b>one</b>
+      project should be submitted per team. Please make sure to list your team members.
     </div>
-  </div>
 
-  <div class="form-group">
-    <h3>
-      What inspired you to make this?
-    </h3>
-    <%= form.text_area :inspiration, id: :project_inspiration, class: 'form-control', placeholder: "What inspired you to do this project? " %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What does your project do?
-    </h3>
-    <%= form.text_area :does_what, id: :project_does_what, class: 'form-control', placeholder: "What does your project do?" %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      How did you build it?
-    </h3>
-    <%= form.text_area :built_how, id: :project_built_how, class: 'form-control', placeholder: "How did you build your project? " %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What challenges did you face?
-    </h3>
-    <%= form.text_area :challenges, id: :project_challenges, class: 'form-control', placeholder: "What were some of the challenges you faced while doing this project? " %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What accomplishments are you proud of?
-    </h3>
-    <%= form.text_area :accomplishments, id: :project_accomplishments, class: 'form-control', placeholder: "What were some of your accomplishments while doing this project? " %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What did you learn while building this?
-    </h3>
-    <%= form.text_area :learned, id: :project_learned, class: 'form-control', placeholder: "What were some things you learned while doing this project? " %>
-  </div>
-
-  <div class="form-group">
-    <h3>
-      What's next for your project?
-    </h3>
-    <%= form.text_area :next, id: :project_next, class: 'form-control', placeholder: "What's next for your project? " %>
-  </div>
-
-   <div class="form-group">
-     <h3>
-       What did you build it with?
-     </h3>
-    <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
-  </div>
-  <div class="card">
-  <div class=card-body>
     <div class="form-group">
       <h3>
-        What prizes are you going for?
+        What is the name of your project?
       </h3>
-      <div class='form-group'>
-          <%= form.label :prizes,
-                      'Select all the prizes that your hack is related to',
-                      class: 'form-label' %>
-          <div class='selectgroup selectgroup-pills'>
-            <% Prize.all.each do |prize| %>
-              <label class="selectgroup-item">
-                <%= form.check_box :prizes,
-                                {multiple: true, :class => "selectgroup-input"},
-                                "#{prize.name}",
-                                nil %>
-                                <span class = "selectgroup-button"><%= prize.name %></span>
-              </label>
-            <% end %>
+      <%= form.text_field :title, id: :project_title, class: 'form-control', placeholder: 'Give your project an awesome name! Project names must be unique.' %>
+    </div>
 
+    <div class="form-group">
+      <h3>
+        Describe your project!
+      </h3>
+      <%= form.text_area :description, id: :project_description, class: 'form-control', placeholder: "Let us know what makes your project unique! Try to have no more than 100 words." %>
+    </div>
 
-          </div>
+    <div class="form-group">
+      <h3>
+        Do you have a github link?
+      </h3>
+      <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! Leave blank if you don't have one!" %>
+    </div>
+
+    <div class="form-group">
+      <h3>
+        Do you have a project image?
+      </h3>
+      <p style="color: grey; ">(Project images are not required, but judges love when they can see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.)</p>
+      <div class="custom-file">
+        <%= form.file_field :projectimage, class:'custom-file-input', onchange:'updateProjectImageFileLabel()', id: 'project_projectimage' %>
+        <label class="custom-file-label">
+          Choose file
+        </label>
       </div>
     </div>
-  </div>
-</div>
 
-<div class='card'>
-  <div class='card-body'>
-  <h3>
-  For judging purposes, do you need a wall outlet?
-  </h3>
-    <%= form.check_box(:power)%>
-    <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
-  </div>
-</div>
+    <div class="form-group">
+      <h3>
+        What inspired you to make this?
+      </h3>
+      <%= form.text_area :inspiration, id: :project_inspiration, class: 'form-control', placeholder: "What inspired you to do this project? " %>
+    </div>
 
+    <div class="form-group">
+      <h3>
+        What does your project do?
+      </h3>
+      <%= form.text_area :does_what, id: :project_does_what, class: 'form-control', placeholder: "What does your project do?" %>
+    </div>
 
+    <div class="form-group">
+      <h3>
+        How did you build it?
+      </h3>
+      <%= form.text_area :built_how, id: :project_built_how, class: 'form-control', placeholder: "How did you build your project? " %>
+    </div>
 
+    <div class="form-group">
+      <h3>
+        What challenges did you face?
+      </h3>
+      <%= form.text_area :challenges, id: :project_challenges, class: 'form-control', placeholder: "What were some of the challenges you faced while doing this project? " %>
+    </div>
 
+    <div class="form-group">
+      <h3>
+        What accomplishments are you proud of?
+      </h3>
+      <%= form.text_area :accomplishments, id: :project_accomplishments, class: 'form-control', placeholder: "What were some of your accomplishments while doing this project? " %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit class: 'btn btn-primary' %>
-  </div>
+    <div class="form-group">
+      <h3>
+        What did you learn while building this?
+      </h3>
+      <%= form.text_area :learned, id: :project_learned, class: 'form-control', placeholder: "What were some things you learned while doing this project? " %>
+    </div>
+
+    <div class="form-group">
+      <h3>
+        What's next for your project?
+      </h3>
+      <%= form.text_area :next, id: :project_next, class: 'form-control', placeholder: "What's next for your project? " %>
+    </div>
+
+    <div class="form-group">
+      <h3>
+        What did you build it with?
+      </h3>
+      <%= form.text_area :built_with, id: :project_built_with, class: 'form-control', placeholder: "What were the tools used to build your project? " %>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <h3>
+            What prizes are you going for?
+          </h3>
+          <div class='form-group'>
+            <%= form.label :prizes, 'Select all the prizes that your hack is related to', class: 'form-label' %>
+            <div class='selectgroup selectgroup-pills'>
+              <% Prize.all.each do |prize| %>
+                <label class="selectgroup-item">
+                  <%= form.check_box :prizes, {multiple: true, :class => "selectgroup-input"}, "#{prize.name}", nil %>
+                  <span class="selectgroup-button"><%= prize.name %></span>
+                </label>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='card-body'>
+        <h3>
+          For judging purposes, do you need a wall outlet?
+        </h3>
+        <%= form.check_box(:power)%>
+        <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
   <% end %>
 </div>
 </div>

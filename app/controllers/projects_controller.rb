@@ -96,7 +96,7 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+ 
   def team
     if current_user.project_id != @project.id
       redirect_to index_path, alert: "You don't have permission to view this project."

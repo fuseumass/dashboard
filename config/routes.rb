@@ -116,6 +116,9 @@ Rails.application.routes.draw do
         get 'search'
       end
     end
+
+    get 'projects/new/project_submit_info' => 'projects#project_submit_info', :as => :project_submit_info
+
   # Hardware Routes Start
 
     # Allow autocomplete on hardware checkout page

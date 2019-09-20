@@ -31,6 +31,7 @@ class CustomRsvpsController < ApplicationController
             @current_user.rsvp = true
             flash[:success] = "You have successfully RSVP'd to the event! See you there!"
             redirect_to :index
+            @current_user.save
         else
             flash[:error] = "You are unable to RSVP because of validation errors in your RSVP questions."
             @rsvp = @custom_rsvp

@@ -159,16 +159,16 @@ class PagesController < ApplicationController
     !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
   end
 
-  def rsvp
-    if current_user.event_application and current_user.event_application.status == 'accepted'
-      current_user.rsvp = true
-      current_user.save
-      flash[:success] = "You Successfully RSVP'd for the Event"
-    else
-      flash[:error] = "You can't RSVP to the event if you never applied or weren't accepted!"
-    end
-    redirect_to root_path
-  end
+  # def rsvp
+  #   if current_user.event_application and current_user.event_application.status == 'accepted'
+  #     current_user.rsvp = true
+  #     current_user.save
+  #     flash[:success] = "You Successfully RSVP'd for the Event"
+  #   else
+  #     flash[:error] = "You can't RSVP to the event if you never applied or weren't accepted!"
+  #   end
+  #   redirect_to root_path
+  # end
 
   def unrsvp
     current_user.rsvp = false

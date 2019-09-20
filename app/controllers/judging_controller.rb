@@ -41,7 +41,16 @@ class JudgingController < ApplicationController
         canvas.text("#{UNDERLINE}", at:[153, 515])
 
         canvas.text("Team Members:\n", at:[80, 490])
-        canvas.text("#{project.team_members}\n", at:[170, 490])
+        canvas.text("#{proj_users = ""
+          project.user.each do |u|
+            proj_users << u.first_name + " "
+            if u != project.user.last
+              proj_users << u.last_name + ", "
+            else
+              proj_users << u.last_name
+            end
+          end
+          proj_users}\n", at:[170, 490])
         canvas.text("#{UNDERLINE}", at:[165, 490])
 
         update_font(canvas, 18, :bold)

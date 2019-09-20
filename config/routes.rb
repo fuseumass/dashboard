@@ -90,13 +90,26 @@ Rails.application.routes.draw do
 
     # Allow users to rsvp for the event
     post 'unrsvp' => 'pages#unrsvp'
+<<<<<<< HEAD
     # Allow users to rsvp for the event
     get 'unrsvp' => 'pages#index'
+=======
+
+    # Redirect to home page if accessed using get request
+    get 'unrsvp' => 'pages#index'
+
+>>>>>>> dc4ead93fe6342cfc3c0b55ab6e51424ac66f6f3
     # Allow adding permissions to users
-    get 'add_permissions' => 'pages#add_permissions'
+    post 'add_permissions' => 'pages#add_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'add_permissions' => 'pages#index'
 
     # Allow removing permissions from users
-    get 'remove_permissions' => 'pages#remove_permissions'
+    post 'remove_permissions' => 'pages#remove_permissions'
+
+    # Redirect to home page if accessed using get request
+    get 'remove_permissions' => 'pages#index'
 
     # Make our URLs prettier
     get 'index' => 'pages#index'
@@ -107,10 +120,16 @@ Rails.application.routes.draw do
   # Pages Routes End
 
     resources :projects do
+      get 'team' => 'projects#team', :as => :team
+      post 'add_team_member' => 'projects#add_team_member', :as => :add_team_member
+      post 'remove_team_member' => 'projects#remove_team_member', :as => :remove_team_member
       collection do
         get 'search'
       end
     end
+
+    get 'projects/new/project_submit_info' => 'projects#project_submit_info', :as => :project_submit_info
+
   # Hardware Routes Start
 
     # Allow autocomplete on hardware checkout page

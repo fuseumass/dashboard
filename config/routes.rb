@@ -89,8 +89,9 @@ Rails.application.routes.draw do
     get 'join_slack' => 'pages#join_slack'
 
     # Allow users to rsvp for the event
-    get 'unrsvp' => 'pages#unrsvp'
-
+    post 'unrsvp' => 'pages#unrsvp'
+    # Allow users to rsvp for the event
+    get 'unrsvp' => 'pages#index'
     # Allow adding permissions to users
     get 'add_permissions' => 'pages#add_permissions'
 

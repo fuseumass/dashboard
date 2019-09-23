@@ -90,15 +90,8 @@ Rails.application.routes.draw do
 
     # Allow users to rsvp for the event
     post 'unrsvp' => 'pages#unrsvp'
-<<<<<<< HEAD
     # Allow users to rsvp for the event
     get 'unrsvp' => 'pages#index'
-=======
-
-    # Redirect to home page if accessed using get request
-    get 'unrsvp' => 'pages#index'
-
->>>>>>> dc4ead93fe6342cfc3c0b55ab6e51424ac66f6f3
     # Allow adding permissions to users
     post 'add_permissions' => 'pages#add_permissions'
 

@@ -16,7 +16,7 @@
           <% if Rails.env.development? %>
             Chart will only render in production and staging
           <% else %>
-            <%= line_chart User.where(:check_in => true).group_by_minute(:updated_at).order("updated_at asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
+            <%= line_chart User.where(:check_in => true).group_by_minute(:updated_at).count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
           <% end %>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <% if Rails.env.development? %>
             Chart will only render in production and staging
           <% else %>
-            <%= line_chart User.all.group_by_day(:created_at).order("created_at asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
+            <%= line_chart User.all.group_by_day(:created_at).count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
           <% end %>
         </div>
       </div>
@@ -45,7 +45,7 @@
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart EventApplication.all.group_by_day(:updated_at).order("updated_at asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
+          <%= line_chart EventApplication.all.group_by_day(:updated_at).count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
         <% end %>
       </div>
     </div>
@@ -58,7 +58,7 @@
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).order("updated_at asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
+          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
         <% end %>
       </div>
     </div>

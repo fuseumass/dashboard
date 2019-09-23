@@ -33,12 +33,44 @@ class EventApplicationsController < ApplicationController
 
     @appsCSV = EventApplication.all
 
+    unless Rails.env.development?
+      @check_in_chart = User.where(:check_in => true).group_by_day(:updated_at).count
+      total = 0
+      @check_in_chart.keys.each do |k|
+        total += @check_in_chart[k]
+        @check_in_chart[k] = total
+      end
+      
+      @reg_chart = User.all.group_by_day(:created_at).count
+      total = 0
+      @reg_chart.keys.each do |k|
+        total += @reg_chart[k]
+        @reg_chart[k] = total
+      end
+
+      @app_chart = EventApplication.all.group_by_day(:updated_at).count
+      total = 0
+      @app_chart.keys.each do |k|
+        total += @app_chart[k]
+        @app_chart[k] = total
+      end
+
+      @rsvp_chart = User.where(:rsvp => true).group_by_day(:updated_at).count
+      total = 0
+      @rsvp_chart.keys.each do |k|
+        total += @rsvp_chart[k]
+        @rsvp_chart[k] = total
+      end
+    end
+
+
     respond_to do |format|
       format.html
       format.csv { send_data @appsCSV.to_csv, filename: "event_applications.csv" }
     end
 
   end
+
 
   def show
     # variable used in erb file

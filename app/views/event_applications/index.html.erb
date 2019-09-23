@@ -16,7 +16,7 @@
           <% if Rails.env.development? %>
             Chart will only render in production and staging
           <% else %>
-            <%= line_chart User.where(:check_in => true).group_by_minute(:updated_at).count %>
+            <%= line_chart User.where(:check_in => true).group_by_minute(:updated_at).order("minute asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
           <% end %>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <% if Rails.env.development? %>
             Chart will only render in production and staging
           <% else %>
-            <%= line_chart User.all.group_by_day(:created_at).count %>
+            <%= line_chart User.all.group_by_day(:created_at).order("day asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
           <% end %>
         </div>
       </div>
@@ -45,7 +45,7 @@
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart EventApplication.all.group_by_day(:updated_at).count %>
+          <%= line_chart EventApplication.all.group_by_day(:updated_at).order("day asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
         <% end %>
       </div>
     </div>
@@ -58,7 +58,7 @@
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).count %>
+          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).order("day asc").count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
         <% end %>
       </div>
     </div>

@@ -199,13 +199,15 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                                     onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
                   <span class="custom-control-label">Yes</span>
                 </label>
-                <label class="custom-control custom-radio custom-control-inline">
-                  <%= o.radio_button c['name'].to_sym,
-                                    false,
-                                    class: 'custom-control-input',
-                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
-                  <span class="custom-control-label">No</span>
-                </label>
+                <% unless c['only_yes'] %>
+                  <label class="custom-control custom-radio custom-control-inline">
+                    <%= o.radio_button c['name'].to_sym,
+                                      false,
+                                      class: 'custom-control-input',
+                                      onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                    <span class="custom-control-label">No</span>
+                  </label>
+                <% end %>
               </div>
             <% elsif c['type'] == 'textarea' %>
               <%= o.text_area c['name'].to_sym,

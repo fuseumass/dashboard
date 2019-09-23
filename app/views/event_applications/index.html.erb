@@ -5,60 +5,80 @@
 </div>
 
 <div class="row">
-
-
-
   <% if check_feature_flag?($CheckIn) %>
-    <div class="col-lg-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">Check-In Count <span class="label label-primary"><%= User.where(:check_in => true).count%></div>
-        <div class="panel-body">
-          <% if Rails.env.development? %>
-            Chart will only render in production and staging
-          <% else %>
-            <%= line_chart User.where(:check_in => true).group_by_day(:updated_at).order("day asc").sum(:id).map { |x,y| { x => (@sum += 1)} }.reduce({}, :merge) %>
-          <% end %>
+    <div class="col-sm-6 col-lg-4">
+      <div class="card p-3">
+        <div class="d-flex align-items-center" style="margin-bottom: 10px">
+          <span class="stamp stamp-md bg-green mr-3">
+            <i class="fe fe-user-check"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= User.where(:check_in => true).count%></h4>
+            <small class="text-muted">Checked In Users</small>
+          </div>
         </div>
-      </div>
-    </div>
-  <% else %>
-
-    <div class="col-lg-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">Registered User Count <span class="label label-primary"><%= User.all.count%></span></div>
-        <div class="panel-body">
-          <% if Rails.env.development? %>
-            Chart will only render in production and staging
-          <% else %>
-            <%= line_chart User.all.group_by_day(:created_at).order("day asc").sum(:id).map { |x,y| { x => (@sum += 1)} }.reduce({}, :merge) %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-  <% end %>
-
-  <div class="col-lg-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">Applications Count <span class="label label-primary"><%= EventApplication.all.count%></span></div>
-      <div class="panel-body">
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart EventApplication.all.group_by_day(:updated_at).order("day asc").sum(:id).map { |x,y| { x => (@sum += 1)} }.reduce({}, :merge) %>
+          <%= line_chart @check_in_chart %>
         <% end %>
       </div>
     </div>
-  </div>
-
-  <div class="col-lg-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">RSVP Count <span class="label label-primary"><%= User.where(:rsvp => true).count%></span></div>
-      <div class="panel-body">
+  <% else %>
+    <div class="col-sm-6 col-lg-4">
+      <div class="card p-3">
+        <div class="d-flex align-items-center" style="margin-bottom: 10px">
+          <span class="stamp stamp-md bg-green mr-3">
+            <i class="fe fe-user-check"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= User.all.count%></h4>
+            <small class="text-muted">Registered Accounts</small>
+          </div>
+        </div>
         <% if Rails.env.development? %>
           Chart will only render in production and staging
         <% else %>
-          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).order("day asc").sum(:id).map { |x,y| { x => (@sum += 1)} }.reduce({}, :merge) %>
+          <%= line_chart @reg_chart %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+    <div class="col-sm-6 col-lg-4">
+      <div class="card p-3">
+        <div class="d-flex align-items-center" style="margin-bottom: 10px">
+          <span class="stamp stamp-md bg-green mr-3">
+            <i class="fe fe-user-check"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= EventApplication.all.count%></h4>
+            <small class="text-muted">Applications Count</small>
+          </div>
+        </div>
+        <% if Rails.env.development? %>
+          Chart will only render in production and staging
+        <% else %>
+          <%= line_chart @app_chart %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="col-sm-6 col-lg-4">
+      <div class="card p-3">
+        <div class="d-flex align-items-center" style="margin-bottom: 10px">
+          <span class="stamp stamp-md bg-green mr-3">
+            <i class="fe fe-user-check"></i>
+          </span>
+          <div>
+            <h4 class="m-0"><%= User.where(:rsvp => true).count%></h4>
+            <small class="text-muted">RSVP Count</small>
+          </div>
+        </div>
+        <% if Rails.env.development? %>
+          Chart will only render in production and staging
+        <% else %>
+          <%= line_chart @rsvp_chart %>
         <% end %>
       </div>
     </div>

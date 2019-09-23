@@ -4,6 +4,67 @@
   <h1 class="page-title">Applications</h1>
 </div>
 
+<div class="row">
+
+
+
+  <% if check_feature_flag?($CheckIn) %>
+    <div class="col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Check-In Count <span class="label label-primary"><%= EventApplication.where(:check_in => true).count%></div>
+        <div class="panel-body">
+          <% if Rails.env.development? %>
+            Chart will only render in production and staging
+          <% else %>
+            <%= line_chart EventApplication.where(:application_status => 'accepted').group_by_minute(:check_in).count %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+
+    <div class="col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Registered User Count <span class="label label-primary"><%= User.all.count%></span></div>
+        <div class="panel-body">
+          <% if Rails.env.development? %>
+            Chart will only render in production and staging
+          <% else %>
+            <%= line_chart User.all.group_by_day(:created_at).count %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Applications Count <span class="label label-primary"><%= EventApplication.all.count%></span></div>
+      <div class="panel-body">
+        <% if Rails.env.development? %>
+          Chart will only render in production and staging
+        <% else %>
+          <%= line_chart EventApplication.all.group_by_day(:updated_at).count %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">RSVP Count <span class="label label-primary"><%= User.where(:rsvp => true).count%></span></div>
+      <div class="panel-body">
+        <% if Rails.env.development? %>
+          Chart will only render in production and staging
+        <% else %>
+          <%= line_chart User.where(:rsvp => true).group_by_day(:updated_at).count %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="card-body">
     <ul class="nav nav-tabs border-0 flex-column flex-lg-row event-application-flex-space-around">

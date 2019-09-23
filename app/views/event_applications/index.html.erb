@@ -11,12 +11,12 @@
   <% if check_feature_flag?($CheckIn) %>
     <div class="col-lg-4">
       <div class="panel panel-default">
-        <div class="panel-heading">Check-In Count <span class="label label-primary"><%= EventApplication.where(:check_in => true).count%></div>
+        <div class="panel-heading">Check-In Count <span class="label label-primary"><%= User.where(:check_in => true).count%></div>
         <div class="panel-body">
           <% if Rails.env.development? %>
             Chart will only render in production and staging
           <% else %>
-            <%= line_chart EventApplication.where(:application_status => 'accepted').group_by_minute(:check_in).count %>
+            <%= line_chart User.where(:check_in => true).group_by_minute(:updated_at).count %>
           <% end %>
         </div>
       </div>

@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2019_09_15_231752) do
 
   create_table "custom_rsvps", force: :cascade do |t|
-    t.integer "user_id"
     t.json "answers"
+    t.integer "user_id"
     t.index ["user_id"], name: "index_custom_rsvps_on_user_id"
   end
 

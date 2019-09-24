@@ -168,6 +168,9 @@
 
         <div class="event-application-flex-end-container">
           <% if admin_or_organizer? %>
+            <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
+              Resume Link
+            </a>
             <%= button_to 'Accept',
                           {controller: 'event_applications', action: 'status_updated',
                            params: {new_status: 'accepted', id: @applicant.user_id}},
@@ -204,8 +207,10 @@
       <div class="event-application-resume-container">
         <% if @applicant.resume and @applicant.resume.url %>
           <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
-            <p>There was error loading the resume, try refreshing the page to see if the
-              problem will be resolved. If the issue persists, contact the tech team.</p>
+            <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">
+              <p>There was error loading the resume, try refreshing the page to see if the
+                problem will be resolved. If the issue persists, contact the tech team.</p>
+            </iframe>
           </object>
         <% else %>
           <b style="color: red">No uploaded resume.</b>

@@ -4,6 +4,19 @@
   It includes all the information listed about an applicant and gives an error if the resume file doesnt load.
 <%
 =end%>
+<title><%= @applicant.name %></title>
+
+<script>
+document.addEventListener('turbolinks:before-visit', function(e) {
+  var parser = document.createElement('a');
+  parser.href = e.data.url;
+
+  if(parser.host == window.location.host && parser.pathname == window.location.pathname) {
+    e.preventDefault();
+    window.location.href = e.data.url;
+  }
+});
+</script>
 
 <div class="my-4 my-md-5">
   <div class="container">
@@ -202,9 +215,24 @@
                         {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
         </div>
 
+      <% if admin_or_organizer? %>
+
+        <div class="row align-items-center event-application-nav-button-container">
+          <%= link_to 'Previous Applicant',
+                      event_application_path(@applicant.id-1) + '#theresume',
+                      class: 'btn btn-purple event-application-nav-button' %>
+          <b><%= @applicant.name %></b>
+          <%= link_to 'Next Applicant',
+                      event_application_path(@applicant.id+1) + '#theresume',
+                      class: 'btn btn-purple event-application-nav-button' %>
+        </div>
+
+      <% end %>
+
       </div>
 
       <div class="event-application-resume-container">
+      <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
           <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
             <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">

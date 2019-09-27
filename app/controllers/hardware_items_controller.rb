@@ -2,6 +2,7 @@ class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: [:search, :index]
   before_action :check_attendee_slack, only: [:search, :index]
+  autocomplete :user, :email, :full => true
   before_action -> { is_feature_enabled($Hardware) }
 
   def search

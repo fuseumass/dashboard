@@ -96,7 +96,21 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
- 
+
+
+  def project_submit_info
+     if current_user.has_published_project?
+        redirect_to project_path(current_user.project)
+     elsif check_feature_flag?($Projects)
+       if current_user.is_admin?
+         redirect_to projects_path
+       end
+     else
+       redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
+    end
+  end
+
+
   def team
     if current_user.project_id != @project.id
       redirect_to index_path, alert: "You don't have permission to view this project."

@@ -68,12 +68,14 @@ class HardwareItemsController < ApplicationController
   def all_checked_out
 
     if params[:search].present?
+      @individual = true
       # If there is a value in the search field, search on email, first name, and last name
       @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)
        OR lower(users.first_name) LIKE lower(?) OR lower(users.last_name) LIKE lower(?)",
        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
        .paginate(page: params[:page], per_page: 20)
     else
+      @individual = false
       @hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
     end
 

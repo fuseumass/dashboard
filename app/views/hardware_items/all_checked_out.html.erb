@@ -1,23 +1,24 @@
-<br>
-<div class="col-lg-2">
-<%= link_to 'Go Back to Hardware', hardware_items_path, class: 'btn btn-secondary btn-block' %>
-</div>
-
-
 <div class="page-header">
 
-
-  <h1 class="page-title">All Checked Out Items</h1>
-
-  <%= form_tag all_checked_out_hardware_items_path, method: :get, class:'col-lg-12' do%>
-      <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for hardware checkouts by email', :autofocus => true%>
-        <span class="input-group-btn">
-          <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
-        </span>
-      </div>
-  <%end%>
+  <% if @individual %>
+    <h1 class="page-title">User Hardware Checkout</h1>
+  <% else %>
+    <h1 class="page-title">All Hardware Checkouts</h1>
+  <% end %>
 </div>
+
+  <div class="card">
+    <div class="card-body">
+      <%= form_tag all_checked_out_hardware_items_path, method: :get, class:'col-lg-12' do%>
+          <div class="input-group">
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for hardware checkouts by email', :autofocus => true%>
+            <span class="input-group-btn">
+              <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
+            </span>
+          </div>
+      <%end%>
+    </div>
+  </div>
 
   <div class="card">
     <div class="table-responsive">

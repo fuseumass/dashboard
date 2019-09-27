@@ -54,14 +54,18 @@ class CustomRsvpsController < ApplicationController
 
     def custom_rsvp_params
         answers_items = []
+        exist = false
         HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c|
+            exist = true
             if c['type'] == 'multiselect'
                 answers_items << {c['name'].to_sym => []}
             else
                 answers_items << c['name'].to_sym
             end
         end
-        params.require(:custom_rsvp).permit(:user_id, answers: answers_items)
+        if exist
+            params.require(:custom_rsvp).permit(:user_id, answers: answers_items)
+        end
     end
 
     private

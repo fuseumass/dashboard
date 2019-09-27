@@ -66,11 +66,15 @@ class HardwareItemsController < ApplicationController
   end
 
   def all_checked_out
+
     if params[:search].present?
-      # otherwise, substring match the query for all item's name, category, and link fields
-      @hardware_checkouts = HardwareItem.where("lower(name) LIKE lower(?) OR lower(category) LIKE lower(?) OR lower(link) LIKE lower(?)", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      # If there is a value in the search field, search on email, first name, and last name
+      @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)
+       OR lower(users.first_name) LIKE lower(?) OR lower(users.last_name) LIKE lower(?)",
+       "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+       .paginate(page: params[:page], per_page: 20)
     else
-      @hardware_checkouts = HardwareItem.all.paginate(page: params[:page], per_page: 20)
+      @hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
     end
 
   end

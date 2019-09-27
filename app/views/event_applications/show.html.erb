@@ -221,7 +221,39 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <%= link_to 'Previous Applicant',
                       event_application_path(@applicant.id-1) + '#theresume',
                       class: 'btn btn-purple event-application-nav-button' %>
-          <b><%= @applicant.name %></b>
+
+          <span>
+            <b><%= @applicant.name %></b>
+
+            <% if @applicant.flag && admin_or_organizer? %>
+              <span class="tag tag-danger event-application-header-status-margin">
+                Flagged
+              </span>
+            <% end %>
+            <% if @applicant.user.rsvp %>
+              <span class="tag tag-success event-application-header-status-margin">
+                RSVP
+              </span>
+            <% end %>
+            <% if 'accepted'.eql?(@status) %>
+              <span class="tag tag-success event-application-header-status-margin">
+                <%= @status.capitalize %>
+              </span>
+            <% elsif 'denied'.eql?(@status) %>
+              <span class="tag tag-danger event-application-header-status-margin">
+                <%= @status.capitalize %>
+              </span>
+            <% elsif 'waitlisted'.eql?(@status) %>
+              <span class="tag tag-warning event-application-header-status-margin">
+                <%= @status.capitalize %>
+              </span>
+            <% else %>
+              <span class="tag tag-secondary event-application-header-status-margin">
+                <%= @status.capitalize %>
+              </span>
+            <% end %>
+          </span>
+
           <%= link_to 'Next Applicant',
                       event_application_path(@applicant.id+1) + '#theresume',
                       class: 'btn btn-purple event-application-nav-button' %>

@@ -66,7 +66,13 @@ class HardwareItemsController < ApplicationController
   end
 
   def all_checked_out
-    @all_hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
+    if params[:search].present?
+      # otherwise, substring match the query for all item's name, category, and link fields
+      @hardware_checkouts = HardwareItem.where("lower(name) LIKE lower(?) OR lower(category) LIKE lower(?) OR lower(link) LIKE lower(?)", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+    else
+      @hardware_checkouts = HardwareItem.all.paginate(page: params[:page], per_page: 20)
+    end
+
   end
 
   def destroy

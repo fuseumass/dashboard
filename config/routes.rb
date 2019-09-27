@@ -138,6 +138,11 @@ Rails.application.routes.draw do
       end
     end
 
+    # Allow autocomplete on user email for all checked out items
+    resources :hardware_checkouts, only: [:all_checked_out] do
+      get :autocomplete_user_email, :on => :collection
+    end
+
   # Hardware Routes End
 
   # Email Routes Begin

@@ -2,8 +2,8 @@ class HardwareItemsController < ApplicationController
   before_action :set_hardware_item, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: [:search, :index]
   before_action :check_attendee_slack, only: [:search, :index]
-  autocomplete :user, :email, :full => true
   before_action -> { is_feature_enabled($Hardware) }
+  autocomplete :user, :email, :full => true
 
   def search
     if params[:search].present?
@@ -69,12 +69,12 @@ class HardwareItemsController < ApplicationController
   def all_checked_out
 
     if params[:search].present?
+
       @individual = true
       # If there is a value in the search field, search on email, first name, and last name
-      @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)
-       OR lower(users.first_name) LIKE lower(?) OR lower(users.last_name) LIKE lower(?)",
-       "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
-       .paginate(page: params[:page], per_page: 20)
+      @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)",
+       "%#{params[:search]}%").paginate(page: params[:page], per_page: 20)
+       @email = params[:search]
     else
       @individual = false
       @hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)

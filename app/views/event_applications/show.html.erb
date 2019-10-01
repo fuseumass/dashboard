@@ -4,19 +4,6 @@
   It includes all the information listed about an applicant and gives an error if the resume file doesnt load.
 <%
 =end%>
-<title><%= @applicant.name %></title>
-
-<script>
-document.addEventListener('turbolinks:before-visit', function(e) {
-  var parser = document.createElement('a');
-  parser.href = e.data.url;
-
-  if(parser.host == window.location.host && parser.pathname == window.location.pathname) {
-    e.preventDefault();
-    window.location.href = e.data.url;
-  }
-});
-</script>
 
 <div class="my-4 my-md-5">
   <div class="container">
@@ -89,72 +76,85 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </label>
           <% end %>
 
-          <p class='required-field'>
-            <label><b>Name: </b></label>
-            <%= @applicant.name %>
-          </p>
+          <%# HTML Table %>
 
-          <p class='required-field'>
-            <label><b>Email: </b></label>
-            <%= @user.email %>
-          </p>
+           <table style="width:30%">
+            <tr>
+              <td><strong>Name</strong></td>
+              <td><%= @applicant.name %></td>
 
-          <p>
-            <label><b>Phone: </b></label>
-            <%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %>
-          </p>
+            </tr>
+            
+            <tr>
+              <td><strong>Email</strong></td>
+              <td><%= @user.email %></td>
+              
+            </tr>
+            <tr>
+              <td><strong>Phone</strong></td>
+              <td><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Age: </b></label>
-            <%= @applicant.age %>
-          </p>
+            <tr>
+              <td><strong>Age</strong></td>
+              <td> <%= @applicant.age %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Gender: </b></label>
-            <%= @applicant.gender %>
-          </p>
+            <tr>
+              <td><strong>Gender</strong></td>
+              <td><%= @applicant.gender %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Pronoun: </b></label>
-            <%= @applicant.pronoun %>
-          </p>
+            <tr>
+              <td><strong>Pronoun</strong></td>
+              <td> <%= @applicant.pronoun %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Education Level: </b></label>
-            <%= @applicant.education_lvl %>
-          </p>
+            <tr>
+              <td><strong>Education Level</strong></td>
+              <td> <%= @applicant.education_lvl %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>University: </b></label>
-            <%= @applicant.university %>
-          </p>
+            <tr>
+              <td><strong>Major</strong></td>
+              <td> <%= @applicant.major %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Major: </b></label>
-            <%= @applicant.major %>
-          </p>
 
-          <p class='required-field'>
-            <label><b>Graduation Year: </b></label>
-            <%= @applicant.grad_year %>
-          </p>
+            <tr>
+              <td><strong>University</strong></td>
+              <td> <%= @applicant.university %></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Graduation Year</strong></td>
+              <td> <%= @applicant.grad_year %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Food Restrictions: </b></label>
-            <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
-          </p>
+            <tr>
+              <td><strong>Food Restrictions</strong></td>
+              <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
+        
+            </tr>
 
-          <p class='required-field'>
-            <label><b>T-Shirt Size: </b></label>
-            <%= @applicant.t_shirt_size %>
-          </p>
+            <tr>
+              <td><strong>T-Shirt Size</strong></td>
+               <%= @applicant.t_shirt_size %>
+            </tr>
+
+          </table>  
 
           <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
             <p class='required-field'>
-              <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
+            <table>
+            
+            <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %> </b></label>
               <%= @applicant.custom_fields[c['name']] %>
+            </table>
+            
             </p>
           <% end %>
+
         </div>
 
         <% if admin_or_organizer? %>
@@ -181,9 +181,6 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
         <div class="event-application-flex-end-container">
           <% if admin_or_organizer? %>
-            <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
-              Resume Link
-            </a>
             <%= button_to 'Accept',
                           {controller: 'event_applications', action: 'status_updated',
                            params: {new_status: 'accepted', id: @applicant.user_id}},
@@ -215,62 +212,13 @@ document.addEventListener('turbolinks:before-visit', function(e) {
                         {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
         </div>
 
-      <% if admin_or_organizer? %>
-
-        <div class="row align-items-center event-application-nav-button-container">
-          <%= link_to 'Previous Applicant',
-                      event_application_path(@applicant.id-1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-
-          <span>
-            <b><%= @applicant.name %></b>
-
-            <% if @applicant.flag && admin_or_organizer? %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                Flagged
-              </span>
-            <% end %>
-            <% if @applicant.user.rsvp %>
-              <span class="tag tag-success event-application-header-status-margin">
-                RSVP
-              </span>
-            <% end %>
-            <% if 'accepted'.eql?(@status) %>
-              <span class="tag tag-success event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'denied'.eql?(@status) %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'waitlisted'.eql?(@status) %>
-              <span class="tag tag-warning event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% else %>
-              <span class="tag tag-secondary event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% end %>
-          </span>
-
-          <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-        </div>
-
-      <% end %>
-
       </div>
 
       <div class="event-application-resume-container">
-      <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
           <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
-            <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">
-              <p>There was error loading the resume, try refreshing the page to see if the
-                problem will be resolved. If the issue persists, contact the tech team.</p>
-            </iframe>
+            <p>There was error loading the resume, try refreshing the page to see if the
+              problem will be resolved. If the issue persists, contact the tech team.</p>
           </object>
         <% else %>
           <b style="color: red">No uploaded resume.</b>

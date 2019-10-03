@@ -44,7 +44,7 @@ function toggleHiddenField(hiddenId, checkBoxId) {
                         {include_blank: true},
                         {class: 'form-control custom-select'} %>
             <% elsif c['type'] == 'multiselect' %>
-            <div class='custom-controls-stacked'>
+            <div class='custom-controls-stacked' id="custom_rsvp_answers_<%= c['name'] %>">
                 <% c['options'].each do |option| %>
                 <label class="custom-control custom-checkbox">
                     <%= o.check_box c['name'].to_sym,

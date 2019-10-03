@@ -1,4 +1,26 @@
+<script type='text/javascript'>
+function unhideField(field) {
+    if (field) {
+        field.style.display = 'block';
+    }
+}
 
+function hideField(field) {
+    if (field) {
+        field.style.display = 'none';
+    }
+}
+
+function toggleHiddenField(hiddenId, checkBoxId) {
+    var field = document.getElementById(hiddenId).parentNode
+    var checkBox = document.getElementById(checkBoxId);
+    if (checkBox) {
+        checkBox.checked ? unhideField(field) : hideField(field);
+    } else {
+        hideField(field);
+    }
+}
+</script>
 <%= form_for(@rsvp, html: {multipart: true}) do |f| %>
     <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
         <%= f.fields_for :answers, OpenStruct.new(@rsvp.answers) do |o| %>
@@ -28,7 +50,7 @@
                 <%= o.radio_button c['name'].to_sym,
                                     true,
                                     class: 'custom-control-input',
-                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"custom_rsvp_answers_#{c['toggle_field']}\", \"custom_rsvp_answers_#{c['name']}_true\")" : "" %>
                 <span class="custom-control-label">Yes</span>
                 </label>
                 <% unless c['only_yes'] %>
@@ -36,7 +58,7 @@
                     <%= o.radio_button c['name'].to_sym,
                                         false,
                                         class: 'custom-control-input',
-                                        onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                                        onclick: c['toggle_field'] ? "toggleHiddenField(\"custom_rsvp_answers_#{c['toggle_field']}\", \"custom_rsvp_answers_#{c['name']}_true\")" : "" %>
                     <span class="custom-control-label">No</span>
                     </label>
                 <% end %>

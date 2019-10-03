@@ -21,6 +21,16 @@ function toggleHiddenField(hiddenId, checkBoxId) {
     }
 }
 </script>
+<style type='text/css'>
+.event-application-hidden {
+  display: none;
+}
+
+.event-application-required-field:after {
+  content: ' * ';
+  color: red;
+}
+</style>
 <%= form_for(@rsvp, html: {multipart: true}) do |f| %>
     <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
         <%= f.fields_for :answers, OpenStruct.new(@rsvp.answers) do |o| %>

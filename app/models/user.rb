@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_one :event_application, dependent: :destroy
   has_many :mentorship_request, dependent: :destroy
   belongs_to :project, optional: true
+  has_many :event_attendances
+  has_many :events, through: :event_attendances
 
   after_create :welcome_email
 

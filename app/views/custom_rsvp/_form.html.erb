@@ -12,7 +12,7 @@ function hideField(field) {
 }
 
 function toggleHiddenField(hiddenId, checkBoxId) {
-    var field = document.getElementById(hiddenId).parentNode
+    var field = document.getElementById(hiddenId).parentNode;
     var checkBox = document.getElementById(checkBoxId);
     if (checkBox) {
         checkBox.checked ? unhideField(field) : hideField(field);
@@ -55,7 +55,7 @@ function toggleHiddenField(hiddenId, checkBoxId) {
                 <% end %>
             </div>
             <% elsif c['type'] == 'boolean' %>
-            <div class="custom-controls-stacked">
+            <div class="custom-controls-stacked" id="custom_rsvp_answers_<%= c['name'] %>">
                 <label class="custom-control custom-radio custom-control-inline">
                 <%= o.radio_button c['name'].to_sym,
                                     true,

@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: :index
   before_action -> { is_feature_enabled($Events) }
-
+  helper_method :add_user
   def index
     if current_user and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our events page.'
@@ -43,6 +43,21 @@ class EventsController < ApplicationController
       end
   end
 
+  def add_user
+    begin
+      @event = Event.find(params[:event_id])
+      @user = User.find(params[:user_id])
+    rescue => exception
+      redirect_to events_url, alert: 'Unable to RSVP for event.'
+      return
+    end
+
+    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id})
+    @event_attendance.save()
+
+    redirect_to events_path, notice: 'Successfully RSVP\'d!'
+  end
+
   def destroy
     @event.destroy
     redirect_to events_url, notice: 'Event was successfully destroyed.'
@@ -56,13 +71,11 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image)
+      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image, :max_seats)
     end
 
-    #  Only admins and organizers have the ability to create, update, edit, show, and destroy Events
+    #  Only admins and organizers have the ability to create, update, edit, and destroy Events
+    #  Everyone else can view.
     def check_permissions
-      unless current_user.is_admin?
-        redirect_to events_path, alert: 'You do not have the permissions to visit this section of Events'
-      end
     end
 end

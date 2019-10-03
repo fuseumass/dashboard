@@ -35,13 +35,27 @@
         <%= @event.end_time.strftime('%A, %b %d at %I:%M %p') %>
       </p>
 
-      <p>
-        <strong>This event was created by:</strong>
-        <%= @event.created_by %>
-      </p>
+     
 
-      <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
-      <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
+      <p>
+        <strong>Maximum seats:</strong>
+        <%= @event.max_seats %>
+      </p>
+      <% if current_user.is_admin? or current_user.is_organizer?%>
+        <p>
+          <strong>This event was created by:</strong>
+          <%= @event.created_by %>
+        </p>
+        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
+        <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
+      <% end %>
+      <% if !(EventAttendance.where(event_id: @event.id).nil?) and  EventAttendance.where(event_id: @event.id).count < @event.max_seats%> %>
+        <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
+          <%= button_to 'RSVP', {:controller => "events", :action => "add_user", :event_id => @event.id, :user_id=> current_user.id} , :method=>:post %>
+        <% else %>
+
+        <% end %>
+      <% end  %>
     </div>
   </div>
 </div>

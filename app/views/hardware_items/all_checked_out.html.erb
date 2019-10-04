@@ -1,20 +1,35 @@
-<br>
-<div class="col-lg-2">
-<%= link_to 'Go Back to Hardware', hardware_items_path, class: 'btn btn-secondary btn-block' %>
-</div>
-
-
 <div class="page-header">
-  <h1 class="page-title">All Checked Out Items</h1>
+
+  <% if @individual %>
+    <h1 class="page-title">Checkouts For: <%= @email %> </h1>
+    &nbsp &nbsp &nbsp &nbsp
+    <td><%= link_to 'All Checkouts', all_checked_out_hardware_items_path , class: 'btn btn-sm btn-dark' %>
+
+  <% else %>
+    <h1 class="page-title">All Hardware Checkouts</h1>
+  <% end %>
 </div>
 
-<% if @all_hardware_checkouts.empty? %>
-  <div class="card">
-    <div class="card-body text-center">
-      <h2>Looks like there are no hardware checkouts..</h2>
+
+  <% if !@individual %>
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag all_checked_out_hardware_items_path, method: :get, class:'col-lg-12' do%>
+            <div class="input-group">
+
+              <%= text_field_tag :search, params[:search], class: 'form-control', html: "autocomplete: on",
+              placeholder: 'Search for hardware checkouts by email, first, or last name',
+              :autofocus => true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path}, 'min-length' => 1%>
+
+              <span class="input-group-btn">
+                <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
+              </span>
+            </div>
+        <%end%>
+      </div>
     </div>
-  </div>
-<% else %>
+  <% end %>
+
   <div class="card">
     <div class="table-responsive">
       <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
@@ -38,7 +53,7 @@
         </thead>
 
         <tbody>
-        <% @all_hardware_checkouts.each do |checkout| %>
+        <% @hardware_checkouts.each do |checkout| %>
           <tr>
             <td><%= truncate(checkout.hardware_item.name) %></td>
             <td><%= checkout.user.full_name %></td>
@@ -64,8 +79,7 @@
 
     </div>
   </div>
-<% end %>
 
 <center>
-  <%= will_paginate @all_hardware_checkouts %>
+  <%= will_paginate @hardware_checkouts %>
 </center>

@@ -2,12 +2,6 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: :index
   before_action -> { is_feature_enabled($Events) }
-<<<<<<< HEAD
-  # helper_method :add_user
-  # helper_method :remove_use
-=======
-  helper_method :add_user
->>>>>>> 98209213e8333a82b8ea5a5baf6a52fd24bde28a
   def index
     if current_user and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our events page.'
@@ -63,7 +57,6 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: 'Successfully RSVP\'d!'
   end
 
-<<<<<<< HEAD
   def remove_user
     begin
       @event = Event.find(params[:event_id])
@@ -79,8 +72,6 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: 'Successfully UnRSVP\'d!'
   end
 
-=======
->>>>>>> 98209213e8333a82b8ea5a5baf6a52fd24bde28a
   def destroy
     @event.destroy
     redirect_to events_url, notice: 'Event was successfully destroyed.'
@@ -94,11 +85,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-<<<<<<< HEAD
       params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image, :max_seats, :rsvpable)
-=======
-      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image, :max_seats)
->>>>>>> 98209213e8333a82b8ea5a5baf6a52fd24bde28a
     end
 
     #  Only admins and organizers have the ability to create, update, edit, and destroy Events

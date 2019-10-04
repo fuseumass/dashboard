@@ -1,6 +1,6 @@
 namespace :admissions do
   desc "Accept or flag student applications"
-  task :update_apps, [:todo, :flag] => :environment do |t, args|
+  task :update_apps, [:newFlag, :flag] => :environment do |t, args|
 
     list_of_apps = EventApplication.where(:status => args[:flag])
     flagged_count = 0
@@ -8,7 +8,7 @@ namespace :admissions do
 
     list_of_apps.each do |app|
 
-      app.status = args[:todo]
+      app.status = args[:newFlag]
       app.save(:validate => false)
       accepted_count += 1
       UserMailer.accepted_email(app.user).deliver_now
@@ -22,7 +22,7 @@ namespace :admissions do
   end
 
   desc "Accept or flag student applications using csv"
-  task :update_apps_file, [:todo, :file] => :environment do |t, args|
+  task :update_apps_file, [:newFlag, :file] => :environment do |t, args|
 
     flagged_count = 0
     accepted_count = 0
@@ -32,7 +32,7 @@ namespace :admissions do
     emailList.each do |email|
       list_of_apps = EventApplication.joins(:user).where("users.email = '#{email}'")
       list_of_apps.each do |app|
-        app.status = args[:todo]
+        app.status = args[:newFlag]
         app.save(:validate => false)
         accepted_count += 1
         UserMailer.accepted_email(app.user).deliver_now

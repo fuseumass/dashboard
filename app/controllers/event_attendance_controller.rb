@@ -1,5 +1,5 @@
 class EventAttendanceController < ApplicationController
     def create
-        EventAttendance.new
+        EventAttendance.new()
     end
 end

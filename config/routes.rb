@@ -71,9 +71,11 @@ Rails.application.routes.draw do
   # Events Routes Start
 
     #Create all routes for Events
-    resources :events
-    post 'add_user' => 'event#add_user'
-    post 'remove_user_to_event' => 'event#remove_user'
+    resources :events do
+      # post '/add_user_to_event/', to: 'event#add_user_to_event', as: 'add_user_to_event'
+      post 'add_user' => 'events#add_user'
+      post 'remove_user' => 'events#remove_user'
+    end 
   # Events Routes End
 
 

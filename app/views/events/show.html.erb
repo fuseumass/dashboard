@@ -36,11 +36,12 @@
       </p>
 
      
-
+      <% if @event.rsvpable%>
       <p>
         <strong>Maximum seats:</strong>
         <%= @event.max_seats %>
       </p>
+      <% end %>
       <% if current_user.is_admin? or current_user.is_organizer?%>
         <p>
           <strong>This event was created by:</strong>
@@ -49,13 +50,17 @@
         <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
         <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
       <% end %>
-      <% if !(EventAttendance.where(event_id: @event.id).nil?) and  EventAttendance.where(event_id: @event.id).count < @event.max_seats%> %>
+      <% if @event.rsvpable %>
         <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
-          <%= button_to 'RSVP', {:controller => "events", :action => "add_user", :event_id => @event.id, :user_id=> current_user.id} , :method=>:post %>
+          <% if EventAttendance.where(event_id: @event.id).count < @event.max_seats %>
+            <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-success'%>
+          <% else %>
+            <button type="button" class="btn btn-danger" disabled>Event full!</button>
+          <% end %>
         <% else %>
-
+            <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
         <% end %>
-      <% end  %>
+      <% end %>
     </div>
   </div>
 </div>

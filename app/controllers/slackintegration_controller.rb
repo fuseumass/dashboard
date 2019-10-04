@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 class SlackintegrationController < ApplicationController
-  skip_before_action, :only => [:index]
+  skip_before_action :auth_user, :only => [:index]
   def index
     puts params
     hackathonname = "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}"

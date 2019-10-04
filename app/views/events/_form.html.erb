@@ -52,6 +52,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :max_seats, class:'control-label' %>
+    <%= f.number_field :max_seats, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit class: 'btn btn-primary'%>
   </div>
 <% end %>

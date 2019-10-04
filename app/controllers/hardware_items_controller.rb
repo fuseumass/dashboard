@@ -69,7 +69,6 @@ class HardwareItemsController < ApplicationController
   def all_checked_out
 
     if params[:search].present?
-
       @individual = true
       # If there is a value in the search field, search on email, first name, and last name
       @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)",
@@ -85,7 +84,10 @@ class HardwareItemsController < ApplicationController
   def slack_message_all_checked_out
     cnt = 0
     message = params[:message] or ""
-    HardwareCheckout.all.each do |c|
+
+    @checkouts = params[:search].present? ? HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)") :  HardwareCheckout.all
+
+    @checkouts.each do |c|
       user = User.find(c.user_id)
       hwitem = HardwareItem.find(c.hardware_item_id)
       if user.has_slack?
@@ -93,7 +95,7 @@ class HardwareItemsController < ApplicationController
         cnt += 1
       end
     end
-    flash[:success] = "Contacted #{cnt} users on Slack with message: #{message}"
+    flash[:success] = "Contacted #{cnt} user(s) on Slack with message: #{message}"
     redirect_to hardware_items_path
   end
 

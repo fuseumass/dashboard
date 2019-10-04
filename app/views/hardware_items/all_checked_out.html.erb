@@ -39,7 +39,12 @@
               <form method="post" action="<%= slack_message_all_checked_out_hardware_items_path %>" onsubmit="return confirm('WARNING! This will slack message through the API all of the users on this page.')">
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                 <input type="hidden" name="message" value="Please return this item to the hardware table." />
-                <input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+                <% if @individual %>
+                <input type="submit" value="Ask <%= @email %> to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+                <% else %>
+                  <input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+                <% end %>
+
               </form>
             </th>
           </tr>
@@ -69,7 +74,7 @@
               </form>
             </td>
             <td>
-              <%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>    
+              <%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>
             </td>
           </tr>
         <% end %>

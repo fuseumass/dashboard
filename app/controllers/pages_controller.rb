@@ -173,6 +173,10 @@ class PagesController < ApplicationController
   def unrsvp
     current_user.rsvp = false
     current_user.save
+    crsvp = CustomRsvp.where(user_id: current_user.id)
+    if crsvp.length == 1
+      crsvp[0].destroy
+    end
     unless current_user.event_application
       flash[:error] = "You can't un-RSVP if you never applied to the event!"
     else

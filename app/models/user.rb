@@ -75,56 +75,15 @@ class User < ApplicationRecord
   end
 
   def has_slack?
-    if $workspace_token.length == 0
+    if self.slack_id != nil
       return true
-    end
-
-    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(url)
-
-    res = http.request(req)
-    JSON.parse(res.body)["ok"]
-  end
-
-  def get_slack_username
-    if $workspace_token.length == 0
-      return false
-    end
-
-    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(url)
-
-    res = JSON.parse(http.request(req).body)
-    if res["ok"]
-      return res["user"]["name"]
     else
       return false
     end
   end
 
   def get_slack_id
-    if $workspace_token.length == 0
-      return false
-    end
-
-    url = URI("https://slack.com/api/users.lookupByEmail?token=" + $workspace_token + "&email=" + self.email)
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(url)
-
-    res = JSON.parse(http.request(req).body)
-    if res["ok"]
-      return res["user"]["id"]
-    else
-      return false
-    end
+    return self.slack_id
   end
 
 

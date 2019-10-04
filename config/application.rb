@@ -59,6 +59,8 @@ module HackumassWeb
     # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
     SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
     SLACK_JOIN_URL = ENV['SLACK_JOIN_URL']
+    SLACKINTEGRATION_TOKEN = ENV['SLACKINTEGRATION_TOKEN']
+    SLACKINTEGRATION_BOT_ACCESS_TOKEN = ENV['SLACKINTEGRATION_BOT_ACCESS_TOKEN']
   end
 end
 

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'slackintegration/index'
+  post 'slackintegration/index'
+  
   resources :prizes
   # Our Root URL Links to the index page (duh)
   root 'pages#index'

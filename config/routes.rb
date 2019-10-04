@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'slackintegration/index'
   post 'slackintegration/index'
-  
+
   resources :prizes
   # Our Root URL Links to the index page (duh)
   root 'pages#index'
@@ -138,6 +138,8 @@ Rails.application.routes.draw do
       collection do
         get 'search'
         get 'all_checked_out' => 'hardware_items#all_checked_out'
+        post 'slack_message_all_checked_out' => 'hardware_items#slack_message_all_checked_out'
+        post 'slack_message_individual_checkout' => 'hardware_items#slack_message_individual_checkout'
       end
     end
 

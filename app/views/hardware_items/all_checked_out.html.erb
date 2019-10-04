@@ -20,10 +20,20 @@
       <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
         <thead>
           <tr>
+            <th colspan=5>
+              <form method="post" action="<%= slack_message_all_checked_out_hardware_items_path %>" onsubmit="return confirm('WARNING! This will slack message through the API all of the users on this page.')">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                <input type="hidden" name="message" value="Please return this item to the hardware table." />
+                <input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+              </form>
+            </th>
+          </tr>
+          <tr>
             <th>Hardware Item</th>
             <th>Attendee Name</th>
-            <th>Checked Out Timen</th>
+            <th>Checked Out Time</th>
             <th>Actions</th>
+            <th></th>
           </tr>
         </thead>
 
@@ -33,8 +43,19 @@
             <td><%= truncate(checkout.hardware_item.name) %></td>
             <td><%= checkout.user.full_name %></td>
             <td><%= checkout.created_at.strftime('%A, %b %d at %I:%M %p') %></td>
-            <td><%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>
-            <a href="https://<%= HackumassWeb::Application::SLACK_SUBDOMAIN %>.slack.com/messages/<%= checkout.user.get_slack_id %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Message on Slack</a></td>
+            <td>
+              <form method="post" action="<%= slack_message_individual_checkout_hardware_items_path %>">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                <input type="hidden" name="checkout_id" value="<%= checkout.id %>" />
+                <input type="hidden" name="message" value="Please return this item to the hardware table." />
+                <input type="submit" value="Ask to Return Item" class="btn btn-sm btn-success" onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;" />
+
+                <a href="https://<%= HackumassWeb::Application::SLACK_SUBDOMAIN %>.slack.com/messages/<%= checkout.user.get_slack_id %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Open Slack</a></td>
+              </form>
+            </td>
+            <td>
+              <%= link_to 'Return Item', checkout, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to return this item?' } %>    
+            </td>
           </tr>
         <% end %>
         </tbody>

@@ -46,6 +46,9 @@ class HardwareCheckoutsController < ApplicationController
     # Save the checkout if everything is fine
     if @hardware_checkout.save
       flash[:success] = "Hardware Item Checked Out Successfully"
+      if checkout_to_user.has_slack?
+        slack_notify_user(checkout_to_user.slack_id, "You just checked out the following hardware item: #{@item.name}. Please remember to return this item at the end of the event.")
+      end
       redirect_to hardware_item_path(@item)
     else
       flash[:alert] = "Could not checkout hardware item"
@@ -58,10 +61,14 @@ class HardwareCheckoutsController < ApplicationController
     @item = @hardware_checkout.hardware_item
     @item.count += 1
     @item.save
+    checkout_to_user = User.find(@hardware_checkout.user_id)
     @hardware_checkout.destroy
 
     # Flash a good message
     flash[:success] = "Hardware Successfully Returned"
+    if checkout_to_user.has_slack?
+      slack_notify_user(checkout_to_user.slack_id, "You just returned the following hardware item: #{@item.name}. Thank you!")
+    end
     redirect_to hardware_items_path
   end
 

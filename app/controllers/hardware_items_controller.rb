@@ -69,6 +69,37 @@ class HardwareItemsController < ApplicationController
     @all_hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
   end
 
+  def slack_message_all_checked_out
+    cnt = 0
+    message = params[:message] or ""
+    HardwareCheckout.all.each do |c|
+      user = User.find(c.user_id)
+      hwitem = HardwareItem.find(c.hardware_item_id)
+      if user.has_slack?
+        slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+        cnt += 1
+      end
+    end
+    flash[:success] = "Contacted #{cnt} users on Slack with message: #{message}"
+    redirect_to hardware_items_path
+  end
+
+
+
+  def slack_message_individual_checkout
+    c = HardwareCheckout.find(params[:checkout_id])
+    user = User.find(c.user_id)
+    hwitem = HardwareItem.find(c.hardware_item_id)
+    message = params[:message] or ""
+    cnt = 0
+    if user.has_slack?
+      slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+      cnt += 1
+    end
+    flash[:success] = "Contacted the user on Slack with message: #{message}"
+    redirect_to hardware_item_path(hwitem.id)
+  end
+
   def destroy
     @hardware_item.destroy
     redirect_to hardware_items_url, notice: 'Hardware item was successfully destroyed.'

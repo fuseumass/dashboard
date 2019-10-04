@@ -6,7 +6,7 @@ class SlackintegrationController < ActionController::Base
 
   def index
     puts params
-    hackathonname = HackumassWeb::Application::HACKATHON_NAME +" "+HackumassWeb::Application:HACKATHON_VERSION
+    hackathonname = "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application:HACKATHON_VERSION}"
     integ_token = HackumassWeb::Application::SLACKINTEGRATION_TOKEN
     if not integ_token or integ_token.length == 0
       render json: { "error" => "no_token" }

@@ -4,6 +4,8 @@ require 'json'
 
 class SlackintegrationController < ApplicationController
   skip_before_action :auth_user, :only => [:index]
+  skip_before_action :verify_authenticity_token
+  
   def index
     puts params
     hackathonname = "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}"

@@ -61,6 +61,8 @@
           <% else %>
               <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
           <% end %>
+        <% else %>
+          <button type="button" class="btn btn-danger" disabled>You can RSVP an hour before the event starts</button>
         <% end %>
         <% if current_user.is_organizer?%>
           <div class="col-lg-6">

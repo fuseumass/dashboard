@@ -51,14 +51,16 @@
         <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
       <% end %>
       <% if @event.rsvpable %>
-        <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
-          <% if EventAttendance.where(event_id: @event.id).count < @event.max_seats %>
-            <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-success'%>
+        <% if (@event.start_time - 0.seconds.ago) <= 1.hour %>
+          <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
+            <% if EventAttendance.where(event_id: @event.id).count < @event.max_seats %>
+              <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-success'%>
+            <% else %>
+              <button type="button" class="btn btn-danger" disabled>Event full!</button>
+            <% end %>
           <% else %>
-            <button type="button" class="btn btn-danger" disabled>Event full!</button>
+              <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
           <% end %>
-        <% else %>
-            <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
         <% end %>
         <% if current_user.is_organizer?%>
           <div class="col-lg-6">

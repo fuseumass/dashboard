@@ -25,14 +25,18 @@
       <div style="margin-bottom: 1em"><%= event.description%></div>
       <p><%= event.start_time.strftime('%A, %b %d from %I:%M %p')%> to <%= event.end_time.strftime('%I:%M %p')%></p>
       <% if event.rsvpable %>
-        <% if EventAttendance.find_by(event_id: event.id, user_id: current_user.id).nil? %>
-          <% if EventAttendance.where(event_id: event.id).count < event.max_seats %>
-            <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-success'%>
+        <% if (event.start_time - 0.seconds.ago) <= 1.hour %>
+          <% if EventAttendance.find_by(event_id: event.id, user_id: current_user.id).nil? %>
+            <% if EventAttendance.where(event_id: event.id).count < event.max_seats %>
+              <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-success'%>
+            <% else %>
+              <button type="button" class="btn btn-danger" disabled>Event full!</button>
+            <% end %>
           <% else %>
-            <button type="button" class="btn btn-danger" disabled>Event full!</button>
+              <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-danger'%>
           <% end %>
         <% else %>
-            <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-danger'%>
+          <button type="button" class="btn btn-danger" disabled>You can RSVP an hour before the event starts</button>
         <% end %>
       <% end %>
     </div>

@@ -41,15 +41,15 @@ module PagesHelper
   end
 
   def has_access_to_all_applications?
-    (current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($Applications)
+    current_user.is_organizer? and check_feature_flag?($Applications)
   end
 
   def has_access_to_events?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Events)
+    (current_user.rsvp or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Events)
   end
 
   def has_access_to_prizes?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Prizes)
+    (current_user.rsvp or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Prizes)
   end
 
 
@@ -58,15 +58,15 @@ module PagesHelper
   end
 
   def has_access_to_hardware?
-    (current_user.rsvp or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Hardware)
+    (current_user.rsvp or current_user.is_organizer? or current_user.is_mentor?) and check_feature_flag?($Hardware)
   end
 
   def has_access_to_mentorship?
-    (current_user.check_in or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?) and check_feature_flag?($MentorshipRequests)
+    (current_user.check_in or current_user.is_mentor? or current_user.is_organizer?) and check_feature_flag?($MentorshipRequests)
   end
 
   def has_access_to_projects?
-    (current_user.check_in or current_user.is_admin? or current_user.is_organizer? or current_user.is_mentor?)
+    (current_user.check_in or current_user.is_organizer? or current_user.is_mentor?)
   end
 
   def has_access_to_admin?
@@ -74,7 +74,7 @@ module PagesHelper
   end
 
   def has_access_to_check_in?
-    (current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($CheckIn)
+    current_user.is_organizer? and check_feature_flag?($CheckIn)
   end
 
   def has_access_to_applying?

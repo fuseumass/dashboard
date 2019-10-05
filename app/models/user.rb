@@ -35,8 +35,9 @@ class User < ApplicationRecord
   	user_type == 'mentor'
   end
 
+  #Admins should have the same permissions (and more) that organizers do
   def is_organizer?
-    user_type == 'organizer'
+    user_type == 'organizer' or user_type == 'admin'
   end
 
   def full_name

@@ -42,7 +42,7 @@
         <%= @event.max_seats %>
       </p>
       <% end %>
-      <% if current_user.is_admin? or current_user.is_organizer?%>
+      <% if current_user.is_organizer?%>
         <p>
           <strong>This event was created by:</strong>
           <%= @event.created_by %>
@@ -60,7 +60,7 @@
         <% else %>
             <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
         <% end %>
-        <% if current_user.is_admin? or current_user.is_organizer?%>
+        <% if current_user.is_organizer?%>
           <div class="col-lg-6">
             <ul>
             <% @event.users.each do |atten|%>

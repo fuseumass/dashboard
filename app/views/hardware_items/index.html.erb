@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<% if current_user.is_admin? or current_user.is_organizer? %>
+<% if current_user.is_organizer? %>
   <div class="row">
     <div class="col-lg-6">
       <%= link_to 'Create New Hardware Item', new_hardware_item_path, class: 'btn btn-secondary btn-block', style: '' %>
@@ -34,7 +34,7 @@
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
       <thead>
         <tr>
-          <% if current_user.is_organizer? or current_user.is_admin? %>
+          <% if current_user.is_organizer? %>
               <th>UPC</th>
           <% end %>
           <th>Name</th>
@@ -48,7 +48,7 @@
       <tbody>
       <% @hardware_items.each do |item| %>
         <tr>
-          <% if current_user.is_organizer? or current_user.is_admin? %>
+          <% if current_user.is_organizer? %>
               <td><%= link_to item.upc.to_s.rjust(9, "0"), item %></td>
           <% end %>
           <td><%= item.name %></td>

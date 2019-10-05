@@ -56,7 +56,7 @@ class PrizesController < ApplicationController
     end
 
     def check_permissions
-      unless current_user.is_admin? or current_user.is_organizer?
+      unless current_user.is_organizer?
         redirect_to index_path, alert: 'You do not have the permissions to visit this section of prizes'
       end
     end

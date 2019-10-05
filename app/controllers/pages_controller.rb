@@ -194,7 +194,7 @@ class PagesController < ApplicationController
   end
 
   def check_organizer_permissions
-    unless current_user.is_organizer? or current_user.is_admin?
+    unless current_user.is_organizer?
       redirect_to index_path, alert: 'You are not an admin or organizer.'
     end
   end

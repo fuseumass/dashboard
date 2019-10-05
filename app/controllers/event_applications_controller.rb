@@ -78,9 +78,9 @@ class EventApplicationsController < ApplicationController
     @status = @application.status
     @user = @application.user
 
-    unless current_user.is_admin? or current_user.is_organizer?
+    unless current_user.is_organizer?
       if @user != current_user
-    redirect_to index_path, alert: lack_permission_msg if !admin_or_organizer? && @user != current_user
+        redirect_to index_path, alert: lack_permission_msg if !admin_or_organizer? && @user != current_user
       end
     end
   end

@@ -12,7 +12,7 @@
   <% @prizes.each do |prize| %>
     <div class="prize-item">
       <div class="card">
-            <% if prize.priority == 1 %>
+            <% if prize.priority <= 1 %>
               <div class="card-status bg-purple"></div>
             <% end %>
             <% if prize.priority == 2 %>

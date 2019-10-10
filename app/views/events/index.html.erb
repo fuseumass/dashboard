@@ -25,18 +25,24 @@
       <div style="margin-bottom: 1em"><%= event.description%></div>
       <p><%= event.start_time.strftime('%A, %b %d from %I:%M %p')%> to <%= event.end_time.strftime('%I:%M %p')%></p>
       <% if event.rsvpable %>
-        <% if (event.start_time - 0.seconds.ago) <= 1.hour %>
-          <% if EventAttendance.find_by(event_id: event.id, user_id: current_user.id).nil? %>
-            <% if EventAttendance.where(event_id: event.id).count < event.max_seats %>
-              <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-success'%>
-            <% else %>
-              <button type="button" class="btn btn-danger" disabled>Event full!</button>
-            <% end %>
+        <% if (event.start_time - 0.seconds.ago) <= 1.hour && event.start_time - 0.seconds.ago > 0.hour%>
+          <% if current_user.is_organizer? %>
+            <%= button_to 'Check in attendees', event_check_in_path(event_id: event.id)%>
           <% else %>
-              <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-danger'%>
+            <% if EventAttendance.find_by(event_id: event.id, user_id: current_user.id).nil? %>
+              <% if EventAttendance.where(event_id: event.id).count < event.max_seats %>
+                <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-success'%>
+              <% else %>
+                <button type="button" class="btn btn-danger" disabled>Event full!</button>
+              <% end %>
+            <% else %>
+                <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: event.id), :method=>:post, class: 'btn btn-danger'%>
+            <% end %>
           <% end %>
-        <% else %>
+        <% elsif event.start_time - 0.seconds.ago > 1.hour %>
           <button type="button" class="btn btn-danger" disabled>You can RSVP an hour before the event starts</button>
+        <% else %>
+          <button type="button" class="btn btn-danger" disabled>Event has already started</button>
         <% end %>
       <% end %>
     </div>

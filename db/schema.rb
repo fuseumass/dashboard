@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_051120) do
+ActiveRecord::Schema.define(version: 2019_10_10_222403) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_051120) do
     t.datetime "updated_at", null: false
     t.integer "event_id"
     t.integer "user_id"
+    t.boolean "checked_in"
   end
 
   create_table "events", force: :cascade do |t|

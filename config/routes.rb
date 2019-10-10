@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       # post '/add_user_to_event/', to: 'event#add_user_to_event', as: 'add_user_to_event'
       post 'add_user' => 'events#add_user'
       post 'remove_user' => 'events#remove_user'
+      post 'check_in' => 'events#check_in'
     end 
   # Events Routes End
 

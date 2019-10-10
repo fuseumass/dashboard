@@ -51,7 +51,7 @@ class EventsController < ApplicationController
       return
     end
 
-    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id})
+    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id, :checked_id => false})
     @event_attendance.save()
 
     redirect_to events_path, notice: 'Successfully RSVP\'d!'
@@ -70,6 +70,16 @@ class EventsController < ApplicationController
     @event_attendance.destroy()
 
     redirect_to events_path, notice: 'Successfully UnRSVP\'d!'
+  end
+
+  def check_in
+    begin
+      @event = Event.find(params[:event_id])
+    rescue => exception
+      redirect_to events_url, alert: 'Unable to check in.'
+      return
+    end
+    
   end
 
   def destroy

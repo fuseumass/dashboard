@@ -51,7 +51,8 @@ class EventsController < ApplicationController
       return
     end
 
-    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id, :checked_id => false})
+    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id})
+    @event_attendance.checked_in = false
     @event_attendance.save()
 
     redirect_to events_path, notice: 'Successfully RSVP\'d!'
@@ -83,7 +84,11 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
+    @event.users.each do |user|
+      @event_attendance = EventAttendance.find_by(user_id: user.id, event_id: @event.id)
+      @event_attendance.destroy()
+    end
+    @event.destroy()
     redirect_to events_url, notice: 'Event was successfully destroyed.'
   end
 

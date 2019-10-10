@@ -40,6 +40,9 @@
               <%= submit_tag 'Check In', class: 'btn btn-primary' %>
             </span>
         </div>
+        <div class="input-group">
+          <input type="checkbox" name="force_check_in" value="true" style="margin: 10px" /> <label for="force_check_in" style="margin-top: 5px">Force check in, even if participant wasn't accepted or didn't apply</label>
+        </div>
     <%end%>
   </div>
 </div>

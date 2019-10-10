@@ -86,19 +86,27 @@ class PagesController < ApplicationController
         return
       end
 
-      if user.event_application
-        if user.event_application.status != 'accepted'
-          redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event."
+      unless params[:force_check_in]
+        if user.event_application
+          if user.event_application.status != 'accepted'
+            redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event. To override, select force check in."
+            return
+          end
+        else
+          redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event. To override, select force check in."
           return
         end
       else
-        redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event."
-        return
+        flash[:alert] = "Forcibly checked in #{user_email}"
       end
 
       user.check_in = true
       if user.save
-        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been checked in successfully"
+        if user.is_host_student?
+          redirect_to check_in_path, notice: "This participant is a #{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} student. #{user.full_name.titleize} has been checked in successfully."
+        else
+          redirect_to check_in_path, notice: "***THIS PARTICIPANT IS A NON-#{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} STUDENT.*** #{user.full_name.titleize} has been checked in successfully. "
+        end
         return
       end
 

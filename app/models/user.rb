@@ -37,6 +37,25 @@ class User < ApplicationRecord
     user_type == 'organizer'
   end
 
+  def is_host_student?
+    if user_type != 'attendee'
+      return false
+    end
+    if email.include?(HackumassWeb::Application::CHECKIN_UNIVERSITY_EMAIL_SUFFIX)
+      return true
+    end
+    if not has_applied?
+      return false
+    end
+    u = self.event_application.university.downcase
+    HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME_CHECKS.each do |name|
+      if u.include? name.downcase
+        return true
+      end
+    end
+    return false
+  end
+
   def full_name
     names = []
     names << first_name if first_name

@@ -77,72 +77,79 @@
           <% end %>
 
           <%# HTML Table %>
-
+        <style>
+        tr.spaceUnder>td {
+          padding-bottom: 1.4em;
+        }
+        
+        </style>
           <div class="row">
           
           <div class ="col-md-4">
-           <table>
-            <tr>
+           <table width="100%">
+            <tr class="spaceUnder">
+            
               <td><strong>Name</strong></td>
               <td><%= @applicant.name %></td>
 
             </tr>
             
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Email</strong></td>
               <td><%= @user.email %></td>
               
             </tr>
-            <tr>
+          
+            <tr class="spaceUnder">
               <td><strong>Phone</strong></td>
               <td><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Age</strong></td>
               <td> <%= @applicant.age %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Gender</strong></td>
               <td><%= @applicant.gender %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Pronoun</strong></td>
               <td> <%= @applicant.pronoun %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Education Level</strong></td>
               <td> <%= @applicant.education_lvl %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Major</strong></td>
               <td> <%= @applicant.major %></td>
             </tr>
 
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>University</strong></td>
               <td> <%= @applicant.university %></td>
             </tr>
             
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Graduation Year</strong></td>
               <td> <%= @applicant.grad_year %></td>
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>Food Restrictions</strong></td>
-              <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
+             <td> <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %></td>
         
             </tr>
 
-            <tr>
+            <tr class="spaceUnder">
               <td><strong>T-Shirt Size</strong></td>
-               <%= @applicant.t_shirt_size %>
+               <td><%= @applicant.t_shirt_size %></td>
             </tr>
 
           </table>  
@@ -163,8 +170,6 @@
           </div>
           
           </div>
-          
-
           <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
             <p class='required-field'>
             <table>

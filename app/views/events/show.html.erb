@@ -53,10 +53,55 @@
       <% if @event.rsvpable %>
         <% if (@event.start_time - 0.seconds.ago) <= 1.hour  && @event.start_time - 0.seconds.ago > 0.hour%>
           <% if current_user.is_organizer? %>
-            <%= button_to 'Check in attendees', event_check_in_path(event_id: @event.id)%>
+            <div class="page-header">
+              <h1 class="page-title"> Check In Attendees</h1>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 col-lg-6">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                    <span class="stamp stamp-md bg-green mr-3">
+                      <i class="fe fe-user-check"></i>
+                    </span>
+                    <div>
+                      <h4 class="m-0"><%= @check_in_count %></h4>
+                      <small class="text-muted">Check-In Attendees</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-6">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                    <span class="stamp stamp-md bg-teal mr-3">
+                      <i class="fe fe-users"></i>
+                    </span>
+                    <div>
+                      <h4 class="m-0"><%= @rsvp_count %></h4>
+                      <small class="text-muted">RSVP'd Users</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <%= form_tag event_check_in_to_event_path(@event.id), method: :post, class:'col-lg-12' do%>
+                    <div class="input-group">
+                      <%= text_field_tag :email,'', class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path}, 'min-length' => 1%>
+                      <span class="input-group-btn">
+                          <%= submit_tag 'Check In', class: 'btn btn-primary' %>
+                        </span>
+                    </div>
+                <%end%>
+              </div>
+            </div>
+
           <% else %>
             <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
-              <% if EventAttendance.where(event_id: @event.id).count < @event.max_seats %>
+              <% if @event.numberRSVPd() < @event.max_seats %>
                 <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-success'%>
               <% else %>
                 <button type="button" class="btn btn-danger" disabled>Event full!</button>

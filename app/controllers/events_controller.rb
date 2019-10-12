@@ -11,6 +11,8 @@ class EventsController < ApplicationController
   end
 
   def show
+    @check_in_count = EventAttendance.where(event_id: @event.id, checked_in: true).count
+    @rsvp_count = EventAttendance.where(event_id: @event.id).count
   end
 
 
@@ -21,7 +23,6 @@ class EventsController < ApplicationController
 
   def edit
   end
-
 
   def create
     @event = Event.new(event_params)
@@ -35,11 +36,58 @@ class EventsController < ApplicationController
   end
 
   def update
-      if @event.update(event_params)
-        redirect_to @event, notice: 'Event was successfully updated.'
-      else
-        render :edit
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def check_in
+    @event = Event.find(params[:event_id])
+    user_email = params[:email]
+    unless user_email.nil? #Only validate for an email when the email is in the params
+      if user_email.empty?
+        flash[:alert] = 'Error! Cannot check in user without an email.'
+        return
       end
+
+      user_email = user_email.downcase.delete(' ')
+
+      user = User.where(:email => user_email).first
+      if user.nil?
+        redirect_to @event, alert: "Error! Couldn't find user with email: #{user_email}"
+        return
+      end
+
+      if user.event_application
+        if user.event_application.status != 'accepted'
+          redirect_to @event, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event."
+          return
+        end
+      else
+        redirect_to @event, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event."
+        return
+      end
+
+      begin
+        @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
+      rescue => exception
+        redirect_to @event, alert: 'User did not RSVP'
+        return
+      end
+      if @event_attendance.nil?
+        redirect_to @event, alert: 'User did not RSVP'
+        return
+      end
+      @event_attendance.checked_in = true
+      if @event_attendance.save
+        redirect_to @event, notice: "#{user.full_name.titleize} has been checked in successfully"
+        return
+      end
+
+    end
+
   end
 
   def add_user
@@ -71,16 +119,6 @@ class EventsController < ApplicationController
     @event_attendance.destroy()
 
     redirect_to events_path, notice: 'Successfully UnRSVP\'d!'
-  end
-
-  def check_in
-    begin
-      @event = Event.find(params[:event_id])
-    rescue => exception
-      redirect_to events_url, alert: 'Unable to check in.'
-      return
-    end
-    
   end
 
   def destroy

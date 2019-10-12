@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_10_10_222403) do
 
-
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
     t.integer "user_id"

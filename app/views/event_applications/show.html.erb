@@ -155,7 +155,24 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @applicant.custom_fields[c['name']] %>
             </p>
           <% end %>
+
+
+        <% if CustomRsvp.where(user_id: @applicant.user_id).exists? %>
+          <% @rsvp = CustomRsvp.where(user_id: @applicant.user_id).first %>
+          <% if @rsvp.answers %>
+            <hr />
+            <h3>Custom RSVP Questions:</h3>
+            <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
+              <p class='required-field'>
+                <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
+                <%= @rsvp.answers[c['name']] %>
+              </p>
+            <% end %>
+          <% end %>
+        <% end %>
+
         </div>
+
 
         <% if admin_or_organizer? %>
           <!--

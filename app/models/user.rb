@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_one :event_application, dependent: :destroy
   has_many :mentorship_request, dependent: :destroy
   belongs_to :project, optional: true
+  has_many :event_attendances
+  has_many :events, through: :event_attendances
 
   after_create :welcome_email
 
@@ -33,8 +35,9 @@ class User < ApplicationRecord
   	user_type == 'mentor'
   end
 
+  #Admins should have the same permissions (and more) that organizers do
   def is_organizer?
-    user_type == 'organizer'
+    user_type == 'organizer' or user_type == 'admin'
   end
 
   def is_host_student?

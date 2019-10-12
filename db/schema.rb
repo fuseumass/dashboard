@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_004936) do
+ActiveRecord::Schema.define(version: 2019_10_10_222403) do
+
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -55,6 +56,14 @@ ActiveRecord::Schema.define(version: 2019_10_04_004936) do
     t.json "custom_fields"
   end
 
+  create_table "event_attendances", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "event_id"
+    t.integer "user_id"
+    t.boolean "checked_in"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -65,6 +74,8 @@ ActiveRecord::Schema.define(version: 2019_10_04_004936) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "host"
+    t.integer "max_seats"
+    t.boolean "rsvpable"
   end
 
   create_table "feature_flags", force: :cascade do |t|

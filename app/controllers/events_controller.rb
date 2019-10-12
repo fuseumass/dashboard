@@ -2,7 +2,6 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, except: :index
   before_action -> { is_feature_enabled($Events) }
-
   def index
     if current_user and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our events page.'
@@ -12,6 +11,8 @@ class EventsController < ApplicationController
   end
 
   def show
+    @check_in_count = EventAttendance.where(event_id: @event.id, checked_in: true).count
+    @rsvp_count = EventAttendance.where(event_id: @event.id).count
   end
 
 
@@ -22,7 +23,6 @@ class EventsController < ApplicationController
 
   def edit
   end
-
 
   def create
     @event = Event.new(event_params)
@@ -36,15 +36,97 @@ class EventsController < ApplicationController
   end
 
   def update
-      if @event.update(event_params)
-        redirect_to @event, notice: 'Event was successfully updated.'
-      else
-        render :edit
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def check_in
+    @event = Event.find(params[:event_id])
+    user_email = params[:email]
+    unless user_email.nil? #Only validate for an email when the email is in the params
+      if user_email.empty?
+        flash[:alert] = 'Error! Cannot check in user without an email.'
+        return
       end
+
+      user_email = user_email.downcase.delete(' ')
+
+      user = User.where(:email => user_email).first
+      if user.nil?
+        redirect_to @event, alert: "Error! Couldn't find user with email: #{user_email}"
+        return
+      end
+
+      if user.event_application
+        if user.event_application.status != 'accepted'
+          redirect_to @event, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event."
+          return
+        end
+      else
+        redirect_to @event, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event."
+        return
+      end
+
+      begin
+        @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
+      rescue => exception
+        redirect_to @event, alert: 'User did not RSVP'
+        return
+      end
+      if @event_attendance.nil?
+        redirect_to @event, alert: 'User did not RSVP'
+        return
+      end
+      @event_attendance.checked_in = true
+      if @event_attendance.save
+        redirect_to @event, notice: "#{user.full_name.titleize} has been checked in successfully"
+        return
+      end
+
+    end
+
+  end
+
+  def add_user
+    begin
+      @event = Event.find(params[:event_id])
+      @user = User.find(params[:user_id])
+    rescue => exception
+      redirect_to events_url, alert: 'Unable to RSVP for event.'
+      return
+    end
+
+    @event_attendance = EventAttendance.new({:user_id => @user.id, :event_id => @event.id})
+    @event_attendance.checked_in = false
+    @event_attendance.save()
+
+    redirect_to events_path, notice: 'Successfully RSVP\'d!'
+  end
+
+  def remove_user
+    begin
+      @event = Event.find(params[:event_id])
+      @user = User.find(params[:user_id])
+    rescue => exception
+      redirect_to events_url, alert: 'Unable to UnRSVP for event.'
+      return
+    end
+
+    @event_attendance = EventAttendance.find_by(user_id: @user.id, event_id: @event.id)
+    @event_attendance.destroy()
+
+    redirect_to events_path, notice: 'Successfully UnRSVP\'d!'
   end
 
   def destroy
-    @event.destroy
+    @event.users.each do |user|
+      @event_attendance = EventAttendance.find_by(user_id: user.id, event_id: @event.id)
+      @event_attendance.destroy()
+    end
+    @event.destroy()
     redirect_to events_url, notice: 'Event was successfully destroyed.'
   end
 
@@ -56,13 +138,11 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image)
+      params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :host, :created_by, :thumbnail, :image, :max_seats, :rsvpable)
     end
 
-    #  Only admins and organizers have the ability to create, update, edit, show, and destroy Events
+    #  Only admins and organizers have the ability to create, update, edit, and destroy Events
+    #  Everyone else can view.
     def check_permissions
-      unless current_user.is_admin?
-        redirect_to events_path, alert: 'You do not have the permissions to visit this section of Events'
-      end
     end
 end

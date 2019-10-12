@@ -41,6 +41,16 @@
     <%= f.datetime_field :end_time, class: 'form-control' %>
   </div>
 
+  <div class="custom-control custom-switch">
+    <%= f.check_box :rsvpable%>
+    <%= f.label :rsvpable, class: 'control-label'%>
+  </div>
+  
+  <div class="form-group" id="">
+    <%= f.label :max_seats, class:'control-label' %>
+    <%= f.number_field :max_seats, class: 'form-control', required: true%>
+  </div>
+  
   <div class="form-group">
     <%= f.submit class: 'btn btn-primary'%>
   </div>

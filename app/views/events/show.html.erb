@@ -35,17 +35,102 @@
         <%= @event.end_time.strftime('%A, %b %d at %I:%M %p') %>
       </p>
 
+     
+      <% if @event.rsvpable%>
       <p>
-        <strong>This event was created by:</strong>
-        <%= @event.created_by %>
+        <strong>Maximum seats:</strong>
+        <%= @event.max_seats %>
       </p>
+      <% end %>
+      <% if current_user.is_organizer?%>
+        <p>
+          <strong>This event was created by:</strong>
+          <%= @event.created_by %>
+        </p>
+        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
+        <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
+      <% end %>
+      <% if @event.rsvpable %>
+        <% if (@event.start_time - 0.seconds.ago) <= 1.hour  && @event.start_time - 0.seconds.ago > 0.hour%>
+          <% if current_user.is_organizer? %>
+            <div class="page-header">
+              <h1 class="page-title"> Check In Attendees</h1>
+            </div>
 
-      <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
-      <%= link_to 'Delete', event_path(@event), :method => :delete, class: 'btn btn-danger' %>
+            <div class="row">
+              <div class="col-sm-6 col-lg-6">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                    <span class="stamp stamp-md bg-green mr-3">
+                      <i class="fe fe-user-check"></i>
+                    </span>
+                    <div>
+                      <h4 class="m-0"><%= @check_in_count %></h4>
+                      <small class="text-muted">Check-In Attendees</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-6">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                    <span class="stamp stamp-md bg-teal mr-3">
+                      <i class="fe fe-users"></i>
+                    </span>
+                    <div>
+                      <h4 class="m-0"><%= @rsvp_count %></h4>
+                      <small class="text-muted">RSVP'd Users</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <%= form_tag event_check_in_to_event_path(@event.id), method: :post, class:'col-lg-12' do%>
+                    <div class="input-group">
+                      <%= text_field_tag :email,'', class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path}, 'min-length' => 1%>
+                      <span class="input-group-btn">
+                          <%= submit_tag 'Check In', class: 'btn btn-primary' %>
+                        </span>
+                    </div>
+                <%end%>
+              </div>
+            </div>
+
+          <% else %>
+            <% if EventAttendance.find_by(event_id: @event.id, user_id: current_user.id).nil? %>
+              <% if @event.numberRSVPd() < @event.max_seats %>
+                <%= button_to 'RSVP', event_add_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-success'%>
+              <% else %>
+                <button type="button" class="btn btn-danger" disabled>Event full!</button>
+              <% end %>
+            <% else %>
+                <%= button_to 'UnRSVP', event_remove_user_path(user_id: current_user.id, event_id: @event.id), :method=>:post, class: 'btn btn-danger'%>
+            <% end %>
+          <% end %>
+        <% elsif @event.start_time - 0.seconds.ago > 1.hour %>
+          <button type="button" class="btn btn-danger" disabled>You can RSVP an hour before the event starts</button>
+        <% else %>
+          <button type="button" class="btn btn-danger" disabled>Event has already started</button>
+        <% end %>
+        <% if current_user.is_organizer?%>
+          <div class="col-lg-6">
+            <ul>
+            <% @event.users.each do |atten|%>
+              <li><%=atten.full_name%></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
-
+<style>
+form.button_to { display: inline }
+</style>
 <div class="col-lg-6">
   <%= link_to 'Go Back to Schedule', events_path, class: 'btn btn-secondary' %>
 </div>

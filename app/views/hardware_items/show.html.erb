@@ -34,7 +34,7 @@
           <%= @hardware_item.category %>
         </p>
 
-        <% if current_user.is_admin? or current_user.is_organizer? %>
+        <% if current_user.is_organizer? %>
             <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
         <% end %>
 

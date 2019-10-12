@@ -167,17 +167,6 @@ class PagesController < ApplicationController
     !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
   end
 
-  # def rsvp
-  #   if current_user.event_application and current_user.event_application.status == 'accepted'
-  #     current_user.rsvp = true
-  #     current_user.save
-  #     flash[:success] = "You Successfully RSVP'd for the Event"
-  #   else
-  #     flash[:error] = "You can't RSVP to the event if you never applied or weren't accepted!"
-  #   end
-  #   redirect_to root_path
-  # end
-
   def unrsvp
     current_user.rsvp = false
     current_user.save
@@ -206,7 +195,7 @@ class PagesController < ApplicationController
   end
 
   def check_organizer_permissions
-    unless current_user.is_organizer? or current_user.is_admin?
+    unless current_user.is_organizer?
       redirect_to index_path, alert: 'You are not an admin or organizer.'
     end
   end

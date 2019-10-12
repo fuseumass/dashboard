@@ -39,6 +39,9 @@ module HackumassWeb
     CONTACT_EMAIL = config["emails"]["contact"]
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]
     APPLICATIONS_MODE = config["applications"]["mode"]
+    CHECKIN_UNIVERSITY_EMAIL_SUFFIX = config["checkin"]["university_email_suffix"]
+    CHECKIN_UNIVERSITY_NAME = config["checkin"]["university_name"]
+    CHECKIN_UNIVERSITY_NAME_CHECKS = config["checkin"]["university_name_checks"]
 
     if event_application_config
       EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []
@@ -59,6 +62,8 @@ module HackumassWeb
     # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
     SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
     SLACK_JOIN_URL = ENV['SLACK_JOIN_URL']
+    SLACKINTEGRATION_TOKEN = ENV['SLACKINTEGRATION_TOKEN']
+    SLACKINTEGRATION_BOT_ACCESS_TOKEN = ENV['SLACKINTEGRATION_BOT_ACCESS_TOKEN']
   end
 end
 

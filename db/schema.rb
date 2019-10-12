@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_10_10_222403) do
 
+
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
     t.integer "user_id"
@@ -186,6 +187,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_222403) do
     t.boolean "rsvp", default: false
     t.boolean "check_in", default: false
     t.integer "project_id"
+    t.string "slack_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,4 +1,36 @@
+<script type='text/javascript'>
+function unhideField(field) {
+    if (field) {
+        field.style.display = 'block';
+    }
+}
 
+function hideField(field) {
+    if (field) {
+        field.style.display = 'none';
+    }
+}
+
+function toggleHiddenField(hiddenId, checkBoxId) {
+    var field = document.getElementById(hiddenId).parentNode;
+    var checkBox = document.getElementById(checkBoxId);
+    if (checkBox) {
+        checkBox.checked ? unhideField(field) : hideField(field);
+    } else {
+        hideField(field);
+    }
+}
+</script>
+<style type='text/css'>
+.event-application-hidden {
+  display: none;
+}
+
+.event-application-required-field:after {
+  content: ' * ';
+  color: red;
+}
+</style>
 <%= form_for(@rsvp, html: {multipart: true}) do |f| %>
     <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
         <%= f.fields_for :answers, OpenStruct.new(@rsvp.answers) do |o| %>
@@ -12,7 +44,7 @@
                         {include_blank: true},
                         {class: 'form-control custom-select'} %>
             <% elsif c['type'] == 'multiselect' %>
-            <div class='custom-controls-stacked'>
+            <div class='custom-controls-stacked' id="custom_rsvp_answers_<%= c['name'] %>">
                 <% c['options'].each do |option| %>
                 <label class="custom-control custom-checkbox">
                     <%= o.check_box c['name'].to_sym,
@@ -23,12 +55,12 @@
                 <% end %>
             </div>
             <% elsif c['type'] == 'boolean' %>
-            <div class="custom-controls-stacked">
+            <div class="custom-controls-stacked" id="custom_rsvp_answers_<%= c['name'] %>">
                 <label class="custom-control custom-radio custom-control-inline">
                 <%= o.radio_button c['name'].to_sym,
                                     true,
                                     class: 'custom-control-input',
-                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                                    onclick: c['toggle_field'] ? "toggleHiddenField(\"custom_rsvp_answers_#{c['toggle_field']}\", \"custom_rsvp_answers_#{c['name']}_true\")" : "" %>
                 <span class="custom-control-label">Yes</span>
                 </label>
                 <% unless c['only_yes'] %>
@@ -36,7 +68,7 @@
                     <%= o.radio_button c['name'].to_sym,
                                         false,
                                         class: 'custom-control-input',
-                                        onclick: c['toggle_field'] ? "toggleHiddenField(\"event_application_custom_fields_#{c['toggle_field']}\", \"event_application_custom_fields_#{c['name']}_true\")" : "" %>
+                                        onclick: c['toggle_field'] ? "toggleHiddenField(\"custom_rsvp_answers_#{c['toggle_field']}\", \"custom_rsvp_answers_#{c['name']}_true\")" : "" %>
                     <span class="custom-control-label">No</span>
                     </label>
                 <% end %>
@@ -58,7 +90,7 @@
     <% end %>
 
     <center>
-        <% if @rsvp_new %>
+        <% if @rsvp_new and not @current_user.rsvp %>
         <%= f.submit 'Submit RSVP',
                     type: 'submit',
                     class: 'btn btn-purple bg-primary-color' %>

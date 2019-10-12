@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'slackintegration/index'
+  post 'slackintegration/index'
+
   resources :prizes
   # Our Root URL Links to the index page (duh)
   root 'pages#index'
@@ -138,7 +141,14 @@ Rails.application.routes.draw do
       collection do
         get 'search'
         get 'all_checked_out' => 'hardware_items#all_checked_out'
+        post 'slack_message_all_checked_out' => 'hardware_items#slack_message_all_checked_out'
+        post 'slack_message_individual_checkout' => 'hardware_items#slack_message_individual_checkout'
       end
+    end
+
+    # Allow autocomplete on user email for all checked out items
+    resources :hardware_items, only: [:all_checked_out] do
+      get :autocomplete_user_email, :on => :collection
     end
 
   # Hardware Routes End

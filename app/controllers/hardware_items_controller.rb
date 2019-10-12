@@ -3,6 +3,7 @@ class HardwareItemsController < ApplicationController
   before_action :check_permissions, except: [:search, :index]
   before_action :check_attendee_slack, only: [:search, :index]
   before_action -> { is_feature_enabled($Hardware) }
+  autocomplete :user, :email, :full => true
 
   def search
     if params[:search].present?
@@ -66,7 +67,52 @@ class HardwareItemsController < ApplicationController
   end
 
   def all_checked_out
-    @all_hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
+
+    if params[:search].present?
+      @individual = true
+      # If there is a value in the search field, search on email, first name, and last name
+      @hardware_checkouts = HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)",
+       "%#{params[:search]}%").paginate(page: params[:page], per_page: 20)
+       @email = params[:search]
+    else
+      @individual = false
+      @hardware_checkouts = HardwareCheckout.all.paginate(page: params[:page], per_page: 20)
+    end
+
+  end
+
+  def slack_message_all_checked_out
+    cnt = 0
+    message = params[:message] or ""
+
+    @checkouts = params[:search].present? ? HardwareCheckout.joins(:user).where("lower(users.email) LIKE lower(?)") :  HardwareCheckout.all
+
+    @checkouts.each do |c|
+      user = User.find(c.user_id)
+      hwitem = HardwareItem.find(c.hardware_item_id)
+      if user.has_slack?
+        slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+        cnt += 1
+      end
+    end
+    flash[:success] = "Contacted #{cnt} user(s) on Slack with message: #{message}"
+    redirect_to hardware_items_path
+  end
+
+
+
+  def slack_message_individual_checkout
+    c = HardwareCheckout.find(params[:checkout_id])
+    user = User.find(c.user_id)
+    hwitem = HardwareItem.find(c.hardware_item_id)
+    message = params[:message] or ""
+    cnt = 0
+    if user.has_slack?
+      slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+      cnt += 1
+    end
+    flash[:success] = "Contacted the user on Slack with message: #{message}"
+    redirect_to hardware_item_path(hwitem.id)
   end
 
   def destroy

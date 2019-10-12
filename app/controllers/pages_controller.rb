@@ -86,19 +86,27 @@ class PagesController < ApplicationController
         return
       end
 
-      if user.event_application
-        if user.event_application.status != 'accepted'
-          redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event."
+      unless params[:force_check_in]
+        if user.event_application
+          if user.event_application.status != 'accepted'
+            redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT been accepted to the event. To override, select force check in."
+            return
+          end
+        else
+          redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event. To override, select force check in."
           return
         end
       else
-        redirect_to check_in_path, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event."
-        return
+        flash[:alert] = "Forcibly checked in #{user_email}"
       end
 
       user.check_in = true
       if user.save
-        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been checked in successfully"
+        if user.is_host_student?
+          redirect_to check_in_path, notice: "This participant is a #{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} student. #{user.full_name.titleize} has been checked in successfully."
+        else
+          redirect_to check_in_path, notice: "***THIS PARTICIPANT IS A NON-#{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} STUDENT.*** #{user.full_name.titleize} has been checked in successfully. "
+        end
         return
       end
 
@@ -146,8 +154,8 @@ class PagesController < ApplicationController
 
   def remove_permissions
     @user = User.find(params[:format])
-    if @user.email == 'bramirez@umass.edu'
-      redirect_to admin_path, alert: "Permission could not be removed. Brian is God."
+    if User.where(user_type: "admin").length == 1
+      redirect_to admin_path, alert: "Unable to remove permissions. There must be at least 1 administrator."
     else
       @user.user_type = 'attendee'
       @user.save
@@ -162,6 +170,10 @@ class PagesController < ApplicationController
   def unrsvp
     current_user.rsvp = false
     current_user.save
+    crsvp = CustomRsvp.where(user_id: current_user.id)
+    if crsvp.length == 1
+      crsvp[0].destroy
+    end
     unless current_user.event_application
       flash[:error] = "You can't un-RSVP if you never applied to the event!"
     else

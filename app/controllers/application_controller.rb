@@ -49,6 +49,63 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def slack_notify_user(user_id, message)
+    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+    if not bot_accesstok or bot_accesstok.length == 0
+      puts "No bot access token"
+      return false
+    end
+    puts "Notifying #{user_id} with #{message}"
+    
+    uri = URI.parse("https://slack.com/api/chat.postMessage")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{bot_accesstok}"
+    request.body = JSON.dump({
+      "channel" => user_id,
+      "text" => message,
+      "as_user" => true
+    })
+    puts request
+    
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+    
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    puts response.body
+
+  end
+
+  def slack_get_user_email(user_id)
+    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+    if not bot_accesstok or bot_accesstok.length == 0
+      puts "No bot access token"
+      return false
+    end
+    puts "Getting email of #{user_id}"
+    
+    uri = URI.parse("https://slack.com/api/users.info?token=#{bot_accesstok}&user=#{user_id}")
+    request = Net::HTTP::Get.new(uri)
+    puts request
+    
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+    
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    res = JSON.parse(response.body)
+    puts res
+    if res["ok"]
+      return res["user"]["profile"]["email"]
+    end
+  end
+
   protected
 
   # Additional parameters needed for devise

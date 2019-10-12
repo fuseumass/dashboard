@@ -35,7 +35,7 @@
           <div class="alert alert-danger">
               You haven't yet RSVP'd. You can do so below.
           </div>
-        <% else %>
+        <% elsif @current_user.rsvp %>
           <div class="alert alert-success">
               You have already RSVP'd! You can update your RSVP below.<br />
               <b>If you are unable to attend, please click "Sorry, I can't participate"</b>

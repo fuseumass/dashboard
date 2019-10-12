@@ -48,7 +48,7 @@ class EventApplicationsController < ApplicationController
         @reg_chart[k] = total
       end
 
-      @app_chart = EventApplication.all.group_by_day(:updated_at).count
+      @app_chart = EventApplication.all.group_by_day(:created_at).count
       total = 0
       @app_chart.keys.each do |k|
         total += @app_chart[k]

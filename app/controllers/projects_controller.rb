@@ -35,8 +35,13 @@ class ProjectsController < ApplicationController
   end
 
   def public
-    @winning_projects = Project.all.order("created_at DESC").paginate(page: params[:page], per_page: 20)
-    @projects = Project.all.order("created_at DESC").paginate(page: params[:page], per_page: 20)
+    if params[:prize]
+      @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
+    else
+      @projects = Project.all
+    end
+    
+    @projects = @projects.order("created_at DESC").paginate(page: params[:page], per_page: 20)
   end
 
   def show

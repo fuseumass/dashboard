@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col col-login mx-auto">
     <%= render 'partial/hackathonlogo', local_assigns: {width: "70%", height: "70%"}%>
+
+    <% if HackumassWeb::Application::PROJECTS_PUBLIC and Project.all.count > 0 %>
+      <%= link_to "View #{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Projects", public_projects_path, class: 'btn btn-primary btn-block' %>
+      <br />
+    <% end %>
+
+
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: "card"}) do |f| %>
       <div class="card-body p-6">
         <div class="card-title">Login to your account</div>

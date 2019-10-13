@@ -36,6 +36,11 @@ class ProjectsController < ApplicationController
 
   def public
     if params[:prize]
+      if Rails.env.production?
+        @projects = Project.where("? = ANY(prizes)", "#{prize.criteria}")
+      else
+        @projects = Project.where("prizes LIKE ?", "%#{prize.criteria}%")
+      end
       @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
     else
       @projects = Project.all

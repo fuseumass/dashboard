@@ -17,7 +17,12 @@
 </span>
 &nbsp;
 <% Prize.all.each do |prize| %>
-    <% if prize.project_selectable and Project.where("prizes LIKE ?", "%#{prize.criteria}%").count > 0 %>
+    <% if Rails.env.production? %>
+        <% @matching_projects = Project.where("? = ANY(prizes)", "#{prize.criteria}") %>
+    <% else %>
+        <% @matching_projects = Project.where("prizes LIKE ?", "%#{prize.criteria}%") %>
+    <% end %>
+    <% if prize.project_selectable and @matching_projects.count > 0 %>
         <span class="selectgroup-button" style="background: <% if params[:prize] == prize.criteria %>lightgray<% else %>white<% end %>">
             <%= link_to "#{public_projects_path}?prize=#{prize.criteria}", style: "color: black !important" do %>
                 <i class="fe fe-tag"></i> <%= prize.criteria %>

@@ -1,0 +1,20 @@
+<% unless current_user %>
+    </div>
+    <%= render 'public_navigation' %>
+    <div class="container">
+<% end %>
+
+
+<div class="page-header">
+  <h1 class="page-title"><%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %> Projects</h1>
+</div>
+
+<div class="row">
+<% @projects.each do |project| %>
+    <%= render 'public_project', project: project %>
+<% end %>
+</div>
+
+<center>
+  <%= will_paginate @projects %>
+</center>

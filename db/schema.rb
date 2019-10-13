@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_222403) do
+ActiveRecord::Schema.define(version: 2019_10_13_204303) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_222403) do
     t.integer "priority"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "project_selectable", default: true
   end
 
   create_table "projects", force: :cascade do |t|
@@ -156,9 +157,12 @@ ActiveRecord::Schema.define(version: 2019_10_10_222403) do
     t.string "learned"
     t.string "next"
     t.string "built_with"
-    t.string "prizes", default: "{}"
+    t.json "prizes", default: "\"[]\""
     t.boolean "power"
     t.integer "table_id"
+    t.string "youtube_link"
+    t.json "tech", default: "\"\\\"\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"[]\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\"\\\"\""
+    t.json "prizes_won", default: []
   end
 
   create_table "universities", force: :cascade do |t|

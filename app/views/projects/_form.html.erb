@@ -35,7 +35,7 @@
       <i class="fe fe-bell mr-2" aria-hidden="true"></i>
       Just a reminder, only
       <b>one</b>
-      project should be submitted per team. Please make sure to list your team members.
+      project should be submitted per team. You can edit the fields here after you submit. Please make sure to list the email addresses of your team members after submitting.
     </div>
 
     <div class="form-group">
@@ -54,7 +54,7 @@
 
     <div class="form-group">
       <h3>
-        Do you have a github link?
+        Do you have a GitHub link?
       </h3>
       <%= form.text_field :link, id: :project_link, class: 'form-control', placeholder: "Link us to your Github! Leave blank if you don't have one!" %>
     </div>
@@ -63,13 +63,21 @@
       <h3>
         Do you have a project image?
       </h3>
-      <p style="color: grey; ">(Project images are not required, but judges love when they can see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.)</p>
+      <p style="color: grey; "><b>A project image is required.</b> Judges love being able to see how your hack looks. This could be a picture of the hack taken by a phone, or a screenshot of a software hack, or even a logo that you made for your hack.</p>
       <div class="custom-file">
         <%= form.file_field :projectimage, class:'custom-file-input', onchange:'updateProjectImageFileLabel()', id: 'project_projectimage' %>
         <label class="custom-file-label">
           Choose file
         </label>
       </div>
+    </div>
+
+    <div class="form-group">
+      <h3>
+        Do you have a YouTube video link?
+      </h3>
+      <p style="color: grey; ">A project video is optional. <b>The video should be between 30 and 60 seconds long, and demonstrate how your hack works.</b> No PowerPoint slides, please. Cinema-level video editing not required.</p>
+      <%= form.text_field :youtube_link, id: :youtube_link, class: 'form-control', placeholder: "This is optional, but if you don't upload a video then please upload a photo!" %>
     </div>
 
     <div class="form-group">
@@ -92,6 +100,14 @@
       </h3>
       <%= form.text_area :built_how, id: :project_built_how, class: 'form-control', placeholder: "How did you build your project? " %>
     </div>
+    <div class='form-group'>
+        <h3>
+        What technologies did you use? (select all that apply)
+        </h3>
+        <div class='selectgroup selectgroup-pills'>
+          <%= render 'mentorship_requests/tech_form_options', f: form %>
+        </div>
+      </div>
 
     <div class="form-group">
       <h3>
@@ -137,10 +153,12 @@
             <%= form.label :prizes, 'Select all the prizes that your hack is related to', class: 'form-label' %>
             <div class='selectgroup selectgroup-pills'>
               <% Prize.all.each do |prize| %>
-                <label class="selectgroup-item">
-                  <%= form.check_box :prizes, {multiple: true, :class => "selectgroup-input"}, "#{prize.name}", nil %>
-                  <span class="selectgroup-button"><%= prize.name %></span>
-                </label>
+                <% if prize.project_selectable %>
+                  <label class="selectgroup-item">
+                    <%= form.check_box :prizes, {multiple: true, :class => "selectgroup-input"}, "#{prize.criteria}", nil %>
+                    <span class="selectgroup-button"><%= prize.criteria %></span>
+                  </label>
+                <% end %>
               <% end %>
 
             </div>

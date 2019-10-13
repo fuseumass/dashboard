@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       post 'remove_team_member' => 'projects#remove_team_member', :as => :remove_team_member
       collection do
         get 'search'
+        get 'public'
       end
     end
 

@@ -17,6 +17,12 @@ class Project < ApplicationRecord
 											 size: { less_than: 10.megabyte,
 															 message: 'Image file must be under 10MB in size.' }
 
+	if not Rails.env.production?
+		serialize :tech, Array
+		serialize :prizes, Array
+		serialize :prizes_won, Array
+	end
+
 	def rename_file
 		unless projectimage_file_name.blank? || title.blank?
       extension = projectimage_file_name.gsub(/.*\./, '')
@@ -26,6 +32,19 @@ class Project < ApplicationRecord
 
 	def remove_repeats_err_msg
 		errors.delete(:projectimage) unless errors[:projectimage].blank?
+	end
+
+	def get_youtube_id
+		url = self.youtube_link
+		id = ''
+		url = url.gsub(/(>|<)/i,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/)
+		if url[2] != nil
+			id = url[2].split(/[^0-9a-z_\-]/i)
+			id = id[0];
+		else
+			id = url;
+		end
+		id
 	end
 
 	# Generating CSV for all projects

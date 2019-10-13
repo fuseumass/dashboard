@@ -32,6 +32,7 @@
               <p> <b> Criteria: </b> <%= prize.criteria %> </p>
               <p> <b> Description: </b> <%= prize.description %> </p>
               <p> <b> Sponsored by: </b> <%= prize.sponsor %> </p>
+              <% if prize.project_selectable %><b>You need to apply for this prize by selecting it on your project.</b><% end %>
             </div>
         </div>
     </div>

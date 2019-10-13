@@ -42,6 +42,7 @@ module HackumassWeb
     CHECKIN_UNIVERSITY_EMAIL_SUFFIX = config["checkin"]["university_email_suffix"]
     CHECKIN_UNIVERSITY_NAME = config["checkin"]["university_name"]
     CHECKIN_UNIVERSITY_NAME_CHECKS = config["checkin"]["university_name_checks"]
+    PROJECTS_PUBLIC = config["projects"]["public"]
 
     if event_application_config
       EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []

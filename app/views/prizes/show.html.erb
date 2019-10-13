@@ -32,6 +32,7 @@
       </p>
 
       <% if @prize.project_selectable %><b>You need to apply for this prize by selecting it on your project.</b><% end %>
+      
       <%= link_to 'Edit', edit_prize_path(@prize), class: 'btn btn-warning' %>
       <% if current_user.is_admin? %>
         <%= link_to 'Delete', prize_path(@prize), :method => :delete, class: 'btn btn-danger' %>

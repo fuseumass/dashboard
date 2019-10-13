@@ -69,25 +69,45 @@ class EventsController < ApplicationController
         redirect_to @event, alert: "Error! Couldn't check in user with email: #{user_email}. This user has NOT applied to the event."
         return
       end
-
-      begin
-        @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
-      rescue => exception
-        redirect_to @event, alert: 'User did not RSVP'
-        return
+      if params[:force_check_in]
+        begin
+          @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
+        rescue => exception
+          @event_attendance = EventAttendance.new({:user_id => user.id, :event_id => @event.id})
+          @event_attendance.checked_in = true
+          @event_attendance.save()
+          redirect_to @event, alert: 'Forced user into event'
+          return
+        end
+        if @event_attendance.nil?
+          @event_attendance = EventAttendance.new({:user_id => user.id, :event_id => @event.id})
+          @event_attendance.checked_in = true
+          @event_attendance.save()
+          redirect_to @event, alert: 'Forced user into event'
+          return
+        else 
+          @event_attendance.checked_in = true
+          @event_attendance.save()
+          redirect_to @event, alert: 'Forced user into event'
+        end
+      else
+        begin
+          @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
+        rescue => exception
+          redirect_to @event, alert: 'User did not RSVP'
+          return
+        end
+        if @event_attendance.nil?
+          redirect_to @event, alert: 'User did not RSVP'
+          return
+        end
+        @event_attendance.checked_in = true
+        if @event_attendance.save
+          redirect_to @event, notice: "#{user.full_name.titleize} has been checked in successfully"
+          return
+        end
       end
-      if @event_attendance.nil?
-        redirect_to @event, alert: 'User did not RSVP'
-        return
-      end
-      @event_attendance.checked_in = true
-      if @event_attendance.save
-        redirect_to @event, notice: "#{user.full_name.titleize} has been checked in successfully"
-        return
-      end
-
     end
-
   end
 
   def add_user

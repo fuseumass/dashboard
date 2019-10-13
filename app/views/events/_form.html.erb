@@ -32,21 +32,21 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :start_time, class:'control-label' %> (Format dd/mm/yyyy HH:mm AM or PM)<br>
+    <%= f.label :start_time, class:'control-label' %> (Format mm/dd/yyyy HH:mm AM or PM)<br>
     <%= f.datetime_field :start_time, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :end_time, class:'control-label' %> (Format dd/mm/yyyy HH:mm AM or PM)<br>
+    <%= f.label :end_time, class:'control-label' %> (Format mm/dd/yyyy HH:mm AM or PM)<br>
     <%= f.datetime_field :end_time, class: 'form-control' %>
   </div>
 
-  <div class="custom-control custom-switch">
-    <%= f.check_box :rsvpable%>
-    <%= f.label :rsvpable, class: 'control-label'%>
+  <div class="form-group">
+    Can participants RSVP to this event?<br>
+    <%= f.select :rsvpable, [['Yes', true], ['No', false]]%>
   </div>
   
-  <div class="form-group" id="">
+  <div class="form-group">
     <%= f.label :max_seats, class:'control-label' %>
     <%= f.number_field :max_seats, class: 'form-control', required: true%>
   </div>

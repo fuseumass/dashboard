@@ -48,7 +48,7 @@
   
   <div class="form-group">
     <%= f.label :max_seats, class:'control-label' %>
-    <%= f.number_field :max_seats, class: 'form-control', required: true%>
+    <%= f.number_field :max_seats, class: 'form-control', id: 'maxSeatsNumber'%>
   </div>
   
   <div class="form-group">
@@ -57,4 +57,27 @@
 <% end %>
 <script>
   $('#datepicker').datepicker({format: 'yyyy-mm-dd'});
+</script>
+<script>
+  let a = document.getElementById("event_rsvpable");
+  let b = document.getElementById("maxSeatsNumber");
+  console.log(b);
+  if(a.value === "true"){
+    b.disabled = false;
+    b.required = true;
+  } else {
+    b.disabled = true;
+    b.required = false;
+  }
+  console.log(a.value);
+  a.onclick = function(){
+    console.log(b);
+    if(a.value === "true"){
+      b.disabled = false;
+      b.required = true;
+    } else {
+      b.disabled = true;
+      b.required = false;
+    }
+  };
 </script>

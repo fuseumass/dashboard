@@ -1,0 +1,47 @@
+<% unless current_user %>
+    </div>
+    <%= render 'public_navigation' %>
+    <div class="container">
+<% end %>
+
+<div class="page-header" style="margin-bottom: 0">
+  <h1 class="page-title"><%= HackumassWeb::Application::HACKATHON_NAME %> <%= HackumassWeb::Application::HACKATHON_VERSION %> <%=params[:prize] %> Projects</h1>
+</div>
+            
+<div class="selectgroup selectgroup-pills" style="margin-bottom: 1.5rem">
+<span class="selectgroup-button" style="background: none; border: none">Filter:</span> 
+<span class="selectgroup-button" style="background: <% unless params[:prize] %>lightgray<% else %>white <% end %>">
+    <%= link_to "#{public_projects_path}", style: "color: black !important" do %>
+        All
+    <% end %>
+</span>
+&nbsp;
+<% Prize.all.each do |prize| %>
+    <% if Rails.env.production? %>
+        <% @matching_projects = Project.where("prizes::varchar LIKE ?", "%#{prize.criteria}%") %>
+    <% else %>
+        <% @matching_projects = Project.where("prizes LIKE ?", "%#{prize.criteria}%") %>
+    <% end %>
+    <% if prize.project_selectable and @matching_projects.count > 0 %>
+        <span class="selectgroup-button" style="background: <% if params[:prize] == prize.criteria %>lightgray<% else %>white<% end %>">
+            <%= link_to "#{public_projects_path}?prize=#{prize.criteria}", style: "color: black !important" do %>
+                <i class="fe fe-tag"></i> <%= prize.criteria %>
+            <% end %>
+        </span>
+        &nbsp;
+    <% end %>
+<% end %>
+</div>
+
+<div class="row">
+<% @projects.each do |project| %>
+    <%= render 'public_project', project: project %>
+<% end %>
+<% if @projects.count == 0 %>
+    <h3>Sorry, no projects to see here!</h3>
+<% end %>
+</div>
+
+<center>
+  <%= will_paginate @projects %>
+</center>

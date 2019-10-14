@@ -1,0 +1,26 @@
+<% if @checkout_log.empty? %>
+	<center><h5>There is no checkout history for this item.</h5></center>
+<% end %>
+
+<table class="table table-striped table-hover ">
+<% unless @checkout_log.empty? %>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>User</th>
+      <th>Action</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+<% end %>
+  <tbody>
+  	<% @checkout_log.each do |item| %>
+	    <tr>
+          <td><%= item.created_at.strftime('%A, %b %d at %I:%M %p')%></td>
+	      <td><%= item.user.full_name.titleize %> (<%= item.user.email %>)</td>
+		  <td><%= item.action %></td>
+          <td><%= item.message %></td>
+	    </tr>
+    <% end %>
+  </tbody>
+</table>

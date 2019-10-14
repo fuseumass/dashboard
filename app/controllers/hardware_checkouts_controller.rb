@@ -46,6 +46,7 @@ class HardwareCheckoutsController < ApplicationController
     # Save the checkout if everything is fine
     if @hardware_checkout.save
       flash[:success] = "Hardware Item Checked Out Successfully"
+      HardwareCheckoutLog.create(user_id: checkout_to_user.id, hardware_item_id: @item.id, action: "Checked Out Item", message: "#{@item.count} now available.")
       if checkout_to_user.has_slack?
         slack_notify_user(checkout_to_user.slack_id, "You just checked out the following hardware item: #{@item.name}. Please remember to return this item at the end of the event.")
       end
@@ -66,6 +67,7 @@ class HardwareCheckoutsController < ApplicationController
 
     # Flash a good message
     flash[:success] = "Hardware Successfully Returned"
+    HardwareCheckoutLog.create(user_id: checkout_to_user.id, hardware_item_id: @item.id, action: "Returned Item", message: "#{@item.count} now available.")
     if checkout_to_user.has_slack?
       slack_notify_user(checkout_to_user.slack_id, "You just returned the following hardware item: #{@item.name}. Thank you!")
     end

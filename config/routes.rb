@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       post 'remove_team_member' => 'projects#remove_team_member', :as => :remove_team_member
       collection do
         get 'search'
+        get 'public'
       end
     end
 
@@ -143,6 +144,7 @@ Rails.application.routes.draw do
         get 'all_checked_out' => 'hardware_items#all_checked_out'
         post 'slack_message_all_checked_out' => 'hardware_items#slack_message_all_checked_out'
         post 'slack_message_individual_checkout' => 'hardware_items#slack_message_individual_checkout'
+        post 'slack_message_individual_item' => 'hardware_items#slack_message_individual_item'
       end
     end
 

@@ -1,5 +1,6 @@
-<div class="page-header">
+<div class="page-header" style="position: relative">
   <h1 class="page-title">Projects</h1>
+  <%= link_to 'View Public Projects', public_projects_path, class: 'btn btn-purple', style: 'position: absolute; right: 0' %>
 </div>
 
 <% if @projects.empty? %>
@@ -32,7 +33,6 @@
               <th>Table #</th>
               <th>Title</th>
               <th>Description</th>
-              <th>Link</th>
               <th>Team Members</th>
             </tr>
           </thead>
@@ -47,8 +47,7 @@
               <% end %>
 
               <td><%= link_to truncate(project.title, length: 30), project %></td>
-              <td><%= truncate(project.description, length: 30) %></td>
-              <td><%= truncate(project.link, length: 22) %></td>
+              <td><%= truncate(project.description, length: 150) %></td>
               <td>
                 <% proj_users = "" %>
                 <% project.user.each do |u|  %>
@@ -59,7 +58,7 @@
                     <% proj_users << u.last_name %>
                   <% end %>
                 <% end %>
-                <%= truncate(proj_users, length: 30) %>
+                <%= truncate(proj_users, length: 100) %>
               </td>
             </tr>
             <% end %>

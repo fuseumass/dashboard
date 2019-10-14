@@ -33,6 +33,9 @@ class HardwareItemsController < ApplicationController
     # Get all the people that have checked out items
     @checked_out_items = HardwareCheckout.where(hardware_item: @hardware_item)
 
+    # Get history of actions on this hardware item
+    @checkout_log = HardwareCheckoutLog.where(hardware_item: @hardware_item).order(created_at: :desc)
+
     # Do we really need a csv page for one spcific hardware item ???
     respond_to do |format|
       format.html
@@ -92,14 +95,13 @@ class HardwareItemsController < ApplicationController
       hwitem = HardwareItem.find(c.hardware_item_id)
       if user.has_slack?
         slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+        HardwareCheckoutLog.create(user_id: user.id, hardware_item_id: hwitem.id, action: "Sent Slack Message", message: "#{message}")
         cnt += 1
       end
     end
     flash[:success] = "Contacted #{cnt} user(s) on Slack with message: #{message}"
     redirect_to hardware_items_path
   end
-
-
 
   def slack_message_individual_checkout
     c = HardwareCheckout.find(params[:checkout_id])
@@ -109,10 +111,30 @@ class HardwareItemsController < ApplicationController
     cnt = 0
     if user.has_slack?
       slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+      HardwareCheckoutLog.create(user_id: user.id, hardware_item_id: hwitem.id, action: "Sent Slack Message", message: "#{message}")
       cnt += 1
     end
     flash[:success] = "Contacted the user on Slack with message: #{message}"
     redirect_to hardware_item_path(hwitem.id)
+  end
+
+  def slack_message_individual_item
+    cnt = 0
+    message = params[:message] or ""
+
+    @checkouts = HardwareCheckout.where(hardware_item_id: params[:hwitem_id])
+
+    @checkouts.each do |c|
+      user = User.find(c.user_id)
+      hwitem = HardwareItem.find(c.hardware_item_id)
+      if user.has_slack?
+        slack_notify_user(user.slack_id, "You still have this hardware item checked out: #{hwitem.name}. #{message}")
+        HardwareCheckoutLog.create(user_id: user.id, hardware_item_id: hwitem.id, action: "Sent Slack Message", message: "#{message}")
+        cnt += 1
+      end
+    end
+    flash[:success] = "Contacted #{cnt} user(s) on Slack with message: #{message}"
+    redirect_to hardware_item_path(params[:hwitem_id])
   end
 
   def destroy

@@ -1,9 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_project_for_team, only: [:team, :add_team_member, :remove_team_member]
-  before_action :check_permissions, only: %i[index]
+  skip_before_action :auth_user, :only => [:index, :show, :public]
 
   def index
+    if HackumassWeb::Application::PROJECTS_PUBLIC and (not current_user or not current_user.is_organizer?)
+      redirect_to public_projects_path
+    else
+      check_permissions
+    end
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @projectsCSV = Project.all
 
@@ -29,10 +34,30 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def public
+    if params[:prize]
+      if Rails.env.production?
+        @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
+      else
+        @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
+      end
+    else
+      @projects = Project.all
+    end
+    
+    @projects = @projects.order("created_at DESC").paginate(page: params[:page], per_page: 20)
+  end
+
   def show
-    if current_user.is_attendee?
-      if current_user.project_id != @project.id
-        redirect_to index_path, alert: "You do not have permission to view this project."
+    projects_public = HackumassWeb::Application::PROJECTS_PUBLIC
+    if not projects_public
+      if not current_user
+        redirect_to index_path, alert: "Public access to projects is disallowed."
+      end
+      if current_user.is_attendee?
+        if current_user.project_id != @project.id
+          redirect_to index_path, alert: "You do not have permission to view this project."
+        end
       end
     end
   end
@@ -61,7 +86,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to project_team_path(@project), notice: 'Project was successfully created. Please add additional team members by entering their email addresses.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -176,7 +201,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:title, :description, :link, :projectimage, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :power, prizes:[])
+      params.require(:project).permit(:title, :description, :link, :projectimage, :youtube_link, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, :power, tech:[], prizes:[])
     end
 
     def check_permissions

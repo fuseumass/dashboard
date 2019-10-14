@@ -1,0 +1,58 @@
+<div class="col-lg-4">
+    <div class="card">
+        <div class="card-status bg-<% if project.prizes_won.empty? %>success<% else %>yellow<% end %>"></div>
+        <div class="card-header">
+        <a href="<%= project_path(project) %>" class="text-inherit">
+            <h3 class="page-title">
+                <% unless project.prizes_won.empty? %>
+                <i class="fe fe-star text-yellow"></i>
+                <% end %>
+                <%= project.title %>
+            </h3>
+        </a>
+        </div>
+        <div class="card-body">
+            
+            <% unless project.projectimage.blank? %>
+                <img src="<%= project.projectimage.url %>" alt="" width="100%" height="auto" />
+            <% end %>
+            <%= truncate(project.description, length: 150) %>
+            <br /><br />
+            <% unless project.tech.empty? or project.tech == "{}" %>
+                <% project.tech.each do |tech| %>
+                    <div class="badge badge-secondary"><%= tech %></div>
+                <% end %>
+                <br />
+            <% end %>
+            <% unless project.prizes_won.empty? %>
+                <div>
+                Prizes Won: 
+                <% project.prizes_won.each_with_index do |prize, i| %>
+                    <%= prize %><% unless i == project.prizes_won.size - 1 %>, <% end %>
+                <% end %>
+                </div>
+            <% end %>
+            <div>
+                Team Members:
+                <% project.user.each_with_index do |u, i|  %>
+                    <%= u.first_name %> <%= u.last_name %><% unless i == project.user.size - 1 %>, <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="card-footer">
+            <%= link_to 'View More', project_path(project), class: 'btn btn-secondary' %>
+            &nbsp; 
+            <% unless project.link.blank? %>
+                <%= link_to project.link, class: "btn btn-github" do %>
+                    <i class="fe fe-github"></i> Github</a>
+                <% end %>
+                &nbsp; 
+            <% end %>
+            <% unless project.youtube_link.blank? %>
+                <%= link_to project.youtube_link, class: "btn btn-youtube" do %>
+                    <i class="fe fe-video"></i> Watch</a>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

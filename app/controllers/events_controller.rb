@@ -76,29 +76,29 @@ class EventsController < ApplicationController
           @event_attendance = EventAttendance.new({:user_id => user.id, :event_id => @event.id})
           @event_attendance.checked_in = true
           @event_attendance.save()
-          redirect_to @event, alert: 'Forced user into event'
+          redirect_to @event, alert: "Forced user #{user.email} into event"
           return
         end
         if @event_attendance.nil?
           @event_attendance = EventAttendance.new({:user_id => user.id, :event_id => @event.id})
           @event_attendance.checked_in = true
           @event_attendance.save()
-          redirect_to @event, alert: 'Forced user into event'
+          redirect_to @event, alert: "Forced user #{user.email} into event"
           return
         else 
           @event_attendance.checked_in = true
           @event_attendance.save()
-          redirect_to @event, alert: 'Forced user into event'
+          redirect_to @event, alert: "Forced user #{user.email} into event"
         end
       else
         begin
           @event_attendance = EventAttendance.find_by(event_id: @event.id, user_id: user.id)
         rescue => exception
-          redirect_to @event, alert: 'User did not RSVP'
+          redirect_to @event, alert: "User #{user.email} did not RSVP"
           return
         end
         if @event_attendance.nil?
-          redirect_to @event, alert: 'User did not RSVP'
+          redirect_to @event, alert: "User #{user.email} did not RSVP"
           return
         end
         @event_attendance.checked_in = true

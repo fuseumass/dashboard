@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  hardware_item: one
+  action: MyString
+
+two:
+  user: two
+  hardware_item: two
+  action: MyString

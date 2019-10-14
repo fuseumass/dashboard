@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_13_204303) do
+ActiveRecord::Schema.define(version: 2019_10_14_005345) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -84,6 +84,17 @@ ActiveRecord::Schema.define(version: 2019_10_13_204303) do
     t.datetime "updated_at", null: false
     t.string "display_name"
     t.string "description"
+  end
+
+  create_table "hardware_checkout_logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hardware_item_id"
+    t.string "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "message"
+    t.index ["hardware_item_id"], name: "index_hardware_checkout_logs_on_hardware_item_id"
+    t.index ["user_id"], name: "index_hardware_checkout_logs_on_user_id"
   end
 
   create_table "hardware_checkouts", force: :cascade do |t|

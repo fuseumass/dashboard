@@ -1,6 +1,15 @@
 <% if @checked_out_items.empty? %>
 	<center><h5>This item hasn't been checked out yet</h5></center>
+<% else %>
+	<form method="post" action="<%= slack_message_individual_item_hardware_items_path %>">
+		<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+		<input type="hidden" name="hwitem_id" value="<%= @hardware_item.id %>" />
+		<input type="hidden" name="message" value="Please return this item to the hardware table." />
+		<input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-success" onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;" />
+	</form>
+	<br />
 <% end %>
+
 <table class="table table-striped table-hover ">
   <tbody>
   	<% @checked_out_items.each do |item| %>

@@ -14,7 +14,7 @@
         <div class="card-body">
             
             <% unless project.projectimage.blank? %>
-                <img src="<%= @project.projectimage.url %>" alt="" width="100%" height="auto" />
+                <img src="<%= project.projectimage.url %>" alt="" width="100%" height="auto" />
             <% end %>
             <%= truncate(project.description, length: 150) %>
             <br /><br />

@@ -18,7 +18,7 @@
 &nbsp;
 <% Prize.all.each do |prize| %>
     <% if Rails.env.production? %>
-        <% @matching_projects = Project.where("? = ANY(prizes)", "#{prize.criteria}") %>
+        <% @matching_projects = Project.where("prizes::varchar LIKE ?", "%#{prize.criteria}%") %>
     <% else %>
         <% @matching_projects = Project.where("prizes LIKE ?", "%#{prize.criteria}%") %>
     <% end %>

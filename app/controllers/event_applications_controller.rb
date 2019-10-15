@@ -150,9 +150,11 @@ class EventApplicationsController < ApplicationController
                                                     lower(major) LIKE lower(?) OR
                                                     lower(name) LIKE lower(?) OR 
                                                     lower(university) LIKE lower(?) OR
-                                                    lower(status) LIKE lower(?)", 
+                                                    lower(status) LIKE lower(?) OR
+                                                    lower(education_lvl) LIKE lower(?)", 
                                               "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", 
-                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+                                              "%#{params[:search]}%", "%#{params[:search]}%")
       @posts = @posts.paginate(page: params[:page], per_page: 20)
     else
       redirect_to event_applications_path

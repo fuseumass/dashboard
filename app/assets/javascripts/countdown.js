@@ -1,3 +1,4 @@
+$(function() {
 // Set the date we're counting down to
 // e.g. "Oct 12, 2018 24:00:00"
 var countDownDate = new Date(document.getElementById("countdown").getAttribute("data-date")).getTime();
@@ -31,3 +32,4 @@ var x = setInterval(function() {
     clearInterval(x);
   }
 }, 1000);
+});

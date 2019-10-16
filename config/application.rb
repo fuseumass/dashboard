@@ -44,6 +44,7 @@ module HackumassWeb
     CHECKIN_UNIVERSITY_NAME_CHECKS = config["checkin"]["university_name_checks"]
     PROJECTS_PUBLIC = config["projects"]["public"]
     HACKING_BEGINS_DATE = config["projects"]["hacking_begins"]
+    HACKING_ENDS_DATE = config["projects"]["hacking_ends"]
 
     if event_application_config
       EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []

@@ -143,8 +143,20 @@ class EventApplicationsController < ApplicationController
     @denied_count = EventApplication.where(status: 'denied').count
     @flagged_count = EventApplication.where(flag: true).count
 
+    @flagged = params[:flagged]
+    @status = params[:status]
+    if ['undecided', 'accepted', 'denied', 'waitlisted'].include?(@status)
+      @applications = EventApplication.where({status: @status})
+    elsif params[:flagged].present?
+      @applications = EventApplication.where(flag: true)
+    elsif params[:rsvp].present?
+      @applications = EventApplication.joins(:user).where(users: {rsvp: true})
+    else
+      @applications = EventApplication.all
+    end
+
     if params[:search].present?
-      @posts = EventApplication.joins(:user).where("lower(users.first_name) LIKE lower(?) OR 
+      @applications = @applications.joins(:user).where("lower(users.first_name) LIKE lower(?) OR 
                                                     lower(users.last_name) LIKE lower(?) OR 
                                                     lower(users.email) LIKE lower(?) OR 
                                                     lower(major) LIKE lower(?) OR
@@ -155,7 +167,7 @@ class EventApplicationsController < ApplicationController
                                               "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", 
                                               "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                               "%#{params[:search]}%", "%#{params[:search]}%")
-      @posts = @posts.paginate(page: params[:page], per_page: 20)
+      @posts = @applications.paginate(page: params[:page], per_page: 20)
     else
       redirect_to event_applications_path
     end

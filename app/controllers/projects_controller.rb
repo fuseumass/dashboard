@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_project_for_team, only: [:team, :add_team_member, :remove_team_member]
   before_action :check_project_view_active, only: [:index, :search, :public]
-  before_action :check_project_create_active, only: [:new, :create, :update, :edit, :project_submit_info]
+  before_action :check_project_create_active, only: [:new, :create, :update, :project_submit_info]
   skip_before_action :auth_user, :only => [:index, :show, :public]
 
   def index
@@ -76,6 +76,10 @@ class ProjectsController < ApplicationController
 
 
   def edit
+    # Prevent users from editing their project when submissions/creation is closed.
+    unless check_feature_flag?($project_submissions)
+      redirect_to current_user.project, alert: 'You may not make changes to your project now.'
+    end
   end
 
 
@@ -136,6 +140,12 @@ class ProjectsController < ApplicationController
 
 
   def team
+
+    unless check_feature_flag?($project_submissions)
+      redirect_to current_user.project, alert: 'Error: Unable to modify team members while project creation is disabled.'
+      return
+    end
+
     if current_user.project_id != @project.id
       redirect_to index_path, alert: "You don't have permission to view this project."
     elsif check_feature_flag?($project_submissions) and current_user.is_admin?
@@ -211,13 +221,14 @@ class ProjectsController < ApplicationController
 
 
     def check_project_view_active
-      unless check_feature_flag?($Projects)
+      unless check_feature_flag?($Projects) or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
         redirect_to index_path, alert: "Error: Access to project gallery is currently disabled."
       end
     end
 
     def check_project_create_active
-      unless check_feature_flag?($project_submissions)
+      # Prevent access to creating/viewing project unless the user already has one
+      unless check_feature_flag?($project_submissions) or current_user.has_published_project?
         redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
       end
     end

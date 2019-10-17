@@ -53,7 +53,6 @@ class HardwareItemsController < ApplicationController
 
   def create
     @hardware_item = HardwareItem.new(hardware_item_params)
-    @hardware_item.upc = generate_upc
     if @hardware_item.save
       redirect_to hardware_items_url, notice: 'Hardware item was successfully created.'
     else

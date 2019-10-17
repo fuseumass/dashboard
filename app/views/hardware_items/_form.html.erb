@@ -41,6 +41,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :upc, class:'control-label' %>
+      <%= f.text_field :upc, class: 'form-control', placeholder: 'Type upc here' %>
+    </div>
+
+    <div class="form-group">
       <%= f.submit class: 'btn btn-primary' %>
     </div>
   <% end %>

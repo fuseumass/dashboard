@@ -318,6 +318,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rails-jquery-autocomplete
   rails_12factor
+  rake (= 12.3.3)
   ransack
   rqrcode
   sass-rails (~> 5.0)
@@ -337,4 +338,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

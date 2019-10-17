@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   $Applications = 'event_applications'
   $MentorshipRequests = 'mentorship_requests'
   $Projects = 'projects'
-  $Projects = 'project_submissions'
+  $project_submissions = 'project_submissions'
   $Events = 'events'
   $Prizes = 'prizes'
   $CheckIn = 'check_in'

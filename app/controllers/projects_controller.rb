@@ -53,13 +53,10 @@ class ProjectsController < ApplicationController
 
   def show
     projects_public = HackumassWeb::Application::PROJECTS_PUBLIC
-    if not projects_public
-      if not current_user
-        redirect_to index_path, alert: "Public access to projects is disallowed."
-      end
+    if (not projects_public) or (not check_feature_flag?($Projects))
       if current_user.is_attendee?
         if current_user.project_id != @project.id
-          redirect_to index_path, alert: "You do not have permission to view this project."
+          redirect_to index_path, alert: "Public access to projects is disallowed."
         end
       end
     end

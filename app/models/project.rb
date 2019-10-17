@@ -11,6 +11,16 @@ class Project < ApplicationRecord
 	has_attached_file :projectimage,
 										path: 'project/:filename'
 
+
+
+	validates :link,
+            allow_blank: true,
+            if: -> { link.present? },
+            format: { with: /\G[hH][tT][tT][pP][sS]:\/\/.*/,
+                      message: 'Github link must begin with \'https://\'' }
+
+
+
 	validates_attachment :projectimage,
 											 content_type: { content_type: ['image/jpeg', 'image/jpg', 'image/png'],
 																			 message: 'Image type is not supported.' },

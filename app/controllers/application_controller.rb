@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
   end
-  
+
   def set_extra_headers
     headers['X-Powered-By'] = 'The HackUMass Platform <https://platform.hackumass.com>'
     headers['X-Pandas'] = 'red'
@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   $Applications = 'event_applications'
   $MentorshipRequests = 'mentorship_requests'
   $Projects = 'projects'
+  $project_submissions = 'project_submissions'
   $Events = 'events'
   $Prizes = 'prizes'
   $CheckIn = 'check_in'
@@ -56,7 +57,7 @@ class ApplicationController < ActionController::Base
       return false
     end
     puts "Notifying #{user_id} with #{message}"
-    
+
     uri = URI.parse("https://slack.com/api/chat.postMessage")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -67,11 +68,11 @@ class ApplicationController < ActionController::Base
       "as_user" => true
     })
     puts request
-    
+
     req_options = {
       use_ssl: uri.scheme == "https",
     }
-    
+
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
@@ -86,15 +87,15 @@ class ApplicationController < ActionController::Base
       return false
     end
     puts "Getting email of #{user_id}"
-    
+
     uri = URI.parse("https://slack.com/api/users.info?token=#{bot_accesstok}&user=#{user_id}")
     request = Net::HTTP::Get.new(uri)
     puts request
-    
+
     req_options = {
       use_ssl: uri.scheme == "https",
     }
-    
+
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end

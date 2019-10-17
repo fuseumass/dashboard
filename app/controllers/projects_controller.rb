@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_project_for_team, only: [:team, :add_team_member, :remove_team_member]
+  before_action :check_project_view_active, only: [:index, :search, :public]
+  before_action :check_project_create_active, only: [:new, :create, :update, :project_submit_info]
   skip_before_action :auth_user, :only => [:index, :show, :public]
 
   def index
@@ -9,6 +11,7 @@ class ProjectsController < ApplicationController
     else
       check_permissions
     end
+
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @projectsCSV = Project.all
 
@@ -44,19 +47,16 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.all
     end
-    
+
     @projects = @projects.order("created_at DESC").paginate(page: params[:page], per_page: 20)
   end
 
   def show
     projects_public = HackumassWeb::Application::PROJECTS_PUBLIC
-    if not projects_public
-      if not current_user
-        redirect_to index_path, alert: "Public access to projects is disallowed."
-      end
+    if (not projects_public) or (not check_feature_flag?($Projects))
       if current_user.is_attendee?
         if current_user.project_id != @project.id
-          redirect_to index_path, alert: "You do not have permission to view this project."
+          redirect_to index_path, alert: "Public access to projects is disallowed."
         end
       end
     end
@@ -67,16 +67,16 @@ class ProjectsController < ApplicationController
     if current_user.has_published_project?
       redirect_to project_path(current_user.project)
     else
-      if check_feature_flag?($Projects)
-        @project = Project.new
-      else
-        redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
-      end
+      @project = Project.new
     end
   end
 
 
   def edit
+    # Prevent users from editing their project when submissions/creation is closed.
+    unless check_feature_flag?($project_submissions)
+      redirect_to current_user.project, alert: 'You may not make changes to your project now.'
+    end
   end
 
 
@@ -126,23 +126,29 @@ class ProjectsController < ApplicationController
   def project_submit_info
      if current_user.has_published_project?
         redirect_to project_path(current_user.project)
-     elsif check_feature_flag?($Projects)
+     elsif check_feature_flag?($project_submissions)
        if current_user.is_admin?
          redirect_to projects_path
        end
      else
-       redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
+       redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
     end
   end
 
 
   def team
+
+    unless check_feature_flag?($project_submissions)
+      redirect_to current_user.project, alert: 'Error: Unable to modify team members while project creation is disabled.'
+      return
+    end
+
     if current_user.project_id != @project.id
       redirect_to index_path, alert: "You don't have permission to view this project."
-    elsif check_feature_flag?($Projects) and current_user.is_admin?
+    elsif check_feature_flag?($project_submissions) and current_user.is_admin?
       redirect_to projects_path
-    elsif !check_feature_flag?($Projects)
-      redirect_to index_path, alert: 'Sorry! Project submissions are over. You can no longer submit a project for judging.'
+    elsif !check_feature_flag?($project_submissions)
+      redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
     end
   end
 
@@ -209,4 +215,19 @@ class ProjectsController < ApplicationController
         redirect_to index_path, alert: 'You do not have the permissions to see all projects'
       end
     end
+
+
+    def check_project_view_active
+      unless check_feature_flag?($Projects) or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
+        redirect_to index_path, alert: "Error: Access to project gallery is currently disabled."
+      end
+    end
+
+    def check_project_create_active
+      # Prevent access to creating/viewing project unless the user already has one
+      unless check_feature_flag?($project_submissions) or current_user.has_published_project?
+        redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
+      end
+    end
+
 end

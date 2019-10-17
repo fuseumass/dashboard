@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_005345) do
+ActiveRecord::Schema.define(version: 2019_10_17_194803) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(version: 2019_10_14_005345) do
     t.boolean "power"
     t.integer "table_id"
     t.string "youtube_link"
-    t.json "tech", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
-    t.json "prizes", default: "\"[]\""
+    t.json "tech", default: []
+    t.json "prizes", default: []
     t.json "prizes_won", default: []
   end
 

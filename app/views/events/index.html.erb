@@ -25,6 +25,6 @@
 
 <br>
 
-<% if current_user.is_admin? %>
+<% if current_user.is_admin? or current_user.is_organizer? %>
   <%= link_to 'New Event', new_event_path, class: 'btn btn-secondary' %>
 <% end %>

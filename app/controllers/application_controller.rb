@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   def is_feature_enabled(feature_flag_name)
     feature_flag = FeatureFlag.find_by(name: feature_flag_name)
     # Redirect user to index if no feature flag has been found or if it's false
-    if !check_feature_flag?(feature_flag_name)
+    if !check_feature_flag?(feature_flag_name) and (not current_user.is_admin? or not current_user.is_organizer?)
       redirect_to index_path, notice: "#{feature_flag.display_name} are currently not available. Try again later!"
     end
   end

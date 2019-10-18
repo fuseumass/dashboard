@@ -23,7 +23,7 @@ class MentorshipNotificationsController < ApplicationController
     unless current_user.is_organizer? or current_user.is_mentor?
       redirect_to index_path, error: 'No permission'
     end
-    if MentorshipNotification.where(user_id: current_user.id).exists
+    if MentorshipNotification.where(user_id: current_user.id).count > 0
       redirect_to edit_mentorship_notification_path(MentorshipNotification.where(user_id: current_user.id).first.id)
     end
     @mentorship_notification = MentorshipNotification.new

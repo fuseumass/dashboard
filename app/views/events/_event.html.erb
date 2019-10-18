@@ -49,13 +49,13 @@
                 <% end %>
             <% end %>
             <% if current_user.is_organizer? %>
-                    <% if event.rsvpable%>
-                        <% act = "/events/" + event.id.to_s%>
-                        <form class="button_to" method="get" action=<%=act%> style="width: 100%; height: 80%;"><input class="btn btn-success" style="width:100%;height:100%;" type="submit" value="Check in attendee"></form>
-                    <% end %>
-                    <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-warning', style: 'position:absolute;bottom:0px;margin:0%;border:0%;width:15%;height:20%;'%><!--
-                    --><%= link_to 'Delete', event_path(event), :method => :delete, class: 'btn btn-danger', style: 'position:absolute;bottom:0px;margin:0%;border:0%;width:15%;height:20%;left:85%;'%>
+                <% if event.rsvpable%>
+                    <% act = "/events/" + event.id.to_s%>
+                    <form class="button_to" method="get" action=<%=act%> style="width: 100%; height: 80%;"><input class="btn btn-success" style="width:100%;height:100%;" type="submit" value="Check in attendee"></form>
                 <% end %>
+                <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-warning', style: 'position:absolute;bottom:0px;margin:0%;border:0%;width:15%;height:20%;'%><!--
+                --><%= link_to 'Delete', event_path(event), :method => :delete, class: 'btn btn-danger', style: 'position:absolute;bottom:0px;margin:0%;border:0%;width:15%;height:20%;left:85%;'%>
+            <% end %>
         </div>
     <% end %>
 </div>

@@ -6,6 +6,9 @@ class EventsController < ApplicationController
     if current_user and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our events page.'
     end
+    if session[:return_to]
+        redirect_to session.delete(:return_to)
+    end
     @all_events = Event.all.order(start_time: :asc)
     @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
   end
@@ -13,8 +16,8 @@ class EventsController < ApplicationController
   def show
     @check_in_count = EventAttendance.where(event_id: @event.id, checked_in: true).count
     @rsvp_count = EventAttendance.where(event_id: @event.id).count
+    session[:return_to] = request.referer
   end
-
 
   def new
     @event = Event.new

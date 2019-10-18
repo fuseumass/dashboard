@@ -1,0 +1,31 @@
+<%= form_with(model: mentorship_notification, local: true) do |form| %>
+  <% if mentorship_notification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mentorship_notification.errors.count, "error") %> prohibited this mentorship_notification from being saved:</h2>
+
+      <ul>
+      <% mentorship_notification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='form-group'>
+    <%= form.label :tech,
+    'Select technologies which you would like to receive notifications when a participant makes a mentorship request with them:',
+    class: 'form-label' %>
+    <div class='selectgroup selectgroup-pills'>
+      <%= render 'mentorship_requests/tech_form_options', f:form %>
+    </div>
+  </div>
+
+  <div class="field">
+    OR, Receive notifications for all new mentorship requests:&nbsp; 
+    <%= form.check_box :all %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

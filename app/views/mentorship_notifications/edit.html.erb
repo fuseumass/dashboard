@@ -1,0 +1,8 @@
+<h1>Editing Mentorship Notification</h1>
+
+<%= render 'form', mentorship_notification: @mentorship_notification %>
+
+<br />
+<%= link_to 'Click here to DISABLE ALL NOTIFICATIONS', @mentorship_notification, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+
+<br /><%= link_to 'Back', mentorship_requests_path, class: 'btn btn-default' %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mentorship Notifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Tech</th>
+      <th>All</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mentorship_notifications.each do |mentorship_notification| %>
+      <tr>
+        <td><%= mentorship_notification.user_id %></td>
+        <td><%= mentorship_notification.tech %></td>
+        <td><%= mentorship_notification.all %></td>
+        <td><%= link_to 'Show', mentorship_notification %></td>
+        <td><%= link_to 'Edit', edit_mentorship_notification_path(mentorship_notification) %></td>
+        <td><%= link_to 'Destroy', mentorship_notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mentorship Notification', new_mentorship_notification_path %>

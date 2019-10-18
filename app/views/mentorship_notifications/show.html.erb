@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @mentorship_notification.user %>
+</p>
+
+<p>
+  <strong>Tech:</strong>
+  <%= @mentorship_notification.tech %>
+</p>
+
+<p>
+  <strong>All:</strong>
+  <%= @mentorship_notification.all %>
+</p>
+
+<%= link_to 'Edit', edit_mentorship_notification_path(@mentorship_notification) %> |
+<%= link_to 'Back', mentorship_notifications_path %>

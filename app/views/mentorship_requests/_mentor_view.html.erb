@@ -2,6 +2,19 @@
   <h1 class="page-title">Mentorship Dashboard</h1>
 </div>
 
+
+<% if @mentorship_notification != nil %>
+  You are currently receiving notifications for <% if @mentorship_notification.all %><b>ALL mentorship requests</b><% else %>
+    <b><%= @mentorship_notification.tech.join(', ') %> related mentorship requests.</b>
+  <% end %>
+  Thanks!
+<% else %>
+
+<b>Want to receive notifications whenever someone submits a new mentorship request?</b> 
+<% end %>
+<br />
+<%= link_to 'Update Notification Preferences', new_mentorship_notification_path, class: "btn btn-primary" %>
+
 <% if [true, false].sample %>
   <div class="alert alert-icon alert-primary" role="alert">
     <i class="fe fe-bell mr-2" aria-hidden="true"></i> <b>Pro Tip</b> You can click on a table header to sort the table. Try sorting requests by urgency and help those that need it the most.

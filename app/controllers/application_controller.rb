@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   def slack_notify_user(user_id, message)
     bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
     if not bot_accesstok or bot_accesstok.length == 0
-      puts "No bot access token"
+      puts "No bot access token. Unable to notify #{user_id} with #{message}"
       return false
     end
     puts "Notifying #{user_id} with #{message}"

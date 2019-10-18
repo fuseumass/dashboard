@@ -175,9 +175,9 @@ class MentorshipRequestsController < ApplicationController
 
     def mentor_notifications_with_tech(tech)
       if Rails.env.production?
-        MentorshipNotification.where("tech::varchar LIKE ? OR tech::varchar LIKE ?", "%#{tech}'%", "%#{tech}\"%")
+        MentorshipNotification.where("tech::varchar LIKE ?", "%#{tech}%")
       else
-        MentorshipNotification.where("tech LIKE ? OR tech LIKE ?", "%#{tech}'%", "%#{tech}\"%")
+        MentorshipNotification.where("tech LIKE ?", "%#{tech}%")
       end
     end
 

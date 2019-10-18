@@ -1,8 +1,7 @@
-<h1>Editing Mentorship Notification</h1>
-
+<div class="page-header">
+    <h1>Editing Mentorship Notification</h1>
+</div>
 <%= render 'form', mentorship_notification: @mentorship_notification %>
 
-<br />
-<%= link_to 'Click here to DISABLE ALL NOTIFICATIONS', @mentorship_notification, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
-
-<br /><%= link_to 'Back', mentorship_requests_path, class: 'btn btn-default' %>
+<%= link_to 'Click here to DISABLE ALL NOTIFICATIONS', @mentorship_notification, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', style: "display: inline-block" %>
+<%= link_to 'Back', mentorship_requests_path, class: 'btn btn-danger' %>

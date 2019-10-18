@@ -96,9 +96,9 @@ class MentorshipRequestsController < ApplicationController
       end
 
       mentor_ids.each do |user_id|
-        slack_notify_user(user_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")
+        slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")
       end
-      slack_notify_user(@mentorship_request.user_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")
+      slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")
 
       redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Wait 15 minutes, and if you don\'t hear from anyone, go to the mentorship table.'
     else

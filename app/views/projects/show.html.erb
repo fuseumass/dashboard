@@ -41,7 +41,7 @@
         <p>
           <%= simple_format(@project.built_how) %>
         </p>
-        
+
         <h2 class="mt-0 mb-4">Technologies we used:</h2>
         <ul>
         <% unless @project.tech.empty? or @project.tech == "{}" %>
@@ -173,7 +173,7 @@
       <br>
     <% end %>
 
-    <% if current_user and @project.id == current_user.project_id %>
+    <% if current_user and (@project.id == current_user.project_id or current_user.is_admin? or current_user.is_organizer?) %>
       <%= link_to 'Edit Your Team', project_team_path(@project), class: 'btn btn-secondary' %>
       <br>
       <br>

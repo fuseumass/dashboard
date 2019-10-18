@@ -138,17 +138,16 @@ class ProjectsController < ApplicationController
 
   def team
 
-    unless check_feature_flag?($project_submissions)
+    if not check_feature_flag?($project_submissions) and current_user.is_attendee?
       redirect_to current_user.project, alert: 'Error: Unable to modify team members while project creation is disabled.'
       return
     end
-
-    if current_user.project_id != @project.id
-      redirect_to index_path, alert: "You don't have permission to view this project."
-    elsif check_feature_flag?($project_submissions) and current_user.is_admin?
-      redirect_to projects_path
-    elsif !check_feature_flag?($project_submissions)
-      redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
+    unless current_user.is_admin? or current_user.is_organizer?
+      if current_user.project_id != @project.id
+        redirect_to index_path, alert: "You don't have permission to view this project."
+      elsif !check_feature_flag?($project_submissions)
+        redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
+      end
     end
   end
 

@@ -21,6 +21,9 @@ class Project < ApplicationRecord
 
 
 
+	validates_length_of :description, :maximum => 280, message: 'Maximum description length is 280.'
+
+	
 	validates_attachment :projectimage,
 											 content_type: { content_type: ['image/jpeg', 'image/jpg', 'image/png'],
 																			 message: 'Image type is not supported.' },

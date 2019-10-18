@@ -22,7 +22,7 @@
           <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <% end %>
 
-        <h2 class="mt-0 mb-4">Description:</h2>
+        <h2 class="mt-0 mb-4">Description as a Tweet:</h2>
         <p>
           <%= simple_format(@project.description) %>
         </p>

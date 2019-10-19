@@ -36,10 +36,10 @@ class MentorshipRequestsController < ApplicationController
   def index
 
     if params[:sortby]
-      if params[:asc] == "true"
-        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " ASC")
-      else
+      if params[:desc] == "true"
         @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " DESC")
+      else
+        @mentorship_requests = MentorshipRequest.all.order(params[:sortby] + " ASC")
       end
 
     else

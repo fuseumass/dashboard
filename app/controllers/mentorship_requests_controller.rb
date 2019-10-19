@@ -128,7 +128,11 @@ class MentorshipRequestsController < ApplicationController
     if slack_id
       request.status = "Contacted"
       request.save
-      redirect_to "https://" + HackumassWeb::Application::SLACK_SUBDOMAIN + ".slack.com/messages/" + slack_id
+      if HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX
+        redirect_to HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX + "/" + slack_id
+      else  
+        redirect_to "https://" + HackumassWeb::Application::SLACK_SUBDOMAIN + ".slack.com/messages/" + slack_id
+      end
     else
       redirect_to request, alert: 'This user is not signed up on slack.'
     end

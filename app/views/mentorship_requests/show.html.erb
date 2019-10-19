@@ -30,6 +30,11 @@
       <% end %>
     </p>
 
+    <p>
+      Person's Name: <%= @mentorship_request.user.full_name %><br />
+      Person's Email: <%= @mentorship_request.user.email %><br />
+      
+
       <%= link_to '<i class="fe fe-slack mr-2"></i>Message on Slack'.html_safe,
                     {controller:'mentorship_requests', action: 'message_on_slack',
                     params: {mentorship_request: @mentorship_request}},

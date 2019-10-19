@@ -90,9 +90,10 @@ class MentorshipRequestsController < ApplicationController
           mentor_ids.add(n.user_id)	
         end	
       end
-      MentorshipNotification.where(all: true).each do |n|	    if @mentorship_request.save
-        mentor_ids.add(n.user_id)	      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
-      end	
+
+      MentorshipNotification.where(all: true).each do |n|
+        mentor_ids.add(n.user_id)
+      end
 
       mentor_ids.each do |user_id|	
         slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")	

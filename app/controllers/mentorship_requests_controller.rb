@@ -1,3 +1,4 @@
+require 'set'
 class MentorshipRequestsController < ApplicationController
   before_action :set_mentorship_request, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:destroy, :show]
@@ -52,6 +53,8 @@ class MentorshipRequestsController < ApplicationController
     end
     # Redirect to join slack page if user isn't on slack
     @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 15)
+
+    @mentorship_notification = MentorshipNotification.where(user_id: current_user.id).first
   end
 
 
@@ -78,8 +81,25 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request.user = current_user
     @mentorship_request.status = 'Waiting'
 
-    if @mentorship_request.save
-      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
+    if @mentorship_request.save	
+
+      mentor_ids = Set[]	
+      @mentorship_request.tech.each do |t|	
+        ns = mentor_notifications_with_tech(t)	
+        ns.each do |n|	
+          mentor_ids.add(n.user_id)	
+        end	
+      end
+      MentorshipNotification.where(all: true).each do |n|	    if @mentorship_request.save
+        mentor_ids.add(n.user_id)	      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Otherwise, go to the mentorship table.'
+      end	
+
+      mentor_ids.each do |user_id|	
+        slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")	
+      end	
+      slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")	
+
+      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Wait 15 minutes, and if you don\'t hear from anyone, go to the mentorship table.'
     else
       render :new # New mentorship request if previous is unsuccessful 
     end
@@ -154,6 +174,14 @@ class MentorshipRequestsController < ApplicationController
       unless current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
         redirect_to mentorship_requests_path, alert: 'You do not have the permissions to visit this section of mentorship.'
       end
+    end
+
+    def mentor_notifications_with_tech(tech)	
+      if Rails.env.production?	
+        MentorshipNotification.where("tech::varchar LIKE ?", "%#{tech}%")	
+      else	
+        MentorshipNotification.where("tech LIKE ?", "%#{tech}%")	
+      end	
     end
 
 end

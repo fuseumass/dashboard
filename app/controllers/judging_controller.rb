@@ -33,18 +33,18 @@ class JudgingController < ApplicationController
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
         update_font(canvas, 15, :bold)
-        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,575])
+        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,555])
 
         update_font(canvas, 11, :bold)
-        canvas.text("Project Name:\n", at:[80, 555])
-        canvas.text("#{project.title}\n", at:[160, 555])
-        canvas.text("#{UNDERLINE}", at:[153, 555])
+        canvas.text("Project Name:\n", at:[80, 535])
+        canvas.text("#{project.title}\n", at:[160, 535])
+        canvas.text("#{UNDERLINE}", at:[153, 535])
 
 
         # font: 9, perline: 67, lpos: 80, pos-= 10
         update_font(canvas, 10)
         desc = project.description
-        pos = 545
+        pos = 525
         perline = 60
         lpos = 80
         i = 0
@@ -56,7 +56,7 @@ class JudgingController < ApplicationController
         end
 
 
-        canvas.text("Team Members:\n", at:[80, 490])
+        canvas.text("Team Members:\n", at:[80, 470])
         canvas.text("#{proj_users = ""
           project.user.each do |u|
             proj_users << u.first_name + " "
@@ -66,21 +66,21 @@ class JudgingController < ApplicationController
               proj_users << u.last_name
             end
           end
-          proj_users}\n", at:[170, 490])
-        canvas.text("#{UNDERLINE}", at:[165, 490])
+          proj_users}\n", at:[170, 470])
+        canvas.text("#{UNDERLINE}", at:[165, 470])
 
         update_font(canvas, 18, :bold)
-        canvas.text("Table Number\n", at:[600, 550])
+        canvas.text("Table Number\n", at:[600, 530])
         if project.power
-          canvas.text("#{project.table_id} TBL\n", at:[645, 520])
+          canvas.text("#{project.table_id} TBL\n", at:[645, 500])
         else
-          canvas.text("#{project.table_id}\n", at:[645, 520])
+          canvas.text("#{project.table_id}\n", at:[645, 500])
         end
 
 
         box = HexaPDF::Layout::Box.new(content_width: 140, content_height: 60)
         box.style.border(width: 1, style: :solid)
-        box.draw(canvas, 590, 510)
+        box.draw(canvas, 590, 490)
 
         canvas.image(image, at: [80,30], width: 650, height: 430)
       end

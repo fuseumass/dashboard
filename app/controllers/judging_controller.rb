@@ -82,7 +82,7 @@ class JudgingController < ApplicationController
         box.style.border(width: 1, style: :solid)
         box.draw(canvas, 590, 510)
 
-        canvas.image(image, at: [80,30], width: 650, height: 450)
+        canvas.image(image, at: [80,30], width: 650, height: 430)
       end
       doc.write("#{Rails.root}/public/judging/judging.pdf", optimize: true)
       redirect_to "#{Rails.root}/public/judging/judging.pdf"

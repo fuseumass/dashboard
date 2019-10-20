@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :set_project_for_team, only: [:team, :add_team_member, :remove_team_member]
   before_action :check_project_view_active, only: [:index, :search, :public]
   before_action :check_project_create_active, only: [:new, :create, :update, :project_submit_info]
+  before_action :delete_before_check, only: [:delete]
   skip_before_action :auth_user, :only => [:index, :show, :public]
 
   def index
@@ -30,7 +31,7 @@ class ProjectsController < ApplicationController
                                               lower(link) LIKE lower(?) OR
                                               table_id = ?",
                                             "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
-                                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+                                            "%#{params[:search]}%", "%#{params[:search]}%", params[:search].to_i.to_s == params[:search] ? params[:search].to_i : 99999)
     @projects = @projects.paginate(page: params[:page], per_page: 20)
     else
       redirect_to projects_path
@@ -85,7 +86,6 @@ class ProjectsController < ApplicationController
       redirect_to index_path, alert: "This isn't your assigned project."
     end
   end
-
 
   def create
     @project = Project.new(project_params)
@@ -239,6 +239,20 @@ class ProjectsController < ApplicationController
       # Prevent access to creating/viewing project unless the user already has one
       unless check_feature_flag?($project_submissions) or current_user.has_published_project?
         redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
+      end
+    end
+
+    def delete_before_check
+      # Prevent users from deleting their project when submissions/creation is closed.
+      unless check_feature_flag?($project_submissions) or (current_user != nil and current_user.is_organizer?)
+        if current_user != nil and current_user.project != nil
+          redirect_to current_user.project, alert: 'You may not make changes to your project now.'
+        else
+          redirect_to index_path, alert: 'You may not make changes to your project now.'
+        end
+      end
+      if not current_user.is_organizer? and @project.id != current_user.project_id
+        redirect_to index_path, alert: "This isn't your assigned project."
       end
     end
 

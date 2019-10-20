@@ -84,6 +84,7 @@ class JudgingController < ApplicationController
 
         canvas.image(image, at: [80,30], width: 650, height: 430)
       end
+      FileUtils.mkdir_p("#{Rails.root}/public/judging") unless File.exist?("#{Rails.root}/public/judging")
       doc.write("#{Rails.root}/public/judging/judging.pdf", optimize: true)
       redirect_to "#{Rails.root}/public/judging/judging.pdf"
     end

@@ -32,13 +32,29 @@ class JudgingController < ApplicationController
         end
         canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
-        update_font(canvas, 22, :bold)
-        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,550])
+        update_font(canvas, 15, :bold)
+        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,575])
 
         update_font(canvas, 11, :bold)
-        canvas.text("Project Name:\n", at:[80, 515])
-        canvas.text("#{project.title}\n", at:[160, 515])
-        canvas.text("#{UNDERLINE}", at:[153, 515])
+        canvas.text("Project Name:\n", at:[80, 555])
+        canvas.text("#{project.title}\n", at:[160, 555])
+        canvas.text("#{UNDERLINE}", at:[153, 555])
+
+
+        # font: 9, perline: 67, lpos: 80, pos-= 10
+        update_font(canvas, 10)
+        desc = project.description
+        pos = 545
+        perline = 60
+        lpos = 80
+        i = 0
+        while desc != nil and desc.length > 0
+          descline = desc[0..perline]
+          canvas.text("#{descline}\n", at:[lpos, pos])
+          desc = desc[perline+1..desc.length]
+          pos -= 10
+        end
+
 
         canvas.text("Team Members:\n", at:[80, 490])
         canvas.text("#{proj_users = ""

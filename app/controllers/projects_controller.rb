@@ -74,8 +74,15 @@ class ProjectsController < ApplicationController
 
   def edit
     # Prevent users from editing their project when submissions/creation is closed.
-    unless check_feature_flag?($project_submissions)
-      redirect_to current_user.project, alert: 'You may not make changes to your project now.'
+    unless check_feature_flag?($project_submissions) or (current_user != nil and current_user.is_organizer?)
+      if current_user != nil and current_user.project != nil
+        redirect_to current_user.project, alert: 'You may not make changes to your project now.'
+      else
+        redirect_to index_path, alert: 'You may not make changes to your project now.'
+      end
+    end
+    if not current_user.is_organizer? and @project.id != current_user.project_id
+      redirect_to index_path, alert: "This isn't your assigned project."
     end
   end
 
@@ -144,7 +151,7 @@ class ProjectsController < ApplicationController
     end
     unless current_user.is_admin? or current_user.is_organizer?
       if current_user.project_id != @project.id
-        redirect_to index_path, alert: "You don't have permission to view this project."
+        redirect_to index_path, alert: "You don't have permission to edit this project's team."
       elsif !check_feature_flag?($project_submissions)
         redirect_to index_path, alert: 'Error: Unable to create new project. Project creation and submission is currently disabled.'
       end
@@ -217,8 +224,14 @@ class ProjectsController < ApplicationController
 
 
     def check_project_view_active
-      unless check_feature_flag?($Projects) or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
-        redirect_to index_path, alert: "Error: Access to project gallery is currently disabled."
+      if current_user == nil
+        unless check_feature_flag?($Projects)
+          redirect_to index_path, alert: "Error: Access to project gallery is currently disabled."
+        end
+      else
+        unless check_feature_flag?($Projects) or current_user.is_admin? or current_user.is_mentor? or current_user.is_organizer?
+          redirect_to index_path, alert: "Error: Access to project gallery is currently disabled."
+        end
       end
     end
 

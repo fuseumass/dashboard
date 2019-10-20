@@ -174,6 +174,6 @@ Rails.application.routes.draw do
   # Judging Routes Begin
   get 'judgings' => 'judging#index'
   post 'generateforms' => 'judging#generateforms'
-  get "#{Rails.root}/public/judging/judging.pdf", :to => redirect('/judging/judging.pdf')
+  get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
   # Judging Routes End
 end

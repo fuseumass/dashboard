@@ -86,7 +86,7 @@ class JudgingController < ApplicationController
       end
       FileUtils.mkdir_p("#{Rails.root}/public/judging") unless File.exist?("#{Rails.root}/public/judging")
       doc.write("#{Rails.root}/public/judging/judging.pdf", optimize: true)
-      redirect_to "#{Rails.root}/public/judging/judging.pdf"
+      redirect_to "#{Rails.root}/public/judging/judging.pdf?#{Time.now.to_i}"
     end
   end
 

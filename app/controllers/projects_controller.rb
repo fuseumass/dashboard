@@ -39,7 +39,13 @@ class ProjectsController < ApplicationController
   end
 
   def public
-    if params[:prize]
+    if params[:winners]
+      if Rails.env.production?
+        @projects = Project.where("prizes_won::varchar != ?", "[]")
+      else
+        @projects = Project.where("prizes_won != ?", "[]")
+      end
+    elsif params[:prize]
       if Rails.env.production?
         @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
       else
@@ -47,6 +53,12 @@ class ProjectsController < ApplicationController
       end
     else
       @projects = Project.all
+    end
+
+    if Rails.env.production?
+      @winners_count = Project.where("prizes_won::varchar != ?", "[]").count
+    else
+      @winners_count = Project.where("prizes_won != ?", "[]").count
     end
 
     @projects = @projects.order("created_at DESC").paginate(page: params[:page], per_page: 20)

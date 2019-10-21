@@ -10,12 +10,20 @@
             
 <div class="selectgroup selectgroup-pills" style="margin-bottom: 1.5rem">
 <span class="selectgroup-button" style="background: none; border: none">Filter:</span> 
-<span class="selectgroup-button" style="background: <% unless params[:prize] %>lightgray<% else %>white <% end %>">
+<span class="selectgroup-button" style="background: <% unless params[:prize] or params[:winners] %>lightgray<% else %>white <% end %>">
     <%= link_to "#{public_projects_path}", style: "color: black !important" do %>
         All
     <% end %>
 </span>
 &nbsp;
+<% if @winners_count > 0 %>
+<span class="selectgroup-button" style="background: <% if params[:winners] %>lightgray<% else %>white <% end %>">
+    <%= link_to "#{public_projects_path}?winners=1", style: "color: black !important" do %>
+       <i class="fe fe-star text-yellow"></i> Winners
+    <% end %>
+</span>
+&nbsp;
+<% end %>
 <% Prize.all.each do |prize| %>
     <% if Rails.env.production? %>
         <% @matching_projects = Project.where("prizes::varchar LIKE ?", "%#{prize.criteria}%") %>

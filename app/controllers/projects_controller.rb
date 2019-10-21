@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
   def public
     if params[:winners]
       if Rails.env.production?
-        @projects = Project.where("prizes_won::varchar != ?", "[]")
+        @projects = Project.where("LENGTH(prizes_won::varchar) > ?", 2)
       else
         @projects = Project.where("prizes_won != ?", "[]")
       end
@@ -56,7 +56,7 @@ class ProjectsController < ApplicationController
     end
 
     if Rails.env.production?
-      @winners_count = Project.where("prizes_won::varchar != ?", "[]").count
+      @winners_count = Project.where("LENGTH(prizes_won::varchar) > ?", 2).count
     else
       @winners_count = Project.where("prizes_won != ?", "[]").count
     end

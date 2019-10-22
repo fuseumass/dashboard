@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     as :user do
       get 'login', to: 'devise/sessions#new', as: :new_user_session
       post 'login', to: 'devise/sessions#create', as: :user_session
+      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
       delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
       get 'signup', to: 'devise/registrations#new', as: :new_user_registration
       post 'signup', to: 'devise/registrations#create', as: :user_registration
@@ -82,7 +83,7 @@ Rails.application.routes.draw do
     end 
   # Events Routes End
 
-
+  post 'change_password' => 'pages#change_password'
   # Pages Routes Start
 
     # Allow autocomplete on admin page

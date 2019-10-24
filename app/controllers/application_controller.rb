@@ -10,12 +10,6 @@ class ApplicationController < ActionController::Base
   after_action  :set_extra_headers
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
-  before_action :configure_permitted_parameters, if: :devise_controller?
-
-  def configure_permitted_parameters
-    update_attrs = [:password, :password_confirmation, :current_password]
-    devise_parameter_sanitizer.permit :account_update, keys: update_attrs
-  end
   
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # Authentication Routes Start
 
     # Make our log in and sign up routes pretty
-    devise_for :users, skip: [:sessions, :registrations]
+    devise_for :users, skip: [:sessions, :registration]
     as :user do
       get 'login', to: 'devise/sessions#new', as: :new_user_session
       post 'login', to: 'devise/sessions#create', as: :user_session
@@ -84,7 +84,6 @@ Rails.application.routes.draw do
     end 
   # Events Routes End
 
-  post 'change_password' => 'pages#change_password'
   # Pages Routes Start
 
     # Allow autocomplete on admin page

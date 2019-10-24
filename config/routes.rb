@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     end 
   # Events Routes End
 
+
   # Pages Routes Start
 
     # Allow autocomplete on admin page

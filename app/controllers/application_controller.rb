@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_extra_headers
-    headers['X-Powered-By'] = 'The HackUMass Platform <https://platform.hackumass.com>'
+    headers['X-Powered-By'] = 'The FuseUMass Platform <https://platform.hackumass.com>'
     headers['X-Pandas'] = 'red'
     if Rails.env.production?
       headers['Host'] = HackumassWeb::Application::DASHBOARD_URL

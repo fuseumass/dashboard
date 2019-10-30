@@ -7,6 +7,9 @@ $(document).on('turbolinks:load', function () {
 });
 
 function runCountdown() {
+  if (!document.getElementById("countdown")) {
+    return;
+  }
   document.getElementById("countdown").setAttribute('style', 'font-size: 24px; text-align: center');
 // Set the date we're counting down to
 // e.g. "Oct 12, 2018 24:00:00"

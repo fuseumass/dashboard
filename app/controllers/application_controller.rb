@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
   def set_extra_headers
     headers['X-Powered-By'] = 'The HackUMass Platform <https://platform.hackumass.com>'
     headers['X-Pandas'] = 'red'
+    if Rails.env.production?
+      headers['Host'] = HackumassWeb::Application::DASHBOARD_URL
+    end
   end
 
   # Automatically re-route user to login except when user is logging in or

@@ -64,7 +64,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                    'What gender do you identify as?',
                    class: 'form-label event-application-required-field' %>
        <%= f.select :gender,
-                    ['Man', 'Woman', 'Non-binary', 'Agender', 'Other'],
+                    ['Female', 'Non-Binary', 'Male', 'Other' ],
                     {include_blank: true},
                     {class: 'form-control custom-select'} %>
       </div>

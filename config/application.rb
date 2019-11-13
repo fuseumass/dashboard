@@ -7,6 +7,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+#
+# When updating this file, make sure you restart the Rails dev server.
+#
 module HackumassWeb
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -35,6 +38,7 @@ module HackumassWeb
     DASHBOARD_URL = config["dashboard_url"]
     LOGO_PATH = config["logos"]["primary_path"]
     NAV_LOGO_PATH = config["logos"]["nav_path"]
+    FAVICON_URL = config["logos"]["favicon_url"]
     DONOTREPLY = config["emails"]["donotreply"]
     CONTACT_EMAIL = config["emails"]["contact"]
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]

@@ -4,7 +4,9 @@
     <title><%= HackumassWeb::Application::HACKATHON_NAME %> Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
-    <%= favicon_link_tag 'favicon.png' %>
+    <% if HackumassWeb::Application::FAVICON_URL != nil %>
+      <%= favicon_link_tag HackumassWeb::Application::FAVICON_URL %>
+    <% end %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

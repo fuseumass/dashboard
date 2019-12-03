@@ -56,7 +56,7 @@ class EmailsController < ApplicationController
 
     Thread.new do
       apps_list.each do |app|
-        UserMailer.reminder_email(app.user, @email.message, @email.subject).deliver_now
+        UserMailer.reminder_email(app.user, @email.subject, @email.message).deliver_now
       end
       ActiveRecord::Base.connection.close
     end
@@ -68,7 +68,7 @@ class EmailsController < ApplicationController
 
   # Returns a list of applications whose users we should sent emails to
   def set_mailing_list(list)
-    if list == 'Send Test Email to Myself'
+    if list == 'Send Test Email to Myself (must have event application)'
       EventApplication.where(:user => current_user)
     elsif list == 'Accepted Applicants'
       EventApplication.where(:status => 'accepted')

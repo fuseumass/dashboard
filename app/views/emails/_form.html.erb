@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <%= f.label :mailing_list, class:'control-label' %>
-      <%= f.select(:mailing_list, ['Accepted Applicants', 'Waitlisted Applicants', 'Denied Applicants', 'Undecided Applicants', 'All Applicants', 'Send Test Email to Myself (must have event application)'], {include_blank: "Select a category"}, { :class => 'form-control' }) %>
+      <%= f.select(:mailing_list, ['Accepted Applicants', 'Waitlisted Applicants', 'Denied Applicants', 'Undecided Applicants', 'All Applicants', 'Send Test Email to Myself', 'Send Email To Those Who Have Not Applied','All Users'], {include_blank: "Select a category"}, { :class => 'form-control' }) %>
     </div>
 
     <div class="form-group">

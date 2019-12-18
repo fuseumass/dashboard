@@ -52,11 +52,11 @@ class EmailsController < ApplicationController
       redirect_to emails_path, error: 'Error! No email found'
     end
 
-    apps_list = set_mailing_list(@email.mailing_list).to_a
+    user_list = set_mailing_list(@email.mailing_list).to_a
 
     Thread.new do
-      apps_list.each do |app|
-        UserMailer.reminder_email(app.user, @email.subject, @email.message).deliver_now
+      user_list.each do |user|
+        UserMailer.reminder_email(user, @email.subject, @email.message).deliver_now
       end
       ActiveRecord::Base.connection.close
     end
@@ -68,18 +68,22 @@ class EmailsController < ApplicationController
 
   # Returns a list of applications whose users we should sent emails to
   def set_mailing_list(list)
-    if list == 'Send Test Email to Myself (must have event application)'
-      EventApplication.where(:user => current_user)
+    if list == 'Send Test Email to Myself'
+      User.where(:user => current_user)
+    elsif list == 'Send Email To Those Who Have Not Applied'
+      User.where(:event_application => nil)
     elsif list == 'Accepted Applicants'
-      EventApplication.where(:status => 'accepted')
+      User.joins(:event_application).where(:status => 'accepted')
     elsif list == 'Waitlisted Applicants'
-      EventApplication.where(:status => 'waitlisted')
+      User.joins(:event_application).where(:status => 'waitlisted')
     elsif list == 'Undecided Applicants'
-      EventApplication.where(:status => 'undecided')
+      User.joins(:event_application).where(:status => 'undecided')
     elsif list == 'Denied Applicants'
-      EventApplication.where(:status => 'denied')
+      User.joins(:event_application).where(:status => 'denied')
     elsif list == 'All Applicants'
-      EventApplication.all
+      User.joins(:event_application).where.not(:event_application => nil)
+    elsif list == 'All Users'
+      Users.all
     end
   end
 

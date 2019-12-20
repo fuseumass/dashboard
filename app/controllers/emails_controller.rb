@@ -63,27 +63,27 @@ class EmailsController < ApplicationController
 
     @email.status = 'Sent'
     @email.save!
-    redirect_to @email, notice: "Success! The email has been delivered to #{apps_list.count} people!"
+    redirect_to @email, notice: "Success! The email has been delivered to #{user_list.count} people!"
   end
 
   # Returns a list of applications whose users we should sent emails to
   def set_mailing_list(list)
     if list == 'Send Test Email to Myself'
-      User.where(:user => current_user)
+      User.where(:id => current_user)
     elsif list == 'Send Email To Those Who Have Not Applied'
-      User.where(:event_application => nil)
+      User.joins("RIGHT OUTER JOIN space_amenities ON user.id = event_application.user_id").where(id: nil)
     elsif list == 'Accepted Applicants'
-      User.joins(:event_application).where(:status => 'accepted')
+      EventApplication.where(:status => 'accepted')
     elsif list == 'Waitlisted Applicants'
-      User.joins(:event_application).where(:status => 'waitlisted')
+      EventApplication.where(:status => 'waitlisted')
     elsif list == 'Undecided Applicants'
-      User.joins(:event_application).where(:status => 'undecided')
+      EventApplication.where(:status => 'undecided')
     elsif list == 'Denied Applicants'
-      User.joins(:event_application).where(:status => 'denied')
+      EventApplication.where(:status => 'denied')
     elsif list == 'All Applicants'
-      User.joins(:event_application).where.not(:event_application => nil)
+      EventApplication.all
     elsif list == 'All Users'
-      Users.all
+      User.all
     end
   end
 

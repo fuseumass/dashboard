@@ -71,17 +71,53 @@ class EmailsController < ApplicationController
     if list == 'Send Test Email to Myself'
       User.where(:id => current_user)
     elsif list == 'Send Email To Those Who Have Not Applied'
-      User.joins("RIGHT OUTER JOIN space_amenities ON user.id = event_application.user_id").where(id: nil)
+      users_without_apps = []
+      User.all.each do |u|
+        unless EventApplication.where(user_id: u.id).exists?
+          users_without_apps.push(u)
+        end
+      end
+      return users_without_apps
     elsif list == 'Accepted Applicants'
-      EventApplication.where(:status => 'accepted')
+      accepted_applicants = []
+      User.all.each do |u|
+        if EventApplication.where(user_id: u.id).where(status: 'accepted').exists?
+          accepted_applicants.push(u)
+        end
+      end
+      return accepted_applicants
     elsif list == 'Waitlisted Applicants'
-      EventApplication.where(:status => 'waitlisted')
+      waitlisted_applicants = []
+      User.all.each do |u|
+        if EventApplication.where(user_id: u.id).where(status: 'waitlisted').exists?
+          waitlisted_applicants.push(u)
+        end
+      end
+      return waitlisted_applicants
     elsif list == 'Undecided Applicants'
-      EventApplication.where(:status => 'undecided')
+      undecided_applicants = []
+      User.all.each do |user|
+        if EventApplication.where(user_id: user.id).where(status: 'undecided').exists?
+          undecided_applicants.push(user)
+        end
+      end
+      return undecided_applicants
     elsif list == 'Denied Applicants'
-      EventApplication.where(:status => 'denied')
+      denied_applicants = []
+      User.all.each do |user|
+        if EventApplication.where(user_id: user.id).where(status: 'denied').exists?
+          denied_applicants.push(user)
+        end
+      end
+      return denied_applicants
     elsif list == 'All Applicants'
-      EventApplication.all
+      all_applicants = []
+      User.all.each do |user|
+        if EventApplication.where(user_id: user.id).exists?
+          all_applicants.push(user)
+        end
+      end
+      return all_applicants
     elsif list == 'All Users'
       User.all
     end

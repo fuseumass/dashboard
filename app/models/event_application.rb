@@ -167,17 +167,16 @@ class EventApplication < ApplicationRecord
           puts("CUSTOM FIELD FOUND")
         end
       end 
+
+    
+
 			EventApplication.find_each do |app|
       
         csv << app.attributes.keys
-        # csv << app.attributes.values
 
         arr = Array.new
-
         arr = app.attributes.values
-        
         finalArr = Array.new
-
         arrLength = arr.length() - 2
 
         for i in 0..arrLength

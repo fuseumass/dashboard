@@ -152,6 +152,10 @@ class EventApplication < ApplicationRecord
     UserMailer.submit_email(user).deliver_now
   end
 
+
+  
+
+
   # Generating CSV for all Event Applications
 	def self.to_csv
 		CSV.generate do |csv|
@@ -160,21 +164,31 @@ class EventApplication < ApplicationRecord
 
 			EventApplication.find_each do |app|
         
-        
         for a in app.attributes.values 
-          puts(a)
+          puts(valid_hash?(a))
+          
+
         end
         # csv << app.attributes.values
 		  	end
     end
     
-  #   def valid_json?(json)
-  #     JSON.parse(json)
-  #     return true
-  #   rescue JSON::ParserError => e
-  #     return false
-  # end
   
-	end
+  end
+  
+end
 
+def valid_hash?(string)
+  string = string.to_s
+  begin
+    string = string.gsub(/(\w+):\s*([^},])/, '"\1":\2')
+    #=> "{:key_1=>true,\"key_2\":false}"
+    string = string.gsub(/:(\w+)\s*=>/, '"\1":')
+    #=> "{\"key_1\":true,\"key_2\":false}"
+    my_hash = JSON.parse(string, {symbolize_names: true})
+    #=> {:key_1=>true, :key_2=>false}
+    my_hash.is_a? Hash # or do whatever you want with your Hash
+  rescue JSON::ParserError
+    false
+  end
 end

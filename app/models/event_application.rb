@@ -175,7 +175,16 @@ class EventApplication < ApplicationRecord
 
         # end
         csv << app.attributes.keys
-        csv << app.attributes.values
+        # csv << app.attributes.values
+
+        arr = Array.new
+
+        arr = app.attributes.values
+
+        # puts(arr[arr.length() - 1])
+
+        csv << arr
+
 		  	end
     end
     

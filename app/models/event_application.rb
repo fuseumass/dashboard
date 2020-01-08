@@ -168,22 +168,29 @@ class EventApplication < ApplicationRecord
         end
       end 
 			EventApplication.find_each do |app|
-        
-        # for a in app.attributes.values 
-        #   # puts(valid_hash?(a))
-        #   puts(a)
-
-        # end
+      
         csv << app.attributes.keys
         # csv << app.attributes.values
 
         arr = Array.new
 
         arr = app.attributes.values
+        
+        finalArr = Array.new
 
-        # puts(arr[arr.length() - 1])
+        arrLength = arr.length() - 2
 
-        csv << arr
+        for i in 0..arrLength
+          finalArr.push(arr[i])  
+        end
+        
+        hashArr = arr[arrLength + 1]
+
+        for key, value in hashArr
+          finalArr.push(value)
+        end
+
+        csv << finalArr
 
 		  	end
     end

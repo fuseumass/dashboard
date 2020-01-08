@@ -156,12 +156,25 @@ class EventApplication < ApplicationRecord
 	def self.to_csv
 		CSV.generate do |csv|
 
-			csv << EventApplication.attribute_names
+      csv << EventApplication.attribute_names
 
 			EventApplication.find_each do |app|
-				csv << app.attributes.values
+        
+        
+        for a in app.attributes.values 
+          puts(a)
+        end
+        # csv << app.attributes.values
 		  	end
-		end
+    end
+    
+  #   def valid_json?(json)
+  #     JSON.parse(json)
+  #     return true
+  #   rescue JSON::ParserError => e
+  #     return false
+  # end
+  
 	end
 
 end

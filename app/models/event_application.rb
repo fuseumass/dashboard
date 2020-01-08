@@ -178,8 +178,6 @@ class EventApplication < ApplicationRecord
     
 
 			EventApplication.find_each do |app|
-      
-        # csv << app.attributes.keys
 
         arr = Array.new
         arr = app.attributes.values

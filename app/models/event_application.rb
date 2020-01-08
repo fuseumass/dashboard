@@ -160,19 +160,26 @@ class EventApplication < ApplicationRecord
 	def self.to_csv
 		CSV.generate do |csv|
 
-      # csv << EventApplication.attribute_names
-      
-      for e in EventApplication.attribute_names
-        if e == "custom_fields"
-          puts("CUSTOM FIELD FOUND")
-        end
-      end 
+      finalKeyArr = Array.new
+      keyArr = Array.new
+      keyArr = EventApplication.first.attributes.keys
+      hashKeyArr = EventApplication.first.attributes.values.last
+      keyArrLength = keyArr.length() - 2
 
+      for i in 0..keyArrLength 
+        finalKeyArr.push(keyArr[i])
+      end
+
+      for key, value in hashKeyArr
+        finalKeyArr.push(key)
+      end
+
+      csv << finalKeyArr
     
 
 			EventApplication.find_each do |app|
       
-        csv << app.attributes.keys
+        # csv << app.attributes.keys
 
         arr = Array.new
         arr = app.attributes.values
@@ -198,18 +205,3 @@ class EventApplication < ApplicationRecord
   end
   
 end
-
-# def valid_hash?(string)
-#   string = string.to_s
-#   begin
-#     string = string.gsub(/(\w+):\s*([^},])/, '"\1":\2')
-#     #=> "{:key_1=>true,\"key_2\":false}"
-#     string = string.gsub(/:(\w+)\s*=>/, '"\1":')
-#     #=> "{\"key_1\":true,\"key_2\":false}"
-#     my_hash = JSON.parse(string, {symbolize_names: true})
-#     #=> {:key_1=>true, :key_2=>false}
-#     my_hash.is_a? Hash # or do whatever you want with your Hash
-#   rescue JSON::ParserError
-#     false
-#   end
-# end

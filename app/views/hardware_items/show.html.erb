@@ -34,6 +34,11 @@
           <%= @hardware_item.category %>
         </p>
 
+        <p>
+          <strong>Location:</strong>
+          <%= @hardware_item.location %>
+        </p>
+
         <% if current_user.is_organizer? %>
             <%= link_to 'Edit', edit_hardware_item_path(@hardware_item), class: 'btn btn-warning' %>
         <% end %>

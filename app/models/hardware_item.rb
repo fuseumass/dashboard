@@ -1,5 +1,5 @@
 class HardwareItem < ApplicationRecord
-  validates_presence_of :name, :count, :category
+  validates_presence_of :name, :count, :category, :location
   validates_numericality_of :count
   validates_uniqueness_of :upc
 

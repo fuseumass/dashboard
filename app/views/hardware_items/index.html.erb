@@ -11,7 +11,7 @@
       <thead>
         <tr>
           <th>Checkout Id</th>
-          <th>Harware Name</th>
+          <th>Name</th>
           <th>Link</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
         <tr>
           <td><%= checkout.id %></td>
           <td><%= checkout.hardware_item.name %></td>
-          
+          <td><%= checkout.hardware_item.link %></td>
         </tr>
       <% end %>
       </tbody>

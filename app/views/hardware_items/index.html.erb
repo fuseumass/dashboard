@@ -2,6 +2,47 @@
   <h1 class="page-title">Hardware Inventory</h1>
 </div>
 
+<div class="card">
+<h4><
+  <div class="table-responsive">
+    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Count</th>
+          <th>Available</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @hardware_items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.category %></td>
+          <td><%= item.count %></td>
+          <% if item.is_available? == 'Yes' %>
+              <td> <span class="label label-success"><%= item.is_available? %></span></td>
+          <% else %>
+              <td> <span class="label label-danger"><%= item.is_available? %></span></td>
+          <% end %>
+
+          <% if item.link.nil? or item.link.empty? %>
+              <td>--</td>
+          <% else %>
+              <td><a href="<%= item.link %>" target="_blank">Link</a></td>
+          <% end %>
+
+        </tr>
+      <% end %>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>
+
 
 <div class="card">
   <div class="card-body">
@@ -28,6 +69,7 @@
 <% end %>
 
 <br>
+
 
 <div class="card">
   <div class="table-responsive">

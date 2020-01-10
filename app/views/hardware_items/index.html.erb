@@ -3,7 +3,7 @@
 </div>
 <% if !current_user.is_organizer? %>
 <% if !@current_user.hardware_checkouts.empty?() %>
-<h5>Your Checked Out Hardware</h5>
+<h4>Your Checked Out Hardware</h4>
 
 <div class="card">
   <div class="table-responsive">
@@ -16,7 +16,6 @@
         </tr>
       </thead>
       <tbody>
-      <p>You have no harware checkouts so far! Go to the hardware table to check out items.</p>
       <% @current_user.hardware_checkouts.each do |checkout| %>
         <tr>
           <td><%= checkout.hardware_item.name %></td>
@@ -26,12 +25,9 @@
       <% end %>
       </tbody>
     </table>
-
   </div>
 </div>
-
 <% end %>
-
 <% end %>
 
 <div class="card">

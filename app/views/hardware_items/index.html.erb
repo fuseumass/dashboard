@@ -15,9 +15,7 @@
           <th>Category</th>
         </tr>
       </thead>
-
       <tbody>
-      
       <p>You have no harware checkouts so far! Go to the hardware table to check out items.</p>
       <% @current_user.hardware_checkouts.each do |checkout| %>
         <tr>
@@ -25,10 +23,8 @@
           <td><%= checkout.hardware_item.link %></td>
           <td><%= checkout.hardware_item.category %></td>
         </tr>
-    
       <% end %>
       </tbody>
-
     </table>
 
   </div>

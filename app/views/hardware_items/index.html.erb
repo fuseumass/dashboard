@@ -17,6 +17,11 @@
       </thead>
 
       <tbody>
+      <% if @current_user.hardware_checkouts.empty?() %>
+      
+      <% else %>
+
+      <% end %>
       <% @current_user.hardware_checkouts.each do |checkout| %>
         <tr>
           <td><%= checkout.id %></td>

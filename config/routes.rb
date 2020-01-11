@@ -174,7 +174,7 @@ Rails.application.routes.draw do
   # Email Routes End
 
 
-  # Feature Flag Routes Start
+  resources :judging
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do

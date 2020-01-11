@@ -166,6 +166,7 @@ Rails.application.routes.draw do
 
   # Routes for Live Judging Begins
 
+  resources :judging
 
   # Live Judging Routes End
 

@@ -1,0 +1,2 @@
+class ProjectScore < ApplicationRecord
+end

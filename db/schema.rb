@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_035814) do
+ActiveRecord::Schema.define(version: 2020_01_09_051747) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_035814) do
     t.boolean "available"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
   end
 
   create_table "majors", force: :cascade do |t|

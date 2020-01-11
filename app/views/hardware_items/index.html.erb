@@ -42,6 +42,7 @@
           <th>Count</th>
           <th>Available</th>
           <th>Link</th>
+          <th>Location<th>
         </tr>
       </thead>
 
@@ -54,6 +55,7 @@
           <td><%= item.name %></td>
           <td><%= item.category %></td>
           <td><%= item.count %></td>
+          
           <% if item.is_available? == 'Yes' %>
               <td> <span class="label label-success"><%= item.is_available? %></span></td>
           <% else %>
@@ -65,7 +67,7 @@
           <% else %>
               <td><a href="<%= item.link %>" target="_blank">Link</a></td>
           <% end %>
-
+          <td><%= item.location %></td>
         </tr>
       <% end %>
       </tbody>

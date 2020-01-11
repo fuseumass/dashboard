@@ -46,6 +46,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :location, class:'control-label' %>
+      <%= f.text_field :location, class: 'form-control', placeholder: 'Type location here' %>
+    </div>
+
+    <div class="form-group">
       <%= f.submit class: 'btn btn-primary' %>
     </div>
   <% end %>

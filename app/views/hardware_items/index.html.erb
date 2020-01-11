@@ -13,6 +13,7 @@
           <th>Name</th>
           <th>Link</th>
           <th>Category</th>
+          <th>Check Out Date/Time</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,7 @@
           <td><%= checkout.hardware_item.name %></td>
           <td><%= checkout.hardware_item.link %></td>
           <td><%= checkout.hardware_item.category %></td>
+          <td><%= checkout.created_at %></td>
         </tr>
       <% end %>
       </tbody>

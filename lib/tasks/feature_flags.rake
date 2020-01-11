@@ -2,8 +2,8 @@ namespace :feature_flags do
   desc "Accept or flag student applications"
   task load_flags: :environment do
 
-    feature_flag_names = ['event_applications', 'mentorship_requests', 'hardware', 'projects', 'project_submissions', 'check_in','prizes', 'events']
-    display_names = { "event_applications" => "Applications", "mentorship_requests" => "Mentorship Requests", "hardware" => "Hardware Requests", "projects" => "Projects: View", "project_submissions" => "Projects: Create", "check_in" => "Check-Ins", "prizes" => "Prizes", "events" => "Schedule"}
+    feature_flag_names = ['event_applications', 'mentorship_requests', 'hardware', 'projects', 'project_submissions', 'check_in','prizes', 'events', 'judging']
+    display_names = { "event_applications" => "Applications", "mentorship_requests" => "Mentorship Requests", "hardware" => "Hardware Requests", "projects" => "Projects: View", "project_submissions" => "Projects: Create", "check_in" => "Check-Ins", "prizes" => "Prizes", "events" => "Schedule", "judging" => "Judging"}
     description = { "event_applications" => "Enables hackers to start registering and applying to the hackathon", 
       "mentorship_requests" => "Allows hackers to request mentor help", 
       "hardware" => "Enables the ability for hackers to checkout hardware", 
@@ -11,7 +11,8 @@ namespace :feature_flags do
       "project_submissions" => "Gives Hackers the ability to submit projects as a team", 
       "check_in" => "Starts the hackathon by allowing volunteers the ability to check in hackers", 
       "prizes" => "Allows Prizes to be created and displayed for all hackers to see", 
-      "events" => "Allows planning of events and shows the schedule to hackers"}
+      "events" => "Allows planning of events and shows the schedule to hackers",
+      "judging" => "Allows for scoring of projects on Dashboard."}
 
     feature_flag_names.each do |flag_name|
       unless FeatureFlag.where(name: flag_name).exists?

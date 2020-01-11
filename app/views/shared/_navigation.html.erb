@@ -127,6 +127,14 @@
             <% end %>
           <% end %>
 
+          <% if has_access_to_judging?%>
+            <li class="nav-item">
+              <%= link_to judging_index_path, class: "nav-link #{'active' if is_judging_active?}" do %>
+                <i class="fe fe-book"></i>Judging</a>
+              <% end %>
+            </li>
+          <% end %>
+
           <% if has_access_to_admin? %>
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" ><i class="fe fe-layers"></i>Admin</a>

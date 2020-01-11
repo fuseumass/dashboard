@@ -81,7 +81,7 @@ Rails.application.routes.draw do
       post 'add_user' => 'events#add_user'
       post 'remove_user' => 'events#remove_user'
       post 'check_in_to_event' => 'events#check_in'
-    end 
+    end
   # Events Routes End
 
 
@@ -164,6 +164,11 @@ Rails.application.routes.draw do
     end
   # Email Routes End
 
+  # Routes for Live Judging Begins
+
+
+  # Live Judging Routes End
+
   # Feature Flag Routes Start
    resources :feature_flags, except: [:create, :destroy, :edit, :show] do
      collection do
@@ -173,9 +178,5 @@ Rails.application.routes.draw do
    end
   # Feature Flag Routes End
 
-  # Judging Routes Begin
-  get 'judgings' => 'judging#index'
-  post 'generateforms' => 'judging#generateforms'
-  get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
-  # Judging Routes End
+
 end

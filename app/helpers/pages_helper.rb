@@ -36,6 +36,10 @@ module PagesHelper
       controller?("projects")
   end
 
+  def is_judging_active?
+      controller?("judging")
+  end
+
   def is_prizes_active?
       controller?("prizes")
   end

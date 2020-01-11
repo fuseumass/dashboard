@@ -150,16 +150,54 @@ class EventApplication < ApplicationRecord
     UserMailer.submit_email(user).deliver_now
   end
 
+
+  
+
+
   # Generating CSV for all Event Applications
 	def self.to_csv
 		CSV.generate do |csv|
 
-			csv << EventApplication.attribute_names
+      finalKeyArr = Array.new
+      keyArr = Array.new
+      keyArr = EventApplication.first.attributes.keys
+      hashKeyArr = EventApplication.first.attributes.values.last
+      keyArrLength = keyArr.length() - 2
+
+      for i in 0..keyArrLength 
+        finalKeyArr.push(keyArr[i])
+      end
+
+      for key, value in hashKeyArr
+        finalKeyArr.push(key)
+      end
+
+      csv << finalKeyArr
+    
 
 			EventApplication.find_each do |app|
-				csv << app.attributes.values
-		  	end
-		end
-	end
 
+        arr = Array.new
+        arr = app.attributes.values
+        finalArr = Array.new
+        arrLength = arr.length() - 2
+
+        for i in 0..arrLength
+          finalArr.push(arr[i])  
+        end
+        
+        hashArr = arr[arrLength + 1]
+
+        for key, value in hashArr
+          finalArr.push(value)
+        end
+
+        csv << finalArr
+
+		  	end
+    end
+    
+  
+  end
+  
 end

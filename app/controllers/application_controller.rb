@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
   $Prizes = 'prizes'
   $CheckIn = 'check_in'
   $Hardware = 'hardware'
+  $Judging = 'judging'
 
   def check_feature_flag?(feature_flag_name)
     feature_flag = FeatureFlag.find_by(name: feature_flag_name)

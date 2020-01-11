@@ -57,6 +57,10 @@ echo ' '
 # Asset precompilation
 echo 'Precompiling Assets...'
 ./docker_shell.sh bundle exec rake assets:precompile
+if [[ "$?" != "0" ]]; then
+	echo 'Failed. Ensure Docker is running and restart.'
+	exit 1
+fi
 echo 'Assets precompiled succesfully ✅'
 echo ' '
 

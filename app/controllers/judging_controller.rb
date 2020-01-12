@@ -1,8 +1,12 @@
 class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
+  before_action :auth_user
+
 
   def index
-    @scores = ProjectScore.all
+    @assigned = @projects = Project.joins(:judgements).where("")
+    @projects = Project.all.paginate(page: params[:page], per_page: 20)
+    @scores = Judgement.all
   end
 
 
@@ -11,7 +15,7 @@ class JudgingController < ApplicationController
 
 
   def new
-    @score = ProjectScore.new
+    @score = Judgement.new
   end
 
 
@@ -20,7 +24,7 @@ class JudgingController < ApplicationController
 
 
   def create
-    @score = ProjectScore.new(judging_params)
+    @score = Judgement.new(judging_params)
   end
 
   def update

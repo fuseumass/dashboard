@@ -11,32 +11,38 @@
 <% else %>
 
   <!-- Projects Assigned to Be Judged By Current User -->
-  <% if current_user.judgements.nil? %>
+  <% if !@assigned.nil? and !@assigned.empty? %>
   <div class="col-12">
     <div class="card">
-      <div class="table-responsive">
-        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-          <thead>
-            <tr>
-              <th>Table #</th>
-              <th>Title</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @projects.each do |project| %>
+      <div class="card-body">
+        <h3 class="page-title">Assigned to Me</h3>
+        <br>
+        <div class="table-responsive">
+          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <thead>
               <tr>
-                <% if project.table_id.nil? %>
-                  <td>TBD</td>
-                <% else %>
-                  <td><%= project.table_id %></td>
-                <% end %>
-
-                <td><%= link_to truncate(project.title, length: 30), project %></td>
+                <th>Table #</th>
+                <th>Title</th>
+                <th>Action</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              <% @assigned.each do |project| %>
+                <tr>
+                  <% if project.table_id.nil? %>
+                    <td>TBD</td>
+                  <% else %>
+                    <td><%= project.table_id %></td>
+                  <% end %>
+
+                  <td><%= link_to truncate(project.title, length: 30), project %></td>
+                  <td><a href="#" class="btn btn-primary">Judge Project</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -75,6 +81,7 @@
             <tr>
               <th>Table #</th>
               <th>Title</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -88,6 +95,12 @@
                 <% end %>
 
                 <td><%= link_to truncate(project.title, length: 30), project %></td>
+                <td>
+                  <a href="#" class="btn btn-primary">Judge Project</a>
+                  <% if current_user.user_type = 'admin' %>
+                    <a href="#" class="btn btn-secondary">Assign</a>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>

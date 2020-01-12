@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @projectsCSV = Project.all
-    
+
     respond_to do |format|
       format.html
       format.csv { send_data @projectsCSV.to_csv, filename: "projects.csv" }

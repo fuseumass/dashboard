@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class JudgementTest < ActiveSupport::TestCase
+class PrizeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

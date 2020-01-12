@@ -1,10 +1,7 @@
 class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
-  before_action :auth_user
-
 
   def index
-    @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = ProjectScore.all
   end
 

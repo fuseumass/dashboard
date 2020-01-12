@@ -12,7 +12,7 @@ class User < ApplicationRecord
   belongs_to :project, optional: true
   has_many :event_attendances
   has_many :events, through: :event_attendances
-  has_many :judgements
+
   after_create :welcome_email
 
   # needed for slack integration

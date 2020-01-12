@@ -4,7 +4,7 @@ class JudgingController < ApplicationController
 
 
   def index
-    @assigned = @projects = Project.joins(:judgements).where("")
+    @assigned = Project.joins(:judgement).where("judgements.project_id = projects.id AND judgements.user_id = ?","%#{current_user.id}%")
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = Judgement.all
   end

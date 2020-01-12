@@ -11,11 +11,12 @@ class JudgingController < ApplicationController
 
 
   def show
+    redirect_to 'index_path'
   end
 
 
   def new
-    @score = Judgement.new
+    @judgement = Judgement.new
   end
 
 

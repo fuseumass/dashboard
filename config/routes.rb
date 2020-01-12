@@ -166,7 +166,13 @@ Rails.application.routes.draw do
 
   # Routes for Live Judging Begins
 
-  resources :judging
+  resources :judging do
+    collection do
+      get 'assign' => 'judging#new'
+      get 'index' => 'judging#index'
+      post 'new'
+    end
+  end
 
   # Live Judging Routes End
 

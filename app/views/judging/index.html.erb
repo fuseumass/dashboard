@@ -98,7 +98,7 @@
                 <td>
                   <a href="#" class="btn btn-primary">Judge Project</a>
                   <% if current_user.user_type = 'admin' %>
-                    <a href="#" class="btn btn-secondary">Assign</a>
+                    <%= link_to "Assign Judge", assign_judging_index_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary'%>
                   <% end %>
                 </td>
               </tr>

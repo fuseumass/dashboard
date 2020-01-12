@@ -1,2 +1,0 @@
-class ProjectScore < ApplicationRecord
-end

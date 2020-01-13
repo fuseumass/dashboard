@@ -107,20 +107,20 @@
             <% if current_user.is_attendee?%>
               <% if HackumassWeb::Application::PROJECTS_PUBLIC %>
                 <li class="nav-item">
-                  <%= link_to projects_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+                  <%= link_to projects_path, class: "nav-link #{'active' if is_projects_view_active?}" do %>
                     <i class="fe fe-layers"></i> Projects</a>
                   <% end %>
                 </li>
               <% end %>
               <li class="nav-item">
-                <%= link_to project_submit_info_path, class: "nav-link #{'active' if is_projects_active? and not HackumassWeb::Application::PROJECTS_PUBLIC}" do %>
+                <%= link_to project_submit_info_path, class: "nav-link #{'active' if is_projects_create_active?}" do %>
                   <i class="fe fe-layers"></i> My Project</a>
                 <% end %>
               </li>
 
             <% else %>
               <li class="nav-item">
-                <%= link_to projects_path, class: "nav-link #{'active' if is_projects_active?}" do %>
+                <%= link_to projects_path, class: "nav-link #{'active' if is_projects_view_active?}" do %>
                   <i class="fe fe-layers"></i> Projects</a>
                 <% end %>
               </li>

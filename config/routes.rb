@@ -174,12 +174,8 @@ Rails.application.routes.draw do
   # Email Routes End
 
 
-  resources :judging do
-
-    collection do
-      get '' => 'judging#index'
-    end
-  end
+  resources :judging
+  post 'judging/new' => 'judging#create'
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do

@@ -1,21 +1,36 @@
 <div class="card-body">
 
+  <noscript>
+    Hello <%= current_user.first_name %>. It appears that you have Javascript disabled in your browser. While that might be
+    prudent on some websites, you do need it enabled for full judging functionality on Dashboard. <br>
+    Our code is open source, so you should be able to see that we aren't hiding anything sketchy :)
+  </noscript>
+
   <div class="col-lg-8">
-    <%= form_for @judgement, url: new_judging_path, html: { method: :post } do |j| %>
+    <%= form_with(model: judgement, url: new_judging_path, local: true) do |form| %>
+    <% if judgement.errors.any? %>
+      <div class="card">
+        <div class="card-status bg-danger"></div>
+        <div class="card-header">
+          <h3 class="page-title">
+            <%= pluralize(judgement.errors.count, "error") %>
+            prevented assignment of this project:
+          </h3>
+        </div>
+        <div class="card-body projects-error-card-padding">
+          <ul>
+            <% judgement.errors.values.each do |message| %>
+              <li><%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
 
-    <div class="form-group">
-      <label for="title">Project Name</label>
-      <input type="textfield" id="title" disabled class="form-control" value="<%= params[:project_title] %>">
-    </div>
-
-    <div class="form-group">
-      <%= j.text_field :user_id, class: 'form-control', placeholder: 'Email Address of Judge\'s account.' %>
-    </div>
 
     <div class="actions">
-      <%= j.submit class: 'btn btn-primary' %>
+      <%= form.submit class: 'btn btn-primary' %>
     </div>
-
-    <% end %>
-  </div>
+  <% end %>
+</div>
 </div>

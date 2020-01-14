@@ -9,6 +9,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # Allow for local development with Docker
+  config.web_console.whitelisted_ips = '172.17.0.1'
+
   # Show full error reports.
   config.consider_all_requests_local = true
 

@@ -13,6 +13,27 @@ class JudgingController < ApplicationController
   end
 
   def create
+    if(!params.has_key?(:project_id) or !params.has_key?(:email))
+      redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
+      broken link or refreshing a submitted form. Please try to assign the judge again, 
+      and if this fails contact an administrator.'
+      return
+    end
+
+    # Ensure that a valid email address was provided
+    if (User.where(:email => params[:email]).empty?)
+      redirect_to new_judging_path, project_id: params[:project_id], project_title: params[:project_title], alert: 'Invalid Judge Email Address.'
+      return
+    end
+
+    @judge_id = User.where(:email => params[:email]).first
+    @assignment = Judgement.new(user_id: @judge_id, project_id: params[:project_id], score: -1)
+
+    if @assignment.save
+      redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
+    else
+      redirect_to new_judging_path, project_id: params[:project_id], project_title: params[:project_title], alert: 'Unable to assign judge to project.'
+    end
   end
 
   def show

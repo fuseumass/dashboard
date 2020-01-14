@@ -175,10 +175,9 @@ Rails.application.routes.draw do
 
 
   resources :judging do
+
     collection do
-      get 'assign' => 'judging#new'
-      get 'index' => 'judging#index'
-      post 'new'
+      get '' => 'judging#index'
     end
   end
 
@@ -188,6 +187,8 @@ Rails.application.routes.draw do
         post 'disable'
       end
     end
+
+  # Live Judging Routes End
 
   # Feature Flag Routes End
 

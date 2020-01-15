@@ -3,12 +3,11 @@ namespace :hardware do
   task :create => :environment do
 
 
+    hardware_items = []
+    
     hardware_items.each do |item|
       item.save
     end
-
-
-    
 
   end
 end

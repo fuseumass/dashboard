@@ -79,9 +79,8 @@ document.addEventListener('turbolinks:before-visit', function(e) {
     
 
     <% end %>
-
-
-      
+      <div class="row">
+      <div class="col-md-6">
       <div class="card">
 
         
@@ -95,7 +94,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
         <div class="card-body event-application-card-padding">
 
-          <% if admin_or_organizer? %>
+          <%# <% if admin_or_organizer? 
             <label class='event-application-required-field event-application-flex-end-container'>
               Required Fields for the Applicant &nbsp;
             </label>
@@ -291,7 +290,13 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       <% end %>
 
       </div>
+      
+      
+      
+      </div>
 
+      <div class="col-md-6">
+      
       <div class="event-application-resume-container">
       <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
@@ -305,6 +310,15 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <b style="color: red">No uploaded resume.</b>
         <% end %>
       </div>
+      
+      
+      </div>
+      
+      
+      </div>
+      
+
+      
 
     </div>
   </div>

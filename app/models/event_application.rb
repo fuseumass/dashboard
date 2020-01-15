@@ -164,7 +164,10 @@ class EventApplication < ApplicationRecord
       hashKeyArr = EventApplication.first.attributes.values.last
       keyArrLength = keyArr.length() - 2
 
-      finalKeyArr.push(EventApplication.first.user.)
+      finalKeyArr.push("first_name")
+      finalKeyArr.push("last_name")
+      finalKeyArr.push("email")
+      
       for i in 0..keyArrLength 
         finalKeyArr.push(keyArr[i])
       end

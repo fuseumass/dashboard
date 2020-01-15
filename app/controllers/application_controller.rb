@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   after_action  :set_extra_headers
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
+  # allows autocomplete to work on the email field in user and creates a route through pages,
+  # :full => true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
+  autocomplete :user, :email, full: true
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

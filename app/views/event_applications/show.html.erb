@@ -36,8 +36,15 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
       <% end %>
 
-    <% if admin_or_organizer? %>
   
+    
+    
+
+      <div class="row">
+      <div class="col-md-6">
+      <div class="card">
+
+         <div class="card-header event-application-card-padding">
     <!-- Applicant's Status -->
         <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
           <div class="card-status bg-danger"></div>
@@ -56,6 +63,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% end %>
           <% if @applicant.user.rsvp %>
             <span class="tag tag-success event-application-header-status-margin">
+            RSVP
             </span>
           <% end %>
           <% if 'accepted'.eql?(@status) %>
@@ -75,22 +83,10 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @status.capitalize %>
             </span>
           <% end %>
-    
-    
 
-    <% end %>
-      <div class="row">
-      <div class="col-md-6">
-      <div class="card">
-
-        
-
-        <%# <div class="card-header event-application-card-padding">
-          <h2 class="page-title event-application-page-title-margin-right">
-            Application Status:
-          </h2>
-          
-        </div> %>
+        <%= button_to 'Edit', edit_event_application_path(@applicant),
+                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+        </div>
 
         <div class="card-body event-application-card-padding">
 
@@ -207,43 +203,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% end %>
         <% end %>
 
-        <div class="event-application-flex-end-container">
-          <% if admin_or_organizer? %>
-            <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
-              Resume Link
-            </a>
-            <%= button_to 'Accept',
-                          {controller: 'event_applications', action: 'status_updated',
-                           params: {new_status: 'accepted', id: @applicant.user_id}},
-                          {class: 'btn btn-success btn-sm event-application-status-button'} %>
-
-            <%= button_to 'Deny',
-                          {controller: 'event_applications', action: 'status_updated',
-                           params: {new_status: 'denied', id: @applicant.user_id}},
-                          {class: 'btn btn-danger btn-sm event-application-status-button'} %>
-
-            <%= button_to 'Waitlist',
-                          {controller: 'event_applications', action: 'status_updated',
-                           params: {new_status: 'waitlisted', id: @applicant.user_id}},
-                          {class: 'btn btn-warning btn-sm event-application-status-button'} %>
-            <% if @application.flag %>
-              <%= button_to 'Unflag',
-                            {controller: 'event_applications', action: 'unflag_application',
-                             params: {application: @application}},
-                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
-            <% else %>
-              <%= button_to 'Flag',
-                            {controller: 'event_applications', action: 'flag_application',
-                             params: {application: @application}},
-                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
-            <% end %>
-          <% end %>
-
-          <%= button_to 'Edit', edit_event_application_path(@applicant),
-                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
-        </div>
-
-      <% if admin_or_organizer? %>
+        <% if admin_or_organizer? %>
 
         <div class="row align-items-center event-application-nav-button-container">
           <%= link_to 'Previous Applicant',
@@ -296,10 +256,57 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       </div>
 
       <div class="col-md-6">
+      <div class="card">
+    <!-- Applicant's Status -->
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
+          <div class="card-status bg-danger"></div>
+        <% elsif 'accepted'.eql?(@status) %>
+          <div class="card-status bg-success"></div>
+        <% elsif 'waitlisted'.eql?(@status) %>
+          <div class="card-status bg-warning"></div>
+        <% else %>
+          <div class="card-status bg-secondary"></div>
+        <% end %>
       
+      <div class="event-application-flex-end-container">
+          <% if admin_or_organizer? %>
+            <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
+              Resume Link
+            </a>
+            <%= button_to 'Accept',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'accepted', id: @applicant.user_id}},
+                          {class: 'btn btn-success btn-sm event-application-status-button'} %>
+
+            <%= button_to 'Deny',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'denied', id: @applicant.user_id}},
+                          {class: 'btn btn-danger btn-sm event-application-status-button'} %>
+
+            <%= button_to 'Waitlist',
+                          {controller: 'event_applications', action: 'status_updated',
+                           params: {new_status: 'waitlisted', id: @applicant.user_id}},
+                          {class: 'btn btn-warning btn-sm event-application-status-button'} %>
+            <% if @application.flag %>
+              <%= button_to 'Unflag',
+                            {controller: 'event_applications', action: 'unflag_application',
+                             params: {application: @application}},
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
+            <% else %>
+              <%= button_to 'Flag',
+                            {controller: 'event_applications', action: 'flag_application',
+                             params: {application: @application}},
+                            {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
+            <% end %>
+          <% end %>
+
+        </div>
+
+
       <div class="event-application-resume-container">
       <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
+  
           <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
             <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">
               <p>There was error loading the resume, try refreshing the page to see if the
@@ -313,7 +320,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       
       
       </div>
-      
+      </div>
       
       </div>
       

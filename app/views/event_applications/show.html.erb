@@ -28,6 +28,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <%= link_to 'Previous Applicant',
                       event_application_path(@applicant.id-1),
                       class: 'btn btn-purple event-application-nav-button' %>
+          <h3> <%= @applicant.name %> </h3>
           <%= link_to 'Next Applicant',
                       event_application_path(@applicant.id+1),
                       class: 'btn btn-purple event-application-nav-button' %>

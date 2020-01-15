@@ -36,9 +36,9 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
       <% end %>
 
-      <div class="card">
-
-        <!-- Applicant's Status -->
+    <% if admin_or_organizer? %>
+  
+    <!-- Applicant's Status -->
         <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
           <div class="card-status bg-danger"></div>
         <% elsif 'accepted'.eql?(@status) %>
@@ -49,18 +49,13 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <div class="card-status bg-secondary"></div>
         <% end %>
 
-        <div class="card-header event-application-card-padding">
-          <h2 class="page-title event-application-page-title-margin-right">
-            Application Status:
-          </h2>
-          <% if @applicant.flag && admin_or_organizer? %>
+      <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
             </span>
           <% end %>
           <% if @applicant.user.rsvp %>
             <span class="tag tag-success event-application-header-status-margin">
-              RSVP
             </span>
           <% end %>
           <% if 'accepted'.eql?(@status) %>
@@ -80,7 +75,23 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @status.capitalize %>
             </span>
           <% end %>
-        </div>
+    
+    
+
+    <% end %>
+
+
+      
+      <div class="card">
+
+        
+
+        <%# <div class="card-header event-application-card-padding">
+          <h2 class="page-title event-application-page-title-margin-right">
+            Application Status:
+          </h2>
+          
+        </div> %>
 
         <div class="card-body event-application-card-padding">
 

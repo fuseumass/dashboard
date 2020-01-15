@@ -4,7 +4,7 @@ namespace :hardware do
   task :create => :environment do
 
   hardware_items = []
-  csvPath = "sample_hardware_data.csv"
+  csvPath = "lib/tasks/sample_hardware_data.csv"
   header = true
   hardware_items = []
 

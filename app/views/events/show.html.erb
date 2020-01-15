@@ -14,7 +14,7 @@
             <div class="card-body">
               <%= form_tag event_check_in_to_event_path(@event.id), method: :post, class:'col-lg-12' do%>
                   <div class="input-group">
-                    <%= text_field_tag :email,'', class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path}, 'min-length' => 1%>
+                    <%= text_field_tag :email,'', class: 'form-control', placeholder: 'Scan QR Code or Type email', :autofocus => true, data: {autocomplete: autocomplete_user_email_pages_path}, 'min-length' => 1%>
                     <span class="input-group-btn">
                         <%= submit_tag 'Check In', class: 'btn btn-primary' %>
                       </span>

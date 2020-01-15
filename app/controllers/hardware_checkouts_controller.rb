@@ -1,6 +1,5 @@
 class HardwareCheckoutsController < ApplicationController
   before_action :set_hardware_checkout, only: [:destroy]
-  autocomplete :user, :email, :full => true
 
   def create
     # Create the checkout from params

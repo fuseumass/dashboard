@@ -8,8 +8,10 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
   after_action  :set_access_control_headers
   after_action  :set_extra_headers
+  # full: true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
+  autocomplete :user, :email, full: true
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

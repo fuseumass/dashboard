@@ -3,7 +3,6 @@ class HardwareItemsController < ApplicationController
   before_action :check_permissions, except: [:search, :index]
   before_action :check_attendee_slack, only: [:search, :index]
   before_action -> { is_feature_enabled($Hardware) }
-  autocomplete :user, :email, :full => true
 
   def search
     if params[:search].present?

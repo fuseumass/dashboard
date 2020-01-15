@@ -32,8 +32,12 @@ module PagesHelper
     controller?("events")
   end
 
-  def is_projects_active?
-      controller?("projects")
+  def is_projects_view_active?
+      controller?("projects") and (action?("public") or action?("show") or action?("search") or action?("index"))
+  end
+
+  def is_projects_create_active?
+    controller?("projects") and not (action?("public") or action?("show") or action?("search") or action?("index"))
   end
 
   def is_prizes_active?

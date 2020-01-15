@@ -2,9 +2,6 @@ class PagesController < ApplicationController
   before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
   before_action -> { is_feature_enabled($CheckIn) }, only: :check_in
   before_action :check_organizer_permissions, only: :check_in
-  # allows autocomplete to work on the email field in user and creates a route through pages,
-  # :full => true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
-  autocomplete :user, :email, :full => true
 
   def index
 
@@ -154,7 +151,7 @@ class PagesController < ApplicationController
 
   def remove_permissions
     @user = User.find(params[:format])
-    if User.where(user_type: "admin").length == 1
+    if @user.is_admin? and User.where(user_type: "admin").length == 1 
       redirect_to admin_path, alert: "Unable to remove permissions. There must be at least 1 administrator."
     else
       @user.user_type = 'attendee'

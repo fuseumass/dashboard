@@ -28,7 +28,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <%= link_to 'Previous Applicant',
                       event_application_path(@applicant.id-1),
                       class: 'btn btn-purple event-application-nav-button' %>
-          <h3> <%= @applicant.name %> </h3>
+          <h2> <%= @applicant.name %> </h2>
           <%= link_to 'Next Applicant',
                       event_application_path(@applicant.id+1),
                       class: 'btn btn-purple event-application-nav-button' %>
@@ -36,27 +36,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
       <% end %>
 
-  
-    
-    
-
-      <div class="row">
-      <div class="col-md-6">
-      <div class="card">
-
-         <div class="card-header event-application-card-padding">
-    <!-- Applicant's Status -->
-        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
-          <div class="card-status bg-danger"></div>
-        <% elsif 'accepted'.eql?(@status) %>
-          <div class="card-status bg-success"></div>
-        <% elsif 'waitlisted'.eql?(@status) %>
-          <div class="card-status bg-warning"></div>
-        <% else %>
-          <div class="card-status bg-secondary"></div>
-        <% end %>
-
-      <% if @applicant.flag && admin_or_organizer? %>
+<% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
             </span>
@@ -83,9 +63,30 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @status.capitalize %>
             </span>
           <% end %>
+      <div class="row">
+      <div class="col-md-6">
+      <div class="card">
 
+         <div class="card-header event-application-card-padding">
+    <!-- Applicant's Status -->
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
+          <div class="card-status bg-danger"></div>
+        <% elsif 'accepted'.eql?(@status) %>
+          <div class="card-status bg-success"></div>
+        <% elsif 'waitlisted'.eql?(@status) %>
+          <div class="card-status bg-warning"></div>
+        <% else %>
+          <div class="card-status bg-secondary"></div>
+        <% end %>
+    <div class="event-application-nav-button-container">
+    <div>
+      <p><h3>Application</h3>
+</div>
         <%= button_to 'Edit', edit_event_application_path(@applicant),
                         {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+      
+    </div>
+    
         </div>
 
         <div class="card-body event-application-card-padding">
@@ -203,52 +204,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% end %>
         <% end %>
 
-        <% if admin_or_organizer? %>
-
-        <div class="row align-items-center event-application-nav-button-container">
-          <%= link_to 'Previous Applicant',
-                      event_application_path(@applicant.id-1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-
-          <span>
-            <b><%= @applicant.name %></b>
-
-            <% if @applicant.flag && admin_or_organizer? %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                Flagged
-              </span>
-            <% end %>
-            <% if @applicant.user.rsvp %>
-              <span class="tag tag-success event-application-header-status-margin">
-                RSVP
-              </span>
-            <% end %>
-            <% if 'accepted'.eql?(@status) %>
-              <span class="tag tag-success event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'denied'.eql?(@status) %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'waitlisted'.eql?(@status) %>
-              <span class="tag tag-warning event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% else %>
-              <span class="tag tag-secondary event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% end %>
-          </span>
-
-          <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-        </div>
-
-      <% end %>
-
+       
       </div>
       
       

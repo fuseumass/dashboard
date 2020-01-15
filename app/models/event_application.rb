@@ -151,9 +151,6 @@ class EventApplication < ApplicationRecord
   end
 
 
-  
-
-
   # Generating CSV for all Event Applications
 	def self.to_csv
 		CSV.generate do |csv|
@@ -167,7 +164,7 @@ class EventApplication < ApplicationRecord
       finalKeyArr.push("first_name")
       finalKeyArr.push("last_name")
       finalKeyArr.push("email")
-      
+
       for i in 0..keyArrLength 
         finalKeyArr.push(keyArr[i])
       end

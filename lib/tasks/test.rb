@@ -1,11 +1,11 @@
 require "csv"
 
-csvPath = "sample_hardware_data.csv"
+# csvPath = "sample_hardware_data.csv"
 header = true
 
 hardware_items = []
 
-CSV.foreach(csvPath) do |row|
+CSV.foreach("sample_hardware_data.csv") do |row|
     if header == true
         header = false
     else

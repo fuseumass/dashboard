@@ -4,8 +4,8 @@ class JudgingController < ApplicationController
 
   def search
     if params[:search].present?
-      @projects = Project.where("lower(title) LIKE lower(?) OR table_id = ?",
-      "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
+      @projects = Project.left_outer_joins(:judgement => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
+      "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
 
       @projects = @projects.paginate(page: params[:page], per_page: 20)
     else

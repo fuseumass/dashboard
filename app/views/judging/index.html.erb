@@ -82,6 +82,8 @@
               <th>Table #</th>
               <th>Title</th>
               <th>Action</th>
+              <th>Judge</th>
+              <th>Score</th>
             </tr>
           </thead>
 
@@ -96,9 +98,31 @@
 
                 <td><%= link_to truncate(project.title, length: 30), project %></td>
                 <td>
-                  <a href="#" class="btn btn-primary">Judge Project</a>
+                  <a href="#" class="btn btn-primary">Judge</a>
                   <% if current_user.user_type = 'admin' %>
-                    <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary'%>
+                    <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
+                  <% end %>
+
+                  <% if !project.judgement.nil? and project.judgement.score == -1 %>
+                    <% @assignment = project.judgement %>
+                    <%= link_to "Unassign Judge", judging_path(@assignment.id), :method => :delete, class: 'btn btn-danger' %>
+                  <% end %>
+                    
+                </td>
+
+                <td>
+                  <% if !project.judgement.nil? %>
+                    <p><%= project.judgement.user.full_name %> </p>
+                  <% else %>
+                    <p>-</p>
+                  <% end %>
+                </td>
+
+                <td>
+                  <% if !project.judgement.nil? and project.judgement.score >= 0%>
+                    <p><%= project.judgement.score %> </p>
+                  <% else %>
+                    <p>-</p>
                   <% end %>
                 </td>
               </tr>

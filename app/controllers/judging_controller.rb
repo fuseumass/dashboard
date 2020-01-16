@@ -3,7 +3,8 @@ class JudgingController < ApplicationController
   before_action :auth_user
 
   def index
-    @assigned = Project.joins(:judgement).where("judgements.project_id = projects.id AND judgements.user_id = ?","%#{current_user.id}%")
+    # @assigned = Judgement.where({user_id: current_user.id})
+    @assigned = Project.joins(:judgement).where("judgements.user_id" => current_user.id)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = Judgement.all
   end
@@ -18,21 +19,17 @@ class JudgingController < ApplicationController
       broken link or refreshing a submitted form. Please try to assign the judge again, 
       and if this fails contact an administrator.'
       return
-    end
-
-    # Ensure that a valid email address was provided
-    if (User.where(:email => params[:email]).empty?)
-      redirect_to new_judging_path, project_id: params[:project_id], project_title: params[:project_title], alert: 'Invalid Judge Email Address.'
-      return
-    end
-
-    @judge_id = User.where(:email => params[:email]).first
-    @assignment = Judgement.new(user_id: @judge_id, project_id: params[:project_id], score: -1)
-
-    if @assignment.save
-      redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
+    elsif (User.where(:email => params[:email]).empty?)
+      redirect_to new_judging_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Invalid Judge Email Address.'
     else
-      redirect_to new_judging_path, project_id: params[:project_id], project_title: params[:project_title], alert: 'Unable to assign judge to project.'
+      @judge_id = User.where(:email => params[:email]).first.id
+      @assignment = Judgement.new(:user_id => @judge_id, :project_id => params[:project_id], :score => -1)
+
+      if @assignment.save
+        redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
+      else
+        redirect_to new_judging_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Unable to assign judge to project.'
+      end
     end
   end
 

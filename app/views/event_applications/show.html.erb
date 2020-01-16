@@ -262,8 +262,8 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
   
-          <object width="100%" height="300%" type='application/pdf' data="">
-            <iframe src="<%= @applicant.resume.url %>" width="100%" height="300%">
+          <object width="100%" height="100%" type='application/pdf' data="https://personal-website-bb792.firebaseapp.com/AdityaNarayananResume1.pdf">
+            <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">
               <p>There was error loading the resume, try refreshing the page to see if the
                 problem will be resolved. If the issue persists, contact the tech team.</p>
             </iframe>

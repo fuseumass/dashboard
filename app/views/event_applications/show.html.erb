@@ -149,7 +149,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </tr>
 
             <tr>
-              <td><label><b><center>Food Restrictions: </center></b></label></td>
+              <td><label><b>Food Restrictions: </b></label></td>
               <td class="event-application-td"><%= @applicant.food_restrictions %></td>
             </tr>
 
@@ -159,10 +159,10 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </tr>
 
            <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
-            <p class='required-field'>
-              <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
-              <%= @applicant.custom_fields[c['name']] %>
-            </p>
+            <tr>
+            <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+            <td class="event-application-td"><%= @applicant.custom_fields[c['name']] %></td>
+            </tr>
           <% end %>
           </table>
 

@@ -21,22 +21,17 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 <div class="my-4 my-md-5">
   <div class="container">
     <div class="row">
-
-      <% if admin_or_organizer? %>
-
         <div class="row align-items-center event-application-nav-button-container">
+          <div>
+          <% if admin_or_organizer? %>
           <%= link_to 'Previous Applicant',
                       event_application_path(@applicant.id-1),
                       class: 'btn btn-purple event-application-nav-button' %>
-          <h2> <%= @applicant.name %> </h2>
-          <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1),
-                      class: 'btn btn-purple event-application-nav-button' %>
-        </div>
-
-      <% end %>
-
-<% if @applicant.flag && admin_or_organizer? %>
+           <% end %>
+          </div>
+          <div>
+          <h2> <center><%= @applicant.name %> </center></h2>
+          <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
             </span>
@@ -63,6 +58,16 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @status.capitalize %>
             </span>
           <% end %>
+          </div>
+          <div><% if admin_or_organizer? %>
+          <%= link_to 'Next Applicant',
+                      event_application_path(@applicant.id+1),
+                      class: 'btn btn-purple event-application-nav-button' %>
+            <% end %></div>
+        
+        </div>
+
+      
       <div class="row">
       <div class="col-md-6">
       <div class="card">
@@ -173,12 +178,16 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% if @rsvp.answers %>
             <hr />
             <h3>Custom RSVP Questions:</h3>
+            <table>
             <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
               <p class='required-field'>
-                <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
-                <%= @rsvp.answers[c['name']] %>
+              <tr>
+             <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+              <td class="event-application-td"><%= @rsvp.answers[c['name']] %></td>
+              </tr>
               </p>
             <% end %>
+            </table>
           <% end %>
         <% end %>
 

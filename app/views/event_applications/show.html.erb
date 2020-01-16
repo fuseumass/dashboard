@@ -110,7 +110,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             
             <tr>
               <td><label><b><center>Email: </center></b></label></td>
-              <td class="event-application-td"><%= @applicant.email %></td>
+              <td class="event-application-td"><%= @user.email %></td>
             </tr>
 
             <tr>
@@ -138,36 +138,34 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <td class="event-application-td"><%= @applicant.university %></td>
             </tr>
 
+            <tr>
+              <td><label><b><center>Major: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.major %></td>
+            </tr>
 
-          </table>
-      
+            <tr>
+              <td><label><b><center>Graduation Year: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.grad_year %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Major: </b></label>
-            <%= @applicant.major %>
-          </p>
+            <tr>
+              <td><label><b><center>Food Restrictions: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.food_restrictions %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Graduation Year: </b></label>
-            <%= @applicant.grad_year %>
-          </p>
+            <tr>
+              <td><label><b><center>T-Shirt Size: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.t_shirt_size %></td>
+            </tr>
 
-          <p class='required-field'>
-            <label><b>Food Restrictions: </b></label>
-            <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>T-Shirt Size: </b></label>
-            <%= @applicant.t_shirt_size %>
-          </p>
-
-          <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
+           <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
             <p class='required-field'>
               <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
               <%= @applicant.custom_fields[c['name']] %>
             </p>
           <% end %>
+          </table>
+
 
 
         <% if CustomRsvp.where(user_id: @applicant.user_id).exists? %>

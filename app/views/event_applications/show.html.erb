@@ -68,13 +68,9 @@ document.addEventListener('turbolinks:before-visit', function(e) {
         </div>
       
       <style>
-      .scroll-eventapp-content {
-      
-       overflow:auto;
-
+      .event-application-td {
+        text-align: center
       }
-      
-      
       </style>
       
       <div class="row">
@@ -104,18 +100,6 @@ document.addEventListener('turbolinks:before-visit', function(e) {
         </div>
         <div style="height:552px; overflow:auto;">
         <div class="card-body event-application-card-padding">
-
-          <%# <% if admin_or_organizer? 
-            <label class='event-application-required-field event-application-flex-end-container'>
-              Required Fields for the Applicant &nbsp;
-            </label>
-          <% end %>
-          <style>
-        
-          .event-application-td {
-            text-align: center
-          }
-          </style>
           <table style="width:100%">
             <tr>
               <td><label><b><center>Name: </center></b></label></td>

@@ -43,6 +43,12 @@ class JudgingController < ApplicationController
   end
 
   def destroy
+    @assignment = Judgement.where(:id => params[:id]).first
+    @assignment.destroy
+    respond_to do |format|
+      format.html { redirect_to judging_index_path, notice: 'Judge successfully unassigned.' }
+      format.json { head :no_content }
+    end
   end
 
   private

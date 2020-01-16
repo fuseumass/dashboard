@@ -166,7 +166,11 @@ Rails.application.routes.draw do
 
   # Routes for Live Judging Begins
 
-  resources :judging
+  resources :judging do
+    collection do
+      get 'search', :as => :search
+    end
+  end
   post 'judging/new' => 'judging#create'
 
 

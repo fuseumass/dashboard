@@ -99,10 +99,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <style>
         
           .event-application-td {
-
             text-align: center
-
-
           }
           </style>
           <table style="width:100%">
@@ -111,50 +108,39 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <td class="event-application-td"><%= @applicant.name %></td>
             </tr>
             
+            <tr>
+              <td><label><b><center>Email: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.email %></td>
+            </tr>
 
+            <tr>
+              <td><label><b><center>Phone: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
+            </tr>
 
+            <tr>
+              <td><label><b><center>Gender: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.gender %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Pronoun: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.pronoun %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Education Level: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.education_lvl %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>University: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.university %></td>
+            </tr>
 
 
           </table>
-          <p class='required-field'>
-            <label><b>Name: </b></label>
-            <%= @applicant.name %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Email: </b></label>
-            <%= @user.email %>
-          </p>
-
-          <p>
-            <label><b>Phone: </b></label>
-            <%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Age: </b></label>
-            <%= @applicant.age %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Gender: </b></label>
-            <%= @applicant.gender %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Pronoun: </b></label>
-            <%= @applicant.pronoun %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Education Level: </b></label>
-            <%= @applicant.education_lvl %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>University: </b></label>
-            <%= @applicant.university %>
-          </p>
+      
 
           <p class='required-field'>
             <label><b>Major: </b></label>

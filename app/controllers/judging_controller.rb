@@ -2,6 +2,18 @@ class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
   before_action :auth_user
 
+  def search
+    if params[:search].present?
+      @projects = Project.where("lower(title) LIKE lower(?) OR table_id = ?",
+      "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
+
+      @projects = @projects.paginate(page: params[:page], per_page: 20)
+    else
+      redirect_to judging_index_path
+    end
+  end
+
+
   def index
     # @assigned = Judgement.where({user_id: current_user.id})
     @assigned = Project.joins(:judgement).where("judgements.user_id" => current_user.id)

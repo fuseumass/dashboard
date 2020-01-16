@@ -96,7 +96,26 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               Required Fields for the Applicant &nbsp;
             </label>
           <% end %>
+          <style>
+        
+          .event-application-td {
 
+            text-align: center
+
+
+          }
+          </style>
+          <table style="width:100%">
+            <tr>
+              <td><label><b><center>Name: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.name %></td>
+            </tr>
+            
+
+
+
+
+          </table>
           <p class='required-field'>
             <label><b>Name: </b></label>
             <%= @applicant.name %>

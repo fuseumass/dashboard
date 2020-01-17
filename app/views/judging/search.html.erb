@@ -15,7 +15,6 @@
         </div>
         <span class="col-auto">
             <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
-                <a href="./projects.csv" class="btn btn-secondary">Download as CSV</a>
         </span>
         </div>
     <%end%>
@@ -27,7 +26,9 @@
             <br>
             <h3>No Results Found...</h3>
             <br>
-            <br>
+            <div class="text-left">
+                <%= link_to "Back", judging_index_path, class: "btn btn-secondary ml-3 mb-3" %>
+            </div>
         </center>
     <% else %>
         <div class="table-responsive">
@@ -84,6 +85,8 @@
             <% end %>
             </tbody>
         </table>
+        <br>
+        <%= link_to "Back", judging_index_path, class: "btn btn-secondary ml-3 mb-3" %>
         </div>
     <% end %>
 </div>

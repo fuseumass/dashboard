@@ -1,7 +1,8 @@
 class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
   before_action :auth_user
-
+  before_action :check_permissions
+  before_action :check_organizer_permissions, only: [:search, :assign]
   def search
     if params[:search].present?
       @projects = Project.left_outer_joins(:judgement => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
@@ -32,7 +33,7 @@ class JudgingController < ApplicationController
     @judgement = Judgement.new
   end
 
-  def create
+  def assign
     if(!params.has_key?(:project_id) or !params.has_key?(:email))
       redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
       broken link or refreshing a submitted form. Please try to assign the judge again, 
@@ -76,6 +77,13 @@ class JudgingController < ApplicationController
     def check_permissions
       unless current_user.is_organizer? or current_user.is_mentor? or current_user.is_admin?
         redirect_to index_path, alert: 'You do not have permission to access judging.'
+      end
+    end
+
+    # Only admin, organizers, and mentors are allowed to judge projects
+    def check_organizer_permissions
+      unless current_user.is_organizer? or current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have permission to access this judging feature.'
       end
     end
 end

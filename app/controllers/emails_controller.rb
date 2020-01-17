@@ -137,7 +137,7 @@ class EmailsController < ApplicationController
     # Only admins and organizers have the ability to create, update, edit, show, and destroy hardware items
     def check_permissions
       unless current_user.is_admin?
-        redirect_to hardware_items_path, alert: 'You do not have the permissions to visit this section of hardware'
+        redirect_to hardware_items_path, alert: 'You do not have the permissions to manage emails.'
       end
     end
 

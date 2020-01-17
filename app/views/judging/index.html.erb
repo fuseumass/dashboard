@@ -56,81 +56,84 @@
     </div>
   <% end %>
   <!-- All Projects That Can Be Judged -->
-
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="page-title">All Projects</h3>
-        <br>
-        <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
-          <div class="row gutters-xs">
-            <div class="col">
-              <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, or judge\'s name', :autofocus => true %>
+  <% if current_user.is_admin? or current_user.is_organizer? %>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="page-title">All Projects</h3>
+          <br>
+          <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
+            <div class="row gutters-xs">
+              <div class="col">
+                <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, or judge\'s name', :autofocus => true %>
+              </div>
+              <span class="col-auto">
+                <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
+                <a href="./judging.csv" class="btn btn-secondary">Download as CSV</a>
+              </span>
             </div>
-            <span class="col-auto">
-              <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
-		          <a href="./judging.csv" class="btn btn-secondary">Download as CSV</a>
-            </span>
-          </div>
-        <%end%>
-      </div>
+          <%end%>
+        </div>
 
-      <div class="table-responsive">
-        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-          <thead>
-            <tr>
-              <th>Table #</th>
-              <th>Title</th>
-              <th>Action</th>
-              <th>Judge</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @projects.each do |project| %>
+        <div class="table-responsive">
+          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <thead>
               <tr>
-                <% if project.table_id.nil? %>
-                  <td>TBD</td>
-                <% else %>
-                  <td><%= project.table_id %></td>
-                <% end %>
-
-                <td><%= link_to truncate(project.title, length: 30), project %></td>
-                <td>
-                  <a href="#" class="btn btn-primary">Judge</a>
-                  <% if current_user.user_type = 'admin' %>
-                    <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
-                  <% end %>
-
-                  <% if !project.judgement.nil? and project.judgement.score == -1 %>
-                    <% @assignment = project.judgement %>
-                    <%= link_to "Unassign Judge", judging_path(@assignment.id), :method => :delete, class: 'btn btn-danger' %>
-                  <% end %>
-                    
-                </td>
-
-                <td>
-                  <% if !project.judgement.nil? %>
-                    <p><%= project.judgement.user.full_name %> </p>
-                  <% else %>
-                    <p>-</p>
-                  <% end %>
-                </td>
-
-                <td>
-                  <% if !project.judgement.nil? and project.judgement.score >= 0%>
-                    <p><%= project.judgement.score %> </p>
-                  <% else %>
-                    <p>-</p>
-                  <% end %>
-                </td>
+                <th>Table #</th>
+                <th>Title</th>
+                <th>Action</th>
+                <th>Judge</th>
+                <th>Score</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              <% @projects.each do |project| %>
+                <tr>
+                  <% if project.table_id.nil? %>
+                    <td>TBD</td>
+                  <% else %>
+                    <td><%= project.table_id %></td>
+                  <% end %>
+
+                  <td><%= link_to truncate(project.title, length: 30), project %></td>
+                  <td>
+                    <a href="#" class="btn btn-primary">Judge</a>
+
+
+                    <% if current_user.user_type = 'admin' %>
+                      <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
+                    <% end %>
+
+                    <% if !project.judgement.nil? and project.judgement.score == -1 %>
+                      <% @assignment = project.judgement %>
+                      <%= link_to "Unassign Judge", judging_path(@assignment.id), :method => :delete, class: 'btn btn-danger' %>
+                    <% end %>
+                      
+                  </td>
+
+                  <td>
+                    <% if !project.judgement.nil? %>
+                      <p><%= project.judgement.user.full_name %> </p>
+                    <% else %>
+                      <p>-</p>
+                    <% end %>
+                  </td>
+
+                  <td>
+                    <% if !project.judgement.nil? and project.judgement.score >= 0%>
+                      <p><%= project.judgement.score %> </p>
+                    <% else %>
+                      <p>-</p>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 <% end %>
 <br>

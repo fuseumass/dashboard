@@ -90,7 +90,7 @@ module PagesHelper
   end
 
   def has_access_to_judging?
-  (current_user.is_mentor? or current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($Judging)
+    (current_user.is_mentor? or current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($Judging)
   end
 
   def already_applied?

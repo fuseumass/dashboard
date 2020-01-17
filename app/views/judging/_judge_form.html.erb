@@ -1,0 +1,32 @@
+<div class="card-body">
+
+    <noscript>
+        Hello <%= current_user.first_name %>. It appears that you have Javascript disabled in your browser. While that might be
+        prudent on some websites, you do need it enabled for full judging functionality on Dashboard. <br>
+        Our code is open source, so you should be able to see that we aren't hiding anything sketchy :)
+    </noscript>
+
+    <div class="col-lg-8">
+        <%= form_with(model: judgement, url: judging_submit_judgement_path, local: true) do |form| %>
+
+        <% if judgement.errors.any? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Unable to Judge Project.</strong>
+                <% judgement.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+                <% end %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% end %>
+
+        <!--
+            TODO: Implement Dynamic Juding Fields Here!!
+        -->
+
+        <div class="actions">
+            <%= form.submit "Judge Project", class: 'btn btn-primary' %>
+        </div>
+        <% end %>
+    </div>
+
+</div>

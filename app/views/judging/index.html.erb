@@ -101,8 +101,8 @@
                     <a href="#" class="btn btn-primary">Judge</a>
 
 
-                    <% if current_user.user_type = 'admin' %>
-                      <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
+                    <% if current_user.user_type = 'admin' and project.judgement.nil? %>
+                      <%= link_to "Assign Judge", assign_judging_index_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
                     <% end %>
 
                     <% if !project.judgement.nil? and project.judgement.score == -1 %>

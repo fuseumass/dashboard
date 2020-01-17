@@ -167,11 +167,15 @@ Rails.application.routes.draw do
   # Routes for Live Judging Begins
 
   resources :judging do
+    post 'submit_judgement'
     collection do
       get 'search', :as => :search
+      get 'assign'
+      post 'create_assignment'
     end
   end
-  post 'judging/new' => 'judging#create'
+
+
 
 
   # Live Judging Routes End

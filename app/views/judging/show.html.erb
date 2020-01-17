@@ -1,2 +1,8 @@
-<h1>Judging#show</h1>
-<p>Find me in app/views/judging/show.html.erb</p>
+<div class="page-header">
+  <h1 class="page-title">Judge Project</h1>
+</div>
+<% if @judgement.nil? %>
+    None Found.
+<% else %>
+    <%= render 'judge_form', judgement: @judgement %>
+<% end %>

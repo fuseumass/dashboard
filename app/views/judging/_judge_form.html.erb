@@ -7,7 +7,11 @@
     </noscript>
 
     <div class="col-lg-8">
-        <%= form_with(model: judgement, url: judging_submit_judgement_path, local: true) do |form| %>
+        <% if @project.nil? %>
+            <p>Error! Unable To Load Project!!</p>
+        <% end %>
+
+        <%= form_with(model: judgement, url: judging_assign_score_path(@judgement), local: true, method: :post) do |form| %>
 
         <% if judgement.errors.any? %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -18,6 +22,21 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
             </div>
         <% end %>
+
+        <!--
+        These are hidden fields used by the controller. Please don't touch them without checking the method of the judging controller! 
+        -->
+
+        <div class="form-group">
+            <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
+        </div>
+
+        <!-- End of hidden fields here -->
+
+        <div class="form-group">
+            <%= label_tag :project_title %>
+            <%= text_field_tag :project_title, "", class: 'form-control', value: @project.title, required: true, disabled: true %>
+        </div>
 
         <!--
             TODO: Implement Dynamic Juding Fields Here!!

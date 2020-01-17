@@ -167,7 +167,7 @@ Rails.application.routes.draw do
   # Routes for Live Judging Begins
 
   resources :judging do
-    post 'submit_judgement'
+      post 'assign_score'
     collection do
       get 'search', :as => :search
       get 'assign'

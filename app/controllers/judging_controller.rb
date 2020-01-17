@@ -16,9 +16,16 @@ class JudgingController < ApplicationController
 
   def index
     # @assigned = Judgement.where({user_id: current_user.id})
-    @assigned = Project.joins(:judgement).where("judgements.user_id" => current_user.id)
+    @assigned = Project.joins(:judgement).where("judgements.user_id = ? AND score = -1", current_user.id)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = Judgement.all
+
+    @judgementsCSV = Judgement.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @judgementsCSV.to_csv, filename: "judging.csv" }
+    end
   end
 
   def new

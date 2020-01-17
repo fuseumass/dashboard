@@ -6,4 +6,16 @@ class Judgement < ApplicationRecord
   validates :project_id, uniqueness: true
   validates :user_id, presence: true
 
+
+	# Generating CSV for all judgements
+	def self.to_csv
+		CSV.generate do |csv|
+
+			csv << Judgement.attribute_names
+
+			Judgement.find_each do |j|
+				csv << j.attributes.values
+		  	end
+		end
+	end
 end

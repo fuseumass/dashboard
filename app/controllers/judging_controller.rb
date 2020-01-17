@@ -29,18 +29,20 @@ class JudgingController < ApplicationController
     end
   end
 
-  def new
+  # GET route for assignment creation
+  def assign
     @judgement = Judgement.new
   end
 
-  def assign
+  # POST route for creating a placeholder judgement and assignment with user
+  def create_assignment
     if(!params.has_key?(:project_id) or !params.has_key?(:email))
       redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
       broken link or refreshing a submitted form. Please try to assign the judge again, 
       and if this fails contact an administrator.'
       return
     elsif (User.where(:email => params[:email]).empty?)
-      redirect_to new_judging_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Invalid Judge Email Address.'
+      redirect_to assign_judging_index_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Invalid Judge Email Address.'
     else
       @judge_id = User.where(:email => params[:email]).first.id
       @assignment = Judgement.new(:user_id => @judge_id, :project_id => params[:project_id], :score => -1)
@@ -48,18 +50,33 @@ class JudgingController < ApplicationController
       if @assignment.save
         redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
       else
-        redirect_to new_judging_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Unable to assign judge to project.'
+        redirect_to assign_judging_index_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Unable to assign judge to project.'
       end
     end
   end
 
+  # GET route to submit a score for a project
   def show
+    @judgement = Judgement.find_by(id: params[:id])
+    if @judgement.nil?  # If no judgement assigned, create a new one
+      @judgement = Judgement.new
+    else  # If one exists, check permissions and assignments
+      if @judgement.score == -1 and @judgement.user_id == current_user.id  # If assigned
+        
+        # TODO: Load judgement and its project for the form
+
+      elsif @judgement.score != -1  # If judgement exists already do not allow a new one
+        redirect_to judging_index_path, alert: 'Unable to judge project. A current score exists and must be removed before being re-judged.'
+      else
+        redirect_to judging_index_path, alert: 'Unable to judge project until assigned judge is removed.'
+      end
+
+    end
   end
 
-  def edit
-  end
+  # POST route to submit a score for a project
+  def submit_judgement
 
-  def update
   end
 
   def destroy

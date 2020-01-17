@@ -7,7 +7,7 @@
     </noscript>
 
     <div class="col-lg-8">
-        <%= form_with(model: judgement, url: new_judging_path, local: true) do |form| %>
+        <%= form_with(model: judgement, url: create_assignment_judging_index_path, local: true) do |form| %>
 
         <% if judgement.errors.any? %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

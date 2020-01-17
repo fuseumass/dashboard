@@ -175,11 +175,15 @@ Rails.application.routes.draw do
 
 
   resources :judging do
+    post 'submit_judgement'
     collection do
       get 'search', :as => :search
+      get 'assign'
+      post 'create_assignment'
     end
   end
-  post 'judging/new' => 'judging#create'
+
+
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do

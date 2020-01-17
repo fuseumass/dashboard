@@ -59,15 +59,11 @@ class JudgingController < ApplicationController
   def show
     @judgement = Judgement.find_by(id: params[:id])
     if @judgement.nil?  # If no judgement assigned, create a new one
-      @judgement = Judgement.new
+      
     else  # If one exists, check permissions and assignments
       if @judgement.score == -1 and @judgement.user_id == current_user.id  # If assigned
-        
-        # TODO: Load judgement and its project for the form
-
-      elsif @judgement.score != -1  # If judgement exists already do not allow a new one
-        redirect_to judging_index_path, alert: 'Unable to judge project. A current score exists and must be removed before being re-judged.'
-      else
+        @project = @judgement.project
+      elsif @judgement.score == -1
         redirect_to judging_index_path, alert: 'Unable to judge project until assigned judge is removed.'
       end
 
@@ -75,7 +71,7 @@ class JudgingController < ApplicationController
   end
 
   # POST route to submit a score for a project
-  def submit_judgement
+  def assign_score
 
   end
 

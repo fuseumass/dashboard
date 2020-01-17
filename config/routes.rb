@@ -175,7 +175,7 @@ Rails.application.routes.draw do
 
 
   resources :judging do
-    post 'submit_judgement'
+      post 'assign_score'
     collection do
       get 'search', :as => :search
       get 'assign'

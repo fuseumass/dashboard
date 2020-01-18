@@ -2,10 +2,12 @@ class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
   before_action :auth_user
   before_action :check_permissions
-  before_action :check_organizer_permissions, only: [:search, :assign]
+  before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
+
+  
   def search
     if params[:search].present?
-      @projects = Project.left_outer_joins(:judgement => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
+      @projects = Project.left_outer_joins(:judgements => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
       "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
 
       @projects = @projects.paginate(page: params[:page], per_page: 20)
@@ -16,9 +18,7 @@ class JudgingController < ApplicationController
 
 
   def index
-    # @assigned = Judgement.where({user_id: current_user.id})
     @assigned = Project.joins(:judging_assignments)
-    # .where("judging_assignments.user_id = ?", current_user.id)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = Judgement.all
 
@@ -30,11 +30,13 @@ class JudgingController < ApplicationController
     end
   end
 
+
   # GET route for assignment creation
   def assign
     @project = Project.find_by(id: params[:project_id])
     @assignments = JudgingAssignment.where(project_id: @project.id)
   end
+
 
   # POST route to assign a judge to a project
   def add_judge_assignment
@@ -48,6 +50,9 @@ class JudgingController < ApplicationController
     elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
     
+    elsif (JudgingAssignment.exists?(:user_id => params[:judge_id], :project_id => params[:project_id]))  # If the judge is already assigned to this project.
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Judge is already assigned to this project!'
+
     else  # All is well, assign judge to project
       @judge_id = User.where(:email => params[:judge_email]).first.id
       @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
@@ -58,6 +63,7 @@ class JudgingController < ApplicationController
       end
     end
   end
+
 
   # POST route to unassign a judge from a project
   def remove_judge_assignment
@@ -79,25 +85,30 @@ class JudgingController < ApplicationController
   end
 
   # GET route to submit a score for a project
-  def show
-    @judgement = Judgement.find_by(id: params[:id])
-    if @judgement.nil?  # If no judgement assigned, create a new one
-      
-    else  # If one exists, check permissions and assignments
-      if @judgement.score == -1 and @judgement.user_id == current_user.id  # If assigned
-        @project = @judgement.project
-      elsif @judgement.score == -1
-        redirect_to judging_index_path, alert: 'Unable to judge project until assigned judge is removed.'
-      end
+  def new
+    if (!params.has_key?(:project_id))
+      redirect_to judging_index_path, alert: 'Error: Unable to load judging page. Please ensure that the link is valid and try again.'
+    end
 
+    @judgement = Judgement.new
+    @project = Project.find_by(id: params[:project_id])
+
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id)
+    else
+      @assignment = nil
+      unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
+        redirect_to judging_index_path, alert: 'Error: You may not judge a project that hasn\'t been assigned to you.'
+      end
     end
   end
 
   # POST route to submit a score for a project
-  def assign_score
-    
+  def create
+    # TODO: Implement Method
   end
 
+  # POST route to remove a score from a project
   def destroy
     @assignment = Judgement.where(:id => params[:id]).first
     @assignment.destroy
@@ -107,7 +118,9 @@ class JudgingController < ApplicationController
     end
   end
 
+
   private
+
 
     # Only admin, organizers, and mentors are allowed to judge projects
     def check_permissions
@@ -115,6 +128,7 @@ class JudgingController < ApplicationController
         redirect_to index_path, alert: 'You do not have permission to access judging.'
       end
     end
+
 
     # Only admin, organizers, and mentors are allowed to judge projects
     def check_organizer_permissions

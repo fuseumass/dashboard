@@ -37,7 +37,7 @@
                   <% end %>
 
                   <td><%= link_to truncate(project.title, length: 30), project %></td>
-                  <td><a href="#" class="btn btn-primary">Judge</a></td>
+                  <td><%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -96,8 +96,8 @@
 
                   <td><%= link_to truncate(project.title, length: 30), project %></td>
                   <td>
-                    <a href="#" class="btn btn-primary">Judge</a>
 
+                    <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
 
                     <% if current_user.user_type = 'admin' %>
                       <%= link_to "Assign Judges", assign_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>

@@ -10,7 +10,7 @@
       <p>Assign judges to this project here. Once an assigned judge completes his scoring, this assignment will be removed automatically. Use the email address associated with the Judge's dashboard account when assigning them.</p>
       <%= form_tag judging_assign_path, method: :post, class:'col-lg-12' do%>
           <div class="input-group">
-            <%= text_field_tag :judge_email, params[:judge_email], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true %>
+            <%= text_field_tag :judge_email, params[:judge_email], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path} %>
             <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
             <span class="input-group-btn">
                 <%= button_tag 'Assign Judge', type: :submit, project_id: @project.id, class: 'btn btn-danger' %>

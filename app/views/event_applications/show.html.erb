@@ -17,9 +17,38 @@ document.addEventListener('turbolinks:before-visit', function(e) {
   }
 });
 </script>
+<style>
+      .event-application-td {
+        text-align: right
+      }
+      .event-application-name {
 
-<div class="my-4 my-md-5">
-  <div class="container">
+        width: 300px
+
+      }
+      .test {
+
+        height: 50px;
+      }
+      .test-pad {
+
+        margin-top: 10px;
+
+      }
+      .heading-test {
+
+        display: inline-block;
+
+      }
+      .button-test {
+
+        padding-top: 2px;
+        padding-bottom: 5px;
+
+      }
+      </style>
+<div class="button-test">
+  <div class="container button-test">
     <div class="row">
         <div class="row align-items-center event-application-nav-button-container">
           <div>
@@ -30,7 +59,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
            <% end %>
           </div>
           <div>
-          <h2> <center><%= @applicant.name %> </center></h2>
+          <h2 class="heading-test"> <center><%= @applicant.name %> </center></h2>
           <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
@@ -67,25 +96,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
         
         </div>
       
-      <style>
-      .event-application-td {
-        text-align: right
-      }
-      .event-application-name {
-
-        width: 300px
-
-      }
-      .test {
-
-        height: 50px;
-      }
-      .test-pad {
-
-        margin-top: 10px;
-
-      }
-      </style>
+      
       
       <div class="row">
       <div class="col-md-6">

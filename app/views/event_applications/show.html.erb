@@ -42,9 +42,9 @@ document.addEventListener('turbolinks:before-visit', function(e) {
     <div class="row">
         <div class="row align-items-center event-application-nav-button-container">
           <div>
-          <% if admin_or_organizer? %>
+          <% if !EventApplication.where("id < ?", @applicant.id).last.nil? && admin_or_organizer? %>
           <%= link_to 'Previous Applicant',
-                      event_application_path(@applicant.id-1),
+                      event_application_path(EventApplication.where("id < ?", @applicant.id).last.id),
                       class: 'btn btn-purple event-application-nav-button' %>
            <% end %>
           </div>
@@ -78,9 +78,9 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </span>
           <% end %>
           </div>
-          <div><% if admin_or_organizer? %>
+          <div><% !EventApplication.where("id > ?", @applicant.id).first.nil? && if admin_or_organizer? %>
           <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1),
+                      event_application_path(EventApplication.where("id > ?", @applicant.id).first.id),
                       class: 'btn btn-purple event-application-nav-button' %>
             <% end %></div>
         

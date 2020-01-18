@@ -76,13 +76,22 @@ document.addEventListener('turbolinks:before-visit', function(e) {
         width: 300px
 
       }
+      .test {
+
+        height: 50px;
+      }
+      .test-pad {
+
+        margin-top: 10px;
+
+      }
       </style>
       
       <div class="row">
       <div class="col-md-6">
       <div class="card">
 
-         <div class="card-header event-application-card-padding">
+         <div class="card-header event-application-card-padding test">
     <!-- Applicant's Status -->
         <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
           <div class="card-status bg-danger"></div>
@@ -98,7 +107,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       <p><h3>Application</h3>
 </div>
         <%= button_to 'Edit', edit_event_application_path(@applicant),
-                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button test-pad'} %>
       
     </div>
     
@@ -232,7 +241,8 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <div class="card-status bg-secondary"></div>
         <% end %>
       
-      <div class="event-application-flex-end-container">
+      <div class="event-application-flex-end-container test">
+        
           <% if admin_or_organizer? %>
             <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
               Resume Link
@@ -263,6 +273,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
                             {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
             <% end %>
           <% end %>
+      
 
         </div>
 

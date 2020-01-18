@@ -17,7 +17,8 @@ class JudgingController < ApplicationController
 
   def index
     # @assigned = Judgement.where({user_id: current_user.id})
-    @assigned = Project.joins(:judgement).where("judgements.user_id = ? AND score = -1", current_user.id)
+    @assigned = Project.joins(:judging_assignments)
+    # .where("judging_assignments.user_id = ?", current_user.id)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
     @scores = Judgement.all
 
@@ -31,26 +32,48 @@ class JudgingController < ApplicationController
 
   # GET route for assignment creation
   def assign
-    @judgement = Judgement.new
+    @project = Project.find_by(id: params[:project_id])
+    @assignments = JudgingAssignment.where(project_id: @project.id)
   end
 
-  # POST route for creating a placeholder judgement and assignment with user
-  def create_assignment
-    if(!params.has_key?(:project_id) or !params.has_key?(:email))
+  # POST route to assign a judge to a project
+  def add_judge_assignment
+    if (!params.has_key?(:project_id) or !params.has_key?(:judge_email))  # An error in params, likely when a user messes with the URL
       redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
-      broken link or refreshing a submitted form. Please try to assign the judge again, 
-      and if this fails contact an administrator.'
-      return
-    elsif (User.where(:email => params[:email]).empty?)
-      redirect_to assign_judging_index_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Invalid Judge Email Address.'
-    else
-      @judge_id = User.where(:email => params[:email]).first.id
-      @assignment = Judgement.new(:user_id => @judge_id, :project_id => params[:project_id], :score => -1)
-
+      broken link or refreshing a submitted form. Please try to assign the judge again, and if this fails contact an administrator.'
+    
+    elsif (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Invalid Judge Email Address.'
+    
+    elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
+    
+    else  # All is well, assign judge to project
+      @judge_id = User.where(:email => params[:judge_email]).first.id
+      @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
       if @assignment.save
         redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
       else
-        redirect_to assign_judging_index_path(:project_id => params[:project_id], :project_title => params[:project_title]), alert: 'Unable to assign judge to project.'
+        redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to assign judge to project.'
+      end
+    end
+  end
+
+  # POST route to unassign a judge from a project
+  def remove_judge_assignment
+    if (!params.has_key?(:project_id) or !params.has_key?(:judge_id))  # An error in params, likely when a user messes with the URL
+      redirect_to judging_index_path, alert: 'Unable to remove judge from project. This is likely from accessing a 
+      broken link or refreshing a submitted form. Please try to remove the judge again, and if this fails contact an administrator.'
+    
+    elsif (!JudgingAssignment.exists?(:user_id => params[:judge_id], :project_id => params[:project_id]))  # If no records match. When/if a user tries to change URL/request
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to remove assignment: The judge is not assigned to that project!'
+
+    else  # All is correct, remove judge from project
+      @assignment = JudgingAssignment.find_by(:user_id => params[:judge_id], :project_id => params[:project_id])
+      @assignment.destroy
+      respond_to do |format|
+        format.html { redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully unassigned judge from project.' }
+        format.json { head :no_content }
       end
     end
   end
@@ -72,7 +95,7 @@ class JudgingController < ApplicationController
 
   # POST route to submit a score for a project
   def assign_score
-
+    
   end
 
   def destroy

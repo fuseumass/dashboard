@@ -175,13 +175,16 @@ Rails.application.routes.draw do
 
 
   resources :judging do
-      post 'assign_score'
+    post 'assign_score'
     collection do
       get 'search', :as => :search
       get 'assign'
-      post 'create_assignment'
     end
   end
+
+  post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
+  post 'judging/unassign_judge' => 'judging#remove_judge_assignment', :as => :judging_unassign
+
 
 
 

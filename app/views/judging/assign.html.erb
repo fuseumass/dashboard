@@ -1,4 +1,53 @@
 <div class="page-header">
   <h1 class="page-title">Assign Judge to Project</h1>
 </div>
-<%= render 'assign_form', judgement: @judgement %>
+
+<div class="row">
+<div class="col-md-12 col-xl-12">
+  <div class="card">
+    <div class="card-body">
+      <h4> Project: <%= @project.title.capitalize %></h4>
+      <p>Assign judges to this project here. Once an assigned judge completes his scoring, this assignment will be removed automatically. Use the email address associated with the Judge's dashboard account when assigning them.</p>
+      <%= form_tag judging_assign_path, method: :post, class:'col-lg-12' do%>
+          <div class="input-group">
+            <%= text_field_tag :judge_email, params[:judge_email], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true %>
+            <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
+            <span class="input-group-btn">
+                <%= button_tag 'Assign Judge', type: :submit, project_id: @project.id, class: 'btn btn-danger' %>
+              </span>
+          </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<% if !@assignments.nil?%>
+  <div class="col-md-4 col-xl-4">
+    <div class="card">
+      <div class="card-body o-auto" style="height: 15rem">
+        <table class="table card-table">
+            <% @assignments.all.each do |asn| %>
+              <tr>
+                <td><%= asn.user.full_name.titleize %></td>
+                <td>
+                  <%= form_tag judging_unassign_path, method: :post, class:'col-lg-12' do%>
+                    <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
+                    <%= text_field_tag :judge_id, "", class: 'form-control', value: asn.user.id, required: true, hidden: true %>
+                    <%= button_tag 'Remove', type: :submit, class: 'btn btn-danger' %>
+                  <%end%>
+                </td>
+              </tr>
+            <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 col-xl-8">
+</div>
+<% end %>
+
+<div class="col-md-4 col-xl-4">
+  <%= link_to 'Return to Judging Home', judging_index_path, class: 'btn btn-secondary' %>
+</div>
+
+</div>

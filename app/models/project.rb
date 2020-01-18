@@ -8,7 +8,8 @@ class Project < ApplicationRecord
 
 	has_many :user
 
-	has_one :judgement
+	has_many :judgements
+	has_many :judging_assignments
 
 	has_attached_file :projectimage,
 										path: 'project/:filename'

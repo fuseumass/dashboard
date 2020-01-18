@@ -71,6 +71,11 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       .event-application-td {
         text-align: right
       }
+      .event-application-name {
+
+        width: 300px
+
+      }
       </style>
       
       <div class="row">
@@ -102,37 +107,37 @@ document.addEventListener('turbolinks:before-visit', function(e) {
         <div class="card-body event-application-card-padding">
           <table style="width:100%">
             <tr>
-              <td><label><b><center>Name: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Name: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.name %></td>
             </tr>
             
             <tr>
-              <td><label><b><center>Email: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Email: </center></b></label></td>
               <td class="event-application-td"><%= @user.email %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Phone: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Phone: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Gender: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Gender: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.gender %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Pronoun: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Pronoun: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.pronoun %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Education Level: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Education Level: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.education_lvl %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>University: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>University: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.university %></td>
             </tr>
 
@@ -142,23 +147,23 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </tr>
 
             <tr>
-              <td><label><b><center>Graduation Year: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Graduation Year: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.grad_year %></td>
             </tr>
 
             <tr>
-              <td><label><b>Food Restrictions: </b></label></td>
+              <td class="event-application-name"><label><b>Food Restrictions: </b></label></td>
               <td class="event-application-td"><%= @applicant.food_restrictions %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>T-Shirt Size: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>T-Shirt Size: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.t_shirt_size %></td>
             </tr>
 
            <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
             <tr>
-            <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+            <td class="event-application-name"><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
             <td class="event-application-td"><%= @applicant.custom_fields[c['name']] %></td>
             </tr>
           <% end %>
@@ -175,7 +180,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
               <p class='required-field'>
               <tr>
-             <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+             <td class="event-application-name"><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
               <td class="event-application-td"><%= @rsvp.answers[c['name']] %></td>
               </tr>
               </p>

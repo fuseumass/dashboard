@@ -17,20 +17,39 @@ document.addEventListener('turbolinks:before-visit', function(e) {
   }
 });
 </script>
-
-<div class="my-4 my-md-5">
+<style>
+      .event-application-td {
+        text-align: right
+      }
+      .event-application-name {
+        width: 300px
+      }
+      .event-application-col-height {
+        height: 50px;
+      }
+      .eventapp-edit-button {
+        margin-top: 10px;
+      }
+      .eventapp-user-heading {
+        display: inline-block;
+      }
+      .main-div-pad {
+        padding-top: 0px;
+      }
+</style>
+<div class="main-div-pad">
   <div class="container">
     <div class="row">
         <div class="row align-items-center event-application-nav-button-container">
           <div>
-          <% if admin_or_organizer? %>
+          <% if !EventApplication.where("id < ?", @applicant.id).last.nil? && admin_or_organizer? %>
           <%= link_to 'Previous Applicant',
-                      event_application_path(@applicant.id-1),
+                      event_application_path(EventApplication.where("id < ?", @applicant.id).last.id),
                       class: 'btn btn-purple event-application-nav-button' %>
            <% end %>
           </div>
           <div>
-          <h2> <center><%= @applicant.name %> </center></h2>
+          <h2 class="eventapp-user-heading"> <center><%= @applicant.name %> </center></h2>
           <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
@@ -59,25 +78,21 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </span>
           <% end %>
           </div>
-          <div><% if admin_or_organizer? %>
+          <div><% !EventApplication.where("id > ?", @applicant.id).first.nil? && if admin_or_organizer? %>
           <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1),
+                      event_application_path(EventApplication.where("id > ?", @applicant.id).first.id),
                       class: 'btn btn-purple event-application-nav-button' %>
             <% end %></div>
         
         </div>
       
-      <style>
-      .event-application-td {
-        text-align: right
-      }
-      </style>
+      
       
       <div class="row">
       <div class="col-md-6">
       <div class="card">
 
-         <div class="card-header event-application-card-padding">
+         <div class="card-header event-application-card-padding event-application-col-height">
     <!-- Applicant's Status -->
         <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
           <div class="card-status bg-danger"></div>
@@ -93,46 +108,46 @@ document.addEventListener('turbolinks:before-visit', function(e) {
       <p><h3>Application</h3>
 </div>
         <%= button_to 'Edit', edit_event_application_path(@applicant),
-                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button eventapp-edit-button'} %>
       
     </div>
     
         </div>
-        <div style="height:552px; overflow:auto;">
+        <div style="height:600px; overflow:auto;">
         <div class="card-body event-application-card-padding">
           <table style="width:100%">
             <tr>
-              <td><label><b><center>Name: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Name: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.name %></td>
             </tr>
             
             <tr>
-              <td><label><b><center>Email: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Email: </center></b></label></td>
               <td class="event-application-td"><%= @user.email %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Phone: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Phone: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Gender: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Gender: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.gender %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Pronoun: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Pronoun: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.pronoun %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>Education Level: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Education Level: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.education_lvl %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>University: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>University: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.university %></td>
             </tr>
 
@@ -142,23 +157,23 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </tr>
 
             <tr>
-              <td><label><b><center>Graduation Year: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>Graduation Year: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.grad_year %></td>
             </tr>
 
             <tr>
-              <td><label><b>Food Restrictions: </b></label></td>
+              <td class="event-application-name"><label><b>Food Restrictions: </b></label></td>
               <td class="event-application-td"><%= @applicant.food_restrictions %></td>
             </tr>
 
             <tr>
-              <td><label><b><center>T-Shirt Size: </center></b></label></td>
+              <td class="event-application-name"><label><b><center>T-Shirt Size: </center></b></label></td>
               <td class="event-application-td"><%= @applicant.t_shirt_size %></td>
             </tr>
 
            <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
             <tr>
-            <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+            <td class="event-application-name"><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
             <td class="event-application-td"><%= @applicant.custom_fields[c['name']] %></td>
             </tr>
           <% end %>
@@ -175,7 +190,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
               <p class='required-field'>
               <tr>
-             <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+             <td class="event-application-name"><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
               <td class="event-application-td"><%= @rsvp.answers[c['name']] %></td>
               </tr>
               </p>
@@ -227,7 +242,8 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <div class="card-status bg-secondary"></div>
         <% end %>
       
-      <div class="event-application-flex-end-container">
+      <div class="event-application-flex-end-container test">
+        
           <% if admin_or_organizer? %>
             <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
               Resume Link
@@ -258,6 +274,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
                             {class: 'btn btn-secondary btn-sm event-application-status-button'} %>
             <% end %>
           <% end %>
+      
 
         </div>
 

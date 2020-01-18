@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
       get 'signup', to: 'devise/registrations#new', as: :new_user_registration
       post 'signup', to: 'devise/registrations#create', as: :user_registration
+      patch 'signup', to: 'devise/registrations#update', as: :update_user_registration
       get 'change_pass', to: 'users#go_to_forgot'
     end
 

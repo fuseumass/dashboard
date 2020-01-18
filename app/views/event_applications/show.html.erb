@@ -21,37 +21,16 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 <div class="my-4 my-md-5">
   <div class="container">
     <div class="row">
-
-      <% if admin_or_organizer? %>
-
         <div class="row align-items-center event-application-nav-button-container">
+          <div>
+          <% if admin_or_organizer? %>
           <%= link_to 'Previous Applicant',
                       event_application_path(@applicant.id-1),
                       class: 'btn btn-purple event-application-nav-button' %>
-          <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1),
-                      class: 'btn btn-purple event-application-nav-button' %>
-        </div>
-
-      <% end %>
-
-      <div class="card">
-
-        <!-- Applicant's Status -->
-        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
-          <div class="card-status bg-danger"></div>
-        <% elsif 'accepted'.eql?(@status) %>
-          <div class="card-status bg-success"></div>
-        <% elsif 'waitlisted'.eql?(@status) %>
-          <div class="card-status bg-warning"></div>
-        <% else %>
-          <div class="card-status bg-secondary"></div>
-        <% end %>
-
-        <div class="card-header event-application-card-padding">
-          <h2 class="page-title event-application-page-title-margin-right">
-            Application Status:
-          </h2>
+           <% end %>
+          </div>
+          <div>
+          <h2> <center><%= @applicant.name %> </center></h2>
           <% if @applicant.flag && admin_or_organizer? %>
             <span class="tag tag-danger event-application-header-status-margin">
               Flagged
@@ -59,7 +38,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% end %>
           <% if @applicant.user.rsvp %>
             <span class="tag tag-success event-application-header-status-margin">
-              RSVP
+            RSVP
             </span>
           <% end %>
           <% if 'accepted'.eql?(@status) %>
@@ -79,82 +58,112 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               <%= @status.capitalize %>
             </span>
           <% end %>
+          </div>
+          <div><% if admin_or_organizer? %>
+          <%= link_to 'Next Applicant',
+                      event_application_path(@applicant.id+1),
+                      class: 'btn btn-purple event-application-nav-button' %>
+            <% end %></div>
+        
         </div>
+      
+      <style>
+      .event-application-td {
+        text-align: right
+      }
+      </style>
+      
+      <div class="row">
+      <div class="col-md-6">
+      <div class="card">
 
+         <div class="card-header event-application-card-padding">
+    <!-- Applicant's Status -->
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
+          <div class="card-status bg-danger"></div>
+        <% elsif 'accepted'.eql?(@status) %>
+          <div class="card-status bg-success"></div>
+        <% elsif 'waitlisted'.eql?(@status) %>
+          <div class="card-status bg-warning"></div>
+        <% else %>
+          <div class="card-status bg-secondary"></div>
+        <% end %>
+    <div class="event-application-nav-button-container">
+    <div>
+      <p><h3>Application</h3>
+</div>
+        <%= button_to 'Edit', edit_event_application_path(@applicant),
+                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
+      
+    </div>
+    
+        </div>
+        <div style="height:552px; overflow:auto;">
         <div class="card-body event-application-card-padding">
+          <table style="width:100%">
+            <tr>
+              <td><label><b><center>Name: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.name %></td>
+            </tr>
+            
+            <tr>
+              <td><label><b><center>Email: </center></b></label></td>
+              <td class="event-application-td"><%= @user.email %></td>
+            </tr>
 
-          <% if admin_or_organizer? %>
-            <label class='event-application-required-field event-application-flex-end-container'>
-              Required Fields for the Applicant &nbsp;
-            </label>
+            <tr>
+              <td><label><b><center>Phone: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Gender: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.gender %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Pronoun: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.pronoun %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Education Level: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.education_lvl %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>University: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.university %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Major: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.major %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>Graduation Year: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.grad_year %></td>
+            </tr>
+
+            <tr>
+              <td><label><b>Food Restrictions: </b></label></td>
+              <td class="event-application-td"><%= @applicant.food_restrictions %></td>
+            </tr>
+
+            <tr>
+              <td><label><b><center>T-Shirt Size: </center></b></label></td>
+              <td class="event-application-td"><%= @applicant.t_shirt_size %></td>
+            </tr>
+
+           <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
+            <tr>
+            <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+            <td class="event-application-td"><%= @applicant.custom_fields[c['name']] %></td>
+            </tr>
           <% end %>
+          </table>
 
-          <p class='required-field'>
-            <label><b>Name: </b></label>
-            <%= @applicant.name %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Email: </b></label>
-            <%= @user.email %>
-          </p>
-
-          <p>
-            <label><b>Phone: </b></label>
-            <%= @applicant.phone.empty? ? 'N/A' : @applicant.phone %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Age: </b></label>
-            <%= @applicant.age %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Gender: </b></label>
-            <%= @applicant.gender %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Pronoun: </b></label>
-            <%= @applicant.pronoun %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Education Level: </b></label>
-            <%= @applicant.education_lvl %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>University: </b></label>
-            <%= @applicant.university %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Major: </b></label>
-            <%= @applicant.major %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Graduation Year: </b></label>
-            <%= @applicant.grad_year %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>Food Restrictions: </b></label>
-            <%= @applicant.food_restrictions ? @applicant.food_restrictions_info : 'None' %>
-          </p>
-
-          <p class='required-field'>
-            <label><b>T-Shirt Size: </b></label>
-            <%= @applicant.t_shirt_size %>
-          </p>
-
-          <% HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.each do |c| %>
-            <p class='required-field'>
-              <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
-              <%= @applicant.custom_fields[c['name']] %>
-            </p>
-          <% end %>
 
 
         <% if CustomRsvp.where(user_id: @applicant.user_id).exists? %>
@@ -162,12 +171,16 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <% if @rsvp.answers %>
             <hr />
             <h3>Custom RSVP Questions:</h3>
+            <table>
             <% HackumassWeb::Application::RSVP_CUSTOM_FIELDS.each do |c| %>
               <p class='required-field'>
-                <label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label>
-                <%= @rsvp.answers[c['name']] %>
+              <tr>
+             <td><label title="<%= c['name'] %>"><b><%= c['label'].truncate(50) %>: </b></label></td>
+              <td class="event-application-td"><%= @rsvp.answers[c['name']] %></td>
+              </tr>
               </p>
             <% end %>
+            </table>
           <% end %>
         <% end %>
 
@@ -195,8 +208,26 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             </p>
           <% end %>
         <% end %>
-
-        <div class="event-application-flex-end-container">
+       
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="col-md-6">
+      <div class="card">
+    <!-- Applicant's Status -->
+        <% if @applicant.flag && admin_or_organizer? || 'denied'.eql?(@status)  %>
+          <div class="card-status bg-danger"></div>
+        <% elsif 'accepted'.eql?(@status) %>
+          <div class="card-status bg-success"></div>
+        <% elsif 'waitlisted'.eql?(@status) %>
+          <div class="card-status bg-warning"></div>
+        <% else %>
+          <div class="card-status bg-secondary"></div>
+        <% end %>
+      
+      <div class="event-application-flex-end-container">
           <% if admin_or_organizer? %>
             <a href="<%= @applicant.resume.url %>" class="btn btn-secondary btn-sm event-application-status-button" style="width: auto;padding-top: 9px;">
               Resume Link
@@ -228,63 +259,15 @@ document.addEventListener('turbolinks:before-visit', function(e) {
             <% end %>
           <% end %>
 
-          <%= button_to 'Edit', edit_event_application_path(@applicant),
-                        {method: 'get', class: 'btn btn-purple btn-sm event-application-status-button'} %>
         </div>
 
-      <% if admin_or_organizer? %>
-
-        <div class="row align-items-center event-application-nav-button-container">
-          <%= link_to 'Previous Applicant',
-                      event_application_path(@applicant.id-1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-
-          <span>
-            <b><%= @applicant.name %></b>
-
-            <% if @applicant.flag && admin_or_organizer? %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                Flagged
-              </span>
-            <% end %>
-            <% if @applicant.user.rsvp %>
-              <span class="tag tag-success event-application-header-status-margin">
-                RSVP
-              </span>
-            <% end %>
-            <% if 'accepted'.eql?(@status) %>
-              <span class="tag tag-success event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'denied'.eql?(@status) %>
-              <span class="tag tag-danger event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% elsif 'waitlisted'.eql?(@status) %>
-              <span class="tag tag-warning event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% else %>
-              <span class="tag tag-secondary event-application-header-status-margin">
-                <%= @status.capitalize %>
-              </span>
-            <% end %>
-          </span>
-
-          <%= link_to 'Next Applicant',
-                      event_application_path(@applicant.id+1) + '#theresume',
-                      class: 'btn btn-purple event-application-nav-button' %>
-        </div>
-
-      <% end %>
-
-      </div>
 
       <div class="event-application-resume-container">
       <a name="theresume" />
         <% if @applicant.resume and @applicant.resume.url %>
-          <object width="100%" height="100%" type='application/pdf' data="<%= @applicant.resume.url %>">
-            <iframe src="<%= @applicant.resume.url %>" width="100%" height="100%">
+  
+          <object width="100%" height="600px" type='application/pdf' data="<%= @applicant.resume.url %>">
+            <iframe src="<%= @applicant.resume.url %>" width="100%" height="600px">
               <p>There was error loading the resume, try refreshing the page to see if the
                 problem will be resolved. If the issue persists, contact the tech team.</p>
             </iframe>
@@ -293,7 +276,10 @@ document.addEventListener('turbolinks:before-visit', function(e) {
           <b style="color: red">No uploaded resume.</b>
         <% end %>
       </div>
-
+      
+      </div>
+      </div>
+      </div>
     </div>
   </div>
 </div>

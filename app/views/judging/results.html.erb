@@ -1,0 +1,31 @@
+<div class="page-header" style="position: relative">
+  <h1 class="page-title">Judging Results</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3>Project: <%= @project.title %></h3>
+
+        <% if @scores.nil? or @scores.empty? %>
+            <p>No Scores Submitted For This Project.</p>
+        <% else %>
+            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                <thead>
+                <tr>
+                    <th>Judge</th>
+                    <th>Score</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <% @scores.each do |score| %>
+                        <tr>
+                            <td><%= score.user.full_name %></td>
+                            <td><%= score.score %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
+    </div>
+</div>

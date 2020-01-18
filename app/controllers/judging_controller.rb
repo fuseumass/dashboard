@@ -4,7 +4,7 @@ class JudgingController < ApplicationController
   before_action :check_permissions
   before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
 
-  
+
   def search
     if params[:search].present?
       @projects = Project.left_outer_joins(:judgements => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
@@ -20,7 +20,6 @@ class JudgingController < ApplicationController
   def index
     @assigned = Project.joins(:judging_assignments)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
-    @scores = Judgement.all
 
     @judgementsCSV = Judgement.all
 
@@ -103,10 +102,12 @@ class JudgingController < ApplicationController
     end
   end
 
+
   # POST route to submit a score for a project
   def create
     # TODO: Implement Method
   end
+
 
   # POST route to remove a score from a project
   def destroy
@@ -118,6 +119,14 @@ class JudgingController < ApplicationController
     end
   end
 
+
+  def results
+    if (!params.has_key?(:project_id))
+      redirect_to judging_index_path, alert: 'Error: Unable to load results for project. Please ensure that the link is valid and try again.'
+    end
+    @project = Project.find_by(id: params[:project_id])
+    @scores = Judgement.where(project_id: @project.id)
+  end
 
   private
 

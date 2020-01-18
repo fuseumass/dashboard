@@ -38,51 +38,31 @@
                 <th>Table #</th>
                 <th>Title</th>
                 <th>Action</th>
-                <th>Judge</th>
-                <th>Score</th>
             </tr>
             </thead>
 
             <tbody>
             <% @projects.each do |project| %>
                 <tr>
-                <% if project.table_id.nil? %>
+                  <% if project.table_id.nil? %>
                     <td>TBD</td>
-                <% else %>
+                  <% else %>
                     <td><%= project.table_id %></td>
-                <% end %>
+                  <% end %>
 
-                <td><%= link_to truncate(project.title, length: 30), project %></td>
-                <td>
-                    <a href="#" class="btn btn-primary">Judge</a>
-                    <% if current_user.user_type = 'admin' and !project.judgement.nil? and project.judgement.score != -1 %>
-                    <%= link_to "Assign Judge", new_judging_path(:project_id => project.id, :project_title => project.title), class: 'btn btn-secondary' %>
-                    <% end %>
+                  <td><%= link_to truncate(project.title, length: 30), project %></td>
+                  <td>
+                  
+                    <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
 
-                    <% if !project.judgement.nil? and project.judgement.score == -1 %>
-                    <% @assignment = project.judgement %>
-                    <%= link_to "Unassign Judge", judging_path(@assignment.id), :method => :delete, class: 'btn btn-danger' %>
+                    <% if current_user.user_type = 'admin' %>
+                      <%= link_to "Assign Judges", assign_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
                     <% end %>
-                    
-                </td>
+                      
+                  </td>
 
-                <td>
-                    <% if !project.judgement.nil? %>
-                    <p><%= project.judgement.user.full_name %> </p>
-                    <% else %>
-                    <p>-</p>
-                    <% end %>
-                </td>
-
-                <td>
-                    <% if !project.judgement.nil? and project.judgement.score >= 0%>
-                    <p><%= project.judgement.score %> </p>
-                    <% else %>
-                    <p>-</p>
-                    <% end %>
-                </td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
         </table>
         <br>

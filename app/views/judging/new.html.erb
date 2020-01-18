@@ -1,0 +1,11 @@
+<br>
+<h3> Judge Project </h3>
+<!-- Alert user if they have been assigned this project. -->
+<% if !@assignment.nil? %>
+    <p class="text-green lead">You have been assigned this project to judge.</p>
+<% else %>
+    <p class="text-red lead mb-0">You have not been assigned this project to judge.</p>
+    <p class="text-red text-small mt-0">(You may still submit a judgement)</p>
+<% end %>
+
+<h1>TODO: Implement Dynamic Form That is Loaded In From Hackathon Config</h1>

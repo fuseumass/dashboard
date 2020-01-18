@@ -70,7 +70,7 @@ With Dashboard we wanted to create an application that's not only simple to cust
 # Get started using Dashboard
 To get started using Dashboard head over to the [wiki](https://github.com/hackumass/dashboard/wiki) and follow along!
 
-## Using Dashbaord?
+## Using Dashboard?
 Let us know! We'd love to add you to our list of current active users.
 
 # Issues?

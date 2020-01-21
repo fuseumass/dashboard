@@ -10,12 +10,14 @@
     <br>
     <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
         <div class="row gutters-xs">
-        <div class="col">
-            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, or judge\'s name', :autofocus => true %>
-        </div>
-        <span class="col-auto">
+          <div class="col">
+            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.', :autofocus => true %>
+          </div>
+          <span class="col-auto">
+            <a href="#" data-toggle="tooltip" title="You can search by status:judged, status:unjudged, status:assigned, status:unassigned to narrow down search results." data-placement="bottom"><i class="fe fe-help-circle"></i></a>
             <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
-        </span>
+            <a href="./judging.csv" class="btn btn-secondary">Download as CSV</a>
+          </span>
         </div>
     <%end%>
     </div>

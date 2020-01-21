@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_234839) do
+ActiveRecord::Schema.define(version: 2020_01_21_200442) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_234839) do
   create_table "judging_assignments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.index ["user_id", "project_id"], name: "index_judging_assignments_on_user_id_and_project_id", unique: true
   end
 
   create_table "majors", force: :cascade do |t|

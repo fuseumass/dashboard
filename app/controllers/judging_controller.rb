@@ -42,21 +42,23 @@ class JudgingController < ApplicationController
     if (!params.has_key?(:project_id) or !params.has_key?(:judge_email))  # An error in params, likely when a user messes with the URL
       redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
       broken link or refreshing a submitted form. Please try to assign the judge again, and if this fails contact an administrator.'
-    
-    elsif (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
+      return
+    end
+
+    @judge_id = User.where(:email => params[:judge_email]).first.id
+    if (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Invalid Judge Email Address.'
     
     elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
     
-    elsif (JudgingAssignment.exists?(:user_id => params[:judge_id], :project_id => params[:project_id]))  # If the judge is already assigned to this project.
-      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Judge is already assigned to this project!'
+    elsif (JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id]))  # If the judge is already assigned to this project.
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: '+params[:judge_email]+' is already assigned to judge this project!'
 
     else  # All is well, assign judge to project
-      @judge_id = User.where(:email => params[:judge_email]).first.id
       @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
       if @assignment.save
-        redirect_to judging_index_path, notice: 'Successfully assigned judge to project.'
+        redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully assigned judge to project.'
       else
         redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to assign judge to project.'
       end

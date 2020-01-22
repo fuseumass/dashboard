@@ -4,7 +4,7 @@ namespace :event do
   task :create, [:var] => :environment do |task, args|
     
     # To pass the right argument for the rake command, refer to the sample command:
-    # sudo ./docker_shell rake hardware:create[lib/tasks/sample_event_data.csv]
+    # sudo ./docker_shell rake event:create[lib/tasks/sample_event_data.csv]
     # You may chose to edit the sample CSV or pass in a different location of your CSV file within the brackets
 
   events = []

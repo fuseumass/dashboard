@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { 
-        if current_user.is_admin?  
+        if current_user.is_admin? or current_user.is_organizer? 
         send_data @all_events.to_csv, filename: "events.csv" 
         else 
           redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'

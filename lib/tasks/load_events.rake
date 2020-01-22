@@ -1,6 +1,6 @@
 require 'csv'
 namespace :event do 
-  desc 'Create all the hardware items'
+  desc 'Import all the Events from CSV'
   task :create, [:var] => :environment do |task, args|
     
     # To pass the right argument for the rake command, refer to the sample command:

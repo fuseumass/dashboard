@@ -11,8 +11,20 @@ class EventsController < ApplicationController
     end
     @all_events = Event.all.order(start_time: :asc)
     @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
+    
+    respond_to do |format|
+      format.html
+      format.csv { 
+        if current_user.is_admin? or current_user.is_organizer? 
+        send_data @all_events.to_csv, filename: "events.csv" 
+        else 
+          redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
+        end
+      }
+    end
+      
   end
-
+  
   def show
     @check_in_count = EventAttendance.where(event_id: @event.id, checked_in: true).count
     @rsvp_count = EventAttendance.where(event_id: @event.id).count
@@ -167,5 +179,8 @@ class EventsController < ApplicationController
     #  Only admins and organizers have the ability to create, update, edit, and destroy Events
     #  Everyone else can view.
     def check_permissions
+      unless current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
+      end
     end
 end

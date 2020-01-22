@@ -1,6 +1,11 @@
 <div class="page-header">
   <h1 class="page-title">Schedule</h1>
 </div>
+<% if current_user.is_admin? or current_user.is_organizer? %>
+<%= link_to 'Download CSV', events_path(@event, format: 'csv'), class: 'btn btn-secondary' %>
+<br><br>
+
+<% end %>
 
 <% if [true, false].sample %>
   <div class="alert alert-icon alert-primary" role="alert">

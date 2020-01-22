@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     end
     @all_events = Event.all.order(start_time: :asc)
     @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
+    
     respond_to do |format|
       format.html
       format.csv { 

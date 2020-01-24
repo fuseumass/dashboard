@@ -1,0 +1,29 @@
+
+<tr onMouseOver="$('#description').html('<%= feature_flag.description %>')" 
+    onMouseOut="$('#description').html(' Hover over flag for more ')">
+    <td>
+        <% if feature_flag.value == true %>
+            <span class="stamp stamp-md bg-green">
+            <i class="fe fe-check"></i>
+            </span>
+        <% else %>
+            <span class="stamp stamp-md bg-red">
+            <i class="fe fe-alert-circle"></i>
+            </span>
+        <% end %>
+    </td>
+    <td style="vertical-align: middle"><%= feature_flag.display_name %></td>
+    <td align="right" style="vertical-align: middle">
+        <% if feature_flag.value == true%>
+        <%= button_to 'Disable',
+            {controller:'feature_flags', action: 'disable',
+            params: {flag: feature_flag}},
+            {class: 'btn btn-secondary btn-sm'} %>
+        <% else %>
+        <%= button_to 'Enable',
+            {controller:'feature_flags', action: 'enable',
+            params: {flag: feature_flag}},
+            {class: 'btn btn-secondary btn-sm'} %>
+        <% end %>
+    </td>
+</tr>

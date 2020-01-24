@@ -1,45 +1,53 @@
 <div class="page-header">
   <h1 class="page-title">Feature Flags</h1>
+  <div>
+    <br/>
+    <h1 class="page-subtitle">Description: </h1> 
+    <p class="page-subtitle leading-tight" id="description" style="vertical-align: middle"> Hover over flag for more </p> 
+  </div>
 </div>
 
-<div class="col-lg-5">
-  <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">Features</h4>
+<div class="row row-cards ">
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Getting Started</h4>
+      </div>
+      <table class="table card-table">
+        <tbody>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Applications' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Check-Ins' ).first %>
+        </tbody>
+      </table>
     </div>
-    <table class="table card-table">
-      <tbody>
-        <% @feature_flags.each do |feature_flag| %>
-        <tr>
-          <td>
-            <% if feature_flag.value == true%>
-            <span class="stamp stamp-md bg-green">
-              <i class="fe fe-check"></i>
-            </span>
-            <% else %>
-            <span class="stamp stamp-md bg-red">
-              <i class="fe fe-alert-circle"></i>
-            </span>
-            <% end %>
-          </td>
-          <td style="vertical-align: middle"><%= feature_flag.display_name %></td>
-          <td style="vertical-align: middle">
-            <% if feature_flag.value == true%>
-            <%= button_to 'Disable',
-              {controller:'feature_flags', action: 'disable',
-              params: {flag: feature_flag}},
-              {class: 'btn btn-secondary btn-sm'} %>
-            <% else %>
-              <%= button_to 'Enable',
-                {controller:'feature_flags', action: 'enable',
-                params: {flag: feature_flag}},
-                {class: 'btn btn-secondary btn-sm'} %>
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Let the hacking begin!</h4>
+      </div>
+      <table class="table card-table">
+        <tbody>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Schedule' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Mentorship Requests' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Hardware Requests' ).first %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">After Hacks</h4>
+      </div>
+      <table class="table card-table">
+        <tbody>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Prizes' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: Create' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: View' ).first %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

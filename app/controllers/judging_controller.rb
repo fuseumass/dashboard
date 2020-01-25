@@ -117,7 +117,16 @@ class JudgingController < ApplicationController
 
   # POST route to submit a score for a project
   def create
-    # TODO: Implement Method
+    puts "params: #{judging_score_params}"
+    puts "cfields params: #{judging_score_params['custom_fields']}"
+    @judgement = Judgement.new(judging_score_params)
+    @judgement.score = current_user
+
+    if @judgement.save
+      redirect_to index_path, notice: 'Thank you for judging this project!'
+    else
+      render :new
+    end
   end
 
 
@@ -156,5 +165,14 @@ class JudgingController < ApplicationController
       unless current_user.is_organizer? or current_user.is_admin?
         redirect_to index_path, alert: 'You do not have permission to access this judging feature.'
       end
+    end
+
+    # gives 
+    def judging_score_params
+      total_score = 0
+      HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+        total_score += c
+      end
+      params.require(:judgement).permit(score: total_score)
     end
 end

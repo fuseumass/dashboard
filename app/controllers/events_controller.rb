@@ -14,9 +14,10 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.json { render json: @all_events }
       format.csv { 
         if current_user.is_admin? or current_user.is_organizer? 
-        send_data @all_events.to_csv, filename: "events.csv" 
+          send_data @all_events.to_csv, filename: "events.csv" 
         else 
           redirect_to index_path, alert: 'You do not have the permissions to visit the admin page'
         end

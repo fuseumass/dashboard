@@ -1,116 +1,3063 @@
-1,American International College,Springfield,Private,Master's,2678,1885,1933
-2,Amherst College,Amherst,Private,Baccalaureate,1683,1821,1929
-3,Andover Newton Theological School,Newton,Private,Special-focus institution,350,1965,1978
-4,Anna Maria College,Paxton,Private,Master's & Baccalaureate,1244,1946,1955
-5,Assumption College,Worcester,Private,Master's,2872,1904,1949
-6,Babson College,Wellesley,Private,Special-focus institution,3434,1919,1950
-7,Bard College at Simon's Rock,Great Barrington,Private,Baccalaureate,403,1964,1973
-8,Bay Path College,Longmeadow,Private,Baccalaureate,1603,1897,1965
-9,Bay State College,Boston,For-profit,Baccalaureate,354,1946,2008
-10,Becker College,Worcester,Private,Baccalaureate,1800,1784,1992
-11,Benjamin Franklin Institute of Technology,Boston,Private,Special-focus institution,513,1908,2006
-12,Bentley University,Waltham,Private,Master's,5636,1917,1966
-13,Berklee College of Music,Boston,Private,Special-focus institution,4090,1945,1973
-14,Berkshire Community College,Pittsfield,Public,Associate�s,2267,1960,1964
-15,Blessed John XXIII National Seminary,Weston,Private,Special-focus institution,56,1964,--
-16,Boston Architectural College,Boston,Private,Special-focus institution,1338,1889,1991
-17,Boston Baptist College,Milton,Private,Special-focus institution,153,1976,--
-18,Boston College,Chestnut Hill,Private,Research university,14621,1863,1935
-19,Boston Conservatory,Boston,Private,Special-focus institution,630,1867,1968
-20,Boston Graduate School of Psychoanalysis,Brookline,Private,Special-focus institution,178,1973,1996
-21,Boston University,Boston,Private,Research university,32053,1839,1929
-22,Brandeis University,Waltham,Private,Research university,5333,1948,1953
-23,Bridgewater State University,Bridgewater,Public,Master's,9934,1840,1953
-24,Bristol Community College,Fall River,Public,Associate�s,7388,1965,1970
-25,Bunker Hill Community College,Boston,Public,Associate�s,8806,1973,1976
-26,Cambridge College,Cambridge,Private,Master's,5355,1971,1981
-27,Cape Cod Community College,West Barnstable,Public,Associate�s,4299,1961,1967
-28,Clark University,Worcester,Private,Research university,3210,1887,1929
-29,College of the Holy Cross,Worcester,Private,Baccalaureate,2847,1843,1930
-30,Conway School of Landscape Design,Conway,Private,Special-focus institution,19,1972,1989
-31,Curry College,Milton,Private,Baccalaureate,3182,1879,1970
-32,Dean College,Franklin,Private,Associate's & Bachelor's,1075,1865,1957
-33,Eastern Nazarene College,Quincy,Private,Baccalaureate,1075,1900,1943
-34,Elms College,Chicopee,Private,Baccalaureate,1258,1928,1942
-,College of Our Lady of the Elms,,,,,,
-35,Emerson College,Boston,Private,Master's,4380,1880,1950
-36,Emmanuel College,Boston,Private,Master's,2467,1919,1933
-37,Endicott College,Beverly,Private,Baccalaureate,3710,1939,1952
-38,Episcopal Divinity School,Cambridge,Private,Special-focus institution,108,1975,--
-39,Fisher College,Boston,Private,Baccalaureate,1225,1903,1970
-40,Fitchburg State University,Fitchburg,Public,Master's,6692,1894,1953
-41,Framingham State University,Framingham,Public,Master's,5903,1839,1950
-42,Franklin W. Olin College of Engineering,Needham,Private,--,299,1997,2006
-43,Gordon College,Wenham,Private,Baccalaureate,1648,1889,1961
-44,Gordon-Conwell Theological Seminary,South Hamilton,Private,Special-focus institution,2134,1969,1985
-45,Greenfield Community College,Greenfield,Public,Associate�s,2236,1962,1966
-46,Hampshire College,Amherst,Private,Baccalaureate,1431,1970,1974
-47,Harvard University,Cambridge,Private,Research university,25690,1636,1929
-48,Hebrew College,Newton,Private,Special-focus institution,201,1921,1955
-49,Hellenic College and Holy Cross Greek Orthodox School of Theology,Brookline,Private,Special-focus institution,211,1937,1974
-50,Holyoke Community College,Holyoke,Public,Associate�s,6461,1946,1970
-51,Hult International Business School,Cambridge,Private,Special-focus institution,,1964,1976
-52,Labour College,Boston,Private,Associate's,548,1892,2005
-53,Lasell College,Newton,Private,Baccalaureate,1630,1851,1932
-54,Lesley University,Cambridge,Private,Master's,7003,1909,1952
-55,Longy School of Music,Cambridge,Private,Special-focus institution,1403,1915,1995
-56,Marian Court College,Swampscott,Private,Associate�s,350,1964,2004
-57,Massachusetts Bay Community College,Wellesley,Public,Associate�s,5018,1961,1967
-58,Massachusetts College of Art and Design,Boston,Public,Special-focus institution,2312,1873,1954
-59,Massachusetts College of Liberal Arts,North Adams,Public,Baccalaureate,1841,1894,1953
-60,Massachusetts College of Pharmacy and Health Sciences,Boston,Private,Special-focus institution,3626,1823,1974
-61,Massachusetts Institute of Technology,Cambridge,Private,Research university,10220,1861,1929
-62,Massachusetts Maritime Academy,Bourne,Public,Baccalaureate,1135,1891,1974
-63,Massachusetts School of Law,Andover,Private,Special-focus institution,636,1988,1997
-64,Massachusetts School of Professional Psychology,Boston,Private,Special-focus institution,304,1974,1984
-65,Massasoit Community College,Brockton,Public,Associate�s,7064,1966,1971
-66,Merrimack College,North Andover,Private,Baccalaureate,2098,1947,1953
-67,Middlesex Community College,Bedford,Public,Associate�s,8124,1970,1973
-68,Montserrat College of Art,Beverly,Private,Special-focus institution,285,1970,1995
-69,Mount Holyoke College,South Hadley,Private,Baccalaureate,2204,1837,1929
-70,Mount Ida College,Newton,Private,Baccalaureate,1429,1899,1970
-71,Mount Wachusett Community College,Gardner,Public,Associate�s,4147,1963,1968
-72,New England College of Optometry,Boston,Private,Special-focus institution,464,1894,1976
-73,New England Conservatory,Boston,Private,Special-focus institution,787,1867,1951
-74,New England Institute of Art,Brookline,For-profit,Special-focus institution,1675,1952,2004
-75,New England School of Law,Boston,Private,Special-focus institution,1103,1938,--
-76,Newbury College,Brookline,Private,Baccalaureate,1202,1962,2000
-77,Nichols College,Dudley,Private,Special-focus institution,1477,1815,1965
-78,North Shore Community College,Lynn,Public,Associate�s,7107,1965,1969
-79,Northeastern University,Boston,Private,Research university,24434,1898,1940
-80,Northern Essex Community College,Haverhill,Public,Associate�s,6526,1972,1969
-81,Northpoint Bible College,Haverhill,Private,Special-focus institution,265,1924,--
-82,Pine Manor College,Chestnut Hill,Private,Baccalaureate,472,1911,1939
-83,Quincy College,Quincy,Public,Associate�s,3932,1958,1980
-84,Quinsigamond Community College,Worcester,Public,Associate�s,6654,1963,1967
-85,Regis College,Weston,Private,Master's,1511,1927,1933
-86,Roxbury Community College,Roxbury,Public,Associate�s,2398,1973,1981
-87,Saint John's Seminary,Brighton,Private,Special-focus institution,118,1884,1969
-88,Salem State University,Salem,Public,Master's,10085,1854,1953
-89,Salter College,West Boylston,For-profit,--,301,1937,--
-90,School of the Museum of Fine Arts,Boston,Private,Special-focus institution,797,1876,--
-91,Simmons College,Boston,Private,Master's,4733,1899,1929
-92,Smith College,Northampton,Private,Baccalaureate,3065,1875,1929
-93,Southern New England School of Law,North Dartmouth,Private,Special-focus institution,256,1981,1995
-94,Springfield College,Springfield,Private,Master's,4755,1885,1930
-95,Springfield Technical Community College,Springfield,Public,Associate�s,6074,1967,1971
-96,Stonehill College,Easton,Private,Baccalaureate,2450,1948,1959
-97,Suffolk University,Boston,Private,Research university,9103,1906,1952
-98,Tufts University,Medford,Private,Research university,9758,1852,1929
-99,University of Massachusetts Amherst (UMass),Amherst,Public,Research university,25873,1863,1932
-100,University of Massachusetts Boston,Boston,Public,Research university,13433,1964,1972
-101,University of Massachusetts Dartmouth,Dartmouth,Public,Master's,9080,1895,1964
-102,University of Massachusetts Lowell,Lowell,Public,Research university,16969,1894,1975
-103,University of Massachusetts Medical School,Worcester,Public,Special-focus institution,1013,1962,1997
-104,Urban College of Boston,Boston,Private,Associate�s,673,1993,2001
-105,Wellesley College,Wellesley,Private,Baccalaureate,2380,1875,1929
-106,Wentworth Institute of Technology,Boston,Private,Special-focus institution,3728,1904,1967
-107,Western New England University,Springfield,Private,Master's,3657,1919,1965
-108,Westfield State University,Westfield,Public,Master's,5392,1838,1957
-109,Wheaton College,Norton,Private,Baccalaureate,1657,1834,1929
-110,Wheelock College,Boston,Private,Master's,1086,1939,1950
-111,Williams College,Williamstown,Private,Baccalaureate,2073,1793,1929
-112,Woods Hole Oceanographic Institution,Woods Hole,Private,Special-focus institution,,1930,2001
-113,Worcester Polytechnic Institute,Worcester,Private,Research university,4158,1865,1937
-114,Worcester State University,Worcester,Public,Master's,5358,1874,1957
-115,New York University (NYU),New York,Public,NYU,--,--,--
+1,Community College of the Air Force
+2,University of Alabama at Birmingham
+3,Central Alabama Community College
+4,Athens State University
+5,Auburn University Main Campus
+6,Enterprise State Community College
+7,James H. Faulkner State Community College
+8,Faulkner University
+9,Gadsden Business College
+10,Gadsden State Community College
+11,George C Wallace Community College
+12,J F Ingram State Technical College
+13,Jefferson Davis Community College
+14,Jefferson State Community College
+15,Calhoun Community College
+16,Lurleen B Wallace Community College
+17,Northwest-Shoals Community College - Muscle Shoals
+18,Alabama Southern Community College
+19,Prince Institute - Southeast
+20,Reid State Technical College
+21,Shelton State Community College
+22,University of South Alabama
+23,H. Councill Trenholm State Community College
+24,Troy University
+25,Bevill State Community College
+26,University of Alaska Fairbanks
+27,Alaska Vocational Technical Center
+28,Charter College
+29,Everest College - Phoenix
+30,Thunderbird School of Global Management
+31,Carrington College - Phoenix
+32,Arizona State University
+33,Arizona Western College
+34,University of Arizona
+35,Southwest University of Visual Arts
+36,Brillare Hairdressing Academy - Scottsdale
+37,Central Arizona College
+38,Charles of Italy Beauty College
+39,Eastern Arizona College
+40,Maricopa Community Colleges - Glendale Community College
+41,Grand Canyon University
+42,Anthem College - Phoenix
+43,International Academy of Hair Design - Mesa
+44,Maricopa Community Colleges - Gateway Community College
+45,Maricopa Community Colleges - Mesa Community College
+46,Mohave Community College
+47,Dine College
+48,Northern Arizona University
+49,Northland Pioneer College
+50,University of Phoenix
+51,Pima Community College
+52,Pima Medical Institute
+53,Prescott College
+54,Western International University
+55,Yavapai College
+56,University of Arkansas at Little Rock
+57,University of Arkansas for Medical Sciences
+58,"ABC Beauty College, Inc."
+59,Arkansas Baptist College
+60,Arkansas College of Barbering and Hair Design
+61,Arthur's Beauty College
+62,"University of Arkansas, Fayetteville"
+63,University of Arkansas at Pine Bluff
+64,Arkansas State University - Beebe
+65,Arkansas State University
+66,Arkansas Tech University
+67,University of Arkansas at Monticello
+68,Bee-Jay's Hairstyling Academy
+69,Black River Technical College
+70,University of Central Arkansas
+71,Central Baptist College
+72,Cossatot Community College of the University of Arkansas
+73,East Arkansas Community College
+74,Eastern College of Health Vocations
+75,Imagine - Paul Mitchell Partner School
+76,National Park College
+77,University of Arkansas Community College-Batesville
+78,Harding University
+79,Henderson State University
+80,John Brown University
+81,Career Academy of Hair Design
+82,Arkansas Northeastern College
+83,North Arkansas College
+84,Ouachita Baptist University
+85,Ozarka College
+86,Phillips Community College of the University of Arkansas
+87,University of Arkansas - Pulaski Technical College
+88,University of Arkansas Community College at Hope-Texarkana
+89,University of Arkansas Rich Mountain
+90,South Arkansas Community College
+91,Southern Arkansas University Main Campus
+92,Southern Arkansas University Tech
+93,University of Arkansas-Fort Smith
+94,Academy of Art University
+95,American Career College
+96,Azusa Pacific University
+97,Biola University
+98,Brooks College
+99,California Lutheran University
+100,Alliant International University
+101,California State University - Bakersfield
+102,California State University - Stanislaus
+103,California State University - San Bernardino
+104,"California State Polytechnic University, Pomona"
+105,California State University - Chico
+106,California State University - Dominguez Hills
+107,California State University - Fresno
+108,California State University - Fullerton
+109,California State University - East Bay
+110,California State University - Los Angeles
+111,California State University - Sacramento
+112,University of California - Davis
+113,"University of California, Irvine"
+114,"University of California, Riverside"
+115,"University of California, San Francisco"
+116,"University of California, Santa Cruz"
+117,California College-San Diego
+118,California Hair Design Academy
+119,Casa Loma College
+120,Center for Employment Training
+121,Chapman University
+122,San Diego Christian College
+123,Milan Institute - Visalia
+124,Coleman University
+125,Western University of Health Sciences
+126,Western Beauty Institute
+127,Marinello School of Beauty - Hemet
+128,Dominican University of California
+129,Marinello School of Beauty - Santa Clara
+130,SDCCD Continuing Education
+131,Marinello School of Beauty - Burbank
+132,Marinello School of Beauty - Moreno Valley
+133,FIDM/Fashion Institute of Design & Merchandising
+134,Fresno Pacific University
+135,Fuller Theological Seminary
+136,Gateway Seminary
+137,Golden Gate University
+138,Pacifica Graduate Institute
+139,Humphreys University
+140,TONI & GUY Hairdressing Academy
+141,John F. Kennedy University
+142,Life Pacific University
+143,La Sierra University
+144,Loma Linda University
+145,The Master's University and Seminary
+146,Loyola Marymount University
+147,Brightwood College - Sacramento
+148,Brightwood College - San Diego
+149,Brightwood College - Vista
+150,Marinello School of Beauty - Los Angeles
+151,Marymount California University
+152,Marinello School of Beauty - San Francisco
+153,Brightwood College - North Hollywood
+154,Montessori Teacher Education Center - San Francisco Bay Area
+155,Mount Saint Mary's University
+156,Mueller College
+157,Everest College - Alhambra
+158,Everest College - San Bernardino
+159,National Holistic Institute
+160,National University
+161,Naval Postgraduate School
+162,North Adrian's Beauty College
+163,Notre Dame de Namur University
+164,Otis College of Art and Design
+165,Hope International University
+166,Pacific Oaks College
+167,Pacific School of Religion
+168,Pacific Union College
+169,University of the Pacific
+170,Patten University
+171,Pepperdine University
+172,Point Loma Nazarene University
+173,University of Redlands
+174,Salon Success Academy
+175,Samuel Merritt University
+176,San Diego State University
+177,San Francisco Art Institute
+178,San Francisco State University
+179,University of San Francisco
+180,San Joaquin Valley College
+181,William Jessup University
+182,San Jose State University
+183,Santa Barbara Business College - Bakersfield
+184,Santa Barbara Business College - Santa Maria
+185,Santa Clara University
+186,Saybrook University
+187,Saint Mary's College of California
+188,Sonoma State University
+189,Pinnacle College
+190,South Baylo University
+191,Southwestern College
+192,University of Southern California
+193,Cambridge Junior College - Yuba City
+194,Marinello School of Beauty - Lake Forest
+195,Carrington College
+196,Whittier College
+197,Woodbury University
+198,Adams State University
+199,Aims Community College
+200,Arapahoe Community College
+201,Altierus Career College
+202,University of Colorado Denver
+203,University of Colorado at Colorado Springs
+204,Spartan College of Aeronautics and Technology
+205,Colorado Christian University
+206,Concorde Career College - Aurora
+207,The Art Institute of Colorado
+208,Colorado Mountain College
+209,Colorado Northwestern Community College
+210,Colorado State University
+211,Colorado Technical University
+212,Community College of Aurora
+213,Technical College of the Rockies
+214,Community College of Denver
+215,Denver Seminary
+216,University of Denver
+217,Emily Griffith Technical College
+218,Fort Lewis College
+219,Front Range Community College
+220,Colorado Mesa University
+221,Metropolitan State University of Denver
+222,Morgan Community College
+223,Naropa University
+224,Nazarene Bible College
+225,Northeastern Junior College
+226,University of Northern Colorado
+227,Pikes Peak Community College
+228,Pueblo Community College
+229,Red Rocks Community College
+230,Regis University
+231,Montessori Education Center of the Rockies
+232,Colorado State University - Pueblo
+233,IntelliTec College - Grand Junction
+234,Trinidad State Junior College
+235,Albertus Magnus College
+236,Asnuntuck Community College
+237,Branford Hall Career Institute - Branford Campus
+238,Lincoln College of New England
+239,University of Bridgeport
+240,Central Connecticut State University
+241,University of Connecticut
+242,Goodwin University
+243,Fairfield University
+244,American Institute
+245,Hartford Seminary
+246,University of Hartford
+247,Holy Apostles College and Seminary
+248,Naugatuck Valley Community College
+249,Middlesex Community College - Middletown
+250,Three Rivers Community College
+251,University of New Haven
+252,Ridley-Lowell Business and Technical Institute - New London
+253,Marinello School of Beauty
+254,Post University
+255,Quinebaug Valley Community College
+256,Quinnipiac University
+257,Sacred Heart University
+258,University of Saint Joseph
+259,Gateway Community College
+260,St Vincent's College at Sacred Heart University
+261,Southern Connecticut State University
+262,Stone Academy
+263,Western Connecticut State University
+264,Yale University
+265,Delaware Technical and Community College - Owens
+266,Delaware Technical Community College
+267,Delaware State University
+268,University of Delaware
+269,Wesley College
+270,Wilmington University
+271,American University
+272,Catholic University of America
+273,Corcoran College of Art and Design
+274,National Intelligence University
+275,University of the District of Columbia
+276,"George Washington University, The"
+277,Georgetown University
+278,Howard University
+279,Strayer University
+280,Trinity Washington University
+281,Atlantic Technical College
+282,The Baptist College of Florida
+283,Barry University
+284,Bethune - Cookman University
+285,"GUTI, The Premier Beauty and Wellness Academy - Bradenton"
+286,North Florida Technical College
+287,Eastern Florida State College
+288,Broward College
+289,Fortis College- Winter Park
+290,College of Central Florida
+291,University of Central Florida
+292,Charlotte Technical College
+293,Daytona State College
+294,Florida SouthWestern State College
+295,Embry-Riddle Aeronautical University - Daytona Beach
+296,Florida Agricultural and Mechanical University
+297,Florida Atlantic University
+298,Florida State College at Jacksonville
+299,Flagler College
+300,The College of the Florida Keys
+301,Florida Memorial University
+302,Florida Career College - Miami
+303,Florida Southern College
+304,Florida State University
+305,Florida Technical College
+306,University of Southernmost Florida
+307,University of Florida
+308,George Stone Technical College
+309,Hillsborough Community College
+310,Hollywood Institute of Beauty Careers
+311,Indian River State College
+312,Miami International University of Art and Design
+313,Keiser University
+314,Heritage Institute
+315,Florida Gateway College
+316,Lake Technical College
+317,Lake-Sumter State College
+318,Fort Myers Technical College
+319,Lively Technical College
+320,Lindsey Hopkins Technical College
+321,Manatee Technical College
+322,Manhattan Hairstyling Academy
+323,Miami Lakes Educational Center and Technical College
+324,Miami Dade College
+325,University of Miami
+326,Orange Technical College-Mid Florida Campus
+327,Paul Mitchell The School - Jacksonville
+328,Florida School of Traditional Midwifery
+329,Nova Southeastern University
+330,Northwest Florida State College
+331,Palm Beach Atlantic University
+332,Palm Beach State College
+333,Pasco-Hernando State College
+334,Pensacola State College
+335,Polk State College
+336,Robert Morgan Educational Center and Technical College
+337,Rollins College
+338,First Coast Technical College
+339,Saint Leo University
+340,St. Petersburg College
+341,Pinellas Technical College - St. Petersburg Campus
+342,Santa Fe College
+343,Suncoast Technical College
+344,Seminole State College of Florida
+345,Sheridan Technical College
+346,St. Johns River State College
+347,South Florida State College
+348,University of South Florida
+349,Stenotype Institute of Jacksonville Inc
+350,Stetson University
+351,Bene's Career Academy
+352,Tallahassee Community College
+353,Valencia College
+354,Florida Panhandle Technical College
+355,Webber International University
+356,The University of West Florida
+357,Orange Technical College - Westside Campus
+358,William T. McFatter Technical College
+359,Orange Technical College - Winter Park Campus
+360,Withlacoochee Technical College
+361,Abraham Baldwin Agricultural College
+362,Interactive College of Technology
+363,Albany Technical College
+364,Albany State University
+365,Armstrong State University
+366,The Art Institute of Atlanta
+367,Georgia Career Institute
+368,Augusta Technical College
+369,East Central Technical College
+370,Brenau University
+371,Brewton-Parker College
+372,College of Coastal Georgia
+373,Columbus Technical College
+374,Georgia Northwestern Technical College
+375,Pro Way Hair School
+376,South University
+377,East Georgia State College
+378,Emory University
+379,Fort Valley State University
+380,Georgia Institute of Technology - Main Campus
+381,Georgia Southwestern State University
+382,Gainesville State College
+383,Georgia College and State University
+384,Georgia Military College - Milledgeville
+385,Georgia Southern University
+386,University of Georgia
+387,Gwinnett College
+388,LaGrange College
+389,Lanier Technical College
+390,Central Georgia Technical College
+391,Chattahoochee Technical College
+392,Mercer University
+393,Moultrie Technical College
+394,North Georgia Technical College
+395,Piedmont College
+396,Portfolio Center
+397,Reinhardt University
+398,Savannah Technical College
+399,Savannah College of Art and Design
+400,Shorter University
+401,South Georgia Technical College
+402,Southern Regional Technical College
+403,Toccoa Falls College
+404,West Georgia Technical College
+405,Wiregrass Georgia Technical College
+406,Wesleyan College
+407,University of West Georgia
+408,Chaminade University of Honolulu
+409,University of Hawaii at Manoa
+410,Hawaii Pacific University
+411,University of Hawaii Maui College
+412,Idaho State University
+413,College of Idaho
+414,Adler University
+415,Aurora University
+416,Southwestern Illinois College
+417,Bethany Theological Seminary
+418,Black Hawk College
+419,Blessing-Rieman College of Nursing and Health Sciences
+420,Bradley University
+421,Paul Mitchell The School Bradley
+422,Capri Beauty College
+423,Carl Sandburg College
+424,Midwestern University
+425,Chicago State University
+426,University of Chicago
+427,City Colleges of Chicago-Kennedy-King College
+428,City Colleges of Chicago-Malcolm X College
+429,City Colleges of Chicago-Richard J Daley College
+430,City Colleges of Chicago-Harold Washington College
+431,City Colleges of Chicago - Wilbur Wright College
+432,Concordia University Chicago
+433,Danville Area Community College
+434,"Tricoci University of Beauty Culture, LLC"
+435,DePaul University
+436,Cosmetology and Spa Academy
+437,College of DuPage
+438,East-West University
+439,Eastern Illinois University
+440,Elgin Community College
+441,Elmhurst College
+442,First Institute
+443,Fox College Inc
+444,Governors State University
+445,Greenville University
+446,G Skin & Beauty Institute
+447,Hebrew Theological College
+448,Highland Community College
+449,University of Illinois at Chicago
+450,Benedictine University
+451,University of Illinois at Urbana-Champaign
+452,Illinois Central College
+453,Illinois Institute of Technology
+454,Illinois State University
+455,Illinois Valley Community College
+456,John A Logan College
+457,John Wood Community College
+458,Joliet Junior College
+459,Judson University
+460,Kankakee Community College
+461,Kaskaskia College
+462,Kendall College
+463,College of Lake County
+464,Lake Forest Graduate School of Management
+465,Lake Land College
+466,Lakeview College of Nursing
+467,Lewis and Clark Community College
+468,Lewis University
+469,Lincoln Christian University
+470,Lincoln College
+471,Lincoln Land Community College
+472,Loyola University Chicago
+473,Lutheran School of Theology at Chicago
+474,MacCormac College
+475,McHenry County College
+476,McKendree University
+477,Millikin University
+478,Moody Bible Institute
+479,Moraine Valley Community College
+480,National Louis University
+481,National University of Health Sciences
+482,North Central College
+483,North Park University
+484,Northern Baptist Theological Seminary
+485,Northern Illinois University
+486,Northwestern University
+487,Northeastern Illinois University
+488,Oakton Community College
+489,Olivet Nazarene University
+490,Parkland College
+491,Quincy University
+492,The Illinois Institute of Art - Chicago
+493,Rend Lake College
+494,Robert Morris University - Illinois
+495,Rock Valley College
+496,Roosevelt University
+497,Dominican University
+498,University of St. Francis
+499,Saint Xavier University
+500,University of Illinois at Springfield
+501,Sauk Valley Community College
+502,Shawnee Community College
+503,Saint Augustine College
+504,Southeastern Illinois College
+505,National Latino Education Institute
+506,Spoon River College
+507,Saint Anthony College of Nursing
+508,Southern Illinois University Carbondale
+509,Southern Illinois University Edwardsville
+510,South Suburban College of Cook County
+511,Trinity Christian College
+512,Trinity International University
+513,Triton College
+514,Waubonsee Community College
+515,Resurrection University
+516,Western Illinois University
+517,Wheaton College
+518,Harper College
+519,Anderson University
+520,Ball State University
+521,Bethel University
+522,Butler University
+523,Calumet College of St. Joseph
+524,Concordia Theological Seminary
+525,University of Evansville
+526,Franklin College
+527,Goshen College
+528,Grace College and Seminary
+529,Holy Cross College
+530,PJ's College of Cosmetology
+531,Huntington University
+532,Ivy Tech Community College of Indiana
+533,Purdue University Fort Wayne
+534,Indiana University - Purdue University Indianapolis
+535,Harrison College - Indianapolis
+536,University of Indianapolis
+537,Indiana Institute of Technology
+538,University of Southern Indiana
+539,Indiana State University
+540,Indiana University Kokomo
+541,Indiana University South Bend
+542,Indiana University Bloomington
+543,Indiana University Southeast
+544,Indiana University East
+545,ITT Technical Institute - Indianapolis
+546,Manchester University
+547,Marian University
+548,Indiana Wesleyan University
+549,Anabaptist Mennonite Biblical Seminary
+550,University of Notre Dame
+551,Oakland City University
+552,Purdue University Northwest
+553,Purdue University - North Central
+554,Roger's Academy of Hair Design
+555,Rose-Hulman Institute of Technology
+556,University of Saint Francis - Fort Wayne
+557,Saint Josephs College
+558,Taylor University
+559,Trine University
+560,Valparaiso University
+561,Vincennes University
+562,Briar Cliff University
+563,Buena Vista University
+564,Clarke University
+565,Des Moines Area Community College
+566,Drake University
+567,University of Dubuque
+568,Eastern Iowa Community College District
+569,Graceland University
+570,Grand View University
+571,Grinnell College
+572,Hawkeye Community College
+573,Indian Hills Community College
+574,Iowa Central Community College
+575,Iowa Lakes Community College
+576,Iowa School of Beauty
+577,Iowa State University of Science and Technology
+578,Iowa Wesleyan University
+579,Iowa Western Community College
+580,University of Iowa
+581,Kirkwood Community College
+582,Maharishi International University
+583,Iowa Valley Community College District
+584,Morningside College
+585,Mount Mercy University
+586,University of Northern Iowa
+587,Northeast Iowa Community College
+588,Des Moines University - Osteopathic Medical Center
+589,Palmer College of Chiropractic
+590,PCI Academy
+591,Saint Ambrose University
+592,Simpson College
+593,Southeastern Community College
+594,Southwestern Community College
+595,Capri College
+596,Upper Iowa University
+597,Wartburg Theological Seminary
+598,Western Iowa Tech Community College
+599,William Penn University
+600,Allen County Community College
+601,Baker University
+602,Barton County Community College
+603,Benedictine College
+604,Bethany College
+605,Brown Mackie College - Salina
+606,Butler County Community College
+607,Central Baptist Theological Seminary
+608,Central Christian College of Kansas
+609,Cloud County Community College
+610,Coffeyville Community College
+611,Colby Community College
+612,Cowley College
+613,Marinello School of Beauty - Manhattan
+614,Dodge City Community College
+615,Donnelly College
+616,Emporia State University
+617,Flint Hills Technical College
+618,Fort Hays State University
+619,Friends University
+620,Fort Scott Community College
+621,Garden City Community College
+622,Hays Academy of Hair Design
+623,Hutchinson Community College
+624,Independence Community College
+625,Johnson County Community College
+626,Concorde Career College
+627,Kansas City Kansas Community College
+628,University of Kansas
+629,Newman University
+630,Kansas State University
+631,Labette Community College
+632,Manhattan Area Technical College
+633,Manhattan Christian College
+634,McPherson College
+635,MidAmerica Nazarene University
+636,Neosho County Community College
+637,North Central Kansas Technical College
+638,Northwest Kansas Technical College
+639,Ottawa University
+640,Pittsburg State University
+641,Pratt Community College
+642,University of Saint Mary
+643,Salina Area Technical College
+644,Tabor College
+645,Washburn University of Topeka
+646,Wichita State University Campus of Applied Sciences and Technology
+647,Wichita State University
+648,Wichita Technical Institute
+649,Asbury Theological Seminary
+650,Ashland Community and Technical College
+651,Southcentral Kentucky Community and Technical College
+652,Galen College of Nursing
+653,Eastern Kentucky University
+654,Elizabethtown Community and Technical College
+655,Hazard Community and Technical College
+656,Henderson Community College
+657,Hopkinsville Community College
+658,Jefferson Community and Technical College
+659,Jefferson Technical College
+660,Summit Salon Academy - Lexington
+661,University of Kentucky
+662,Lexington Theological Seminary
+663,Lindsey Wilson College
+664,Sullivan College of Technology and Design
+665,University of Louisville
+666,Madisonville Community College
+667,Maysville Community and Technical College
+668,Murray State University
+669,Gateway Community and Technical College
+670,Northern Kentucky University
+671,Daymar College - Owensboro
+672,Big Sandy Community and Technical College
+673,Somerset Community College
+674,Southeast Kentucky Community and Technical College
+675,Southern Baptist Theological Seminary
+676,Spencerian College - Louisville
+677,Sullivan University
+678,Thomas More University
+679,Union College
+680,Western Kentucky University
+681,Central Louisiana Technical Community College - Alexandria
+682,Capital Area Technical College
+683,Delgado Community College
+684,Louisiana Technical College - Delta-Ouachita Campus
+685,Louisiana State University and A&M College
+686,Louisiana Technical College - Lafayette
+687,Loyola University New Orleans
+688,University of New Orleans
+689,New Orleans Baptist Theological Seminary
+690,Northwestern State University of Louisiana
+691,Aveda Arts & Sciences Institute Covington
+692,LaSalle Tech
+693,L.E. Fletcher Technical Community College
+694,Sowela Technical Community College
+695,Stevenson's Academy of Hair Design
+696,Southeastern Louisiana University
+697,Southern University and A & M College
+698,University of Louisiana at Lafayette
+699,Tulane University
+700,South Central Louisiana Technical College
+701,Andover College
+702,Bangor Theological Seminary
+703,Central Maine Community College
+704,Eastern Maine Community College
+705,Husson University
+706,Kennebec Valley Community College
+707,University of Maine at Augusta
+708,University of Maine at Farmington
+709,University of Maine at Fort Kent
+710,University of Maine
+711,Maine Maritime Academy
+712,University of Maine at Presque Isle
+713,University of New England
+714,Northern Maine Community College
+715,Empire Beauty School - Portland
+716,Southern Maine Community College
+717,University of Southern Maine
+718,Thomas College
+719,Washington County Community College
+720,Aesthetics Institute of Cosmetology
+721,Allegany College of Maryland
+722,Anne Arundel Community College
+723,Award Beauty School
+724,Baltimore City Community College
+725,University of Baltimore
+726,Bowie State University
+727,Capitol Technology University
+728,Cecil Community College
+729,College of Southern Maryland
+730,Chesapeake College
+731,Washington Adventist University
+732,Coppin State University
+733,Frederick Community College
+734,Frostburg State University
+735,Garrett College
+736,Goucher College
+737,Hagerstown Community College
+738,Hood College
+739,Howard Community College
+740,Johns Hopkins University
+741,L'Academie de Cuisine
+742,Loyola University Maryland
+743,University of Maryland Global Campus
+744,University of Maryland - Baltimore
+745,University of Maryland - Baltimore County
+746,University of Maryland - College Park
+747,Maryland Institute College of Art
+748,University of Maryland - Eastern Shore
+749,Fortis Institute
+750,Montgomery College
+751,Mount St Mary's University
+752,Notre Dame of Maryland University
+753,Prince George's Community College
+754,Maryland Beauty Academy - Essex
+755,Salisbury University
+756,Sojourner-Douglass College
+757,St. John's College
+758,Towson University
+759,International Beauty School
+760,Uniformed Services University of the Health Sciences
+761,Washington Bible College and Capital Bible Seminary
+762,McDaniel College
+763,Wor-Wic Community College
+764,Hult International Business School
+765,American International College
+766,Anna Maria College
+767,Assumption College
+768,Babson College
+769,Bay Path University
+770,Bay State College
+771,Becker College
+772,Bentley University
+773,Berkshire Community College
+774,Boston Graduate School of Psychoanalysis Inc
+775,Boston College
+776,Boston University
+777,Bridgewater State University
+778,Bristol Community College
+779,Bunker Hill Community College
+780,Cambridge College
+781,Cape Cod Community College
+782,Clark University
+783,Conway School of Landscape Design
+784,Curry College
+785,Dean College
+786,Eastern Nazarene College
+787,Emerson College
+788,Emmanuel College
+789,Endicott College
+790,Fisher College
+791,Fitchburg State University
+792,Framingham State University
+793,Gordon College
+794,Gordon-Conwell Theological Seminary
+795,Greenfield Community College
+796,Harvard University
+797,Holyoke Community College
+798,Lesley University
+799,University of Massachusetts - Lowell
+800,University of Massachusetts Amherst
+801,University of Massachusetts Boston
+802,Massachusetts Bay Community College
+803,MCPHS University
+804,Massachusetts College of Art and Design
+805,Massachusetts Maritime Academy
+806,University of Massachusetts Worcester/University of Massachusetts Medical School
+807,Massasoit Community College
+808,Middlesex Community College - Bedford
+809,Mount Wachusett Community College
+810,Everest Institute - Brighton
+811,Newbury College
+812,Nichols College
+813,Massachusetts College of Liberal Arts
+814,North Shore Community College
+815,Northeastern University
+816,Northern Essex Community College
+817,College of Our Lady of the Elms
+818,Quincy College
+819,Quinsigamond Community College
+820,Regis College
+821,Saint John's Seminary
+822,Salem State University
+823,Salter College
+824,Simmons University
+825,Bard College at Simon's Rock: The Early College
+826,Springfield College
+827,University of Massachusetts Dartmouth
+828,Suffolk University
+829,Tufts University
+830,Wentworth Institute of Technology
+831,Western New England University
+832,Wheelock College
+833,Hillsdale Beauty College
+834,Alpena Community College
+835,Andrews University
+836,Baker College
+837,Bay de Noc Community College
+838,Central Michigan University
+839,Charles Stewart Mott Community College
+840,Empire Beauty School - Grand Rapids
+841,Cleary University
+842,Concordia University
+843,College for Creative Studies
+844,Davenport University
+845,David Pressley Professional School of Cosmetology
+846,Delta College
+847,Detroit Business Institute - Downriver
+848,DAVENPORT UNIVERSITY-EASTERN REGION-DEARBORN
+849,University of Detroit Mercy
+850,Dorsey School of Business
+851,Eastern Michigan University
+852,Ferris State University
+853,Glen Oaks Community College
+854,Gogebic Community College
+855,Cornerstone University
+856,Everest Institute - Grand Rapids
+857,Grand Rapids Community College
+858,Grand Valley State University
+859,Great Lakes Christian College
+860,Henry Ford College
+861,Hillsdale College
+862,Kalamazoo Valley Community College
+863,Kellogg Community College
+864,Kirtland Community College
+865,Lake Michigan College
+866,Lake Superior State University
+867,Lansing Community College
+868,Lawrence Technological University
+869,Macomb Community College
+870,Madonna University
+871,Rochester University
+872,University of Michigan - Ann Arbor
+873,Michigan State University
+874,Michigan Technological University
+875,University of Michigan Dearborn
+876,University of Michigan Flint
+877,Mid Michigan College
+878,Monroe County Community College
+879,Montcalm Community College
+880,Muskegon Community College
+881,Everest College - Skokie
+882,Everest Institute - Southfield
+883,North Central Michigan College
+884,Northern Michigan University
+885,Paul Mitchell The School Escanaba
+886,Northwestern Michigan College
+887,Northwood University
+888,Oakland Community College
+889,Oakland University
+890,Olivet College
+891,Ross Medical Education Center
+892,Saginaw Valley State University
+893,Schoolcraft College
+894,Siena Heights University
+895,Southwestern Michigan College
+896,Spring Arbor University
+897,Western Michigan University Thomas M. Cooley Law School
+898,Twin City Beauty College
+899,Walsh College of Accountancy and Business Administration
+900,Washtenaw Community College
+901,Wayne County Community College District
+902,Wayne State University
+903,West Shore Community College
+904,Western Michigan University
+905,Beaumont Health
+906,Alexandria Technical and Community College
+907,Anoka Technical College
+908,Anoka-Ramsey Community College
+909,Augsburg University
+910,Riverland Community College
+911,Northwest Technical College
+912,Bemidji State University
+913,Central Lakes College
+914,Concordia College
+915,"Concordia University, St. Paul"
+916,Dakota County Technical College
+917,Lake Superior College
+918,Minnesota State Community and Technical College
+919,Globe University
+920,Minnesota West Community and Technical College
+921,Hamline University
+922,Hennepin Technical College
+923,Hibbing Community College
+924,Inver Hills Community College
+925,Itasca Community College
+926,South Central College
+927,Minnesota State University - Mankato
+928,Regency Beauty Institute
+929,Mayo Clinic College of Medicine and Science
+930,Mesabi Range College
+931,Metropolitan State University
+932,University of Minnesota - Twin Cities
+933,University of Minnesota - Crookston
+934,Minneapolis Community and Technical College
+935,Minnesota School of Cosmetology
+936,Minnesota School of Business
+937,Minnesota State University - Moorhead
+938,North Hennepin Community College
+939,Northland Community and Technical College
+940,University of Northwestern - St. Paul
+941,Rainy River Community College
+942,Saint Cloud State University
+943,Saint Mary's University of Minnesota
+944,Crown College
+945,College of Saint Scholastica
+946,University of St. Thomas
+947,St. Catherine University
+948,Southwest Minnesota State University
+949,Summit Academy Opportunities Industrialization Center
+950,United Theological Seminary of the Twin Cities
+951,Dunwoody College of Technology
+952,Ridgewater College
+953,Minnesota State College Southeast
+954,Winona State University
+955,Century College
+956,Alcorn State University
+957,Belhaven University
+958,Copiah-Lincoln Community College
+959,Delta State University
+960,East Mississippi Community College
+961,Hinds Community College
+962,Holmes Community College
+963,Itawamba Community College
+964,Jones County Junior College
+965,University of Mississippi
+966,Mississippi College
+967,Mississippi Gulf Coast Community College
+968,Mississippi State University
+969,Northwest Mississippi Community College
+970,Pearl River Community College
+971,University of Southern Mississippi
+972,William Carey University
+973,Anthem College - Maryland Heights
+974,Aquinas Institute of Theology
+975,Assemblies of God Theological Seminary
+976,Cox College
+977,Calvary University
+978,Cape Girardeau Career and Technology Center
+979,Central Bible College
+980,University of Central Missouri
+981,Cleveland University-Kansas City
+982,Columbia College
+983,Covenant Theological Seminary
+984,Crowder College
+985,Chamberlain University
+986,Drury University
+987,East Central College
+988,Elaine Steven Beauty College
+989,Pinnacle Career Institute
+990,Evangel University
+991,Fontbonne University
+992,Forest Institute of Professional Psychology
+993,Ozarks Technical Community College
+994,Hannibal-LaGrange University
+995,Harris-Stowe State University
+996,Jefferson College
+997,Goldfarb School of Nursing at Barnes-Jewish College
+998,A.T. Still University of Health Sciences
+999,Lex La-Ray Technical Center
+1000,Lincoln University
+1001,Lindenwood University
+1002,State Technical College of Missouri
+1003,Maryville University of Saint Louis
+1004,Metro Business College of Cape Girardeau
+1005,Metropolitan Community College - Kansas City
+1006,Midwest Institute
+1007,Mineral Area College
+1008,Missouri Baptist University
+1009,Missouri Southern State University
+1010,Missouri Valley College
+1011,Missouri Western State University
+1012,University of Missouri - Columbia
+1013,University of Missouri - Kansas City
+1014,Missouri University of Science and Technology
+1015,University of Missouri - St Louis
+1016,Moberly Area Community College
+1017,National Academy of Beauty Arts
+1018,Nazarene Theological Seminary
+1019,Northwest Missouri State University
+1020,Park University
+1021,Poplar Bluff Technical Career Center
+1022,Ranken Technical College
+1023,Rockhurst University
+1024,Saint Louis University
+1025,Sikeston Career and Technology Center
+1026,Southwest Baptist University
+1027,Missouri State University - West Plains
+1028,St. Louis College of Health Careers
+1029,State Fair Community College
+1030,Stephens College
+1031,Southeast Missouri State University
+1032,Missouri State University
+1033,Three Rivers College
+1034,North Central Missouri College
+1035,Kansas City University of Medicine and Biosciences
+1036,Washington University in St Louis
+1037,Webster University
+1038,Wentworth Military Academy and College
+1039,Westminster College
+1040,William Woods University
+1041,Montana State University - Billings
+1042,Flathead Valley Community College
+1043,Bellevue University
+1044,Central Community College
+1045,Chadron State College
+1046,Creighton University
+1047,Doane University
+1048,Grace University
+1049,Joseph?s College of Cosmetology - Lincoln
+1050,University of Nebraska - Kearney
+1051,Nebraska Methodist College of Nursing and Allied Health
+1052,Metropolitan Community College
+1053,Mid-Plains Community College - South Campus
+1054,Midland University
+1055,University of Nebraska - Omaha
+1056,Nebraska Indian Community College
+1057,University of Nebraska Medical Center
+1058,Nebraska Wesleyan University
+1059,University of Nebraska - Lincoln
+1060,Northeast Community College
+1061,Peru State College
+1062,College of Saint Mary
+1063,Southeast Community College Area
+1064,University of Nebraska College of Technical Agriculture
+1065,Wayne State College
+1066,Western Nebraska Community College
+1067,Marinello School of Beauty - Las Vegas
+1068,Great Basin College
+1069,Daniel Webster College
+1070,Empire Beauty School - Somersworth
+1071,Franklin Pierce University
+1072,Mount Washington College
+1073,New England College
+1074,Southern New Hampshire University
+1075,University of New Hampshire
+1076,Plymouth State University
+1077,Lakes Region Community College
+1078,Granite State College
+1079,Atlantic Cape Community College
+1080,Bergen Community College
+1081,Berkeley College
+1082,Bloomfield College
+1083,Brookdale Community College
+1084,Rowan College at Burlington County
+1085,Caldwell University
+1086,Camden County College
+1087,Centenary University
+1088,Bergen County Technical Schools
+1089,Lincoln Technical Institute - Edison
+1090,Dover Business College - Clifton
+1091,County College of Morris
+1092,Cumberland County College
+1093,Drake College of Business
+1094,Drew University
+1095,Essex County College
+1096,Fairleigh Dickinson University
+1097,Felician University
+1098,Georgian Court University
+1099,Rowan University
+1100,Rowan College of South Jersey
+1101,Harris School of Business - Cherry Hill
+1102,Hudson County Community College
+1103,New Jersey City University
+1104,Kean University
+1105,Mercer County Community College
+1106,Middlesex County College
+1107,Monmouth University
+1108,Montclair State University
+1109,New Brunswick Theological Seminary
+1110,New Jersey Institute of Technology
+1111,Ocean County College
+1112,Passaic County Community College
+1113,Princeton University
+1114,Ramapo College of New Jersey
+1115,Rider University
+1116,"Rutgers, The State University of New Jersey"
+1117,Saint Peter's University
+1118,Seton Hall University
+1119,College of Saint Elizabeth
+1120,Raritan Valley Community College
+1121,Stevens Institute of Technology
+1122,Stockton University
+1123,Thomas Edison State University
+1124,"College of New Jersey, The"
+1125,Union County College
+1126,William Paterson University of New Jersey
+1127,Olympian Academy of Cosmetology
+1128,Central New Mexico Community College
+1129,Navajo Technical University
+1130,Clovis Community College
+1131,Eastern New Mexico University
+1132,New Mexico Highlands University
+1133,University of New Mexico
+1134,New Mexico State University
+1135,Northern New Mexico College
+1136,San Juan College
+1137,Santa Fe Community College
+1138,Santa Fe University of Art and Design
+1139,Mesalands Community College
+1140,Western New Mexico University
+1141,Vaughn College of Aeronautics and Technology
+1142,Adelphi University
+1143,Adirondack Community College
+1144,Albany College of Pharmacy
+1145,American Academy of Dramatic Arts
+1146,Bank Street College of Education
+1147,Bard College
+1148,Brittany Beauty Academy
+1149,Boricua College
+1150,Briarcliffe College
+1151,SUNY Broome Community College
+1152,Canisius College
+1153,Capri Cosmetology Learning Center
+1154,Cayuga County Community College
+1155,Cazenovia College
+1156,Central Yeshiva Tomchei Tmimim Lubavitz
+1157,Clarkson University
+1158,Metropolitan College of New York
+1159,Empire Beauty School - Queens
+1160,Cornell University
+1161,Corning Community College
+1162,Culinary Institute of America
+1163,Brooklyn College of the City University of New York
+1164,"City College of New York of the City University of New York, The"
+1165,"Graduate School and University Center of the City University of New York, The"
+1166,Hunter College of the City University of New York
+1167,John Jay College of Criminal Justice of the City University of New York
+1168,Queens College of the City University of New York
+1169,Daemen College
+1170,Dowling College
+1171,Dutchess Community College
+1172,Elmira College
+1173,Erie Community College
+1174,Finger Lakes Community College
+1175,Fordham University
+1176,The International Culinary Center
+1177,Genesee Community College
+1178,Global Business Institute - Far Rockaway
+1179,Hofstra University
+1180,Houghton College
+1181,Hudson Valley Community College
+1182,Hunter Business School
+1183,Interboro Institute
+1184,Iona College
+1185,Jamestown Community College
+1186,Jamestown Business College
+1187,Jefferson Community College
+1188,Katharine Gibbs School - New York City
+1189,SBI Campus - An Affiliate of Sanford-Brown
+1190,Keuka College
+1191,Long Island University
+1192,Manhattan College
+1193,Manhattanville College
+1194,Maria College of Albany
+1195,Marist College
+1196,MarJon School of Beauty Culture Ltd
+1197,Marymount Manhattan College
+1198,Medaille College
+1199,Mercy College
+1200,Mildred Elley
+1201,Mohawk Valley Community College
+1202,Molloy College
+1203,Monroe College
+1204,Monroe Community College
+1205,College of Mount Saint Vincent
+1206,Nazareth College of Rochester
+1207,"College of New Rochelle, The"
+1208,The New School
+1209,New York Chiropractic College
+1210,New York Theological Seminary
+1211,New York University
+1212,Niagara County Community College
+1213,Niagara University
+1214,North Country Community College
+1215,New York Institute of Technology
+1216,New York School of Interior Design
+1217,Onondaga Community College
+1218,Orange County Community College
+1219,Pace University
+1220,Polytechnic Institute of New York University
+1221,Davis College
+1222,Pratt Institute
+1223,Rensselaer Polytechnic Institute
+1224,Roberts Wesleyan College
+1225,University of Rochester
+1226,Rockland Community College
+1227,Empire Beauty School
+1228,The Sage Colleges
+1229,St. Bernard's School of Theology and Ministry
+1230,St. Bonaventure University
+1231,St. Thomas Aquinas College
+1232,Schenectady County Community College
+1233,Seminary of the Immaculate Conception
+1234,"Saint Joseph's College, New York"
+1235,Saint Joseph's Seminary
+1236,Saint John Fisher College
+1237,St. John's University
+1238,Sullivan County Community College
+1239,SUNY College of Technology at Alfred
+1240,SUNY College of Technology at Canton
+1241,SUNY College of Technology at Delhi
+1242,SUNY College of Agriculture & Technology at Morrisville
+1243,SUNY at Albany
+1244,SUNY at Binghamton
+1245,SUNY at Buffalo
+1246,SUNY Stony Brook
+1247,SUNY College of Environmental Science and Forestry
+1248,SUNY Polytechnic Institute
+1249,SUNY College at Brockport
+1250,SUNY Buffalo State
+1251,SUNY College at Cortland
+1252,SUNY Oneonta
+1253,SUNY College at Oswego
+1254,SUNY Potsdam
+1255,SUNY College at Plattsburgh
+1256,SUNY Empire State College
+1257,SUNY Upstate Medical University
+1258,Teachers College of Columbia University
+1259,Tompkins-Cortland Community College
+1260,Touro College
+1261,Trocaire College
+1262,Ulster County Community College
+1263,Union Graduate College
+1264,Utica College
+1265,Utica School of Commerce
+1266,Wagner College
+1267,Westchester Community College
+1268,Yeshiva University
+1269,College of the Albemarle
+1270,South Piedmont Community College
+1271,Asheville Buncombe Technical Community College
+1272,Bladen Community College
+1273,Brookstone College of Business - Charlotte
+1274,Caldwell Community College and Technical Institute
+1275,Campbell University
+1276,Cape Fear Community College
+1277,Catawba Valley Community College
+1278,Central Carolina Community College
+1279,Central Piedmont Community College
+1280,Davidson County Community College
+1281,Duke University
+1282,Durham Technical Community College
+1283,East Carolina University
+1284,Edgecombe Community College
+1285,Forsyth Technical Community College
+1286,Gardner-Webb University
+1287,Gaston College
+1288,Carolina Beauty College 8
+1289,Guilford Technical Community College
+1290,Haywood Community College
+1291,High Point University
+1292,Lenoir Community College
+1293,Martin Community College
+1294,Mayland Community College
+1295,McDowell Technical Community College
+1296,Montreat College
+1297,University of Mount Olive
+1298,University of North Carolina at Chapel Hill
+1299,University of North Carolina at Charlotte
+1300,North Carolina Wesleyan College
+1301,Pfeiffer University
+1302,Piedmont Community College
+1303,Randolph Community College
+1304,Rowan-Cabarrus Community College
+1305,Shaw University
+1306,Paul Mitchell the School Fayetteville
+1307,Southeastern Baptist Theological Seminary
+1308,Surry Community College
+1309,Alamance Community College
+1310,Tri-County Community College
+1311,Vance-Granville Community College
+1312,Wake Technical Community College
+1313,Wayne Community College
+1314,Wilkes Community College
+1315,Wingate University
+1316,Carolina Christian College
+1317,Western Carolina University
+1318,Bismarck State College
+1319,Dickinson State University
+1320,Josef's School of Hair Design Inc
+1321,University of Jamestown
+1322,Lake Region State College
+1323,Cankdeska Cikana Community College
+1324,University of Mary
+1325,Mayville State University
+1326,Minot State University
+1327,University of North Dakota
+1328,North Dakota State College of Science
+1329,Dakota College at Bottineau
+1330,North Dakota State University
+1331,Williston State College
+1332,Sitting Bull College
+1333,Turtle Mountain Community College
+1334,Valley City State University
+1335,Air Force Institute of Technology
+1336,University of Akron
+1337,University of Akron - Wayne College
+1338,Apollo Career Center
+1339,Ashland University
+1340,Auburn Career Center
+1341,Baldwin Wallace University
+1342,Belmont College
+1343,Bluffton University
+1344,Bowling Green State University
+1345,Butler Technology and Career Development Schools
+1346,Capital University
+1347,Case Western Reserve University
+1348,Central Ohio Technical College
+1349,Central State University
+1350,Chatfield College
+1351,Cincinnati Christian University
+1352,University of Cincinnati
+1353,Cincinnati State Technical and Community College
+1354,University of Cincinnati Clermont College
+1355,Ohio Christian University
+1356,Clark State Community College
+1357,Scott College of Cosmetology
+1358,Siegal College of Judaic Studies
+1359,Cleveland State University
+1360,Columbus State Community College
+1361,Cuyahoga Community College
+1362,University of Dayton
+1363,Defiance College
+1364,Chancellor University
+1365,Edison State Community College
+1366,EHOVE Adult Career Center
+1367,The University of Findlay
+1368,Franklin University
+1369,Hebrew Union College - Jewish Institute of Religion
+1370,Heidelberg University
+1371,Hiram College
+1372,Hocking College
+1373,Eastern Gateway Community College
+1374,John Carroll University
+1375,Kent State University
+1376,Kettering College
+1377,Lake Erie College
+1378,Lakeland Community College
+1379,Collins Career Center
+1380,Ohio Business College
+1381,Lorain County Community College
+1382,Lourdes University
+1383,Malone University
+1384,Marion Technical College
+1385,Miami University
+1386,Mount Carmel College of Nursing
+1387,Mount Vernon Nazarene University
+1388,Mount St. Joseph University
+1389,Zane State College
+1390,North Central State College
+1391,Northwest State Community College
+1392,Notre Dame College
+1393,Northeast Ohio Medical University
+1394,Ohio Dominican University
+1395,Ohio Northern University
+1396,Ohio State University
+1397,Ohio University - Main Campus
+1398,Owens Community College
+1399,Raphael's School of Beauty Culture
+1400,University of Rio Grande/Rio Grande Community College
+1401,Sinclair Community College
+1402,Lincoln College of Technology - Dayton
+1403,Stark State College
+1404,Stautzenberger College
+1405,Franciscan University of Steubenville
+1406,Southern State Community College
+1407,Terra State Community College
+1408,Tiffin University
+1409,University of Toledo
+1410,Tri-State Bible College
+1411,Tri-Rivers Career Center
+1412,Union Institute & University
+1413,Urbana University
+1414,Ursuline College
+1415,Walsh University
+1416,Washington State Community College
+1417,Wilberforce University
+1418,Wilmington College
+1419,Winebrenner Theological Seminary
+1420,Wright State University
+1421,Xavier University
+1422,Youngstown State University
+1423,American Broadcasting School
+1424,Bacone College
+1425,Oklahoma Wesleyan University
+1426,Southern Nazarene University
+1427,"Broken Arrow Beauty College, Inc"
+1428,Cameron University
+1429,Carl Albert State College
+1430,University of Central Oklahoma
+1431,Connors State College
+1432,East Central University
+1433,Eastern Oklahoma State College
+1434,Redlands Community College
+1435,Eve's College of Hairstyling
+1436,Langston University
+1437,Murray State College
+1438,Northeastern State University
+1439,Beauty Technical College Inc
+1440,Northern Oklahoma College
+1441,Northeastern Oklahoma A&M College
+1442,Northwestern Oklahoma State University
+1443,Oklahoma Christian University
+1444,Oklahoma State University
+1445,Oklahoma State University - Oklahoma City
+1446,Oklahoma Baptist University
+1447,Oklahoma City Community College
+1448,Oklahoma City University
+1449,University of Oklahoma
+1450,Oklahoma State University Institute of Technology - Okmulgee
+1451,Oral Roberts University
+1452,Rogers State University
+1453,Rose State College
+1454,Saint Gregory's University
+1455,Seminole State College
+1456,Southern School of Beauty Inc
+1457,Southeastern Oklahoma State University
+1458,Southwestern Christian University
+1459,Southwestern Oklahoma State University
+1460,Tulsa Community College
+1461,Tulsa Welding School
+1462,University of Tulsa
+1463,Western Oklahoma State College
+1464,Chemeketa Community College
+1465,New Hope Christian College
+1466,Linn-Benton Community College
+1467,Northwest College School of Beauty
+1468,Multnomah University
+1469,Montessori Northwest
+1470,Oregon Health & Science University
+1471,Pacific University
+1472,Portland Community College
+1473,Pioneer Pacific College
+1474,Umpqua Community College
+1475,Everest College - Portland
+1476,Western Seminary
+1477,Jolie Health and Beauty Academy of Hazelton
+1478,Albright College
+1479,Community College of Allegheny County
+1480,DeSales University
+1481,Alvernia University
+1482,Toni & Guy Hairdressing Academy - Ambler
+1483,Clarks Summit University
+1484,Community College of Beaver County
+1485,Arcadia University
+1486,Bloomsburg University of Pennsylvania
+1487,Bucks County Community College
+1488,Cabrini University
+1489,California University of Pennsylvania
+1490,Cambria-Rowe Business College
+1491,Carlow University
+1492,Carnegie Mellon University
+1493,Cedar Crest College
+1494,Central Penn College
+1495,Chatham University
+1496,Chestnut Hill College
+1497,Alle-Kiski Medical Center
+1498,Clarion University of Pennsylvania
+1499,Delaware County Community College
+1500,Delaware Valley University
+1501,Douglas Education Center
+1502,Drexel University
+1503,DuBois Business College
+1504,Duquesne University
+1505,East Stroudsburg University of Pennsylvania
+1506,Palmer Theological Seminary of Eastern University
+1507,Eastern University
+1508,Edinboro University of Pennsylvania
+1509,Elizabethtown College
+1510,Empire Beauty School - Pottsville
+1511,Empire Beauty School - Lehigh Valley
+1512,Empire Beauty School - Wyoming Valley
+1513,Erie Business Center
+1514,Evangelical Theological Seminary
+1515,Gannon University
+1516,Geneva College
+1517,Gratz College
+1518,Gwynedd Mercy University
+1519,Harcum College
+1520,Harrisburg Area Community College
+1521,Holy Family University
+1522,Hussian College
+1523,Immaculata University
+1524,Indiana University of Pennsylvania
+1525,Great Lakes Institute of Technology
+1526,Keystone College
+1527,Kutztown University of Pennsylvania
+1528,La Roche College
+1529,La Salle University
+1530,Lackawanna College
+1531,Lancaster Bible College
+1532,Lebanon Valley College
+1533,Lehigh Carbon Community College
+1534,Berks Technical Institute
+1535,Lock Haven University of Pennsylvania
+1536,United Lutheran Seminary
+1537,Luzerne County Community College
+1538,Mansfield University of Pennsylvania
+1539,Marywood University
+1540,Mercyhurst University
+1541,Messiah College
+1542,The Workforce Institute's City College
+1543,Millersville University of Pennsylvania
+1544,Misericordia University
+1545,Montgomery County Community College
+1546,Moravian College
+1547,Mount Aloysius College
+1548,Muhlenberg College
+1549,Neumann University
+1550,Northampton Community College
+1551,Salus University
+1552,Pennsylvania Institute of Technology
+1553,Pennsylvania State University
+1554,Peirce College
+1555,Cortiva Institute - Pennsylvania School of Muscle Therapy
+1556,University of Pennsylvania
+1557,Thomas Jefferson University and Philadelphia University
+1558,The University of the Arts
+1559,Cairn University
+1560,Philadelphia College of Osteopathic Medicine
+1561,University of the Sciences
+1562,Community College of Philadelphia
+1563,University of Pittsburgh - Main Campus
+1564,Pittsburgh Technical College
+1565,Pittsburgh Theological Seminary
+1566,Point Park University
+1567,The Salon Professional Academy - Altoona
+1568,Reading Area Community College
+1569,Brightwood Career Institute - Broomall
+1570,Robert Morris University
+1571,Rosemont College
+1572,Saint Francis University
+1573,Saint Joseph's University
+1574,Saint Vincent College and Seminary
+1575,University of Scranton
+1576,Laurel Technical Institute - Sharon
+1577,Shippensburg University of Pennsylvania
+1578,Slippery Rock University of Pennsylvania
+1579,South Hills School of Business and Technology - State College
+1580,Thaddeus Stevens College of Technology
+1581,Temple University
+1582,Thomas Jefferson University
+1583,University of Valley Forge
+1584,Valley Forge Military College
+1585,Villanova University
+1586,Waynesburg University
+1587,West Chester University of Pennsylvania
+1588,Westminster Theological Seminary
+1589,Westmoreland County Community College
+1590,Widener University
+1591,Wilkes University
+1592,Wilson College
+1593,York College of Pennsylvania
+1594,York Technical Institute
+1595,Brown University
+1596,Johnson & Wales University
+1597,New England Institute of Technology
+1598,Providence College
+1599,Rhode Island College
+1600,Community College of Rhode Island
+1601,University of Rhode Island
+1602,Rhode Island School of Design
+1603,Roger Williams University
+1604,Salve Regina University
+1605,Sawyer School - Pawtucket
+1606,Northpoint Bible College
+1607,Charleston Southern University
+1608,Technical College of the Lowcountry
+1609,Southern Wesleyan University
+1610,Columbia International University
+1611,Erskine College
+1612,Florence-Darlington Technical College
+1613,Greenville Technical College
+1614,Horry-Georgetown Technical College
+1615,Kenneth Shuler School of Cosmetology and Hair Design
+1616,Midlands Technical College
+1617,Orangeburg Calhoun Technical College
+1618,Piedmont Technical College
+1619,University of South Carolina - Beaufort
+1620,University of South Carolina - Columbia
+1621,Spartanburg Methodist College
+1622,Spartanburg Technical College
+1623,Central Carolina Technical College
+1624,Trident Technical College
+1625,Black Hills State University
+1626,Dakota State University
+1627,Dakota Wesleyan University
+1628,Mitchell Technical Institute
+1629,Mount Marty College
+1630,National American University - Rapid City
+1631,Sioux Falls Seminary
+1632,Northern State University
+1633,Oglala Lakota College
+1634,Presentation College
+1635,South Dakota State University
+1636,Sinte Gleska University
+1637,University of Sioux Falls
+1638,University of South Dakota
+1639,Western Dakota Technical Institute
+1640,Aquinas College
+1641,Tennessee College of Applied Technology - Athens
+1642,Austin Peay State University
+1643,Belmont University
+1644,Pentecostal Theological Seminary
+1645,Columbia State Community College
+1646,Tennessee College of Applied Technology - Covington
+1647,Tennessee College of Applied Technology - Dickson
+1648,Tennessee College of Applied Technology - Elizabethton
+1649,Tennessee College of Applied Technology - Harriman
+1650,Tennessee College of Applied Technology - Hartsville
+1651,Tennessee College of Applied Technology - Hohenwald
+1652,Tennessee College of Applied Technology - Jacksboro
+1653,Jackson State Community College
+1654,South College
+1655,Lincoln Memorial University
+1656,Tennessee College of Applied Technology - Livingston
+1657,Tennessee College of Applied Technology - McKenzie
+1658,Genesis Career College - Cookeville
+1659,Tennessee College of Applied Technology - Memphis
+1660,Milligan College
+1661,Tennessee College of Applied Technology - Morristown
+1662,Motlow State Community College
+1663,Tennessee College of Applied Technology - Murfreesboro
+1664,Nashville State Community College
+1665,Tennessee College of Applied Technology - Newbern
+1666,Tennessee College of Applied Technology - Paris
+1667,Tennessee College of Applied Technology - Pulaski
+1668,Tennessee College of Applied Technology - Ripley
+1669,Roane State Community College
+1670,Tennessee College of Applied Technology - Crump
+1671,Southwest Tennessee Community College
+1672,Tennessee College of Applied Technology - Shelbyville
+1673,Tennessee College of Applied Technology - Oneida/Huntsville
+1674,Tennessee College of Applied Technology - McMinnville
+1675,Tennessee College of Applied Technology - Jackson
+1676,Tennessee College of Applied Technology - Knoxville
+1677,Pellissippi State Community College
+1678,Southern College of Optometry
+1679,Tennessee Wesleyan University
+1680,The University of Tennessee - Knoxville
+1681,The University of Tennessee - Martin
+1682,Northeast State Community College
+1683,Tusculum University
+1684,Union University
+1685,Walters State Community College
+1686,William R. Moore College of Technology
+1687,Nuvani Institute
+1688,Amarillo College
+1689,American Commercial College - Abilene
+1690,American Commercial College of Texas
+1691,Angelina College
+1692,Austin Community College
+1693,Baldwin Beauty Schools
+1694,Baptist Missionary Association Theological Seminary
+1695,Texas A&M Health Science Center
+1696,Baylor University
+1697,Coastal Bend College
+1698,Blinn College District
+1699,Capitol City Trade and Technical School
+1700,Cedar Valley College
+1701,Central Texas College
+1702,Cisco Junior College
+1703,Clarendon College
+1704,Concordia University Texas
+1705,North Central Texas College
+1706,Paul Mitchell the School Dallas
+1707,Dallas Baptist University
+1708,Dallas Theological Seminary
+1709,Del Mar College
+1710,Career Point College
+1711,East Texas Baptist University
+1712,Texas A&M University - Commerce
+1713,El Paso Community College District
+1714,Fort Worth Beauty School
+1715,Frank Phillips College
+1716,Grayson College
+1717,Hardin-Simmons University
+1718,Trinity Valley Community College
+1719,Hill College
+1720,University of Houston - Clear Lake
+1721,Houston Community College
+1722,Houston Montessori Center
+1723,University of Houston
+1724,Howard College
+1725,University of the Incarnate Word
+1726,Kilgore College
+1727,Lamar State College - Port Arthur
+1728,Laredo College
+1729,LeTourneau University
+1730,Midland College
+1731,Southern Careers Institute Inc
+1732,Navarro College
+1733,Lone Star College System
+1734,University of North Texas
+1735,Northeast Texas Community College
+1736,Ogle School Hair Skin Nails
+1737,Ogle School of Hair Skin Nails
+1738,Our Lady of the Lake University
+1739,Panola College
+1740,Paris Junior College
+1741,Prairie View A & M University
+1742,St. Edward's University
+1743,St. Philip's College
+1744,San Jacinto College District
+1745,Seguin Beauty School
+1746,South Plains College
+1747,South Texas Vo-Tech Institute
+1748,Southern Methodist University
+1749,Southwest School of Business and Technical Careers
+1750,Southwest Texas Junior College
+1751,Texas State University
+1752,Southwestern Baptist Theological Seminary
+1753,Tarleton State University
+1754,Tarrant County College District
+1755,University of Texas Health Science San Antonio
+1756,Texas State Technical College
+1757,Texarkana College
+1758,Texas A&M University - Kingsville
+1759,Texas A&M University
+1760,The University of Texas at Arlington
+1761,University of Texas at Austin
+1762,University of Texas at Tyler
+1763,The University of Texas at San Antonio
+1764,Brightwood College
+1765,Texas Wesleyan University
+1766,Texas Woman's University
+1767,University of Texas Health Science Center Houston
+1768,Texas State Technical College - West Texas
+1769,Texas Tech University Health Sciences Center
+1770,University of Cosmetology Arts & Sciences - McAllen
+1771,Vernon College
+1772,Wayland Baptist University
+1773,Wharton County Junior College
+1774,Bridgerland Technical College
+1775,Brigham Young University
+1776,Broadview University
+1777,College of Eastern Utah
+1778,Davis Technical College
+1779,Paul Mitchell the School - Salt Lake City
+1780,Eagle Gate College
+1781,Everest College - West Valley
+1782,Ogden Weber Technical College
+1783,Snow College
+1784,Stevens-Henager College-Ogden
+1785,Uintah Basin Technical College
+1786,Utah State University
+1787,Salt Lake Community College
+1788,University of Utah
+1789,Bennington College
+1790,Castleton University
+1791,Community College of Vermont
+1792,Goddard College
+1793,Green Mountain College
+1794,Northern Vermont University
+1795,Marlboro College
+1796,Middlebury College
+1797,Saint Michaels College
+1798,SIT
+1799,College of St Joseph
+1800,Sterling College
+1801,Vermont Technical College
+1802,Blue Ridge Community College
+1803,Regent University
+1804,Christendom College
+1805,Jefferson College of Health Sciences
+1806,Dabney S Lancaster Community College
+1807,Eastern Mennonite University
+1808,Ferrum College
+1809,George Mason University
+1810,Germanna Community College
+1811,Hampton University
+1812,J Sargeant Reynolds Community College
+1813,John Tyler Community College
+1814,Longwood University
+1815,Lord Fairfax Community College
+1816,Mary Baldwin University
+1817,University of Mary Washington
+1818,American National University - Salem
+1819,New River Community College
+1820,Northern Virginia Community College
+1821,Old Dominion University
+1822,Paul D Camp Community College
+1823,Miller-Motte Technical College - Lynchburg
+1824,Radford University
+1825,Rappahannock Community College
+1826,Fortis College - Norfolk
+1827,Shenandoah University
+1828,Southside Virginia Community College
+1829,Southwest Virginia Community College
+1830,Thomas Nelson Community College
+1831,Tidewater Community College
+1832,Union Presbyterian Seminary
+1833,Virginia Intermont College
+1834,Virginia Polytechnic Institute and State University
+1835,Virginia Western Community College
+1836,Virginia Commonwealth University
+1837,University of Virginia
+1838,Virginia State University
+1839,"Wards Corner Beauty Academy, Inc."
+1840,Eastern Washington University
+1841,Interface College
+1842,Bastyr University
+1843,BJ's Beauty and Barber College
+1844,Seattle University
+1845,Washington State University
+1846,University of Washington
+1847,Appalachian Bible College
+1848,Mountain State University
+1849,Bluefield State College
+1850,University of Charleston
+1851,Concord University
+1852,Fairmont State University
+1853,Glenville State College
+1854,Marshall University
+1855,West Virginia University at Parkersburg
+1856,Shepherd University
+1857,Southern West Virginia Community and Technical College
+1858,West Liberty University
+1859,West Virginia Business College - Wheeling
+1860,West Virginia Junior College - Charleston
+1861,West Virginia Junior College - Morgantown
+1862,West Virginia Northern Community College
+1863,West Virginia University
+1864,Wheeling University
+1865,Madison Area Technical College
+1866,Blackhawk Technical College
+1867,Lakeside School of Massage Therapy
+1868,Cardinal Stritch University
+1869,Carroll University
+1870,Columbia College of Nursing
+1871,Edgewood College
+1872,Fox Valley Technical College
+1873,Gateway Technical College
+1874,Lakeland University
+1875,Lakeshore Technical College
+1876,Marquette University
+1877,Medical College of Wisconsin
+1878,Mid-State Technical College
+1879,Milwaukee Area Technical College
+1880,Milwaukee School of Engineering
+1881,Moraine Park Technical College
+1882,Nicolet Area Technical College
+1883,Northcentral Technical College
+1884,Northeast Wisconsin Technical College
+1885,Saint Norbert College
+1886,Holy Family College
+1887,University of Wisconsin Colleges
+1888,Viterbo University
+1889,Chippewa Valley Technical College
+1890,Waukesha County Technical College
+1891,Western Technical College
+1892,University of Wisconsin - Whitewater
+1893,Wisconsin Indianhead Technical College
+1894,University of Wisconsin - Eau Claire
+1895,University of Wisconsin - Green Bay
+1896,University of Wisconsin - La Crosse
+1897,Wisconsin Lutheran College
+1898,University of Wisconsin - Oshkosh
+1899,University of Wisconsin - Stout
+1900,University of Wisconsin - Madison
+1901,University of Wisconsin - Milwaukee
+1902,University of Wisconsin - Platteville
+1903,University of Wisconsin - River Falls
+1904,University of Wisconsin - Stevens Point
+1905,Central Wyoming College
+1906,Eastern Wyoming College
+1907,Laramie County Community College
+1908,Northwest College
+1909,Northern Wyoming Community College District - Sheridan College
+1910,Western Wyoming Community College
+1911,WyoTech - Laramie
+1912,University of Wyoming
+1913,American University of Puerto Rico
+1914,American Educational College - Bayamon
+1915,Universidad Adventista de las Antillas
+1916,Universidad Central de Bayamon
+1917,Carlos Albizu University
+1918,Caribbean University
+1919,Pontifical Catholic University of Puerto Rico
+1920,CEM College
+1921,Theological University of the Caribbean
+1922,Universidad Ana G. Mendez ? Cupey Campus
+1923,Sistema Universitario Ana G Mendez
+1924,Inter American University of Puerto Rico Aguadilla
+1925,Inter American University of Puerto Rico Barranquitas
+1926,Inter American University of Puerto Rico Metropolitan Campus
+1927,Inter American University of Puerto Rico Ponce
+1928,Inter American University of Puerto Rico Guayama
+1929,Inter American University of Puerto Rico Bayamon
+1930,Puerto Rico Technical Junior College Inc
+1931,MBTI Business Training Institute
+1932,National University College - Bayamon
+1933,Ponce Paramedical College
+1934,University of Puerto Rico - Mayaguez
+1935,University of Puerto Rico - Medical Sciences Campus
+1936,University of Puerto Rico - Rio Piedras Campus
+1937,Universidad Ana G. Mendez ? Carolina Campus
+1938,Universidad Ana G. Mendez ? Gurabo Campus
+1939,University of the Virgin Islands
+1940,Purdue University
+1941,ICPR Junior College
+1942,City College - Fort Lauderdale
+1943,Georgia Perimeter College
+1944,Georgia Piedmont Technical College
+1945,Toni & Guy Hairdressing Academy - Coeur d'Alene
+1946,Cortiva Institute - Chicago
+1947,Jones Hair Design College
+1948,Warren County Community College
+1949,Mid-America Christian University
+1950,Ponca City Beauty College
+1951,Carrington College- Portland
+1952,Brightwood College - El Paso
+1953,UCAS University of Cosmetology Arts & Sciences
+1954,Central Texas Beauty College
+1955,Unification Theological Seminary
+1956,Athens Technical College
+1957,Beckfield College
+1958,Sussex County Community College
+1959,Collin County Community College District
+1960,Owensboro Community and Technical College
+1961,Jenny Lea Academy of Cosmetology
+1962,Ogle School of Hair Skin Nails - Hurst
+1963,Okefenokee Technical College
+1964,Flint River Technical College
+1965,Tennessee College of Applied Technology - Nashville
+1966,ECPI University
+1967,Ms. Roberts Academy of Hair Design
+1968,ATI Career Training Center - Dallas
+1969,ATI Career Training Center - North Richland Hills
+1970,Brightwood Career Institute - Harrisburg
+1971,Southern Union State Community College
+1972,National Theatre Conservatory
+1973,Lac Courte Oreilles Ojibwe College
+1974,Diesel Driving Academy
+1975,Douglas J Aveda Institute
+1976,Pike-Lincoln Technical Center
+1977,St Charles Community College
+1978,Heritage College - Denver
+1979,Raphael's School of Beauty Culture Inc.
+1980,Metro Technology Centers - Springlake
+1981,Luna Community College
+1982,Madison Media Institute
+1983,Great Plains Technology Center
+1984,Brightwood College - San Antonio
+1985,"Center for Instruction, Technology, and Innovation (CiTi)"
+1986,Vista College
+1987,Pennsylvania College of Technology
+1988,Delta College of Arts & Technology
+1989,Intercoast Colleges
+1990,Suffolk County Community College
+1991,Altamaha Technical College
+1992,Southern Technical College at Fort Myers
+1993,California State University - San Marcos
+1994,Brightwood College - Modesto Campus
+1995,NorthWest Arkansas Community College
+1996,Hodges University
+1997,Los Angeles ORT College
+1998,Erwin Technical College
+1999,Bryan University
+2000,Fortis College
+2001,Everest College - Ontario
+2002,Pomona Unified School District Adult and Career Education
+2003,IBMC College - Fort Collins
+2004,Sunstate Academy
+2005,Baton Rouge College
+2006,Mississippi Barber Academy
+2007,Continental School of Beauty Culture - Olean
+2008,CC's Cosmetology College
+2009,DPT Business School
+2010,EDIC College
+2011,Universal Technology College of Puerto Rico
+2012,Queen City College
+2013,Baylor University Medical Center
+2014,Sebring Career Schools
+2015,Texas College of Cosmetology
+2016,Catholic Distance University
+2017,Bellus Academy
+2018,Central Coast College
+2019,Pacific College of Oriental Medicine
+2020,Artistic Nails and Beauty Academy
+2021,National Aviation Academy
+2022,Houston Training Schools
+2023,Bay Mills Community College
+2024,Fond du Lac Tribal and Community College
+2025,Paul Mitchell the School - Provo
+2026,Utah College of Massage Therapy Inc
+2027,Westech College
+2028,Miller-Motte Technical College - Clarksville
+2029,Genesis Career College
+2030,Brightwood College - Dallas
+2031,La Belle Beauty Academy
+2032,Regency Beauty Institute - Winston-Salem
+2033,Robert Fiance Beauty Schools
+2034,Long Island Beauty School
+2035,Buckeye Career Center
+2036,Sandusky Adult Education
+2037,Greater Altoona Career and Technology Center
+2038,Greater Johnstown Career and Technology Center
+2039,Anthem College - Bryman School
+2040,Maricopa Community Colleges - Estrella Mountain Community College
+2041,Heartland Community College
+2042,University of the Potomac
+2043,National College
+2044,College of Biblical Studies-Houston
+2045,"Mid-East CTC, Adult Education"
+2046,The College of Health Care Professions
+2047,DVS College
+2048,Los Angeles Recording School
+2049,UEI College - Fresno
+2050,Summit College
+2051,Advance Beauty College
+2052,Career Colleges of America - South Gate
+2053,Tri-State Cosmetology Institute 1
+2054,Turner Job Corps Center - Albany
+2055,Coconino County Community College
+2056,Sanford-Brown College at Jacksonville
+2057,ASA College
+2058,Ohio State School of Cosmetology
+2059,Carroll Community College
+2060,Southeastern Beauty College
+2061,Wright Career College
+2062,Greater Southern Tier BOCES
+2063,DCI Career Institute
+2064,"Xenon International Academy II, Inc."
+2065,Delaware Area Career Center
+2066,Eastland Fairfield Career and Technical Schools
+2067,Pickaway-Ross Career and Technology Center
+2068,Pioneer Career and Technology Center
+2069,Scioto County Career Technical Center
+2070,Lake Erie College of Osteopathic Medicine
+2071,Warren County Career Center
+2072,Texas State Technical College Marshall
+2073,Florida National University
+2074,Georgia Institute of Cosmetology
+2075,Nouvelle Institute
+2076,Franklin Technology Center
+2077,Academy of Cosmetology
+2078,Erikson Institute
+2079,South Texas College
+2080,Heritage College
+2081,Sage College
+2082,Lincoln Technical Institute - Hartford
+2083,Illinois School of Health Careers - Chicago
+2084,"Marian College, Marian Health Career Center"
+2085,College of Menominee Nation
+2086,Leech Lake Tribal College
+2087,East San Gabriel Valley Regional Occupational Program and Technical Center
+2088,Mech-Tech College
+2089,Jean Madeline Aveda Institute
+2090,Pennsylvania Highlands Community College
+2091,Four-D College - Colton
+2092,Allen School of Health Sciences
+2093,Baldwin Park Adult and Community Education
+2094,Ventura Adult and Continuing Education
+2095,Marinello School of Beauty - Sacramento
+2096,Crave Beauty Academy
+2097,"Mr. Bernard's School of Hair Fashion, Inc."
+2098,South Central Career Center
+2099,Central College of Cosmetology
+2100,Durham Beauty Academy
+2101,Prism Career Institute
+2102,Champlain Valley Educational Services (CEWW BOCES)
+2103,Jefferson-Lewis-Hamilton-Herkimer-Oneida BOCES
+2104,Steuben-Allegany BOCES
+2105,Wayne-Finger Lakes BOCES
+2106,Washington-Saratoga-Warren-Hamilton-Essex BOCES
+2107,Ulster BOCES
+2108,Career Institute of Health andTechnology
+2109,Lancaster County Career and Technology Center
+2110,Fortis Institute - Cookeville
+2111,Tint School of Make-Up & Cosmetology - Dallas
+2112,ACT College - Arlington
+2113,McCann Technical School
+2114,Illinois Media School
+2115,Cortiva Institute - Seattle
+2116,Putnam Career and Technical Center
+2117,Beauty Schools of America
+2118,Virginia College - Birmingham
+2119,Northwest Vista College
+2120,Oconee Fall Line Technical College
+2121,York County Community College
+2122,Western Suffolk BOCES
+2123,Arkansas State University Mountain Home
+2124,Columbia Gorge Community College
+2125,Houghton Lake Institute of Cosmetology LLC
+2126,Arizona College
+2127,Vanguard-Sentinel Career & Technology Center
+2128,House of Heavilin Beauty College - Raymore
+2129,Living Arts College@School of Communication Arts
+2130,Academia Serrant Inc
+2131,Sonoma College
+2132,Pacific College
+2133,American College of Healthcare and Technology
+2134,National Defense University
+2135,Merkaz Bnos High School & Career Institute
+2136,Osceola Technical College (oTECH)
+2137,Miami Ad School
+2138,Urban College of Boston
+2139,Praxis Institute
+2140,San Juan Bautista School of Medicine
+2141,Texas Health and Science University
+2142,New Hampshire Institute of Art
+2143,Institute of Technology
+2144,Genesee Valley BOCES Batavia Campus
+2145,Dewey University - Hato Rey Campus
+2146,American Beauty Academy - Wheaton
+2147,Ocean County Vocational-Technical School
+2148,A-Technical College
+2149,Maric College - Los Angeles
+2150,"U.S. Naval War College, The"
+2151,Okaloosa Technical College and Choice High School
+2152,Academy of Hair Design
+2153,Baltimore School of Massage
+2154,Eli Whitney Technical High School
+2155,Toni & Guy Hairdressing Academy - Worchester
+2156,The Community College of Baltimore County
+2157,The Scripps Research Institute
+2158,Pryor Beauty College
+2159,River Parishes Community College
+2160,Mattia College
+2161,Toni & Guy Hairdressing Academy\TIGI Creative School
+2162,Academy of Massage Therapy - Hackensack
+2163,Ross Medical Education Center - Decatur
+2164,The English Center
+2165,ICDC College
+2166,Professional Golfers Career College
+2167,Milan Institute - San Antonio
+2168,Rudae's School of Beauty Culture
+2169,McCann School of Business and Technology
+2170,Vanguard Institute of Technology
+2171,Modern Hairstyling Institute
+2172,Stratford University
+2173,Eastern West Virginia Community and Technical College
+2174,Pierce College
+2175,Lincoln Technical Institute - Fern Park
+2176,"MDT College of Health Sciences, Inc."
+2177,Quest College
+2178,Central Florida Institute - Palm Harbor
+2179,Community Care College
+2180,Marinello School of Beauty - Topeka
+2181,HDS Truck Driving Institute
+2182,James Albert School of Cosmetology
+2183,The King's University
+2184,Lacy Cosmetology School
+2185,New Concept Massage and Beauty School
+2186,Fortis College - Orange Park
+2187,Northeastern Seminary at Roberts Wesleyan College
+2188,Wrightco Technologies Technical Training Institute
+2189,Keck Graduate Institute of Applied Life Sciences
+2190,Aviation Institute of Maintenance - Atlanta
+2191,Missouri College of Cosmetology North
+2192,Midwest University
+2193,Blue River Community College
+2194,Florida Center for Theological Studies
+2195,Arkansas State University - Newport
+2196,Onondaga-Cortland-Madison BOCES
+2197,Pillar College
+2198,Academy of Professional Careers
+2199,Texas Barber College and Hairstyling School - Houston
+2200,West Coast Ultrasound Institute
+2201,Design's School of Cosmetology
+2202,University of the Rockies
+2203,Ultimate Medical Academy - Clearwater
+2204,Angley College
+2205,Jacksonville Beauty Institute
+2206,"International School of Health, Beauty & Technology"
+2207,"National Graduate School of Quality Management, Inc."
+2208,Texas County Technical College
+2209,Institute for Therapeutic Massage
+2210,Metropolitan Learning Institute
+2211,Leon Studio One School of Beauty Knowledge
+2212,Brown Aveda Institute
+2213,"Select Education Group, LLC dba Institute of Technology"
+2214,Centro de Capacitacion y Asesoramiento Vetelba
+2215,Universidad Pentecostal Mizpa
+2216,Lamar Institute of Technology
+2217,MJ's Beauty Academy Inc
+2218,Healing Mountain Massage School
+2219,California State University - Channel Islands
+2220,Antioch University
+2221,Tohono O'Odham Community College
+2222,Edward Via Virginia College of Osteopathic Medicine
+2223,Healthy Hair Academy - Dallas
+2224,Southwest Institute of Healing Arts
+2225,University of Cosmetology - Sullivan
+2226,University of Antelope Valley
+2227,The Salon Professional Academy
+2228,Dallas Barber and Stylist College
+2229,Hood Theological Seminary
+2230,Jay's Technical Institute
+2231,NTMA Training Centers of Southern California
+2232,Trend Barber College
+2233,West Coast University
+2234,Illinois Eastern Community Colleges
+2235,Pierpont Community and Technical College
+2236,Empire Beauty School - Framingham
+2237,School of Health
+2238,Northcentral University
+2239,Advanced College
+2240,"The Beauty Institute, Inc."
+2241,Bellefonte Academy of Beauty
+2242,Burlington Technical Center
+2243,Paul Mitchell the School Gastonia
+2244,CES College
+2245,Dade Medical College - Miami
+2246,Expertise Cosmetology Institute
+2247,IBO Technology Course
+2248,Prospect College
+2249,Turning Point Beauty College
+2250,Unitech Training Academy - Lafayette
+2251,Mountwest Community and Technical College
+2252,Central Methodist University
+2253,Neumont College of Computer Science
+2254,Touro University California
+2255,Reformed Theological Seminary
+2256,ABC Adult School
+2257,Community Christian College
+2258,U.S. Army Command and General Staff College
+2259,Hacienda La Puente Adult Education
+2260,Riverside Adult School
+2261,White Mountains Community College
+2262,Palm Beach Academy of Health & Beauty
+2263,Northeast Montessori Institute
+2264,Seacoast Center for Education
+2265,SAE Institute of Technology - Nashville
+2266,Center for Montessori Education NY
+2267,West Side Montessori School's Teacher Education Program
+2268,Institute for Guided Studies
+2269,Ashland County - West Holmes Career Center
+2270,EDP University of Puerto Rico
+2271,Columbia Central University
+2272,Four County Career Center
+2273,The Barber School
+2274,The Institute of Beauty and Wellness
+2275,U.S. Army Ordnance Munitions and Electronics Maintence School
+2276,Aviation and Electronic Schools of America - Colfax
+2277,Mayfield College
+2278,Defense Acquisition University
+2279,National Geospatial Intelligence College
+2280,Long Island Business Institute - Flushing
+2281,Georgia Driving Academy
+2282,National Cryptologic School
+2283,National University College- IBC Institute
+2284,Arizona Christian University
+2285,Blackstone Career Institute
+2286,Visible Music College
+2287,Ex'pression College for Digital Arts
+2288,Roseman University of Health Sciences
+2289,CDA Technical Institute
+2290,Mercer County Technical Schools - Assunpink Center
+2291,SUM Bible College & Theological Seminary
+2292,World Mission University
+2293,"New York Film Academy, New York"
+2294,Maria Montessori Teacher Training Center
+2295,"CCI Training Center, Inc. - Arlington"
+2296,Auguste Escoffier School of Culinary Arts
+2297,"Franklin Career Colleges, Inc. - Ontario"
+2298,IITR Truck Schools
+2299,LearnQuest - Bala Cynwyd
+2300,"Professional Careers Institute, Inc. - Houston"
+2301,Springhouse Education and Consulting Services - Exton
+2302,PC AGE - Jersey City
+2303,Academy Di Capelli
+2304,"Health and Style Institute, LLC"
+2305,Herzing University
+2306,New River Community and Technical College
+2307,ATA College
+2308,Career Care Institute - Lancaster
+2309,Estelle Medical Academy
+2310,Florida Medical Training Institute - Melbourne
+2311,Institute of Health and Technology
+2312,Cambridge College of Healthcare & Technology
+2313,WellSpring School of Allied Health
+2314,Los Angeles Film School - Hollywood
+2315,Computer Systems Institute
+2316,Grant Career Center
+2317,WestMed College
+2318,Logos Evangelical Seminary
+2319,Hondros College of Nursing
+2320,Med Tech College - Indianapolis
+2321,Southern Technical College
+2322,Bristol Technical Education Center
+2323,Great Bay Community College
+2324,"John Paolo's Xtreme Beauty Institute, Goldwell Products Artistry"
+2325,United Education Institute - Huntington Park Campus
+2326,Academia Morales
+2327,Heald College - Central Administrative Office
+2328,CALC Institute of Technology
+2329,Career Quest Learning Center
+2330,Jersey College
+2331,Center for Security Forces (CENSECFOR)
+2332,Center for Explosive Ordnance Disposal and Diving
+2333,Center for Naval Aviation Technical Training (CNATT)
+2334,Center for Naval Engineering (CNE)
+2335,Center for Naval Intelligence (CNI)
+2336,Center for Seabees and Facilities Engineering (CSFE)
+2337,Center for Service Support (CSS)
+2338,Center for Surface Combat Systems (CSCS)
+2339,Compass Career College
+2340,Blake Austin College
+2341,"Bexley Hall Seabury-Western Theological Seminary Federation, Inc."
+2342,Learey Technical College
+2343,Blue Ridge Community and Technical College
+2344,Miami Regional College
+2345,Fred K. Marchman Technical College
+2346,Traviss Technical College
+2347,Maricopa Community Colleges - Chandler-Gilbert Community College
+2348,MCI Institute of Technology
+2349,Maricopa Community Colleges - Paradise Valley Community College
+2350,Maricopa Community Colleges - Phoenix College
+2351,Maricopa Community Colleges - Rio Salado Community College
+2352,Maricopa Community Colleges - Scottsdale Community College
+2353,Maricopa Community Colleges - South Mountain Community College
+2354,"Mountainland Technical College, Lehi"
+2355,New York Medical Career Training Center
+2356,Somerset County Technology Center
+2357,Oxman College
+2358,Tooele Technical College
+2359,Southwest Technical College
+2360,Denmark College
+2361,Texas Health School
+2362,U. S. Army Medical Department Center and School
+2363,River Valley Community College
+2364,T.A. Lawson State Community College
+2365,American Institute of Beauty
+2366,Buchanan Beauty College
+2367,Evergreen Beauty and Barber College
+2368,Paul Mitchell The School Great Lakes
+2369,Hair Expressions - Paul Mitchell Partner School
+2370,Ideal Beauty Academy
+2371,International School of Beauty
+2372,MyrAngel Beauty Institute
+2373,P & A Scholars Beauty School
+2374,eClips School of Cosmetology and Barbering
+2375,Marinello School of Beauty - Niantic
+2376,California University of Management and Sciences
+2377,Vici Beauty School - Greenfield
+2378,Stillwater Beauty Academy
+2379,Beauty Academy of South Florida
+2380,San Diego College
+2381,Professional Hands Institute
+2382,Coast Career Institute
+2383,Woodruff Medical Training & Testing
+2384,ComputerTraining.edu
+2385,FastTrain College - Plantation
+2386,FastTrain College - Tampa
+2387,FastTrain College - Miami
+2388,Orion College
+2389,University of Minnesota Medical Center - Fairview
+2390,Children's Hospital of Los Angeles
+2391,Shear Excellence Hair Academy
+2392,"Corinth Academy of Cosmetology, Inc"
+2393,Borner's Barber College
+2394,Aveda Institute Tallahassee
+2395,Academy of Career Training
+2396,L'esprit Academy
+2397,Manuel & Theresa's School of Hair Design
+2398,4Cs The Center for Child Care Careers
+2399,American Academy of English
+2400,American English College
+2401,"Brescook, LLC Dale Carnegie Training"
+2402,"Bridge Education Group, Inc."
+2403,"Center for Asia-Pacific Exchange, The"
+2404,Diversified Vocational College - Los Angeles
+2405,EF International Schools of English
+2406,ELS Language Centers
+2407,Embassy CES
+2408,English Language Institute
+2409,Escuela Tecnica De Electricidad
+2410,The Language Company
+2411,TALK International
+2412,Spring International Language Center Littleton
+2413,Seacoast Career Schools
+2414,Quest Career College
+2415,FLS International
+2416,GEOS New York Corp dba GEOS Languages Plus
+2417,Glendale Career College
+2418,INTRAX International Institute
+2419,LADO International Institute
+2420,Language Studies International
+2421,Tricoci University of Beauty Culture
+2422,"PC ProSchools, Inc."
+2423,"Starting Points, Inc. dba Institute for Early Childhood Educators"
+2424,Rosemead College
+2425,Eagle Rock College
+2426,Asher College
+2427,EC Boston
+2428,TLA - The Language Academy
+2429,Kaplan International
+2430,Crescent City School of Gaming & Bartending
+2431,Berlitz Language Centers
+2432,Kaplan Test Prep
+2433,US PC Tech Learning Center
+2434,Advocate Health Care System
+2435,Alexian Brothers Health System
+2436,Allina CPE Center
+2437,Avera Health ACPE System Center
+2438,Caritas Christi Health Care System
+2439,Centura Health
+2440,"Christian Homes, Inc."
+2441,CHRISTUS SPOHN Hospital Corpus Christi
+2442,Florida Hospital
+2443,Lehigh Valley Hospital & Health Network
+2444,Palmetto Health
+2445,Phoebe Ministries
+2446,Presbyterian Healthcare Services
+2447,Memorial Hermann Hospital/Memorial Hermann Children's Hospital
+2448,St. Mary's Bay Area CPE Center
+2449,The Midwest CPE Program Baptist-Lutheran Medical Center
+2450,The Institute for Chaplaincy and Clinical Pastoral Education at Care and Counseling Center of Georgia
+2451,VA Midwest Health Care Network
+2452,VITAS: Innovative Hospice Care
+2453,York Hospital/WellSpan Health
+2454,Shepherds Theological Seminary
+2455,Celebrity School of Beauty
+2456,Bella Capelli Academy A Paul Mitchell Partner School
+2457,Yeshivas Be'er Yitzchok
+2458,Employment Solutions - College for Technical Education
+2459,Dixie Technical College
+2460,Keune Academy by 124
+2461,Monroe 2 - Orleans BOCES Center for Workforce Development
+2462,"Park West Barber School, LLC"
+2463,Paul Mitchell The School Cincinnati
+2464,Healing Hands School of Holistic Health
+2465,Preferred College of Nursing
+2466,"International Institute of Cosmetology, LLC"
+2467,"Skin Science Institute, Inc. DBA Skih Science Institute of Laser & Esthetics-Salt Lake"
+2468,Laurus College
+2469,The Studio Academy of Beauty
+2470,Washington University of Virginia
+2471,HCI College
+2472,Long Island Jewish Medical Center
+2473,Rasmussen College
+2474,Institute of Medical Careers
+2475,Access Careers - Hempstead
+2476,Anderson Medical Career College
+2477,California Technical Education College
+2478,Coastal College
+2479,Cosmetic Arts Institute
+2480,D.A. Dorsey Technical College
+2481,Flagler Technical Center
+2482,Immokalee Technical College
+2483,Finishing Trades Institute of the Mid-Atlantic Region
+2484,Brightwood College - Nashville
+2485,National Career Institute
+2486,Southeast Culinary & Hospitality College
+2487,Southeastern School of Cosmetology
+2488,English Language Center
+2489,California School of Health Sciences
+2490,American InterContinental University
+2491,John Paolo's Xtreme Beauty Institute
+2492,Richmont Graduate University
+2493,Mediatech Institute
+2494,Angeles College
+2495,Carthage Technical Center
+2496,Midwestern Career College
+2497,Nevada Regional Technical Center
+2498,Tolles Career and Technical Center
+2499,Pinchot University
+2500,Brookline College - Phoenix
+2501,Valley College of Medical Careers
+2502,Southeastern College
+2503,Avenue Five Institute
+2504,South Texas Training Center
+2505,Aveda Institute of Columbus
+2506,Barone Beauty Academy
+2507,"Z Hair Academy, Inc."
+2508,National Beauty College
+2509,Advance Welding Institute
+2510,"The Academy of Barbering Arts, Inc."
+2511,New Mexico State University at Alamogordo
+2512,New Mexico State University - Carlsbad
+2513,New Mexico State University - Dona Ana Community College
+2514,Innovations Design Academy
+2515,Marinello School of Beauty - Reno
+2516,Gurnick Academy of Medical Arts
+2517,Virginia Montessori Teacher Education Center
+2518,Onondaga School of Therapeutic Massage
+2519,Tramy Beauty School
+2520,Patsy & Rob's Academy of Beauty
+2521,Harrisburg University of Science and Technology
+2522,"Universal Spa Training Academy, Inc."
+2523,Elevate Salon Institute
+2524,Aveda Institute Portland
+2525,Bryant and Stratton College
+2526,International Institute for Restorative Practices
+2527,Palm Harbor Montessori Teacher Education Center
+2528,Peloton College
+2529,Westwood College - Los Angeles
+2530,Westwood College - Dupage
+2531,Westwood College - O'Hare Airport
+2532,Minneapolis Media Institute
+2533,All Beauty College
+2534,Park Avenue School of Cosmetology
+2535,Washington Barber College
+2536,Lutheran Services New York Alliance
+2537,Partners HealthCare System
+2538,The Real Barbers College
+2539,Paul Mitchell The School - Esani
+2540,Tomorrow's Image Barber Academy of Virginia
+2541,Solex College
+2542,Carolina College of Hair Design
+2543,Florida Vocational Institute
+2544,Northeast Technical Institute
+2545,Cybertex Institute of Technology
+2546,Vantage College
+2547,ITT Technical Institute - Spokane Valley
+2548,Anamarc College - Santa Teresa
+2549,Brandman University
+2550,Southern States University - San Diego
+2551,Protege Academy
+2552,Cinta Aveda Institute
+2553,Michael's School of Beauty - Augusta
+2554,Computer Systems Institute - Gurnee
+2555,National Personal Training Institute of Colorado
+2556,Elite School of Cosmetology
+2557,Florida Academy
+2558,Finger Lakes School of Massage
+2559,Salon Institute - Toledo
+2560,Unitek College
+2561,University of Minnesota - Duluth
+2562,Aveda Institute Tucson
+2563,Regina's College of Beauty - Monroe
+2564,Athena Career Academy
+2565,Urban 113 School of Cosmetology
+2566,Brightwood College - Hammond
+2567,Austin Kade Academy
+2568,Good Careers Academy
+2569,Lil Lou's Beauty and Barber College
+2570,Orange-Ulster BOCES
+2571,Avivo Institute of Career and Technical Education
+2572,Advanced Career Institute - Visalia
+2573,The American Academy of Personal Training
+2574,Wade Gordon Hairdressing Academy
+2575,Redeemer Theological Seminary
+2576,Helms College
+2577,MyComputerCareer.com
+2578,Elite Welding Academy
+2579,Educational and Cultural Interactions/ Randall University
+2580,Institute of Health Sciences
+2581,Axis Business Academy - Ben Crenshaw Campus
+2582,ASI Career Institute
+2583,Argosy University
+2584,SAE Institute of Technology - Los Angeles
+2585,Boca Beauty Academy
+2586,VA Eastern Colorado Health Care System
+2587,North Florida/South Georgia Veterans Health System
+2588,Lyle's College of Beauty
+2589,Naval Chaplaincy School and Center
+2590,Progressive Truck Driving School
+2591,Relay Graduate School of Education
+2592,Paul Mitchell The School - Jersey Shore
+2593,"Airstreams Renewables, Inc."
+2594,American National College
+2595,Wood County Technical Center
+2596,Verve College
+2597,Chiron Training Center
+2598,Saint Michael College of Allied Health
+2599,Chester Career College
+2600,Sharp Edgez Barber Institute
+2601,Training Centers of Texas
+2602,Rudolf Steiner College
+2603,"Micropower Career Institute, Manhattan"
+2604,Southeastern Beauty School - Stockbridge
+2605,California Career Institute
+2606,HUMINT Training - Joint Center of Excellence
+2607,UEI College - Gardena
+2608,Aparicio-Levy Technical Center
+2609,Northwest Louisiana Technical College
+2610,Ace Cosmetology & Barber Training Center
+2611,America Evangelical University
+2612,National Personal Training Institute of Columbus
+2613,DeSigner Barber & Stylist School LLC
+2614,BCI
+2615,Vantage College - San Antonio North
+2616,Capital Region Career and Technical School
+2617,Philadelphia Technician Training
+2618,San Joaquin County Office of Education ROP/C
+2619,Brensten Education
+2620,Trenz Beauty Academy
+2621,Milan Institute - Palm Desert
+2622,Alliance Computing Solutions (ACS)
+2623,New Horizons Medical Institute
+2624,Culinary Tech Center
+2625,Barber School of Pittsburgh
+2626,Cosmetology Academy of Texarkana
+2627,East-West Healing Arts Institute
+2628,Yale - New Haven Hospital
+2629,ARCLabs
+2630,Rockland County BOCES
+2631,Kenneth Shuler School of Cosmetology
+2632,Aveda Institute South Florida
+2633,Bay Area College of Nursing
+2634,Language Systems International
+2635,High Desert Medical College
+2636,Sanford-Brown College Chicago
+2637,Le Cordon Bleu College of Culinary Arts - Scottsdale
+2638,Le Cordon Bleu College of Culinary Arts - Austin
+2639,Pittsburgh Career Institute
+2640,Le Cordon Bleu College of Culinary Arts - Pasadena
+2641,CDE Career Institute
+2642,Baptist Seminary of Kentucky
+2643,"Barber Institute of Texas, LLC"
+2644,NeeCee's College of Cosmetology
+2645,Alaska Bible College
+2646,"Northwest Hair Academy, Mount Vernon"
+2647,American Harbor College
+2648,StenoTech Career Institute - Piscataway
+2649,Jackson College
+2650,Augusta University
+2651,Agape English Language Institute for Internationals
+2652,Connect English Language Institute
+2653,"International House New York, Inc. dba OHC"
+2654,Rennert New York
+2655,Shepherd School of Language
+2656,Computer Institute of Technology
+2657,Coral Springs Regional Institute of Public Safety
+2658,First Response Medical Training
+2659,Brooks Institute
+2660,Sullivan and Cogliano Training Centers
+2661,Ashland Theological Seminary
+2662,Riverside County Office of Education - School of Career Education
+2663,The Center for Guided Montessori Studies
+2664,Capital Education Institute
+2665,Montessori Live
+2666,University of Southernmost Florida - Coral Gables Campus
+2667,Jones College - Jacksonville
+2668,Morrison University
+2669,Daymar College - Clarksville
+2670,Instituto de Educacion Tecnica Ocupacional La Reine
+2671,Mentor Language Institute
+2672,Lingua Language Center at Broward College
+2673,LASC: American Language and Culture
+2674,Fountain of Youth Academy of Cosmetology
+2675,Canton City Schools Adult Community Education Center
+2676,Discovery Diving Company
+2677,Westwood College - Denver North
+2678,Westwood College - Long Beach
+2679,Institute of Allied Medical Professions - Stamford
+2680,Buffalo Public Schools Adult Education Division
+2681,Western Maricopa Education Center
+2682,Northern Career Institute
+2683,BridgeValley Community and Technical College
+2684,Conversa Language Center
+2685,California Language Academy Group d/b/a California Language Academy
+2686,Cal America Education Institute
+2687,"Kings Colleges USA, LLC, d/b/a Kings Education"
+2688,Camphill Academy
+2689,Bethesda College of Health Sciences
+2690,Vogue Beauty and Barber School
+2691,Brightwood Career Institute
+2692,"Transemantics, Inc. dba International Language Institute"
+2693,Middle Georgia State University
+2694,DeVry University
+2695,Midwest Technical Institute
+2696,Bay Area Medical Academy
+2697,"Adult and Community Education, Columbus City Schools"
+2698,"Eastern Suffolk Board of Cooperative Education, James Hines Administrative Center"
+2699,William Loveland College
+2700,Lumos Language School
+2701,Becker Professional Development Corporation
+2702,Ashford University
+2703,Erie 1 BOCES
+2704,Court Reporting Institute of St. Louis
+2705,Fei Tian College
+2706,New England Business Educational Systems
+2707,National Personal Training Institute of Orlando
+2708,Great Oaks Career Campuses
+2709,Coastal Pines Technical College
+2710,Monmouth County Post-Secondary Adult School
+2711,Le Cordon Bleu College of Culinary Arts - Portland
+2712,Med-Life Institute - Pompano Beach
+2713,American Fitness and Nutrition Academy
+2714,Paul Mitchell the School - Murfreesboro
+2715,Aveda Arts & Sciences Institute Corpus Christi
+2716,Cottage Montessori
+2717,Pivot Point Academy - Bloomingdale
+2718,The Santa Barbara and Ventura Colleges of Law
+2719,Griggs International Academy
+2720,Apprentice for the Electrical Industry IBEW Local 98
+2721,Bethlehem College & Seminary
+2722,The American College of Commerce and Technology
+2723,Advance English Academy
+2724,Nobel University
+2725,"Associated Builders & Contractors, Greater Michigan Chapter dba Greater Michigan Construction Academy"
+2726,Life Time Academy
+2727,Charter College - Lancaster
+2728,"Intrax English Academies, LLC d/b/a Stafford House International"
+2729,Study Group: Higher Education North America
+2730,Embassy English
+2731,Kenny's Academy of Barbering
+2732,Daymar College - New Boston
+2733,MAK Beauty Institute
+2734,International Training Fund
+2735,"Dale Carnegie & Associates, Inc."
+2736,California Institute of Arts & Technology
+2737,New Community Career and Technical Institute
+2738,Suncoast Technical Education Center
+2739,Penta Career Center
+2740,Spartan College of Aeronautics and Technology - Inglewood
+2741,California Technical Academy
+2742,"FRANKLIN CAREER INSTITUTE, BROOKLYN"
+2743,ACE Institute of Technology
+2744,Azure College
+2745,Lab Four Professional Development Center
+2746,European Medical School of Massage LLC
+2747,"Carleen Home Health Schools, Inc"
+2748,Arizona School of Integrative Studies / ASIS Massage Education
+2749,American Career Institute - Framingham
+2750,Gordon Cooper Technology Center - Aviation Campus
+2751,"RITZ BEAUTY ACADEMY, LLC"
+2752,Cosmopolitan Beauty & Tech School
+2753,Sanford-Brown College - Houston
+2754,Sanford-Brown Institute - Garden City
+2755,Brown College Brooklyn Center Campus
+2756,Lynnes Welding Training
+2757,Ameritech College of Healthcare
+2758,MedQuest College
+2759,Pacific Rim Christian University
+2760,Canton City Schools - Adult Community Education
+2761,J.F. Ingram Technical College
+2762,Knox Technical Center
+2763,The Chicago School of Professional Psychology
+2764,Touro University Worldwide
+2765,University of St. Augustine for Health Sciences
+2766,California College of the Arts
+2767,Georgia Beauty Academy - Dalton
+2768,South Dade Technical College
+2769,American National University
+2770,Jenks Beauty College
+2771,Applied Technology Services-South County
+2772,John Marshall Law School - Atanta
+2773,Sanford-Brown College
+2774,Grifols Academy of Plasmapheresis
+2775,Age of Montessori
+2776,Northern Industrial Training
+2777,Gulf Coast Montessori Teacher Education Center
+2778,Montessori Institute of North Texas
+2779,Saint Paul School of Theology
+2780,Northwestern College
+2781,Cochise College
+2782,Indiana University School of Optometry
+2783,The Academy at Harvard Square English Institute
+2784,Milan Institute of Cosmetology
+2785,Purdue University Global
+2786,Saint Louis Community College
+2787,California Aeronautical University
+2788,Fortis Institute - Birmingham
+2789,Center for Information Warfare Training (CIWT)
+2790,A & J Training Institute for Southern California
+2791,Mitchell's Academy
+2792,UA Local 290 College of Mechanical Systems & Technology
+2793,"Finishing Trades Institute of Maryland, Virginia, Washington DC and Vicinities"
+2794,Finishing Trades Institute of New England
+2795,Houston Area Plumbing Joint Apprenticeship Committee
+2796,Houston School of Houston School of Carpentry
+2797,Dorsey Schools
+2798,International Union of Operating Engineers: Local 825
+2799,Royal Learning Institute
+2800,Mechanical Trades Institute - Joint Apprenticeship and Training Trust
+2801,"Northshore Technical Community College, Lacombe Campus"
+2802,The Art Institute of Las Vegas
+2803,Tri-Community Adult Education
+2804,William M. Maguy School of Education
+2805,College Unbound
+2806,"Navy Medicine Education, Training and Logistics Command"
+2807,Special School District of St. Louis County
+2808,Paul Mitchell The School - Madison
+2809,Southern Hills Career and Technical Center
+2810,DC 14 Apprenticeship Program Painters
+2811,Northwest Laborers-Employers Training Trust
+2812,Vanguard College of Cosmetology A Paul Mitchell Partner School - Metairie
+2813,International Business College - El Paso
+2814,Empire Beauty School - Hooksett
+2815,Branford Hall Career Institute - Amityville
+2816,College of Business and Technology - Miami
+2817,Bell Brown Medical Institute
+2818,"Arthur's Beauty College, Inc. - Conway"
+2819,American Flight Training LLC
+2820,Pacific West Academy
+2821,Roseville Adult School
+2822,Nyack College at Nyack College Manhattan Center
+2823,Puerto Rico School of Nurse Anesthetists
+2824,Sabio Enterprises
+2825,Missio Theological Seminary
+2826,
+2827,Vancouver Island University
+2828,Royal Roads University
+2829,Simon Fraser University
+2830,Trinity Western University
+2831,Thompson River University
+2832,University of the Fraser Valley
+2833,University of British Columbia
+2834,University of Northern British Columbia
+2835,University of Victoria
+2836,First Nations University of Canada
+2837,University of Regina
+2838,University of Saskatchewan
+2839,Athabasca University
+2840,Augustana University College
+2841,Concordia University College of Alberta
+2842,The King’s University College
+2843,University of Alberta
+2844,University of Calgary
+2845,University of Lethbridge
+2846,MacEwan University
+2847,Mount Royal University
+2848,Brandon University
+2849,University of Manitoba
+2850,University of Winnipeg
+2851,Canadian Mennonite University
+2852,St. Paul’s College
+2853,Université de Saint-Boniface
+2854,Algoma University
+2855,Brescia University College
+2856,Brock University
+2857,Carleton University
+2858,Dominican University College
+2859,Huron University College
+2860,King’s University College at Western University
+2861,Lakehead University
+2862,Laurentian University
+2863,McMaster University
+2864,Nipissing University
+2865,OCAD University
+2866,Queen’s University
+2867,Redeemer University College
+2868,Royal Military College of Canada
+2869,Ryerson University
+2870,Saint Paul University
+2871,St. Jerome’s University
+2872,Trent University
+2873,University of Guelph
+2874,University of Ontario Institute of Technology
+2875,University of Ottawa
+2876,University of St. Michael’s College
+2877,University of Sudbury
+2878,University of Toronto
+2879,University of Trinity College
+2880,University of Waterloo
+2881,University of Western Ontario
+2882,University of Windsor
+2883,Victoria University
+2884,Wilfrid Laurier University
+2885,York University
+2886,Bishop’s University
+2887,École de technologie supérieur
+2888,École nationale d’administration publique
+2889,École Polytechnique de Montréal
+2890,HEC Montréal
+2891,Institut national de la recherche scientifique
+2892,McGill University
+2893,TÉLUQ
+2894,Université de Montréal
+2895,Université de Sherbrooke
+2896,Université de Québec
+2897,Université du Québec à Chicoutimi (UQAC)
+2898,Université du Québec à Montréal (UQAM)
+2899,Université du Québec à Rimouski (UQAR)
+2900,Université du Québec à Trois-Rivières (UQTR)
+2901,Université du Québec en Abitibi-Témiscamingue (UQAT)
+2902,Université du Québec en Outaouais
+2903,Université de Laval
+2904,Acadia University
+2905,Cape Breton University
+2906,Dalhousie University
+2907,Mount Saint Vincent University
+2908,NSCAD University
+2909,Saint Mary’s University
+2910,St. Francis Xavier University
+2911,Université Sainte-Anne
+2912,University of King’s College
+2913,Mount Allison University
+2914,St. Thomas University
+2915,Université de Moncton
+2916,University of New Brunswick
+2917,British Columbia Institute of Technology
+2918,Okanagan College
+2919,Ashton College
+2920,Brighton College
+2921,Camosun College
+2922,Canadian College
+2923,Capilano University
+2924,Collège Éducacentre
+2925,College of the New Caledonia
+2926,College of the Rockies
+2927,Douglas College
+2928,Eton College
+2929,Justice Institute of British Columbia
+2930,Kwantlen Polytechnic University
+2931,Langara College
+2932,Native Education College
+2933,Nicola Valley Institute of Technology
+2934,North Island College
+2935,Northern Lights College
+2936,Northwest Community College
+2937,Selkirk College
+2938,Sprott Shaw College
+2939,Vancouver Community College
+2940,Vancouver Institute of Media Arts
+2941,Winnipeg Technical College
+2942,Assiniboine Community College
+2943,University College of the North
+2944,"Red River College of Applied Arts, Science and Technology"
+2945,"École technique et professionnelle, Université de Saint-Boniface"
+2946,Manitoba Institute of Trades and Technology
+2947,New Brunswick College of Craft and Design
+2948,New Brunswick Community College
+2949,Maritime College of Forest Technology
+2950,New Brunswick Bible Institute
+2951,College of the North Atlantic
+2952,Marine Institute
+2953,Centre for Nursing Studies
+2954,"Université de Guelph, Campus d’Alfred"
+2955,Algonquin College
+2956,Collège Boréal
+2957,Cambrian College of Applied Arts and Technology
+2958,Canadore College of Applied Arts and Technology
+2959,Centennial College of Applied Arts and Technology
+2960,La Cité collégiale
+2961,Conestoga College Institute of Technology and Advanced Learning
+2962,Confederation College of Applied Arts and Technology
+2963,Durham College
+2964,Fanshawe College of Applied Arts and Technology
+2965,Fleming College
+2966,George Brown College
+2967,Georgian College of Applied Arts and Technology
+2968,"Humber College Institute of Technology & Advanced Learning University of Guelph, Kemptville Campus"
+2969,Lambton College of Applied Arts and Technology
+2970,Loyalist College of Applied Arts and Technology
+2971,The Michener Institute for Applied Health Sciences
+2972,Mohawk College of Applied Arts and Technology
+2973,Niagara College
+2974,Northern College of Applied Arts and Technology
+2975,St. Clair College of Applied Arts and Technology
+2976,St. Lawrence College
+2977,Sault College of Applied Arts and Technology
+2978,Seneca College of Applied Arts and Technology
+2979,Sheridan College Institute of Technology and Advanced Learning
+2980,Aurora College
+2981,Academy of Learning College
+2982,Canadian Coast Guard College
+2983,Gaelic College
+2984,Kingston Bible College
+2985,Nova Scotia Community College
+2986,Holland College
+2987,Maritime Christian College
+2988,Collège Acadie Î.-P.-É.
+2989,Cégep de l’Abitibi-Témiscamingue
+2990,Collège Ahuntsic
+2991,Collège André-Laurendeau
+2992,Cégep de Baie-Comeau
+2993,Cégep Beauce-Appalaches
+2994,Collège de Bois-de-Boulogne
+2995,Champlain Regional College
+2996,Cégep de Chicoutimi
+2997,Dawson College
+2998,Cégep de Drummondville
+2999,Cégep Édouard-Montpetit
+3000,Collège François-Xavier-Garneau
+3001,Cégep de la Gaspésie et des Îles
+3002,Collège Gérald-Godin
+3003,Cégep de Granby-Haute-Yamaska
+3004,John Abbott College
+3005,Cégep de Jonquière
+3006,Cégep de La Pocatière
+3007,Cégep régional de Lanaudière
+3008,Cégep de Lévis-Lauzon
+3009,Cégep Limoilou
+3010,Collège Lionel-Groulx
+3011,Collège de Maisonneuve
+3012,Cégep Marie-Victorin
+3013,Cégep de Matane
+3014,Collège Montmorency
+3015,Cégep de l’Outaouais
+3016,Cégep de Rimouski
+3017,Collège de Rosemont
+3018,Cégep de Saint-Félicien
+3019,Cégep de Saint-Hyacinthe
+3020,Cégep de Saint-Jean-sur-Richelieu
+3021,Cégep de Saint-Jérôme
+3022,Cégep de Saint-Laurent
+3023,Cégep de Sainte-Foy
+3024,Cégep de Sept-Îles
+3025,Collège Shawinigan
+3026,Cégep de Sherbrooke
+3027,Cégep de Sorel-Tracy
+3028,Cégep de Thetford
+3029,Cégep de Trois-Rivières
+3030,Collège de Valleyfield
+3031,Vanier College
+3032,Cégep de Victoriaville
+3033,Cégep du Vieux Montréal
+3034,Collège Bart
+3035,Collège Jean-de-Brébeuf
+3036,Collège Laflèche
+3037,LaSalle College
+3038,Marianopolis College
+3039,Collège International Marie de France
+3040,Collège Mérici
+3041,O’Sullivan College of Montreal
+3042,Collège O’Sullivan de Québec
+3043,Collège Stanislas
+3044,École de musique Vincent d’Indy
+3045,National Circus School
+3046,Séminaire de Sherbrooke
+3047,Trebas Institute
+3048,Briercrest College and Seminary
+3049,Carlton Trail Regional College
+3050,Horizon College and Seminary
+3051,College Mathieu
+3052,Cumberland College
+3053,Eston College
+3054,Great Plains College
+3055,Nipawin Bible College
+3056,Northlands College
+3057,North West Regional College
+3058,Saskatchewan Indian Institute of Technologies
+3059,Saskatchewan Institute of Applied Sciences and Technology
+3060,Southeast Regional College
+3061,St Peter’s College
+3062,Western Academy Broadcasting College
+3063,Yukon College

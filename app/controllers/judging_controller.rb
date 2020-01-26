@@ -61,9 +61,8 @@ class JudgingController < ApplicationController
     elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
     
-    elsif (JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id]))  # If the judge is already assigned to this project.
+    elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: '+params[:judge_email]+' is already assigned to judge this project!'
-
     else  # All is well, assign judge to project
       if params.has_key?(:tag) and params[:tag] != ''
         @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])

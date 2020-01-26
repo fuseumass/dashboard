@@ -1,5 +1,23 @@
 
-<% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
-        <%= c['name'] %>
-        <div> help </div>
+<div class="card-body">
+    <%= form_for([@judgment, @project], html: {multipart: true}) do |f| %>
+        <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
+            <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
+                <h1> <%= c['name'].to_sym %> </h1>
+                <% if c['type'] == 'button' %>
+                    <% c['scores'].each do |cate| %>
+                        <div> help1 </div>
+
+                        <%# <%= button_to <%= cate['description']%> (<%= cate['points'] %>) %>  %>
+                    <% end %>
+                <% elsif c['type'] == 'range' %>
+                    <div> help2 </div>
+                <% elsif c['type'] == 'range_restricted' %>
+                    <div> help3 </div>
+                <% else c['type'] == 'dropdown' %>
+                    <div> help4 </div>
+                <% end %>
+            <% end %>
+        <% end %>
     <% end %> 
+</div>

@@ -167,6 +167,7 @@ Rails.application.routes.draw do
   # Routes for Live Judging Begins
 
   resources :judging do
+    resources :judgement
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
     collection do
@@ -177,7 +178,6 @@ Rails.application.routes.draw do
   end
   post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
   post 'judging/unassign_judge' => 'judging#remove_judge_assignment', :as => :judging_unassign
-
 
 
 

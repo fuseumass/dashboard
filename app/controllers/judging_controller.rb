@@ -27,7 +27,7 @@ class JudgingController < ApplicationController
 
 
   def index
-    @assigned = Project.joins(:judging_assignments)
+    @assigned = JudgingAssignment.all.where(user_id: current_user.id)
     @projects = Project.all.paginate(page: params[:page], per_page: 20)
 
     @judgementsCSV = Judgement.all
@@ -65,7 +65,11 @@ class JudgingController < ApplicationController
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: '+params[:judge_email]+' is already assigned to judge this project!'
 
     else  # All is well, assign judge to project
-      @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
+      if params.has_key?(:tag) and params[:tag] != ''
+        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])
+      else
+        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
+      end
       if @assignment.save
         redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully assigned judge to project.'
       else

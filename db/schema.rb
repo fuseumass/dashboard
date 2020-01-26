@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_031347) do
+ActiveRecord::Schema.define(version: 2020_01_26_193225) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -125,11 +125,13 @@ ActiveRecord::Schema.define(version: 2020_01_28_031347) do
     t.integer "user_id"
     t.integer "project_id"
     t.json "custom_scores"
+    t.string "tag"
   end
 
   create_table "judging_assignments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.string "tag"
     t.index ["user_id", "project_id"], name: "index_judging_assignments_on_user_id_and_project_id", unique: true
   end
 
@@ -196,9 +198,9 @@ ActiveRecord::Schema.define(version: 2020_01_28_031347) do
     t.boolean "power"
     t.integer "table_id"
     t.string "youtube_link"
-    t.json "tech", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
-    t.json "prizes", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
     t.json "prizes_won", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
+    t.json "prizes", default: "\"[]\""
+    t.json "tech", default: []
   end
 
   create_table "universities", force: :cascade do |t|

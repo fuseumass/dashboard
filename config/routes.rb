@@ -175,6 +175,7 @@ Rails.application.routes.draw do
 
 
   resources :judging do
+    resources :judgement
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
     collection do

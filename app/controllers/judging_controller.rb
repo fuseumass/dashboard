@@ -117,10 +117,10 @@ class JudgingController < ApplicationController
 
   # POST route to submit a score for a project
   def create
-    puts "params: #{judging_score_params}"
-    puts "cfields params: #{judging_score_params['custom_fields']}"
+    puts "custom scores: #{judging_score_params}"
+    puts "cfields params: #{judgin_score_params['custom_scores']}"
+    
     @judgement = Judgement.new(judging_score_params)
-    @judgement.score = current_user
 
     if @judgement.save
       redirect_to index_path, notice: 'Thank you for judging this project!'
@@ -169,10 +169,10 @@ class JudgingController < ApplicationController
 
     # gives 
     def judging_score_params
-      total_score = 0
+      custom_scores_items = []
       HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
-        total_score += c
+        custom_scores_items << c['name'].to_sym
       end
-      params.require(:judgement).permit(score: total_score)
+      params.require(:judgements).permit(custom_scores: custom_scores_items)
     end
 end

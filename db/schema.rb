@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_200442) do
+ActiveRecord::Schema.define(version: 2020_01_26_000717) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_200442) do
     t.integer "score", default: -1
     t.integer "user_id"
     t.integer "project_id"
+    t.json "custom_scores"
   end
 
   create_table "judging_assignments", force: :cascade do |t|

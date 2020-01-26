@@ -64,7 +64,7 @@ class FeatureFlagsController < ApplicationController
 
     # Check parameters to ensure only whitelisted ones are able to be passed through.
     def feature_flag_params
-      params.require(:feature_flag).permit(:name, :value)
+      params.require(:feature_flag).permit(:name, :value, :description)
     end
 
     def check_permissions

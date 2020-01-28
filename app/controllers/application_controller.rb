@@ -112,6 +112,46 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def slack_reassociate_users(user_email = nil)
+    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+    if not bot_accesstok or bot_accesstok.length == 0
+      puts "No bot access token"
+      return false
+    end
+    puts "Getting email and user ids from Slack"
+
+    uri = URI.parse("https://slack.com/api/users.list?token=#{bot_accesstok}")
+    request = Net::HTTP::Get.new(uri)
+    puts request
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    count = 0
+    res = JSON.parse(response.body)
+    if res["ok"]
+      res["members"].each do |member|
+        email = member["profile"]["email"]
+        if user_email == nil or email == user_email
+          slack_id = member["id"]
+          user = User.where(:email => email)
+          if email != nil and user.length == 1 and user[0].slack_id == nil
+            user[0].slack_id = slack_id
+            user[0].save
+            puts "Associated #{email} with slack id #{slack_id}"
+            count += 1
+          end
+        end
+      end
+    end
+    return count
+  end
+
   protected
 
   # Additional parameters needed for devise

@@ -40,4 +40,32 @@ class SlackintegrationController < ApplicationController
       render json: { "error" => "unknown" }
     end
   end
+
+  def reassociate_all
+    if current_user.is_admin?
+      cnt = slack_reassociate_users()
+      if cnt and cnt > 0
+        flash[:success] = "Successfully associated #{cnt} Slack and Dashboard users."
+      else
+        flash[:warning] = "Didn't reassociate any users."
+      end
+    else
+      flash[:error] = "Unable to reassociate all users without admin."
+    end
+    redirect_to :index
+  end
+
+  def reassociate_self
+    cnt = slack_reassociate_users(current_user.email)
+    if cnt and cnt > 0
+      flash[:success] = "Successfully associated your Slack and Dashboard accounts."
+    else
+      if current_user.slack_id != nil
+        flash[:error] = "Already associated your Slack and Dashboard accounts."
+      else
+        flash[:error] = "Unable to reassociate your Slack and Dashboard accounts. Reach out to #{HackumassWeb::Application::CONTACT_EMAIL} for help."
+      end
+    end
+    redirect_to :index
+  end
 end

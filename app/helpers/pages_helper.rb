@@ -40,6 +40,10 @@ module PagesHelper
     controller?("projects") and not (action?("public") or action?("show") or action?("search") or action?("index"))
   end
 
+  def is_judging_active?
+      controller?("judging")
+  end
+
   def is_prizes_active?
       controller?("prizes")
   end

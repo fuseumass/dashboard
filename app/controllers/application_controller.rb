@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def slack_reassociate_users(user_email = nil)
+  def slack_reassociate_users(user_email = nil, force = false)
     bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
     if not bot_accesstok or bot_accesstok.length == 0
       puts "No bot access token"
@@ -140,11 +140,13 @@ class ApplicationController < ActionController::Base
         if user_email == nil or email == user_email
           slack_id = member["id"]
           user = User.where(:email => email)
-          if email != nil and user.length == 1 and user[0].slack_id == nil
-            user[0].slack_id = slack_id
-            user[0].save
-            puts "Associated #{email} with slack id #{slack_id}"
-            count += 1
+          if email != nil and user.length == 1
+            if user[0].slack_id == nil or force
+              user[0].slack_id = slack_id
+              user[0].save
+              puts "Associated #{email} with slack id #{slack_id}"
+              count += 1
+            end
           end
         end
       end

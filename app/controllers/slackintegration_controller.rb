@@ -43,7 +43,12 @@ class SlackintegrationController < ApplicationController
 
   def reassociate_all
     if current_user.is_admin?
-      cnt = slack_reassociate_users()
+      if params[:force]
+        cnt = slack_reassociate_users(nil, true)
+      else
+        cnt = slack_reassociate_users()
+      end
+      
       if cnt and cnt > 0
         flash[:success] = "Successfully associated #{cnt} Slack and Dashboard users."
       else
@@ -67,5 +72,8 @@ class SlackintegrationController < ApplicationController
       end
     end
     redirect_to :index
+  end
+
+  def admin
   end
 end

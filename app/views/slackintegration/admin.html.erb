@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1 class="page-title">Slack Integration</h1>
+</div>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Reassociate Users</h4>
+        </div>
+        <div class="card-body">
+            <p>This will re-link all Slack users who do not have a slack_id set based on the email addresses currently in the Slack workspace.</p>
+
+            <a href="<%= slackintegration_reassociate_all_path %>" class="btn btn-primary"><i class="fe fe-refresh-cw mr-2"></i> Reassociate all users</a>
+
+            <br /><br />
+
+            <p>This will re-link all Slack users in the workspace, overriding the slack_id of any users in Dashboard.</p>
+
+            <a href="<%= slackintegration_reassociate_all_path %>?force=true" class="btn btn-primary"><i class="fe fe-refresh-cw mr-2"></i> Force reassociate all users</a>
+      </div>
+    </div>
+</div>

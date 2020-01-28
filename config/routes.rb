@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'slackintegration/reassociate_self'
   get 'slackintegration/reassociate_all'
+  get 'slackintegration/admin'
 
   resources :prizes
   # Our Root URL Links to the index page (duh)

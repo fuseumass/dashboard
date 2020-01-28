@@ -1,23 +1,62 @@
 
-<div class="card-body">
-    <%= form_for([@judgment, @project], html: {multipart: true}) do |f| %>
-        <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
-            <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
-                <h1> <%= c['name'].to_sym %> </h1>
-                <% if c['type'] == 'button' %>
+<%= form_for(@judgement, html: {multipart: true}) do |f| %>
+    <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
+        <%= f.hidden_field :project_id, value: @project_id %>
+        <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
+            <h2 class="leading-loose"> <%= c['name'].titleize %> </h2>
+            <h5 class="leading-wide text-center"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </h5>
+            <br />
+            <% if c['type'] == 'button' %>
+                <div class="row row-cards row-deck">
                     <% c['scores'].each do |cate| %>
-                        <div> help1 </div>
-
-                        <%# <%= button_to <%= cate['description']%> (<%= cate['points'] %>) %>  %>
+                        <div class="col-md-3">
+                            <label>
+                            <%= o.radio_button c['name'].to_sym, "#{cate['points']}",
+                            {class: 'form-control custom-select card-input-element d-none hidden'} %>                          
+                            
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <div class="display-4 my-3"> <%= cate['points'] %><h5 class="d-inline">pts.</h5> </div>
+                                        <%= cate['description'] %>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                        </div>
                     <% end %>
-                <% elsif c['type'] == 'range' %>
-                    <div> help2 </div>
-                <% elsif c['type'] == 'range_restricted' %>
-                    <div> help3 </div>
-                <% else c['type'] == 'dropdown' %>
-                    <div> help4 </div>
-                <% end %>
+                </div>
+
+            <% elsif c['type'] == 'range' %>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
+
+                        <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
+                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>".5", :id=>"slider1" %>
+
+                    </div>
+                </div>
+            <% elsif c['type'] == 'range_restricted' %>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                    <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
+
+                        <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
+                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>c['step'], :id=>"slider1" %>
+
+                    </div>
+                </div>
+            <% else c['type'] == 'dropdown' %>
+                <%= o.select c['name'].to_sym, c['scores'].map{|item| [item['description'], item['points']]},
+                          {include_blank: true},
+                          {class: 'form-control custom-select'} %>                
             <% end %>
         <% end %>
-    <% end %> 
-</div>
+    <% end %>
+
+    <div class="">
+        <%= f.submit 'Submit Judgment',
+                    type: 'submit',
+                    class: 'btn btn-purple bg-primary-color' %>
+    </div>
+<% end %> 

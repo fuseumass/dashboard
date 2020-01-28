@@ -173,7 +173,6 @@ Rails.application.routes.draw do
 
   # Email Routes End
 
-
   resources :judging do
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
@@ -188,9 +187,7 @@ Rails.application.routes.draw do
 
   post 'judging/create_judgement' => 'judging#create', :as => :judgements
   post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
-
-
-
+  get 'judgings' => 'judging#index'
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do

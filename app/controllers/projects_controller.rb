@@ -81,6 +81,9 @@ class ProjectsController < ApplicationController
       redirect_to project_path(current_user.project)
     else
       @project = Project.new
+      @project.tech = []
+      @project.prizes = []
+      @project.prizes_won = []
     end
   end
 

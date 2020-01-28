@@ -103,12 +103,20 @@ class JudgingController < ApplicationController
       redirect_to judging_index_path, alert: 'Error: Unable to load judging page. Please ensure that the link is valid and try again.'
     end
 
+    if params[:tag].nil? or params[:tag] == ''
+      @tag = nil
+    else
+      @tag = params[:tag]
+    end
+
     @judgement = Judgement.new
+    @judgement.custom_scores = {}
+
     @project = Project.find_by(id: params[:project_id])
     @project_id = params[:project_id]
 
-    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id))
-      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id)
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id, :tag => @tag))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id, :tag => @tag)
     else
       @assignment = nil
       unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
@@ -120,28 +128,41 @@ class JudgingController < ApplicationController
 
   # POST route to submit a score for a project
   def create
-    puts "params: #{params}"
-    puts "custom scores: #{judging_score_params}."
-    puts "cfields params: #{judging_score_params['custom_scores']}."
-    
     @judgement = Judgement.new(judging_score_params)
-    puts 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUCK'
-    puts judging_score_params[:project_id]
     
     @judgement.project_id = judging_score_params[:project_id]
     @judgement.user_id = current_user.id
+
+    if judging_score_params[:tag].nil? or judging_score_params[:tag] == ''
+      @tag = nil
+    else
+      @tag = judging_score_params[:tag]
+    end
+
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => judging_score_params[:project_id], :tag => @tag))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => judging_score_params[:project_id], :tag => @tag)
+    else
+      @assignment = nil
+      unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
+        redirect_to judging_index_path, alert: 'Error: You may not judge a project that hasn\'t been assigned to you.'
+      end
+    end
+
     total_score = 0
 
     HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
-      total_score+= judging_score_params['custom_scores'][c['name']].to_f
+      total_score += judging_score_params['custom_scores'][c['name']].to_f
     end
 
     @judgement.score = total_score
 
     if @judgement.save
-      redirect_to index_path, notice: 'Thank you for judging this project!'
+      if !@assignment.nil?
+        @assignment.destroy
+      end
+      redirect_to judging_index_path, notice: 'Thank you for judging this project!'
     else
-      render :new
+      redirect_to new_judging_path(:project_id => judging_score_params[:project_id], :tag => @tag), alert: 'Error: Unable to judge project. Please ensure all fields have a value.'
     end
   end
 
@@ -190,6 +211,6 @@ class JudgingController < ApplicationController
         custom_scores_items << c['name'].to_sym
       end
 
-      params.require(:judgement).permit(:project_id, custom_scores: custom_scores_items )
+      params.require(:judgement).permit(:project_id, :tag, custom_scores: custom_scores_items )
     end
 end

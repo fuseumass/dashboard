@@ -41,7 +41,7 @@
 
                   <td> <% if !asn.tag.nil? %> <%= asn.tag %> <% end %> </td>
 
-                  <td><%= link_to "Judge", new_judging_path(:project_id => asn.project.id), class: 'btn btn-primary' %></td>
+                  <td><%= link_to "Judge", new_judging_path(:project_id => asn.project.id, :tag => asn.tag), class: 'btn btn-primary' %></td>
                 </tr>
               <% end %>
             </tbody>

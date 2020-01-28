@@ -1,12 +1,16 @@
 <br>
 <h3> Judge Project </h3>
 <!-- Alert user if they have been assigned this project. -->
+<div class="card">
 <% if !@assignment.nil? %>
-    <p class="text-green lead">You have been assigned this project to judge.</p>
+  <div class="card-header text-green lead"> <h1 class="card-title"> You have been assigned to judge this project </h1> </div>
+  <% if !params[:tag].nil? and params[:tag] != '' %> <div class="card-body"> <p class="lead">Category: <%= params[:tag] %> </p> </div> <% end %>
 <% else %>
-    <p class="text-red lead mb-0">You have not been assigned this project to judge.</p>
-    <p class="text-red text-small mt-0">(You may still submit a judgement)</p>
+  <div class="card-header text-red lead"> <h1 class="card-title"> You have not been assigned this project to judge. </h1> </div>
+  <div class="card-body"> <p class="lead">You may still submit a judgement</p> </div>
 <% end %>
+</div>
+
 <% if @judgement.errors.any? %>
         <div class="card">
           <div class="card-status bg-danger"></div>

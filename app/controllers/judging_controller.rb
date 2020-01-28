@@ -145,6 +145,7 @@ class JudgingController < ApplicationController
       @assignment = nil
       unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
         redirect_to judging_index_path, alert: 'Error: You may not judge a project that hasn\'t been assigned to you.'
+        return
       end
     end
 

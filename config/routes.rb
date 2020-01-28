@@ -187,6 +187,8 @@ Rails.application.routes.draw do
   post 'judging/unassign_judge' => 'judging#remove_judge_assignment', :as => :judging_unassign
 
   post 'judging/create_judgement' => 'judging#create', :as => :judgements
+  post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
+
 
 
 

@@ -170,10 +170,15 @@ class JudgingController < ApplicationController
 
   # POST route to remove a score from a project
   def destroy
-    @assignment = Judgement.where(:id => params[:id]).first
+    unless (current_user.is_admin? or current_user.is_organizer?)
+      redirect_to judging_index_path, alert: 'Error: You do not have permission to delete this project.'
+      return
+    end
+    @assignment = Judgement.find_by(:id => params[:judgement_id])
+    @project_id = @assignment.project.id
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to judging_index_path, notice: 'Judge successfully unassigned.' }
+      format.html { redirect_to results_judging_index_path(:project_id => @project_id), notice: 'Score successfully deleted!' }
       format.json { head :no_content }
     end
   end

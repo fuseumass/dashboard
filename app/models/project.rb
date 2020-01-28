@@ -8,8 +8,8 @@ class Project < ApplicationRecord
 
 	has_many :user
 
-	has_many :judgements
-	has_many :judging_assignments
+	has_many :judgements, :dependent => :restrict_with_error
+	has_many :judging_assignments, dependent: :delete_all
 
 	has_attached_file :projectimage,
 										path: 'project/:filename'

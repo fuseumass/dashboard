@@ -1,0 +1,65 @@
+<%= form_for(@judgement, html: {multipart: true}) do |f| %>
+    <% if (current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '') %>
+        <div class="row mt-5 mb-5">
+            <div class="col input-group">
+                <%= f.text_field :tag, class: 'form-control', required: false, placeholder: 'Add a tag to describe this judgement (optional).', value: params[:tag] %>
+            </div>
+        </div>
+    <% else %>
+        <%= f.hidden_field :tag, value: params[:tag] %>        
+    <% end %>
+    <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
+        <%= f.hidden_field :project_id, value: @project_id %>
+        <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
+            <h2 class="leading-loose"> <%= c['name'].titleize %> </h2>
+            <h5 class="leading-wide text-center"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </h5>
+            <br />
+            <% if c['type'] == 'button' %>
+                <div class="row row-cards row-deck">
+                    <% c['scores'].each do |cate| %>
+                        <div class="col-md-3">
+                        <label>
+                            <%= o.radio_button c['name'].to_sym, "#{cate['points']}", {class: 'form-control custom-select card-input-element d-none hidden'} %>                          
+                            <div class="card">
+                            <div class="card-body text-center">
+                            <div class="display-4 my-3"> <%= cate['points'] %><h5 class="d-inline">pts.</h5> </div>
+                            <%= cate['description'] %>
+                            </div>
+                            </div>
+                        </label>
+                        </div>
+                    <% end %>
+                </div>
+            <% elsif c['type'] == 'range' %>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
+
+                        <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
+                        :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>".5", :id=>"#{c['name']}_slider",
+                        :oninput=>"#{c['name']}_value.value = #{c['name']}_slider.value" %>
+                                
+                    </div>
+                </div>
+            <% elsif c['type'] == 'range_restricted' %>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
+
+                        <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
+                        :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>c['step'], :id=>"#{c['name']}_slider",
+                        :oninput=>"#{c['name']}_value.value = #{c['name']}_slider.value" %>
+
+                    </div>
+                </div>
+            <% elsif c['type'] == 'dropdown' %>
+                <%= o.select c['name'].to_sym, c['scores'].map{|item| [item['description'], item['points']]}, {include_blank: true}, {class: 'form-control custom-select'} %>                
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <div class="">
+    <br>
+    <%= f.submit 'Submit Judgment', type: 'submit', class: 'btn btn-purple bg-primary-color' %>
+    </div>
+<% end %> 

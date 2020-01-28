@@ -174,7 +174,23 @@ Rails.application.routes.draw do
   # Email Routes End
 
 
-  # Feature Flag Routes Start
+  resources :judging do
+    post 'assign_score'
+    get :autocomplete_user_email, :on => :collection
+    collection do
+      get 'search', :as => :search
+      get 'assign'
+      get 'results'
+    end
+  end
+  post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
+  post 'judging/unassign_judge' => 'judging#remove_judge_assignment', :as => :judging_unassign
+
+  post 'judging/create_judgement' => 'judging#create', :as => :judgements
+  post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
+
+
+
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do
@@ -183,15 +199,9 @@ Rails.application.routes.draw do
       end
     end
 
+  # Live Judging Routes End
+
   # Feature Flag Routes End
 
-
-  # Judging Routes Start
-
-    get 'judgings' => 'judging#index'
-    post 'generateforms' => 'judging#generateforms'
-    get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
-
-  # Judging Routes End
 
 end

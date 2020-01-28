@@ -40,6 +40,10 @@ module PagesHelper
     controller?("projects") and not (action?("public") or action?("show") or action?("search") or action?("index"))
   end
 
+  def is_judging_active?
+      controller?("judging")
+  end
+
   def is_prizes_active?
       controller?("prizes")
   end
@@ -83,6 +87,10 @@ module PagesHelper
 
   def has_access_to_applying?
     current_user.is_attendee? and check_feature_flag?($Applications)
+  end
+
+  def has_access_to_judging?
+    (current_user.is_mentor? or current_user.is_organizer? or current_user.is_admin?) and check_feature_flag?($Judging)
   end
 
   def already_applied?

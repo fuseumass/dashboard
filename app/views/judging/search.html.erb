@@ -1,0 +1,81 @@
+<div class="page-header" style="position: relative">
+  <h1 class="page-title">Judging Search</h1>
+</div>
+
+
+<div class="col-12">
+<div class="card">
+    <div class="card-body">
+    <h3 class="page-title">Projects</h3>
+    <br>
+    <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
+        <div class="row gutters-xs">
+          <div class="col">
+            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.', :autofocus => true %>
+          </div>
+          <span class="col-auto">
+            <a href="#" data-toggle="tooltip" title="You can search by status:judged, status:unjudged, status:assigned, status:unassigned to narrow down search results." data-placement="bottom"><i class="fe fe-help-circle"></i></a>
+            <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
+            <a href="./judging.csv" class="btn btn-secondary">Download as CSV</a>
+          </span>
+        </div>
+    <%end%>
+    </div>
+    <% if @projects.empty? %>
+
+        <center>
+            <br>
+            <br>
+            <h3>No Results Found...</h3>
+            <br>
+            <div class="text-left">
+                <%= link_to "Back", judging_index_path, class: "btn btn-secondary ml-3 mb-3" %>
+            </div>
+        </center>
+    <% else %>
+        <div class="table-responsive">
+        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <thead>
+            <tr>
+                <th>Table #</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @projects.each do |project| %>
+                <tr>
+                  <% if project.table_id.nil? %>
+                    <td>TBD</td>
+                  <% else %>
+                    <td><%= project.table_id %></td>
+                  <% end %>
+
+                  <td><%= link_to truncate(project.title, length: 30), project %></td>
+                  <td>
+                  
+                    <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
+
+                    <% if current_user.user_type = 'admin' %>
+                      <%= link_to "Assign Judges", assign_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
+                      <%= link_to "View Score", results_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
+                    <% end %>
+                      
+                  </td>
+
+                </tr>
+              <% end %>
+            </tbody>
+        </table>
+        <br>
+        <%= link_to "Back", judging_index_path, class: "btn btn-secondary ml-3 mb-3" %>
+        </div>
+    <% end %>
+</div>
+</div>
+<br>
+
+<center>
+  <%= will_paginate @projects %>
+</center>

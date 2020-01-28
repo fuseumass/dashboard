@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h1 class="page-title">Assign Judge to Project</h1>
+</div>
+
+<div class="row">
+<div class="col-md-12 col-xl-12">
+  <div class="card">
+    <div class="card-body">
+      <h4> Project: <%= @project.title.capitalize %></h4>
+      <p>Assign judges to this project here. Once an assigned judge completes his scoring, this assignment will be removed automatically. Use the email address associated with the Judge's dashboard account when assigning them.</p>
+      <%= form_tag judging_assign_path, method: :post do%>
+
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <%= text_field_tag :judge_email, params[:judge_email], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path} %>
+          </div>
+
+          <div class="form-group col-md-5">
+            <%= text_field_tag :tag, params[:tag], class: 'form-control', placeholder: 'Add a tag to describe this judging assignment (optional)', type: "text" %>
+          </div>
+
+          <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
+
+          <div class="form-group col-md-2">
+            <%= button_tag 'Assign Judge', type: :submit, project_id: @project.id, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+      <% if @assignments.empty? %>
+        <br>
+        <p class="text-red font-weight-light"> No judges currently assigned. </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+
+<% if !@assignments.empty? %>
+  <div class="row">
+  <div class="col-md-12 col-xl-12">
+  <div class="table-responsive">
+    <table class="table text-nowrap table-hover text-center justify-content-center">
+    <thead>
+      <tr>
+        <th scope="col">Judge</th>
+        <th scope="col">Tag</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% @assignments.all.each do |asn| %>
+          <tr>
+            <td><%= asn.user.full_name.titleize %></td>
+            <td> <% if !asn.tag.nil? %> <%= asn.tag %> <% end %> </td>
+            <td>
+              <%= form_tag judging_unassign_path, method: :post, class:'col-lg-12' do%>
+                <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>
+                <%= text_field_tag :judge_id, "", class: 'form-control', value: asn.user.id, required: true, hidden: true %>
+                <%= button_tag 'Remove', type: :submit, class: 'btn btn-danger' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+<% end %>
+
+ <%= link_to 'Return to Judging Home', judging_index_path, class: 'btn btn-secondary' %> 
+
+</div>

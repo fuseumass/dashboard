@@ -1,311 +1,222 @@
-require 'hexapdf'
 class JudgingController < ApplicationController
-  include EventApplicationsHelper
-  include HexaPDF
+  before_action -> { is_feature_enabled($Judging) }
+  before_action :auth_user
+  before_action :check_permissions
+  before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
 
-  before_action :check_permissions, only: %i[index]
+  def search
+    if params[:search].present?
 
-  PAPER_LETTER_SIZE_WIDTH = 792
-  PAPER_LETTER_SIZE_HEIGHT = 612
-  ONE_INCH_MARGIN = 72
-  UNDERLINE = "_______________________________________________________\n"
-
-  def index
+      if params[:search] == 'status:assigned'
+        @projects = Project.joins(:judging_assignments)
+      elsif params[:search] == 'status:unassigned'
+        @projects = Project.left_outer_joins(:judging_assignments).where("judging_assignments.project_id IS NULL")
+      elsif params[:search] == 'status:judged'
+        @projects = Project.joins(:judgements)
+      elsif params[:search] == 'status:unjudged'
+        @projects = Project.left_outer_joins(:judgements).where("judgements.project_id IS NULL")
+      else
+        @projects = Project.left_outer_joins(:judgements => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
+      end
+      @projects = @projects.paginate(page: params[:page], per_page: 20)
+    else
+      redirect_to judging_index_path
+    end
   end
 
-  def generateforms
-    @starting_point
-    table_number_counter = 1
-    projects = Project.order(power: :asc)
-    if projects.size.positive?
-      doc = HexaPDF::Document.new
-      projects.each_with_index do |project, index|
-        project.table_id = table_number_counter
-        if project.power.nil?
-          project.power = false
-        end
-        project.save
-        table_number_counter += 1
-        image = "#{Rails.root}/hackathon-config/assets/images/rubric.png"
-        unless File.exist?(image)
-          image = "#{Rails.root}/app/assets/images/rubric.png"
-        end
-        canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
 
-        update_font(canvas, 15, :bold)
-        canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [80,555])
+  def index
+    @assigned = JudgingAssignment.all.where(user_id: current_user.id)
+    @projects = Project.all.paginate(page: params[:page], per_page: 20)
 
-        update_font(canvas, 11, :bold)
-        canvas.text("Project Name:\n", at:[80, 535])
-        canvas.text("#{project.title}\n", at:[160, 535])
-        canvas.text("#{UNDERLINE}", at:[153, 535])
+    @judgementsCSV = Judgement.all
 
-
-        # font: 9, perline: 67, lpos: 80, pos-= 10
-        update_font(canvas, 10)
-        desc = project.description
-        pos = 525
-        perline = 60
-        lpos = 80
-        i = 0
-        while desc != nil and desc.length > 0
-          descline = desc[0..perline]
-          canvas.text("#{descline}\n", at:[lpos, pos])
-          desc = desc[perline+1..desc.length]
-          pos -= 10
-        end
-
-
-        canvas.text("Team Members:\n", at:[80, 470])
-        canvas.text("#{proj_users = ""
-          project.user.each do |u|
-            proj_users << u.first_name + " "
-            if u != project.user.last
-              proj_users << u.last_name + ", "
-            else
-              proj_users << u.last_name
-            end
-          end
-          proj_users}\n", at:[170, 470])
-        canvas.text("#{UNDERLINE}", at:[165, 470])
-
-        update_font(canvas, 18, :bold)
-        canvas.text("Table Number\n", at:[600, 530])
-        if project.power
-          canvas.text("#{project.table_id} TBL\n", at:[645, 500])
-        else
-          canvas.text("#{project.table_id}\n", at:[645, 500])
-        end
-
-
-        box = HexaPDF::Layout::Box.new(content_width: 140, content_height: 60)
-        box.style.border(width: 1, style: :solid)
-        box.draw(canvas, 590, 490)
-
-        canvas.image(image, at: [80,30], width: 650, height: 430)
-      end
-      FileUtils.mkdir_p("#{Rails.root}/public/judging") unless File.exist?("#{Rails.root}/public/judging")
-      doc.write("#{Rails.root}/public/judging/judging.pdf", optimize: true)
-      redirect_to "#{Rails.root}/public/judging/judging.pdf?#{Time.now.to_i}"
+    respond_to do |format|
+      format.html
+      format.csv { send_data @judgementsCSV.to_csv, filename: "judging.csv" }
     end
+  end
+
+
+  # GET route for assignment creation
+  def assign
+    @project = Project.find_by(id: params[:project_id])
+    @assignments = JudgingAssignment.where(project_id: @project.id)
+  end
+
+
+  # POST route to assign a judge to a project
+  def add_judge_assignment
+    if (!params.has_key?(:project_id) or !params.has_key?(:judge_email))  # An error in params, likely when a user messes with the URL
+      redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
+      broken link or refreshing a submitted form. Please try to assign the judge again, and if this fails contact an administrator.'
+      return
+    end
+
+    @judge_id = User.where(:email => params[:judge_email]).first.id
+    if (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Invalid Judge Email Address.'
+    
+    elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
+    
+    elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: '+params[:judge_email]+' is already assigned to judge this project!'
+    else  # All is well, assign judge to project
+      if params.has_key?(:tag) and params[:tag] != ''
+        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])
+      else
+        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
+      end
+      if @assignment.save
+        redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully assigned judge to project.'
+      else
+        redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to assign judge to project.'
+      end
+    end
+  end
+
+
+  # POST route to unassign a judge from a project
+  def remove_judge_assignment
+    if (!params.has_key?(:project_id) or !params.has_key?(:judge_id))  # An error in params, likely when a user messes with the URL
+      redirect_to judging_index_path, alert: 'Unable to remove judge from project. This is likely from accessing a 
+      broken link or refreshing a submitted form. Please try to remove the judge again, and if this fails contact an administrator.'
+    
+    elsif (!JudgingAssignment.exists?(:user_id => params[:judge_id], :project_id => params[:project_id]))  # If no records match. When/if a user tries to change URL/request
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to remove assignment: The judge is not assigned to that project!'
+
+    else  # All is correct, remove judge from project
+      @assignment = JudgingAssignment.find_by(:user_id => params[:judge_id], :project_id => params[:project_id])
+      @assignment.destroy
+      respond_to do |format|
+        format.html { redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully unassigned judge from project.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  # GET route to submit a score for a project
+  def new
+    if (!params.has_key?(:project_id))
+      redirect_to judging_index_path, alert: 'Error: Unable to load judging page. Please ensure that the link is valid and try again.'
+    end
+
+    if params[:tag].nil? or params[:tag] == ''
+      @tag = nil
+    else
+      @tag = params[:tag]
+    end
+
+    @judgement = Judgement.new
+    @judgement.custom_scores = {}
+
+    @project = Project.find_by(id: params[:project_id])
+    @project_id = params[:project_id]
+
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id, :tag => @tag))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id, :tag => @tag)
+    else
+      @assignment = nil
+      unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
+        redirect_to judging_index_path, alert: 'Error: You may not judge a project that hasn\'t been assigned to you.'
+      end
+    end
+  end
+
+
+  # POST route to submit a score for a project
+  def create
+    @judgement = Judgement.new(judging_score_params)
+    
+    @judgement.project_id = judging_score_params[:project_id]
+    @judgement.user_id = current_user.id
+
+    if judging_score_params[:tag].nil? or judging_score_params[:tag] == ''
+      @tag = nil
+    else
+      @tag = judging_score_params[:tag]
+    end
+
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => judging_score_params[:project_id], :tag => @tag))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => judging_score_params[:project_id], :tag => @tag)
+    else
+      @assignment = nil
+      unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
+        redirect_to judging_index_path, alert: 'Error: You may not judge a project that hasn\'t been assigned to you.'
+        return
+      end
+    end
+
+    total_score = 0
+
+    HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+      total_score += judging_score_params['custom_scores'][c['name']].to_f
+    end
+
+    @judgement.score = total_score
+
+    if @judgement.save
+      if !@assignment.nil?
+        @assignment.destroy
+      end
+      redirect_to judging_index_path, notice: 'Thank you for judging this project!'
+    else
+      redirect_to new_judging_path(:project_id => judging_score_params[:project_id], :tag => @tag), alert: 'Error: Unable to judge project. Please ensure all fields have a value.'
+    end
+  end
+
+
+  # POST route to remove a score from a project
+  def destroy
+    unless (current_user.is_admin? or current_user.is_organizer?)
+      redirect_to judging_index_path, alert: 'Error: You do not have permission to delete this project.'
+      return
+    end
+    @assignment = Judgement.find_by(:id => params[:judgement_id])
+    @project_id = @assignment.project.id
+    @assignment.destroy
+    respond_to do |format|
+      format.html { redirect_to results_judging_index_path(:project_id => @project_id), notice: 'Score successfully deleted!' }
+      format.json { head :no_content }
+    end
+  end
+
+
+  def results
+    if (!params.has_key?(:project_id))
+      redirect_to judging_index_path, alert: 'Error: Unable to load results for project. Please ensure that the link is valid and try again.'
+    end
+    @project = Project.find_by(id: params[:project_id])
+    @scores = Judgement.where(project_id: @project.id)
   end
 
   private
-  def create_judge_form(doc, id, name, team_member)
-    @starting_point = PAPER_LETTER_SIZE_HEIGHT-ONE_INCH_MARGIN
 
-    canvas = doc.pages.add([0,0,PAPER_LETTER_SIZE_WIDTH,PAPER_LETTER_SIZE_HEIGHT]).canvas
-    update_font(canvas, 22, :bold)
 
-    canvas.text("#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION} Judging Sheet\n", at: [ONE_INCH_MARGIN, @starting_point])
-
-    update_font(canvas, 11, :bold)
-
-    @checkpoint = @starting_point
-    canvas.text("Evaluators:\n", at:[ONE_INCH_MARGIN, @starting_point-=40])
-    canvas.text("#{UNDERLINE}", at:[ONE_INCH_MARGIN + 67.5, @starting_point-=2.5])
-
-    canvas.text("Team Name:\n", at:[ONE_INCH_MARGIN, @starting_point-=20])
-    canvas.text("#{UNDERLINE}", at:[ONE_INCH_MARGIN + 74, @starting_point-=2.5])
-
-    canvas.text("Team Members:\n", at:[ONE_INCH_MARGIN, @starting_point-=20])
-    canvas.text("#{UNDERLINE}", at:[ONE_INCH_MARGIN + 94, @starting_point-=2.5])
-
-    canvas.text("Team Number:\n", at:[ONE_INCH_MARGIN, @starting_point-=20])
-    canvas.text("#{UNDERLINE}", at:[ONE_INCH_MARGIN + 86.5, @starting_point-=2.5])
-
-    update_font(canvas, 11)
-    canvas.text(name, at:[ONE_INCH_MARGIN + 76.5, @checkpoint-=62.5])
-    canvas.text(team_member, at:[ONE_INCH_MARGIN + 96.5, @checkpoint-=22.5])
-    canvas.text(id.to_s, at:[ONE_INCH_MARGIN + 89, @checkpoint-=22.5])
-
-    update_font(canvas, 11, :bold)
-    canvas.text("Scoring Sheet:\n", at:[ONE_INCH_MARGIN, @starting_point-=40])
-
-    create_table(canvas)
-
-    update_font(canvas, 10)
-    first_col_left_margin = ONE_INCH_MARGIN + (107 * 0 + 5)
-    second_col_left_margin = ONE_INCH_MARGIN + (107 * 1 + 5)
-    third_col_left_margin = ONE_INCH_MARGIN + (107 * 2 + 6)
-    fourth_col_left_margin = ONE_INCH_MARGIN + (107 * 3 + 7)
-    fifth_col_left_margin = ONE_INCH_MARGIN + (107 * 4 + 8)
-    sixth_col_left_margin = ONE_INCH_MARGIN + (107 * 5 + 9)
-
-    canvas.text("Scale\n", at:[first_col_left_margin, @starting_point-=37.5])
-    canvas.text("1\n", at:[second_col_left_margin, @starting_point])
-    canvas.text("2\n", at:[third_col_left_margin, @starting_point])
-    canvas.text("3\n", at:[fourth_col_left_margin, @starting_point])
-    canvas.text("4\n", at:[fifth_col_left_margin, @starting_point])
-    canvas.text("Total\n", at:[sixth_col_left_margin, @starting_point])
-
-    ################################################################################################
-
-    canvas.text("Originality\n", at:[first_col_left_margin, @starting_point-=27.5])
-
-    canvas.text("5pts - Project directly\n", at:[second_col_left_margin, @starting_point])
-    canvas.text("replicates an existing\n", at:[second_col_left_margin, @starting_point-12])
-    canvas.text("technology.\n", at:[second_col_left_margin, @starting_point-24])
-
-    canvas.text("10pts - Project makes\n", at:[third_col_left_margin, @starting_point])
-    canvas.text("minor changes to an\n", at:[third_col_left_margin, @starting_point-12])
-    canvas.text("existing technology.\n", at:[third_col_left_margin, @starting_point-24])
-
-    canvas.text("15pts - Project is\n", at:[fourth_col_left_margin, @starting_point])
-    canvas.text("original but lacks\n", at:[fourth_col_left_margin, @starting_point-12])
-    canvas.text("creativity or a WOW\n", at:[fourth_col_left_margin, @starting_point-24])
-    canvas.text("factor.\n", at:[fourth_col_left_margin, @starting_point-36])
-
-    canvas.text("20pts - Project is\n", at:[fifth_col_left_margin, @starting_point])
-    canvas.text("original, creative,\n", at:[fifth_col_left_margin, @starting_point-12])
-    canvas.text("and has a WOW\n", at:[fifth_col_left_margin, @starting_point-24])
-    canvas.text("factor.\n", at:[fifth_col_left_margin, @starting_point-36])
-
-    canvas.text(" / 20 pts\n", at:[sixth_col_left_margin, @starting_point])
-
-    ################################################################################################
-
-    canvas.text("Execution\n", at:[first_col_left_margin, @starting_point-=60])
-
-    canvas.text("12.5pts - Nothing\n", at:[second_col_left_margin, @starting_point])
-    canvas.text("in the project works.\n", at:[second_col_left_margin, @starting_point-12])
-
-    canvas.text("25pts - Parts of the\n", at:[third_col_left_margin, @starting_point])
-    canvas.text("project work correctly\n", at:[third_col_left_margin, @starting_point-12])
-    canvas.text("based on the\n", at:[third_col_left_margin, @starting_point-24])
-    canvas.text("objective.\n", at:[third_col_left_margin, @starting_point-36])
-
-    canvas.text("37.5pts - The project\n", at:[fourth_col_left_margin, @starting_point])
-    canvas.text("is successful, however\n", at:[fourth_col_left_margin, @starting_point-12])
-    canvas.text("minor details don’t\n", at:[fourth_col_left_margin, @starting_point-24])
-    canvas.text("work correctly.\n", at:[fourth_col_left_margin, @starting_point-36])
-
-    canvas.text("50 pts - The project is\n", at:[fifth_col_left_margin, @starting_point])
-    canvas.text("completely successful\n", at:[fifth_col_left_margin, @starting_point-12])
-    canvas.text("and does exactly what\n", at:[fifth_col_left_margin, @starting_point-24])
-    canvas.text("it is supposed to do.\n", at:[fifth_col_left_margin, @starting_point-36])
-
-    canvas.text(" / 50 pts\n", at:[sixth_col_left_margin, @starting_point])
-
-    ################################################################################################
-
-    canvas.text("Presentation\n", at:[first_col_left_margin, @starting_point-=60])
-    canvas.text("7.5pts - Extremely\n", at:[second_col_left_margin, @starting_point])
-    canvas.text("poor communication\n", at:[second_col_left_margin, @starting_point-12])
-    canvas.text("between team\n", at:[second_col_left_margin, @starting_point-24])
-    canvas.text("members and no\n", at:[second_col_left_margin, @starting_point-36])
-    canvas.text("presentation at all.\n", at:[second_col_left_margin, @starting_point-48])
-
-    canvas.text("15pts - The team is\n", at:[third_col_left_margin, @starting_point])
-    canvas.text("able to communicate\n", at:[third_col_left_margin, @starting_point-12])
-    canvas.text("what their project\n", at:[third_col_left_margin, @starting_point-24])
-    canvas.text("does however does\n", at:[third_col_left_margin, @starting_point-36])
-    canvas.text("not have a strong.\n", at:[third_col_left_margin, @starting_point-48])
-    canvas.text("understanding or\n", at:[third_col_left_margin, @starting_point-60])
-    canvas.text("grasp.\n", at:[third_col_left_margin, @starting_point-72])
-
-    canvas.text("22.5pts - The team \n", at:[fourth_col_left_margin, @starting_point])
-    canvas.text("has a strong\n", at:[fourth_col_left_margin, @starting_point-12])
-    canvas.text("understanding of\n", at:[fourth_col_left_margin, @starting_point-24])
-    canvas.text("their project and\n", at:[fourth_col_left_margin, @starting_point-36])
-    canvas.text("can explain it well,\n", at:[fourth_col_left_margin, @starting_point-48])
-    canvas.text("however they miss\n", at:[fourth_col_left_margin, @starting_point-60])
-    canvas.text("minor details.\n", at:[fourth_col_left_margin, @starting_point-72])
-
-    canvas.text("30pts - The team can\n", at:[fifth_col_left_margin, @starting_point])
-    canvas.text("effectively and\n", at:[fifth_col_left_margin, @starting_point-12])
-    canvas.text("optimally explain what\n", at:[fifth_col_left_margin, @starting_point-24])
-    canvas.text("their project entails\n", at:[fifth_col_left_margin, @starting_point-36])
-    canvas.text("and how it is\n", at:[fifth_col_left_margin, @starting_point-48])
-    canvas.text("implemented in a very\n", at:[fifth_col_left_margin, @starting_point-60])
-    canvas.text("clear and concise\n", at:[fifth_col_left_margin, @starting_point-72])
-    canvas.text("manner.\n", at:[fifth_col_left_margin, @starting_point-84])
-
-    canvas.text(" / 30 pts\n", at:[sixth_col_left_margin, @starting_point])
-
-    ################################################################################################
-
-    canvas.text("Judges Feeling\n", at:[first_col_left_margin, @starting_point-=121])
-    canvas.text("I dislike the project.\n", at:[second_col_left_margin, @starting_point])
-    canvas.text("I like the project.\n", at:[third_col_left_margin, @starting_point])
-    canvas.text("I love the project.\n", at:[fourth_col_left_margin, @starting_point])
-    canvas.text("404 not found.\n", at:[fifth_col_left_margin, @starting_point])
-    canvas.text(" / 3 pts\n", at:[sixth_col_left_margin, @starting_point])
-  end
-
-  def update_font(canvas, size, variant=nil)
-    if variant.nil?
-      canvas.font("Helvetica", size: size)
-    else
-      canvas.font("Helvetica", size: size, variant: variant)
+    # Only admin, organizers, and mentors are allowed to judge projects
+    def check_permissions
+      unless current_user.is_organizer? or current_user.is_mentor? or current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have permission to access judging.'
+      end
     end
-  end
 
-  def create_table(canvas)
-    box_border_width = 0.5
-    box_border_style = :solid
-    box_width = PAPER_LETTER_SIZE_WIDTH - (ONE_INCH_MARGIN * 2)
-    box_height = @starting_point - 20 - ONE_INCH_MARGIN
-    col_segment =  box_width/6
 
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN)
+    # Only admin, organizers, and mentors are allowed to judge projects
+    def check_organizer_permissions
+      unless current_user.is_organizer? or current_user.is_admin?
+        redirect_to index_path, alert: 'You do not have permission to access this judging feature.'
+      end
+    end
 
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN)
+    # gives 
+    def judging_score_params
+      custom_scores_items = []
+      HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+        custom_scores_items << c['name'].to_sym
+      end
 
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN + col_segment, ONE_INCH_MARGIN)
-
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN + col_segment * 2, ONE_INCH_MARGIN)
-
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN + col_segment * 3, ONE_INCH_MARGIN)
-
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN + col_segment * 4, ONE_INCH_MARGIN)
-
-    box = HexaPDF::Layout::Box.new(content_width: col_segment, content_height: box_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN + col_segment * 5, ONE_INCH_MARGIN)
-
-    row1_height = box_height / 10
-    row2_height = box_height / 5
-    row3_height = box_height / 5
-    row4_height = box_height / 2.5
-    row5_height = box_height / 10
-
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: row1_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN + (box_height - row1_height))
-
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: row2_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN + (box_height - row1_height - row2_height))
-
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: row3_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN + (box_height - row1_height - row2_height - row3_height))
-
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: row4_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN + (box_height - row1_height - row2_height - row3_height - row4_height))
-
-    box = HexaPDF::Layout::Box.new(content_width: box_width, content_height: row5_height)
-    box.style.border(width: box_border_width, style: box_border_style)
-    box.draw(canvas, ONE_INCH_MARGIN, ONE_INCH_MARGIN)
-  end
-
-  # Only admins and organizers have the ability to all permission except delete
-  def check_permissions
-    redirect_to index_path, alert: lack_permission_msg unless admin?
-  end
-
+      params.require(:judgement).permit(:project_id, :tag, custom_scores: custom_scores_items )
+    end
 end

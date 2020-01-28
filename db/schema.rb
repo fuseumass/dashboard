@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_051747) do
+ActiveRecord::Schema.define(version: 2020_01_28_031347) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -118,6 +118,23 @@ ActiveRecord::Schema.define(version: 2020_01_09_051747) do
     t.string "location"
   end
 
+  create_table "judgements", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "score", default: -1
+    t.integer "user_id"
+    t.integer "project_id"
+    t.string "tag"
+    t.json "custom_scores", default: "{}"
+  end
+
+  create_table "judging_assignments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.string "tag"
+    t.index ["user_id", "project_id", "tag"], name: "index_judging_assignments_on_user_id_and_project_id_and_tag", unique: true
+  end
+
   create_table "majors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -181,9 +198,9 @@ ActiveRecord::Schema.define(version: 2020_01_09_051747) do
     t.boolean "power"
     t.integer "table_id"
     t.string "youtube_link"
+    t.json "prizes_won", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
+    t.json "prizes", default: "\"[]\""
     t.json "tech", default: []
-    t.json "prizes", default: []
-    t.json "prizes_won", default: []
   end
 
   create_table "universities", force: :cascade do |t|

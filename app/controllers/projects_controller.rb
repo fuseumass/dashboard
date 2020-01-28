@@ -102,6 +102,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user << current_user
+    @project.tech = []
+    @project.prizes = []
+    @project.prizes_won = []
 
     respond_to do |format|
       if @project.save
@@ -129,12 +132,18 @@ class ProjectsController < ApplicationController
 
   def destroy
 
-    @project.user.each do |user|
+    user_list = @project.user
+
+    if !@project.destroy
+      redirect_to project_path(current_user.project), alert: 'Unable to delete project.'
+      return
+    end
+
+    user_list.each do |user|
       user.project_id = nil
       user.save
     end
 
-    @project.destroy
     respond_to do |format|
       format.html { redirect_to index_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }

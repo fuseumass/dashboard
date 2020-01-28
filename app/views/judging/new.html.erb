@@ -1,0 +1,41 @@
+<br>
+<h3> Judge Project </h3>
+<!-- Alert user if they have been assigned this project. -->
+<div class="card">
+<% if !@assignment.nil? %>
+  <div class="card-header text-green lead"> <h1 class="card-title"> You have been assigned to judge this project </h1> </div>
+  <% if !params[:tag].nil? and params[:tag] != '' %> <div class="card-body"> <p class="lead">Category: <%= params[:tag] %> </p> </div> <% end %>
+<% else %>
+  <div class="card-header text-red lead"> <h1 class="card-title"> You have not been assigned this project to judge. </h1> </div>
+  <div class="card-body"> <p class="lead">You may still submit a judgement</p> </div>
+<% end %>
+</div>
+
+<% if @judgement.errors.any? %>
+        <div class="card">
+          <div class="card-status bg-danger"></div>
+          <div class="card-header">
+            <h3 class="page-title">
+                <%=pluralize(@judgement.errors.count, 'error') %> prohibited this
+                judgement from being submitted:
+            </h3>
+          </div>
+          <div class="card-body event-judgement-error-card-padding">
+            <ul>
+              <% @judgement.errors.values.each do |message| %>
+                <li>
+                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+<% if !@judgement.errors.any? %>
+    <div class="card">
+        <div class="card-header"> <h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1> </div>
+        <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
+    </div>
+<% end %>
+
+<%= render "judging_fields", judgement: @judgement, project: @project_id %>

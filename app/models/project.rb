@@ -8,6 +8,9 @@ class Project < ApplicationRecord
 
 	has_many :user
 
+	has_many :judgements, :dependent => :restrict_with_error
+	has_many :judging_assignments, dependent: :delete_all
+
 	has_attached_file :projectimage,
 										path: 'project/:filename'
 
@@ -23,7 +26,7 @@ class Project < ApplicationRecord
 
 	validates_length_of :description, :maximum => 280, message: 'Maximum description length is 280.'
 
-	
+
 	validates_attachment :projectimage,
 											 content_type: { content_type: ['image/jpeg', 'image/jpg', 'image/png'],
 																			 message: 'Image type is not supported.' },

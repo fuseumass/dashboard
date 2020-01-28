@@ -4,7 +4,6 @@ class JudgingController < ApplicationController
   before_action :check_permissions
   before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
 
-
   def search
     if params[:search].present?
 
@@ -103,6 +102,7 @@ class JudgingController < ApplicationController
 
     @judgement = Judgement.new
     @project = Project.find_by(id: params[:project_id])
+    @project_id = params[:project_id]
 
     if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id))
       @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id)
@@ -117,10 +117,23 @@ class JudgingController < ApplicationController
 
   # POST route to submit a score for a project
   def create
-    puts "custom scores: #{judging_score_params}"
-    puts "cfields params: #{judgin_score_params['custom_scores']}"
+    puts "params: #{params}"
+    puts "custom scores: #{judging_score_params}."
+    puts "cfields params: #{judging_score_params['custom_scores']}."
     
     @judgement = Judgement.new(judging_score_params)
+    puts 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUCK'
+    puts judging_score_params[:project_id]
+    
+    @judgement.project_id = judging_score_params[:project_id]
+    @judgement.user_id = current_user.id
+    total_score = 0
+
+    HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+      total_score+= judging_score_params['custom_scores'][c['name']].to_f
+    end
+
+    @judgement.score = total_score
 
     if @judgement.save
       redirect_to index_path, notice: 'Thank you for judging this project!'
@@ -173,6 +186,7 @@ class JudgingController < ApplicationController
       HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
         custom_scores_items << c['name'].to_sym
       end
-      params.require(:judgements).permit(custom_scores: custom_scores_items)
+
+      params.require(:judgement).permit(:project_id, custom_scores: custom_scores_items )
     end
 end

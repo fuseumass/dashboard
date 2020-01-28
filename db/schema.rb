@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_000717) do
+ActiveRecord::Schema.define(version: 2020_01_28_031347) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"

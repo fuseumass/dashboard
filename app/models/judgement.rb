@@ -5,7 +5,6 @@ class Judgement < ApplicationRecord
 
 	validates :project_id, presence: true
 	validates :user_id, presence: true
-	validates :custom_judgements_validation, presence: true
 
 	# Generating CSV for all judgements
 	def self.to_csv
@@ -19,11 +18,13 @@ class Judgement < ApplicationRecord
 		end
 	end
 
+	validate :custom_judgements_validation
+
 	private 
 
 	def custom_judgements_validation
 		HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
-			if custom_scores[c['name']] == nil or curstom_scores[c['name']] == 0
+			if custom_scores[c['name']] == nil
 				errors.add("missing_custom_field_#{c['name']}".to_sym, "Please judge this category: #{c['name']}")
 			end
 		end

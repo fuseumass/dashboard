@@ -23,21 +23,25 @@
               <tr>
                 <th>Table #</th>
                 <th>Title</th>
+                <th>Tag</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <% @assigned.each do |project| %>
+              <% @assigned.each do |asn| %>
                 <tr>
-                  <% if project.table_id.nil? %>
+                  <% if asn.project.table_id.nil? %>
                     <td>TBD</td>
                   <% else %>
-                    <td><%= project.table_id %></td>
+                    <td><%= asn.project.table_id %></td>
                   <% end %>
 
-                  <td><%= link_to truncate(project.title, length: 30), project %></td>
-                  <td><%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %></td>
+                  <td><%= link_to truncate(asn.project.title, length: 30), asn.project %></td>
+
+                  <td> <% if !asn.tag.nil? %> <%= asn.tag %> <% end %> </td>
+
+                  <td><%= link_to "Judge", new_judging_path(:project_id => asn.project.id), class: 'btn btn-primary' %></td>
                 </tr>
               <% end %>
             </tbody>

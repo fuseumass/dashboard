@@ -32,7 +32,8 @@
                         <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
 
                         <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
-                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>".5", :id=>"slider1" %>
+                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>".5", :id=>"#{c['name']}_slider",
+                         :oninput=>"#{c['name']}_value.value = #{c['name']}_slider.value" %>
 
                     </div>
                 </div>
@@ -42,7 +43,8 @@
                     <h5 class="text-center"> Current rating: <output id="<%= c['name'] %>_value" > </output> </h5>
 
                         <%= o.range_field c['name'].to_sym, :min=>c['scores'][0]['points'],
-                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>c['step'], :id=>"slider1" %>
+                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>c['step'], :id=>"#{c['name']}_slider",
+                         :oninput=>"#{c['name']}_value.value = #{c['name']}_slider.value" %>
 
                     </div>
                 </div>

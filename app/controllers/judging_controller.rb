@@ -190,6 +190,13 @@ class JudgingController < ApplicationController
     end
     @project = Project.find_by(id: params[:project_id])
     @scores = Judgement.where(project_id: @project.id)
+
+    @max_score = 0
+    @field_max_scores = {}
+    HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+      @max_score += c['max']
+      @field_max_scores[c['name']] = c['max']
+    end
   end
 
   private

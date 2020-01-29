@@ -3,7 +3,7 @@
   <div>
     <br/>
     <h1 class="page-subtitle">Description: </h1> 
-    <p class="page-subtitle leading-tight" id="description" style="vertical-align: middle"> Hover over flag for more </p> 
+    <p class="page-subtitle leading-tight d-inline" id="description" style="vertical-align: middle"> Hover over flag for more </p> 
   </div>
 </div>
 
@@ -17,34 +17,36 @@
         <tbody>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Applications' ).first %>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Check-Ins' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Prizes' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Schedule' ).first %>
         </tbody>
       </table>
     </div>
 
+  </div>
+
+  <div class="col-lg-5">
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Let the hacking begin!</h4>
       </div>
       <table class="table card-table">
         <tbody>
-          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Schedule' ).first %>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Mentorship Requests' ).first %>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Hardware Requests' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: Create' ).first %>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <div class="col-lg-5">
+    
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">After Hacks</h4>
       </div>
       <table class="table card-table">
         <tbody>
-          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Prizes' ).first %>
-          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: Create' ).first %>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: View' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Judging' ).first %>
         </tbody>
       </table>
     </div>

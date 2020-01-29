@@ -1,5 +1,6 @@
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Results</h1>
+  <%= link_to 'View Project', project_path(@project.id), class: 'btn btn-primary', style: 'position: absolute; right: 0'  %>
 </div>
 
 <div class="card">
@@ -75,7 +76,10 @@
                     <tfoot>
                         <tr>
                             <td> <b>Total Score</b> </td>
-                            <td> <b><%= score.score %></b> </td>
+                            <td>
+                                <b><%= score.score %></b>
+                                <span> / <%= @max_score %></span>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>

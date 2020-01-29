@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 2020_01_28_031347) do
     t.integer "score", default: -1
     t.integer "user_id"
     t.integer "project_id"
-    t.string "tag"
     t.json "custom_scores", default: "{}"
+    t.string "tag"
   end
 
   create_table "judging_assignments", force: :cascade do |t|
@@ -198,9 +198,9 @@ ActiveRecord::Schema.define(version: 2020_01_28_031347) do
     t.boolean "power"
     t.integer "table_id"
     t.string "youtube_link"
+    t.json "tech", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
+    t.json "prizes", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
     t.json "prizes_won", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
-    t.json "prizes", default: "\"[]\""
-    t.json "tech", default: []
   end
 
   create_table "universities", force: :cascade do |t|

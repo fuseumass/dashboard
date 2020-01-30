@@ -13,7 +13,17 @@ class Judgement < ApplicationRecord
 			csv << Judgement.attribute_names
 
 			Judgement.find_each do |j|
-				csv << j.attributes.values
+				@row = []
+				j.attributes.keys.each do |attr|
+					if attr == 'project_id'
+						@row << Project.find_by(id: j.attributes[attr]).title
+					elsif attr == 'user_id'
+						@row << User.find_by(id: j.attributes[attr]).full_name
+					else
+						@row << j.attributes[attr]
+					end
+				end
+				csv << @row
 			end
 		end
 	end

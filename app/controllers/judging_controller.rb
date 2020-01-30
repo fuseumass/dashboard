@@ -19,7 +19,7 @@ class JudgingController < ApplicationController
         @projects = Project.left_outer_joins(:judgements => :user).where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end
-      @projects = @projects.paginate(page: params[:page], per_page: 20)
+      @projects = @projects.paginate(page: params[:page], per_page: 15)
     else
       redirect_to judging_index_path
     end
@@ -28,13 +28,15 @@ class JudgingController < ApplicationController
 
   def index
     @assigned = JudgingAssignment.all.where(user_id: current_user.id)
-    @projects = Project.all.paginate(page: params[:page], per_page: 20)
+    @projects = Project.all.paginate(page: params[:page], per_page: 15)
 
-    @judgementsCSV = Judgement.all
+    @judgements =  Judgement.all
 
     respond_to do |format|
       format.html
-      format.csv { send_data @judgementsCSV.to_csv, filename: "judging.csv" }
+      format.csv { 
+        send_data @judgements.to_csv, filename: "judging.csv" 
+      }
     end
   end
 

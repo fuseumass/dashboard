@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1 class="page-title">Paper Judging</h1>
+</div>
+
+<div class="col-12">
+  <div class="card text-center">
+    <div class="card-body text-center">
+      <p class="lead">Generate paper judging forms</p>
+      <p class="mt-0 text-dark">Only click this button once. You will be brought to a new page containing a PDF with judging forms for each submitted project.</p>
+        <%= button_to 'Generate Judging Forms',
+                      {controller: 'paper_judging', action: 'generate_forms'},
+                      {class: 'btn btn-primary btn-block', form: {target: '_blank', id: 'makebutton', onsubmit: "onSubmit()"}} %>
+    </div>
+  </div>
+</div>

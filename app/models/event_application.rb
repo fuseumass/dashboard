@@ -147,7 +147,9 @@ class EventApplication < ApplicationRecord
 
   # send email confirmation to user once they submit there application.
   def submit_email
-    UserMailer.submit_email(user).deliver_now
+    if Rails.env.production?
+      UserMailer.submit_email(user).deliver_now
+    end
   end
 
 

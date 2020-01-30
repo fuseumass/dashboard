@@ -20,7 +20,7 @@ module HackumassWeb
     config=YAML.load_file('hackathon-config/hackathon.yml')
     event_application_config=YAML.load_file('hackathon-config/event_application.yml') || {} if File.exists?('hackathon-config/event_application.yml')
     rsvp_custom_fields = YAML.load_file('hackathon-config/rsvp_questions.yml') || {} if File.exists?('hackathon-config/rsvp_questions.yml')
-    judging_fields_config=YAML.load_file('hackathon-config/judging_fields.yml') || {} if File.exists?('hackathon-config/event_application.yml')
+    judging_fields_config=YAML.load_file('hackathon-config/judging_fields.yml') || {} if File.exists?('hackathon-config/judging_fields.yml')
 
     COPY_FOLDER = File.expand_path('hackathon-config/copy')
     def copy_for(name)

@@ -1,5 +1,6 @@
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Results</h1>
+  <%= link_to 'View Project', project_path(@project.id), class: 'btn btn-primary', style: 'position: absolute; right: 0'  %>
 </div>
 
 <div class="card">
@@ -24,7 +25,10 @@
                         <tr>
                             <td><%= score.user.full_name %></td>
                             <td><%= score.tag %></td>
-                            <td><%= score.score %></td>
+                            <td>
+                                <b><%= score.score %></b>
+                                <span> / <%= @max_score %></span>
+                            </td>
                             <td>
                                 <%= form_tag destroy_judgement_path, method: :post, class:'form-inline' do%>
                                     <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#<%= score.id %>modal">Details</button>
@@ -46,7 +50,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><%= score.user.full_name %><% unless score.tag.blank? %> (<%= score.tag %>)<% end %></h5>
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -62,10 +66,22 @@
                         <% score.custom_scores.keys.each do |field| %>
                             <tr>
                                 <td> <%= field.titleize %> </td>
-                                <td> <%= score.custom_scores[field] %> </td>
+                                <td>
+                                    <b><%= score.custom_scores[field] %></b>
+                                    <span> / <%= @field_max_scores[field] %></span>
+                                </td>
                             </tr>
                         <% end %>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td> <b>Total Score</b> </td>
+                            <td>
+                                <b><%= score.score %></b>
+                                <span> / <%= @max_score %></span>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <div class="modal-footer">

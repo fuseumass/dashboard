@@ -2,7 +2,7 @@
     <% if (current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '') %>
         <div class="row mt-5 mb-5">
             <div class="col input-group">
-                <%= f.text_field :tag, class: 'form-control', required: false, placeholder: 'Add a tag to describe this judgement (optional).', value: params[:tag] %>
+                <%= f.text_field :tag, class: 'form-control', required: false, placeholder: 'Add a tag to describe this judgement (optional).', value: params[:tag], data: {autocomplete: autocomplete_prize_name_judging_index_path}  %>
             </div>
         </div>
     <% else %>

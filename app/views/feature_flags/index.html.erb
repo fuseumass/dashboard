@@ -45,8 +45,9 @@
       </div>
       <table class="table card-table">
         <tbody>
-          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: View' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Prizes' ).first %>
           <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Judging' ).first %>
+          <%= render "feature_flag", feature_flag: @feature_flags.where( display_name: 'Projects: Create' ).first %>
         </tbody>
       </table>
     </div>

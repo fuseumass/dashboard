@@ -3,8 +3,9 @@
     <h1 class="page-title">Judging</h1>
 </div>
 <div class="col text-right">
-    <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-primary btn-sm' %>
-</div>
+    <% is current_user.is_admin? %>
+      <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-primary btn-sm' %>
+    <% end %></div>
 </div>
 
 <% if @projects.empty? %>

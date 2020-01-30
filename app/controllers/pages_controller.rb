@@ -99,11 +99,12 @@ class PagesController < ApplicationController
 
       user.check_in = true
       if user.save
-        if user.is_host_student?
-          redirect_to check_in_path, notice: "This participant is a #{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} student. #{user.full_name.titleize} has been checked in successfully."
-        else
-          redirect_to check_in_path, notice: "***THIS PARTICIPANT IS A NON-#{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} STUDENT.*** #{user.full_name.titleize} has been checked in successfully. "
-        end
+        redirect_to check_in_path, notice: "#{user.full_name.titleize} has been checked in successfully."
+        # if user.is_host_student?
+        #   redirect_to check_in_path, notice: "This participant is a #{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} student. #{user.full_name.titleize} has been checked in successfully."
+        # else
+        #   redirect_to check_in_path, notice: "***THIS PARTICIPANT IS A NON-#{HackumassWeb::Application::CHECKIN_UNIVERSITY_NAME} STUDENT.*** #{user.full_name.titleize} has been checked in successfully. "
+        # end
         return
       end
 

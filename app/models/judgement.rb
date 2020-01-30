@@ -10,7 +10,20 @@ class Judgement < ApplicationRecord
 	def self.to_csv
 		CSV.generate do |csv|
 
-			csv << Judgement.attribute_names
+			@header = []
+			Judgement.attribute_names.each do |attr_name|
+				if attr_name == 'user_id'
+					@header << 'Judge Name'
+				elsif attr_name == 'project_id'
+					@header << 'Project Name'
+				elsif attr_name == 'custom_scores'
+					# TODO: Improve Display of Custom Scores
+					@header << 'Custom Scores'
+				else
+					@header << attr_name.titleize
+				end
+			end
+			csv << @header
 
 			Judgement.find_each do |j|
 				@row = []

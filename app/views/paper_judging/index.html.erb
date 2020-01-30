@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h1 class="page-title">Paper Judging</h1>
+</div>
+
+<div class="col-5">
+  <%= button_to 'Generate Judging Forms',
+                {controller: 'paper_judging', action: 'generate_forms'},
+                {class: 'btn btn-red btn-block', form: {target: '_blank'}} %>
+</div>

@@ -189,6 +189,10 @@ Rails.application.routes.draw do
   post 'judging/create_judgement' => 'judging#create', :as => :judgements
   post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
   get 'judgings' => 'judging#index'
+  get 'paper_judging' => 'paper_judging#index'
+  post 'generate_forms' => 'paper_judging#generate_forms'
+  get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
+
 
     resources :feature_flags, except: [:create, :destroy, :edit, :show] do
       collection do
@@ -196,8 +200,6 @@ Rails.application.routes.draw do
         post 'disable'
       end
     end
-
-  # Live Judging Routes End
 
   # Feature Flag Routes End
 

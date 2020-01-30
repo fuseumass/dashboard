@@ -1,0 +1,2 @@
+module PaperJudgingHelper
+end

@@ -40,13 +40,15 @@
 <div class="row">
 <div class="col-md-4">
 <div class="card">
-<h3>Table Number: <%= @project.table_id %></h3>
-<h3>Team Members:</h3>
-<%= @project.user.forEach do |projUser| %>
-<div class="card-body"></div>
-
+<div class="card-header"><h3>Table Number: <%= @project.table_id %></h3></div>
+<div class="card-header"><h3>Team Members:</h3></div>
+<div class="card-body">
+<%=  %>
+<%= @project.user.each do |projUser| %>
+  <%= puts(projUser)  %>
+<p><%= projUser.first_name %></p>
 <% end %>
-
+</div>
 
 </div>
 </div>

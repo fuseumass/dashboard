@@ -62,11 +62,11 @@ class Judgement < ApplicationRecord
 			customScoreArr = Judgement.first.attributes.values[6]
 
 			for i in 0..keyArr.length
-				if(keyArr[i] != "custom_scores")
+				if(keyArr[i] != "custom_scores" && keyArr[i] != " ")
 					finalKeyArr.push(keyArr[i])
 				end
 			end
-
+			finalKeyArr.delete_at(finalKeyArr.length() - 1)
 			for key, value in customScoreArr
 				finalKeyArr.push(key)
 			end
@@ -86,7 +86,7 @@ class Judgement < ApplicationRecord
 						finalValueArr.push(valuesArr[i])
 					end
 				end
-
+				finalValueArr.delete_at(finalValueArr.length() - 1)
 				for key, value in customScoreArr
 					finalValueArr.push(value)
 				end

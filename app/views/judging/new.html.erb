@@ -57,7 +57,7 @@
 </div>
 
 </div>
-<div class="card">
+<div class="card judging-desktop">
   <div class="card-header"><h4>Project Details</h4></div>
     
       <div class="card-body">
@@ -137,14 +137,48 @@
           <% end %>
         </p>
 
+  </div>
+
 </div>
 
+<div class="card judging-mobile">
+<div class="card-header">Mobile View <button id="myBtn">Show</button></div>
+
+
+
+
 
 </div>
+<!-- end of judging mobile -->
 </div>
 
 <div class="col-md-8">
 <%= render "judging_fields", judgement: @judgement, project: @project_id %>
 </div>
 </div>
+
+
+<style>
+/* if desktop */
+    .judging-mobile {
+        display: none;
+    }
+
+    /* if mobile device max width 380px */
+    @media only screen and (max-device-width: 380px) {
+        .judging-mobile{display: block;}       
+        .judging-desktop {display: none;}
+    } 
+
+    /* if mobile device max width 480px */
+    @media only screen and (max-device-width: 480px) {
+       .judging-mobile{display: block;}       
+       .judging-desktop {display: none;}
+    }
+
+
+
+
+
+</style>
 

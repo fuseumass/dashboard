@@ -37,7 +37,14 @@
         <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
     </div>
 <% end %>
-<div class="row">
+
+<style> 
+.main-row-header {
+  display: flex;
+}
+
+</style>
+<div class="row main-row-header">
 <div class="col-md-4">
 <div class="card">
 <div class="card-header"><h4>Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
@@ -51,10 +58,7 @@
 
 </div>
 <div class="card">
-
-
-
-  
+  <div class="card-header"><h4>Project Details</h4></div>
     
       <div class="card-body">
 
@@ -66,27 +70,27 @@
           <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <% end %>
 
-        <h4 class="mt-0 mb-4">Description as a Tweet:</h4>
+        <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
         <p>
           <%= simple_format(@project.description) %>
         </p>
 
-        <h4 class="mt-0 mb-4">Inspiration:</h4>
+        <h5 class="mt-0 mb-4">Inspiration:</h5>
         <p>
           <%= simple_format(@project.inspiration) %>
         </p>
 
-        <h4 class="mt-0 mb-4">What it does:</h4>
+        <h5 class="mt-0 mb-4">What it does:</h5>
         <p>
           <%= simple_format(@project.does_what) %>
         </p>
 
-        <h4 class="mt-0 mb-4">How we built it:</h4>
+        <h5 class="mt-0 mb-4">How we built it:</h5>
         <p>
           <%= simple_format(@project.built_how) %>
         </p>
 
-        <h4 class="mt-0 mb-4">Technologies we used:</h4>
+        <h5 class="mt-0 mb-4">Technologies we used:</h5>
         <ul>
         <% unless @project.tech.empty? or @project.tech == "{}" %>
           <% @project.tech.each do |tech| %>
@@ -95,32 +99,32 @@
         <% end %>
         </ul>
 
-        <h2 class="mt-0 mb-4">Challenges we ran into:</h2>
+        <h5 class="mt-0 mb-4">Challenges we ran into:</h5>
         <p>
           <%= simple_format(@project.challenges) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Accomplishments we're proud of:</h2>
+        <h5 class="mt-0 mb-4">Accomplishments we're proud of:</h5>
         <p>
           <%= simple_format(@project.accomplishments) %>
         </p>
 
-        <h2 class="mt-0 mb-4">What we've learned:</h2>
+        <h5 class="mt-0 mb-4">What we've learned:</h5>
         <p>
           <%= simple_format(@project.learned) %>
         </p>
 
-        <h2 class="mt-0 mb-4">What's next:</h2>
+        <h5 class="mt-0 mb-4">What's next:</h5>
         <p>
           <%= simple_format(@project.next) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Built with:</h2>
+        <h5 class="mt-0 mb-4">Built with:</h5>
         <p>
           <%= simple_format(@project.built_with) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Prizes we're going for:</h2>
+        <h5 class="mt-0 mb-4">Prizes we're going for:</h5>
         <p>
           <% if @project.prizes != "{}" and not @project.prizes.empty? %>
           <ul>
@@ -152,21 +156,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>

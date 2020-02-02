@@ -71,6 +71,8 @@ class Judgement < ApplicationRecord
 				finalKeyArr.push(key)
 			end
 
+			finalKeyArr.reject { |item| item.nil? || item == '' }
+
 			csv << finalKeyArr
 		  
 	  
@@ -89,9 +91,7 @@ class Judgement < ApplicationRecord
 					finalValueArr.push(value)
 				end
 
-		
 				csv << finalValueArr
-	  
 			end
 		
 		end

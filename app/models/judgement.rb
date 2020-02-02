@@ -10,34 +10,88 @@ class Judgement < ApplicationRecord
 	def self.to_csv
 		CSV.generate do |csv|
 
-			@header = []
-			Judgement.attribute_names.each do |attr_name|
-				if attr_name == 'user_id'
-					@header << 'Judge Name'
-				elsif attr_name == 'project_id'
-					@header << 'Project Name'
-				elsif attr_name == 'custom_scores'
-					# TODO: Improve Display of Custom Scores
-					@header << 'Custom Scores'
-				else
-					@header << attr_name.titleize
-				end
-			end
-			csv << @header
+			# @header = []
+			# Judgement.attribute_names.each do |attr_name|
+			# 	if attr_name == 'user_id'
+			# 		@header << 'Judge Name'
+			# 	elsif attr_name == 'project_id'
+			# 		@header << 'Project Name'
+			# 	elsif attr_name == 'custom_scores'
+			# 		# TODO: Improve Display of Custom Scores
+			# 		@header << 'Custom Scores'
+			# 	else
+			# 		@header << attr_name.titleize
+			# 	end
+			# end
+			# csv << @header
 
-			Judgement.find_each do |j|
-				@row = []
-				j.attributes.keys.each do |attr|
-					if attr == 'project_id'
-						@row << Project.find_by(id: j.attributes[attr]).title
-					elsif attr == 'user_id'
-						@row << User.find_by(id: j.attributes[attr]).full_name
-					else
-						@row << j.attributes[attr]
-					end
-				end
-				csv << @row
+			# Judgement.find_each do |j|
+			# 	@row = []
+			# 	j.attributes.keys.each do |attr|
+			# 		if attr == 'project_id'
+			# 			@row << Project.find_by(id: j.attributes[attr]).title
+			# 		elsif attr == 'user_id'
+			# 			@row << User.find_by(id: j.attributes[attr]).full_name
+			# 		else
+			# 			@row << j.attributes[attr]
+			# 		end
+			# 	end
+			# 	csv << @row
+			# end
+			
+
+			# finalKeyArr = Array.new
+			# keyArr = Array.new
+			# keyArr = EventApplication.first.attributes.keys
+			# hashKeyArr = EventApplication.first.attributes.values.last
+			# keyArrLength = keyArr.length() - 2
+	  
+			# finalKeyArr.push("first_name")
+			# finalKeyArr.push("last_name")
+			# finalKeyArr.push("email")
+	  
+			# for i in 0..keyArrLength 
+			#   finalKeyArr.push(keyArr[i])
+			# end
+	  
+			# for key, value in hashKeyArr
+			#   finalKeyArr.push(key)
+			# end
+			
+			finalKeyArr = Array.new
+			keyArr = Judgement.first.attributes.keys
+			valueArr = Judgement.first.attributes.values
+			
+			csv << finalKeyArr
+		  
+	  
+			EventApplication.find_each do |app|
+	  
+			  arr = Array.new
+			  arr = app.attributes.values
+			  finalArr = Array.new
+			  arrLength = arr.length() - 2
+	  
+			  finalArr.push(app.user.first_name)
+			  finalArr.push(app.user.last_name)
+			  finalArr.push(app.user.email)
+	  
+			  for i in 0..arrLength
+				finalArr.push(arr[i])  
+			  end
+			  
+			  hashArr = arr[arrLength + 1]
+	  
+			  for key, value in hashArr
+				finalArr.push(value)
+			  end
+	  
+			  csv << finalArr
+	  
 			end
+		
+		
+		
 		end
 	end
 

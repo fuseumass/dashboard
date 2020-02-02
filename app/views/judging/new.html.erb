@@ -1,5 +1,5 @@
 <br>
-<h3> Judge Project </h3>
+<h3> Judge Project: <%= @project['title'].titleize %></h3>
 <!-- Alert user if they have been assigned this project. -->
 <div class="card">
 <% if !@assignment.nil? %>
@@ -37,5 +37,21 @@
         <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
     </div>
 <% end %>
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+<h3>Table Number: <%= @project.table_id %></h3>
+<h3>Team Members:</h3>
+<%= @project.user.forEach do |projUser| %>
+<div class="card-body"></div>
 
+<% end %>
+
+
+</div>
+</div>
+<div class="col-md-8">
 <%= render "judging_fields", judgement: @judgement, project: @project_id %>
+</div>
+</div>
+

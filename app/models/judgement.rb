@@ -74,24 +74,28 @@ class Judgement < ApplicationRecord
 			csv << finalKeyArr
 		  
 	  
-			Judgement.find_each do |app|
-	  
-			  arr = Array.new
-			  arr = app.attributes.values
-			  finalArr = Array.new
-			  arrLength = arr.length() - 2
-	  
-			  for i in 0..arrLength
-				finalArr.push(arr[i])  
-			  end
+			Judgement.find_each do |j|
 			  
-			  hashArr = arr[arrLength + 1]
-	  
-			  for key, value in hashArr
-				finalArr.push(value)
-			  end
-	  
-			  csv << finalArr
+				valuesArr = j.attributes.values
+				finalValueArr = Array.new
+
+				
+				# arr = Array.new
+				# arr = app.attributes.values
+				# finalArr = Array.new
+				# arrLength = arr.length() - 2
+		
+				# for i in 0..arrLength
+				# finalArr.push(arr[i])  
+				# end
+				
+				# hashArr = arr[arrLength + 1]
+		
+				# for key, value in hashArr
+				# finalArr.push(value)
+				# end
+		
+				# csv << finalArr
 	  
 			end
 		

@@ -124,19 +124,6 @@
           <%= simple_format(@project.built_with) %>
         </p>
 
-        <h5 class="mt-0 mb-4">Prizes we're going for:</h5>
-        <p>
-          <% if @project.prizes != "{}" and not @project.prizes.empty? %>
-          <ul>
-            <% @project.prizes.each do |prize| %>
-              <li><%= prize %></li>
-            <% end %>
-          </ul>
-          <% else %>
-            No Prizes Chosen
-          <% end %>
-        </p>
-
   </div>
 
 </div>

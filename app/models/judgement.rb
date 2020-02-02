@@ -38,7 +38,6 @@ class Judgement < ApplicationRecord
 			# 	end
 			# 	csv << @row
 			# end
-			
 
 			# finalKeyArr = Array.new
 			# keyArr = Array.new
@@ -60,21 +59,27 @@ class Judgement < ApplicationRecord
 			
 			finalKeyArr = Array.new
 			keyArr = Judgement.first.attributes.keys
-			valueArr = Judgement.first.attributes.values
-			
+			customScoreArr = Judgement.first.attributes.values[6]
+
+			for i in 0..keyArr.length
+				if(keyArr[i] != "custom_scores")
+					finalKeyArr.push(keyArr[i])
+				end
+			end
+
+			for key, value in customScoreArr
+				finalKeyArr.push(key)
+			end
+
 			csv << finalKeyArr
 		  
 	  
-			EventApplication.find_each do |app|
+			Judgement.find_each do |app|
 	  
 			  arr = Array.new
 			  arr = app.attributes.values
 			  finalArr = Array.new
 			  arrLength = arr.length() - 2
-	  
-			  finalArr.push(app.user.first_name)
-			  finalArr.push(app.user.last_name)
-			  finalArr.push(app.user.email)
 	  
 			  for i in 0..arrLength
 				finalArr.push(arr[i])  
@@ -89,8 +94,6 @@ class Judgement < ApplicationRecord
 			  csv << finalArr
 	  
 			end
-		
-		
 		
 		end
 	end

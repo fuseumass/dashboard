@@ -53,10 +53,9 @@
 <div class="card">
 
 
-<div class="row">
 
-  <div class="col-md-8 col-xl-8">
-    <div class="card">
+  
+    
       <div class="card-body">
 
         <% unless @project.projectimage.blank? %>
@@ -67,27 +66,27 @@
           <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <% end %>
 
-        <h2 class="mt-0 mb-4">Description as a Tweet:</h2>
+        <h4 class="mt-0 mb-4">Description as a Tweet:</h4>
         <p>
           <%= simple_format(@project.description) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Inspiration:</h2>
+        <h4 class="mt-0 mb-4">Inspiration:</h4>
         <p>
           <%= simple_format(@project.inspiration) %>
         </p>
 
-        <h2 class="mt-0 mb-4">What it does:</h2>
+        <h4 class="mt-0 mb-4">What it does:</h4>
         <p>
           <%= simple_format(@project.does_what) %>
         </p>
 
-        <h2 class="mt-0 mb-4">How we built it:</h2>
+        <h4 class="mt-0 mb-4">How we built it:</h4>
         <p>
           <%= simple_format(@project.built_how) %>
         </p>
 
-        <h2 class="mt-0 mb-4">Technologies we used:</h2>
+        <h4 class="mt-0 mb-4">Technologies we used:</h4>
         <ul>
         <% unless @project.tech.empty? or @project.tech == "{}" %>
           <% @project.tech.each do |tech| %>
@@ -134,11 +133,7 @@
           <% end %>
         </p>
 
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4 col-xl-4">
+  
     <% unless @project.prizes_won.empty? %>
       <div class="card">
         <div class="card-status card-status-left bg-green"></div>
@@ -153,7 +148,6 @@
       </div>
     <% end %>
 
-  </div>
 
 
 

@@ -40,13 +40,12 @@
 <div class="row">
 <div class="col-md-4">
 <div class="card">
-<div class="card-header"><h3>Table Number: <%= @project.table_id %></h3></div>
-<div class="card-header"><h3>Team Members:</h3></div>
+<div class="card-header"><h4>Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned':@project.table_id %></h4></div>
+
 <div class="card-body">
-<%=  %>
-<%= @project.user.each do |projUser| %>
-  <%= puts(projUser)  %>
-<p><%= projUser.first_name %></p>
+<h5>Team Members:</h5>
+<% @project.user.each do |projUser| %>
+<p><%= projUser.first_name %> &nbsp;<%= projUser.last_name %></p>
 <% end %>
 </div>
 

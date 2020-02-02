@@ -79,23 +79,18 @@ class Judgement < ApplicationRecord
 				valuesArr = j.attributes.values
 				finalValueArr = Array.new
 
-				
-				# arr = Array.new
-				# arr = app.attributes.values
-				# finalArr = Array.new
-				# arrLength = arr.length() - 2
+				for i in 0..valuesArr.length
+					if i != 6
+						finalValueArr.push(valuesArr[i])
+					end
+				end
+
+				for key, value in customScoreArr
+					finalValueArr.push(value)
+				end
+
 		
-				# for i in 0..arrLength
-				# finalArr.push(arr[i])  
-				# end
-				
-				# hashArr = arr[arrLength + 1]
-		
-				# for key, value in hashArr
-				# finalArr.push(value)
-				# end
-		
-				# csv << finalArr
+				csv << finalValueArr
 	  
 			end
 		

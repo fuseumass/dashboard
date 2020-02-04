@@ -13,10 +13,13 @@ class Judgement < ApplicationRecord
 			finalKeyArr = Array.new
 			keyArr = Judgement.first.attributes.keys
 			customScoreArr = Judgement.first.attributes.values[6]
-
+			customScorePos = 0
 			for i in 0..keyArr.length
 				if(keyArr[i] != "custom_scores" && keyArr[i] != " ")
 					finalKeyArr.push(keyArr[i])
+				end
+				if(keyArr[i] == "custom_scores") 
+					customScorePos = i
 				end
 			end
 
@@ -36,7 +39,7 @@ class Judgement < ApplicationRecord
 				customValuesArr = j.attributes.values[6]
 
 				for i in 0..valuesArr.length
-					if i != 6
+					if i != customScorePos
 						finalValueArr.push(valuesArr[i])
 					end
 				end

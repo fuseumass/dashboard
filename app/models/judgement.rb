@@ -36,7 +36,7 @@ class Judgement < ApplicationRecord
 			  
 				valuesArr = j.attributes.values
 				finalValueArr = Array.new
-				customValuesArr = j.attributes.values[6]
+				customValuesArr = j.attributes.values[customScorePos]
 
 				for i in 0..valuesArr.length
 					if i != customScorePos

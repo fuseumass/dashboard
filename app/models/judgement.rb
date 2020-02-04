@@ -14,6 +14,11 @@ class Judgement < ApplicationRecord
 			keyArr = Judgement.first.attributes.keys
 			customScoreArr = Judgement.first.attributes.values[6]
 			customScorePos = 0
+			
+			finalKeyArr.push("project_name")
+			finalKeyArr.push("judge first_name")
+			finalKeyArr.push("judge last_name")
+			
 			for i in 0..keyArr.length
 				if(keyArr[i] != "custom_scores" && keyArr[i] != " ")
 					finalKeyArr.push(keyArr[i])
@@ -37,6 +42,9 @@ class Judgement < ApplicationRecord
 				valuesArr = j.attributes.values
 				finalValueArr = Array.new
 				customValuesArr = j.attributes.values[customScorePos]
+
+				finalValueArr.push(j.project.title)
+				finalValueArr.push(j.project.title)
 
 				for i in 0..valuesArr.length
 					if i != customScorePos

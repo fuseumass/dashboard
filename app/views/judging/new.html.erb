@@ -42,12 +42,14 @@
 .main-row-header {
   display: flex;
 }
-
+.card-header-padding {
+  padding-top: 9px;
+}
 </style>
 <div class="row main-row-header">
 <div class="col-md-4">
 <div class="card">
-<div class="card-header"><h4>Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
+<div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
 
 <div class="card-body">
 <h5>Team Members:</h5>
@@ -58,7 +60,7 @@
 
 </div>
 <div class="card judging-desktop">
-  <div class="card-header"><h4>Project Details</h4></div>
+  <div class="card-header"><h4 class="card-header-padding">Project Details</h4></div>
     
       <div class="card-body">
 

@@ -62,7 +62,7 @@
 <div class="card judging-desktop">
   <div class="card-header"><h4 class="card-header-padding">Project Details</h4></div>
     
-      <div class="card-body">
+      <div style="height:700px; overflow:auto;" class="card-body">
 
         <% unless @project.projectimage.blank? %>
           <img src="<%= @project.projectimage.url %>" alt="">

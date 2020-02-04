@@ -12,40 +12,26 @@
 </div>
 
 <% if @judgement.errors.any? %>
-        <div class="card">
-          <div class="card-status bg-danger"></div>
-          <div class="card-header">
-            <h3 class="page-title">
-                <%=pluralize(@judgement.errors.count, 'error') %> prohibited this
-                judgement from being submitted:
-            </h3>
-          </div>
-          <div class="card-body event-judgement-error-card-padding">
-            <ul>
-              <% @judgement.errors.values.each do |message| %>
-                <li>
-                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
-<% if !@judgement.errors.any? %>
-    <div class="card">
-        <div class="card-header"> <h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1> </div>
-        <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
+  <div class="card">
+    <div class="card-status bg-danger"></div>
+    <div class="card-header">
+      <h3 class="page-title">
+          <%=pluralize(@judgement.errors.count, 'error') %> prohibited this
+          judgement from being submitted:
+      </h3>
     </div>
+    <div class="card-body event-judgement-error-card-padding">
+      <ul>
+        <% @judgement.errors.values.each do |message| %>
+          <li>
+            <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
-<style> 
-.main-row-header {
-  display: flex;
-}
-.card-header-padding {
-  padding-top: 9px;
-}
-</style>
 <div class="row main-row-header">
 <div class="col-md-4">
 <div class="card">
@@ -132,91 +118,97 @@
 
 <div class="card judging-mobile">
 <div class="card-header row event-application-nav-button-container">
-<div>Project Details</div> <div><button class="btn btn-purple bg-primary-color" id="mobileModalBtn">Show</button></div></div>
+  <div>Project Details</div> 
+  <div>
+    <button class="btn btn-purple bg-primary-color" id="mobileModalBtn">Show</button>
+  </div>
+</div>
 
 <div id="myModal" class="modal">
 <div class="modal-content">
-    <span class="close">&times;</span>
+  <span class="close">&times;</span>
     
   <% unless @project.projectimage.blank? %>
-          <img src="<%= @project.projectimage.url %>" alt="">
-        <% end %>
+    <img src="<%= @project.projectimage.url %>" alt="">
+  <% end %>
 
-        <% unless @project.youtube_link.blank? %>
-          <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <% end %>
+  <% unless @project.youtube_link.blank? %>
+    <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% end %>
 
-        <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
-        <p>
-          <%= simple_format(@project.description) %>
-        </p>
+  <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
+  <p>
+    <%= simple_format(@project.description) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">Inspiration:</h5>
-        <p>
-          <%= simple_format(@project.inspiration) %>
-        </p>
+  <h5 class="mt-0 mb-4">Inspiration:</h5>
+  <p>
+    <%= simple_format(@project.inspiration) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">What it does:</h5>
-        <p>
-          <%= simple_format(@project.does_what) %>
-        </p>
+  <h5 class="mt-0 mb-4">What it does:</h5>
+  <p>
+    <%= simple_format(@project.does_what) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">How we built it:</h5>
-        <p>
-          <%= simple_format(@project.built_how) %>
-        </p>
+  <h5 class="mt-0 mb-4">How we built it:</h5>
+  <p>
+    <%= simple_format(@project.built_how) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">Technologies we used:</h5>
-        <ul>
-        <% unless @project.tech.empty? or @project.tech == "{}" %>
-          <% @project.tech.each do |tech| %>
-            <li><%= tech %></li>
-          <% end %>
-        <% end %>
-        </ul>
+  <h5 class="mt-0 mb-4">Technologies we used:</h5>
+  <ul>
+  <% unless @project.tech.empty? or @project.tech == "{}" %>
+    <% @project.tech.each do |tech| %>
+      <li><%= tech %></li>
+    <% end %>
+  <% end %>
+  </ul>
 
-        <h5 class="mt-0 mb-4">Challenges we ran into:</h5>
-        <p>
-          <%= simple_format(@project.challenges) %>
-        </p>
+  <h5 class="mt-0 mb-4">Challenges we ran into:</h5>
+  <p>
+    <%= simple_format(@project.challenges) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">Accomplishments we're proud of:</h5>
-        <p>
-          <%= simple_format(@project.accomplishments) %>
-        </p>
+  <h5 class="mt-0 mb-4">Accomplishments we're proud of:</h5>
+  <p>
+    <%= simple_format(@project.accomplishments) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">What we've learned:</h5>
-        <p>
-          <%= simple_format(@project.learned) %>
-        </p>
+  <h5 class="mt-0 mb-4">What we've learned:</h5>
+  <p>
+    <%= simple_format(@project.learned) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">What's next:</h5>
-        <p>
-          <%= simple_format(@project.next) %>
-        </p>
+  <h5 class="mt-0 mb-4">What's next:</h5>
+  <p>
+    <%= simple_format(@project.next) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">Built with:</h5>
-        <p>
-          <%= simple_format(@project.built_with) %>
-        </p>
+  <h5 class="mt-0 mb-4">Built with:</h5>
+  <p>
+    <%= simple_format(@project.built_with) %>
+  </p>
 
-        <h5 class="mt-0 mb-4">Prizes we're going for:</h5>
-        <p>
-          <% if @project.prizes != "{}" and not @project.prizes.empty? %>
-          <ul>
-            <% @project.prizes.each do |prize| %>
-              <li><%= prize %></li>
-            <% end %>
-          </ul>
-          <% else %>
-            No Prizes Chosen
-          <% end %>
-        </p>
+  <h5 class="mt-0 mb-4">Prizes we're going for:</h5>
+  <p>
+    <% if @project.prizes != "{}" and not @project.prizes.empty? %>
+    <ul>
+      <% @project.prizes.each do |prize| %>
+        <li><%= prize %></li>
+      <% end %>
+    </ul>
+    <% else %>
+      No Prizes Chosen
+    <% end %>
+  </p>
 
   </div>
   <!-- End modal Content-->
 </div>
 <!-- End modal -->
+
+
 <style>
 .modal {
   display: none; /* Hidden by default */
@@ -252,33 +244,40 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.main-row-header {
+  display: flex;
+}
+.card-header-padding {
+  padding-top: 9px;
+}
 </style>
+
 <script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("mobileModalBtn");
+  var span = document.getElementsByClassName("close")[0];
 
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("mobileModalBtn");
-var span = document.getElementsByClassName("close")[0];
-
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-span.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+  span.onclick = function() {
     modal.style.display = "none";
   }
-}
-
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 </script>
 </div>
 <!-- end of judging mobile -->
 </div>
 
-<div class="col-md-8">
-<%= render "judging_fields", judgement: @judgement, project: @project_id %>
-</div>
+<div class="col-md-8 card">
+  <div class="card-body">
+    <%= render "judging_fields", judgement: @judgement, project: @project_id %>
+  </div>
 </div>
 
 

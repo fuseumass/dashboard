@@ -44,7 +44,8 @@ class Judgement < ApplicationRecord
 				customValuesArr = j.attributes.values[customScorePos]
 
 				finalValueArr.push(j.project.title)
-				finalValueArr.push(j.project.title)
+				finalValueArr.push(j.user.first_name)
+				finalValueArr.push(j.user.last_name)
 
 				for i in 0..valuesArr.length
 					if i != customScorePos

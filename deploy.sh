@@ -1,5 +1,5 @@
 cat << "EOF"
-/$$   /$$                     /$$       /$$   /$$ /$$      /$$
+ /$$   /$$                     /$$       /$$   /$$ /$$      /$$
 | $$  | $$                    | $$      | $$  | $$| $$$    /$$$
 | $$  | $$  /$$$$$$   /$$$$$$$| $$   /$$| $$  | $$| $$$$  /$$$$  /$$$$$$   /$$$$$$$  /$$$$$$$
 | $$$$$$$$ |____  $$ /$$_____/| $$  /$$/| $$  | $$| $$ $$/$$ $$ |____  $$ /$$_____/ /$$_____/
@@ -131,7 +131,7 @@ echo 'Do you want to update the feature flag? (type y or n)'
 read fflag
 if [[ $fflag = 'y' ]]; then
   echo 'Running feature flag script...'
-  heroku run rake feature_flags:load_flags
+  heroku run rake feature_flags:load_flags -a $heroku_name
   echo ' '
   echo 'Feature flags successfully added to database ✅'
   echo ' '

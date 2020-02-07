@@ -51,8 +51,14 @@ module HackumassWeb
     HACKING_BEGINS_DATE = config["projects"]["hacking_begins"]
     HACKING_ENDS_DATE = config["projects"]["hacking_ends"]
     SLACK_MESSAGE_URL_PREFIX = config["slack"]["message_url_prefix"]
-    CODES = config["codes"] or {}
-    CODES.transform_keys!(&:downcase)  # Makes all hashes to lowercase
+
+    if config.key?('codes')
+      CODES = config["codes"]
+      CODES.transform_keys!(&:downcase)  # Makes all hashes to lowercase
+    else
+      CODES = {}
+    end
+
 
     if event_application_config
       EVENT_APPLICATION_CUSTOM_FIELDS = event_application_config["custom_fields"] or []

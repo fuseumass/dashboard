@@ -183,6 +183,23 @@ class PagesController < ApplicationController
     redirect_to root_path
   end
 
+  # GET for redeem code page
+  def redeem_code
+    # Just renders page
+  end
+
+  # POST for submitting code
+  def use_code
+    if HackumassWeb::Application::CODES.key?(params[:code].downcase)  # If a valid code
+      new_role = HackumassWeb::Application::CODES[params[:code].downcase]
+      current_user.user_type = new_role
+      current_user.save
+      redirect_to index_path, notice: 'Successfully Redeemed Code!'
+    else
+      redirect_to redeem_code_path, alert: 'Error: Invalid code provided.'
+    end
+  end
+
   private
 
   # Only admin is allowed to be in admin pages

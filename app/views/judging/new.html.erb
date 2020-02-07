@@ -24,18 +24,16 @@
             <ul>
               <% @judgement.errors.values.each do |message| %>
                 <li>
-                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '') %>
+                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '').titleize %>
                 </li>
               <% end %>
             </ul>
           </div>
         </div>
       <% end %>
-<% if !@judgement.errors.any? %>
     <div class="card">
         <div class="card-header"> <h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1> </div>
         <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
     </div>
-<% end %>
 
 <%= render "judging_fields", judgement: @judgement, project: @project_id %>

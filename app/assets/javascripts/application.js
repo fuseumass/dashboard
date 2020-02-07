@@ -23,4 +23,5 @@
 //= require turbolinks
 //= require cable
 //= require event_application
+//= require judging
 //= require_tree .

@@ -31,115 +31,41 @@
           </div>
         </div>
       <% end %>
-    <div class="card">
+
+      <style>
+  
+      </style>
+      
+      <div class="row">
+      <div class="col-md-6">
+      
+    <div style="min-height:250px;" class="card">
         <div class="card-header"> <h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1> </div>
-        <div class="card-body"> <p> Description: <%= @project['description'] %> </p> </div>
+        <div class="card-body"> <p> Description: <%= @project['description'] %> </p> 
+         <button id="mobileModalBtn" class="btn btn-primary bg-primary-color">Show Project Details</button>   
+        </div>   
     </div>
+ 
+      </div>
 
+      <div class="col-md-6">
+  <div style="min-height:250px;" class="card">      
+      <div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
 
-<div class="row main-row-header">
-<div class="col-md-4">
-<div class="card">
-<div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
-
-<div class="card-body">
-<h5>Team Members:</h5>
-<% @project.user.each do |projUser| %>
-<p><%= projUser.first_name %> &nbsp;<%= projUser.last_name %></p>
-<% end %>
-</div>
-
-</div>
-<div class="card judging-desktop">
-  <div class="card-header"><h4 class="card-header-padding">Project Details</h4></div>
-    
-      <div style="height:700px; overflow:auto;" class="card-body">
-
-        <% unless @project.projectimage.blank? %>
-          <img src="<%= @project.projectimage.url %>" alt="">
-        <% end %>
-
-        <% unless @project.youtube_link.blank? %>
-          <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <% end %>
-
-        <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
-        <p>
-          <%= simple_format(@project.description) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">Inspiration:</h5>
-        <p>
-          <%= simple_format(@project.inspiration) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">What it does:</h5>
-        <p>
-          <%= simple_format(@project.does_what) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">How we built it:</h5>
-        <p>
-          <%= simple_format(@project.built_how) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">Technologies we used:</h5>
-        <ul>
-        <% unless @project.tech.empty? or @project.tech == "{}" %>
-          <% @project.tech.each do |tech| %>
-            <li><%= tech %></li>
-          <% end %>
-        <% end %>
-        </ul>
-
-        <h5 class="mt-0 mb-4">Challenges we ran into:</h5>
-        <p>
-          <%= simple_format(@project.challenges) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">Accomplishments we're proud of:</h5>
-        <p>
-          <%= simple_format(@project.accomplishments) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">What we've learned:</h5>
-        <p>
-          <%= simple_format(@project.learned) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">What's next:</h5>
-        <p>
-          <%= simple_format(@project.next) %>
-        </p>
-
-        <h5 class="mt-0 mb-4">Built with:</h5>
-        <p>
-          <%= simple_format(@project.built_with) %>
-        </p>
-
+  <div class="card-body">
+  <h5>Team Members:</h5>
+  <% @project.user.each do |projUser| %>
+  <p><%= projUser.first_name %> &nbsp;<%= projUser.last_name %></p>
+  <% end %>
   </div>
-
-</div>
-
-<div class="card judging-mobile">
-<div class="card-header row event-application-nav-button-container">
-  <div>Project Details</div> 
-  <div>
-    <button class="btn btn-purple bg-primary-color" id="mobileModalBtn">Show</button>
   </div>
-</div>
+  
+  </div>
+  </div>
 
 <div id="myModal" class="modal">
 <div class="modal-content">
   <span class="close">&times;</span>
-    
-  <% unless @project.projectimage.blank? %>
-    <img src="<%= @project.projectimage.url %>" alt="">
-  <% end %>
-
-  <% unless @project.youtube_link.blank? %>
-    <iframe width="100%" height="400" src="https://www.youtube.com/embed/<%= @project.get_youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <% end %>
 
   <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
   <p>
@@ -213,7 +139,6 @@
 </div>
 <!-- End modal -->
 
-
 <style>
 .modal {
   display: none; /* Hidden by default */
@@ -275,31 +200,11 @@
     }
   }
 </script>
-</div>
-<!-- end of judging mobile -->
-</div>
 
-<div class="col-md-8 card">
+
+  <div class="card">
   <div class="card-body">
     <%= render "judging_fields", judgement: @judgement, project: @project_id %>
   </div>
-</div>
-
-
-<style>
-/* if desktop */
-    .judging-mobile {
-        display: none;
-    }
-    /* if mobile device max width 380px */
-    @media only screen and (max-device-width: 380px) {
-        .judging-mobile{display: block;}       
-        .judging-desktop {display: none;}
-    } 
-    /* if mobile device max width 480px */
-    @media only screen and (max-device-width: 480px) {
-       .judging-mobile{display: block;}       
-       .judging-desktop {display: none;}
-    }
-</style>
+  </div>
 

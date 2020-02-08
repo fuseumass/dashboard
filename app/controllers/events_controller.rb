@@ -10,7 +10,7 @@ class EventsController < ApplicationController
         redirect_to session.delete(:return_to)
     end
     @all_events = Event.all.order(start_time: :asc)
-    @events = Event.where("end_time > ?", Time.now).order(start_time: :asc).paginate(page: params[:page], per_page: 10)
+    @events = Event.where("end_time > ?", Time.now).order(start_time: :asc, id: :asc).paginate(page: params[:page], per_page: 10)
     
     respond_to do |format|
       format.html

@@ -145,14 +145,15 @@ class MentorshipRequestsController < ApplicationController
 
   def message_on_slack
     request = MentorshipRequest.find(params[:mentorship_request])
-    slack_id = User.find(request.user_id).get_slack_id
+    usr = User.find(request.user_id)
+    slack_id = usr.get_slack_id
     if slack_id
       request.status = "Contacted"
       request.save
       if HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX
         redirect_to HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX + "/" + slack_id
       else  
-        redirect_to "https://" + HackumassWeb::Application::SLACK_SUBDOMAIN + ".slack.com/messages/" + slack_id
+        redirect_to usr.get_slack_message_link
       end
     else
       redirect_to request, alert: 'This user is not signed up on slack.'

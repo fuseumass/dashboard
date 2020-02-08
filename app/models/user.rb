@@ -110,5 +110,9 @@ class User < ApplicationRecord
     return self.slack_id
   end
 
+  def get_slack_message_link
+    return "https://" + HackumassWeb::Application::SLACK_SUBDOMAIN + ".slack.com/team/" + self.slack_id
+  end
+
 
 end

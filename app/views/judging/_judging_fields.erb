@@ -14,14 +14,14 @@
         <%= f.hidden_field :project_id, value: @project_id %>
         <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
             <div class="col-md-8">
-                <h2 class="leading-loose d-inline"> <%= c['name'].titleize %>: </h2>
+                <h2 class="leading-loose d-inline"> <%= c['name'].titleize %>: </h2><br>
                 <p class="leading-wide d-inline"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </p>
             </div>
             <br />
             <% if c['type'] == 'button' %>
                 <div class="row row-cards row-deck">
                     <% c['scores'].each do |cate| %>
-                        <div class="col-md-3">
+                        <div class="col-md-3 judge_button_style">
                         <label id="<%= c['name'] %>_check%" class="card">
                             <%= o.radio_button c['name'].to_sym, "#{cate['points']}", {class: 'form-control custom-select card-input-element d-none hidden'} %>                          
                             <div class="judge_button">
@@ -37,7 +37,7 @@
             <% elsif c['type'] == 'range' %>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
-                        <p> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                        <h6 class="mb-2"> Current Rating: </h6> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div>
                     </div>
                     <div class="col-md-7">
                         <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>
@@ -53,7 +53,7 @@
             <% elsif c['type'] == 'range_restricted' %>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
-                        <h6> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                        <h6 class="mb-2"> Current Rating: </h6> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div>
                     </div>
                     <div class="col-md-7">
                         <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>

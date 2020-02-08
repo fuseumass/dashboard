@@ -54,11 +54,14 @@ class JudgingController < ApplicationController
       return
     end
 
-    @judge_id = User.where(:email => params[:judge_email]).first.id
     if (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Invalid Judge Email Address.'
-    
-    elsif (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
+      return
+    end
+
+    @judge_id = User.where(:email => params[:judge_email]).first.id
+
+    if (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
     
     elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
@@ -224,6 +227,51 @@ class JudgingController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET route for assigning a judge to all projects going for a prize
+  def tag_assign
+
+  end
+
+  # POST route for assigning a judge to all projects going for a prize
+  def add_judge_to_tag
+    if (!params.has_key?(:prize_criteria) or !params.has_key?(:judge_email))  # An error in params, likely when a user messes with the URL
+      redirect_to judging_index_path, alert: 'Unable to assign judge to prize category. This is likely from accessing a broken link or refreshing a submitted form. Please try to assign the judge again, and if this fails contact an administrator.'
+      return
+    end
+
+    if (User.where(:email => params[:judge_email]).empty?)  # Make sure the email provided is valid
+      redirect_to tag_assign_judging_index_path, alert: 'Error: Invalid Judge Email Address.'
+      return
+    end
+
+    if (Prize.where(:criteria => params[:prize_criteria]).empty?)  # Make sure the prize name provided is valid
+      redirect_to tag_assign_judging_index_path, alert: 'Error: Invalid Prize Name.'
+      return
+    end
+
+    @judge_id = User.where(:email => params[:judge_email]).first.id
+    @prize = Prize.where(:criteria => params[:prize_criteria]).first
+
+    if (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
+      redirect_to tag_assign_judging_index_path, alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
+    else  # All is well, assign judge to project
+      @assignments = []
+      Project.all.each do |project|
+        if project.prizes.include?(@prize.criteria)
+          @assignments << JudgingAssignment.new(:user_id => @judge_id, :project_id => project.id, :tag => params[:prize_criteria])
+        end
+      end
+
+      count = 0
+      @assignments.each do |assn|
+        assn.save
+        count = count + 1
+      end
+      redirect_to tag_assign_judging_index_path, notice: 'Successfully assigned judge to ' + count.to_s + ' ' + 'project'.pluralize(count)
+    end
+end
+
 
 
   def results

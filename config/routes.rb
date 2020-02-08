@@ -179,6 +179,7 @@ Rails.application.routes.draw do
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
     get :autocomplete_prize_name, :on => :collection
+    get :autocomplete_prize_criteria, :on => :collection
     get :autocomplete_project_title, :on => :collection
     collection do
       get 'search', :as => :search
@@ -186,6 +187,7 @@ Rails.application.routes.draw do
       get 'results'
       get 'mass_assign' => 'judging#mass_assign', :as => :judge_mass_assign
       post 'mass_assign' => 'judging#mass_submit', :as => :judge_mass_submit
+      get 'tag_assign', :as => :tag_assign
     end
   end
   post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
@@ -194,6 +196,8 @@ Rails.application.routes.draw do
   post 'judging/create_judgement' => 'judging#create', :as => :judgements
   post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
   get 'judgings' => 'judging#index'
+  post 'judging/add_judge_to_tag' => 'judging#add_judge_to_tag', :as => :add_judge_to_tag
+
   get 'paper_judging' => 'paper_judging#index'
 
   post 'generate_forms' => 'paper_judging#generate_forms'

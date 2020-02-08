@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1 class="page-title"> Mass-Assign Judges to Projects</h1>
+</div>
+
+<div class="row">
+<div class="col-md-12 col-xl-12">
+  <div class="card">
+    <div class="card-body">
+      <p>Assign judges to this project here. Once an assigned judge completes his scoring, this assignment will be removed automatically. Use the email address associated with the Judge's dashboard account when assigning them.</p>
+      <%= form_tag nil, method: :post, id: "mass_entry" do%>
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <%= text_field_tag :judge_email, params[:judge_email], id: "judge_email_in", class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_user_email_judging_index_path} %>
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <%= text_field_tag :project_id, params[:project_id], id: "project_id_in", class: 'form-control', placeholder: 'Project Name', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_project_title_judging_index_path} %>
+          </div>
+
+          <div class="form-group col-md-3">
+            <%= text_field_tag :tag, params[:tag], id: "tag_in", class: 'form-control', placeholder: 'Add a tag to describe this judging assignment (optional)', type: "text", data: {autocomplete: autocomplete_prize_name_judging_index_path} %>
+          </div>
+          
+          <div class="form-group col-md-2">
+            <%= button_tag 'Assign Judge', type: :submit, class: 'btn btn-primary', onclick: "create_entry(judge_email_in, project_id_in, tag_in, mass_entry, 'assignment_list')" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <%= form_tag judge_mass_assign_judging_index_path, method: :post do %>
+            <%= button_tag 'Enter all values', type: :submit, class: 'btn btn-primary' %>
+            <%= button_tag 'Clear Entries', type: "button", class: 'btn btn-danger', onclick: "clear_entries('assignment_list')" %>
+            
+            <div id="assignment_list" class="col-md-12 mt-2">
+            </div>
+        <% end %>
+    </div>
+</div>

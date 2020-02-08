@@ -179,10 +179,13 @@ Rails.application.routes.draw do
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
     get :autocomplete_prize_name, :on => :collection
+    get :autocomplete_project_title, :on => :collection
     collection do
       get 'search', :as => :search
       get 'assign'
       get 'results'
+      get 'mass_assign' => 'judging#mass_assign', :as => :judge_mass_assign
+      post 'mass_assign' => 'judging#mass_submit', :as => :judge_mass_submit
     end
   end
   post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
@@ -192,6 +195,7 @@ Rails.application.routes.draw do
   post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
   get 'judgings' => 'judging#index'
   get 'paper_judging' => 'paper_judging#index'
+
   post 'generate_forms' => 'paper_judging#generate_forms'
   get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
 

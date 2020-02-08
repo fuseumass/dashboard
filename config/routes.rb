@@ -193,6 +193,10 @@ Rails.application.routes.draw do
   post 'judging/assign_judge' => 'judging#add_judge_assignment', :as => :judging_assign
   post 'judging/unassign_judge' => 'judging#remove_judge_assignment', :as => :judging_unassign
 
+  post 'judging/assign_tables' => 'judging#assign_tables'
+  post 'judging/unassign_tables' => 'judging#unassign_tables'
+
+
   post 'judging/create_judgement' => 'judging#create', :as => :judgements
   post 'judging/destroy' => 'judging#destroy', :as => :destroy_judgement
   get 'judgings' => 'judging#index'

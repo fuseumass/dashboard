@@ -278,6 +278,43 @@ class JudgingController < ApplicationController
 end
 
 
+  def assign_tables
+    unless current_user.is_admin?
+      redirect_to judging_index_path, alert: 'You do not have permission to perform this action.'
+    end
+
+    start = 0
+
+    Project.where(power: false).each do |p|
+      p.table_id = start
+      p.save
+      start += 1
+    end
+
+    Project.where(power: true).each do |p|
+      p.table_id = start
+      p.save
+      start += 1
+    end
+
+    redirect_to judging_index_path, notice: 'Table numbers successfully assigned to all projects!'
+
+  end
+
+  def unassign_tables
+    unless current_user.is_admin?
+      redirect_to judging_index_path, alert: 'You do not have permission to perform this action.'
+    end
+
+    Project.all.each do |p|
+      p.table_id = nil
+      p.save
+    end
+
+    redirect_to judging_index_path, notice: 'Removed table numbers from all projects'
+
+  end
+
 
   def results
     if (!params.has_key?(:project_id))

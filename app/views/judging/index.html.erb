@@ -1,5 +1,5 @@
 <div class="row align-items-center">
-<div class="page-header col">
+<div class="page-header col-sm-4">
     <h1 class="page-title">Judging</h1>
 </div>
 <div class="col text-right">
@@ -8,6 +8,15 @@
       <%= link_to "Mass Assignment", judge_mass_assign_judging_index_path, class: 'btn btn-primary btn-md' %>
     <% end %>
     <% if current_user.is_admin? %>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="assignDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Project Tables
+        </button>
+        <div class="dropdown-menu" aria-labelledby="assignDrop">
+          <%= link_to "Assign Table Numbers", judging_assign_tables_path, class: 'dropdown-item', method: :post %>
+          <%= link_to "Unassign Table Numbers", judging_unassign_tables_path, class: 'dropdown-item', method: :post %>
+        </div>
+      </div>
       <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-secondary btn-md' %>
     <% end %>
     </div>
@@ -80,7 +89,7 @@
           <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
             <div class="row gutters-xs">
               <div class="col">
-                <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.', :autofocus => true %>
+                <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.' %>
               </div>
               <span class="col-auto">
                 <a href="#" data-toggle="tooltip" title="You can search by status:judged, status:unjudged, status:assigned, status:unassigned to narrow down search results." data-placement="bottom"><i class="fe fe-help-circle"></i></a>

@@ -7,12 +7,14 @@
         </div>
     <% else %>
         <%= f.hidden_field :tag, value: params[:tag] %>        
-    <% end %>=
+    <% end %>
     <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
         <%= f.hidden_field :project_id, value: @project_id %>
         <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
-            <h2 class="leading-loose"> <%= c['name'].titleize %> </h2>
-            <h5 class="leading-wide text-center"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </h5>
+            <div class="col-md-8">
+                <h2 class="leading-loose d-inline"> <%= c['name'].titleize %>: </h2>
+                <p class="leading-wide d-inline"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </p>
+            </div>
             <br />
             <% if c['type'] == 'button' %>
                 <div class="row row-cards row-deck">
@@ -32,38 +34,36 @@
                 </div>
             <% elsif c['type'] == 'range' %>
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <%= o.range_field c['name'].to_sym, :min=>"0",
-                        :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>".5", :id=>"#{c['name']}_slider",
-                        :oninput=>"changeSliderOutput(#{c['name']}_value, #{c['name']}_desc, #{c['name']}_slider, #{c['scores'].to_json})" %>
+                    <div class="col-md-3">
+                        <p> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                    </div>
+                    <div class="col-md-7">
+                        <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>
                     </div>
                 </div>
-                <br/>
                 <div class="row justify-content-center">
-                    <div class="col-md-2">
-                        <h6> Current Rating:  <output id="<%= c['name'] %>_value" > </output> </h6>
-                    </div>
-                    <div class="col-md-6">
-                        <output id="<%= c['name'] %>_desc" > Please slide to an appropriate value </output>
+                    <div class="col-md-10">
+                        <%= o.range_field c['name'].to_sym, :min=>"0",
+                        :max=>c['scores'][-1]['points'], :height=>"2em", :class=>"custom-range", :step=>"1", :id=>"#{c['name']}_slider",
+                        :oninput=>"changeSliderOutput(#{c['name']}_value, #{c['name']}_desc, #{c['name']}_slider, #{c['scores'].to_json})" %>
                     </div>
                 </div>
             <% elsif c['type'] == 'range_restricted' %>
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-3">
+                        <h6> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                    </div>
+                    <div class="col-md-7">
+                        <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
                         <%= o.range_field c['name'].to_sym, :min=>"0",
                         :max=>c['scores'][-1]['points'], :class=>"custom-range", :step=>c['step'], :id=>"#{c['name']}_slider",
                         :oninput=>"changeSliderOutput(#{c['name']}_value, #{c['name']}_desc, #{c['name']}_slider, #{c['scores'].to_json})" %>
                     </div>
                 </div>
-                <br/>
-                <div class="row justify-content-center">
-                    <div class="col-md-2">
-                        <h6> Current Rating:  <output id="<%= c['name'] %>_value" > </output> </h6>
-                    </div>
-                    <div class="col-md-6">
-                        <output id="<%= c['name'] %>_desc" > Please slide to an appropriate value </output>
-                    </div>
-                    </div>
             <% elsif c['type'] == 'dropdown' %>
                 <%= o.select c['name'].to_sym, c['scores'].map{|item| [item['description'], item['points']]}, {include_blank: "Select an option below"}, {class: 'form-control custom-select'} %>                
             <% end %>

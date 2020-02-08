@@ -5,6 +5,4 @@
 function changeSliderOutput(output_id, desc_id, slider_id, scores){
     output_id.value = slider_id.value
     desc_id.value = scores.find(o => o['points'] >= slider_id.value)['description']
-    
-    console.log(scores.find(o => o['points'] >= slider_id.value))
 }

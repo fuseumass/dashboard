@@ -9,35 +9,57 @@ class Judgement < ApplicationRecord
 	# Generating CSV for all judgements
 	def self.to_csv
 		CSV.generate do |csv|
-
-			@header = []
-			Judgement.attribute_names.each do |attr_name|
-				if attr_name == 'user_id'
-					@header << 'Judge Name'
-				elsif attr_name == 'project_id'
-					@header << 'Project Name'
-				elsif attr_name == 'custom_scores'
-					# TODO: Improve Display of Custom Scores
-					@header << 'Custom Scores'
-				else
-					@header << attr_name.titleize
+			
+			finalKeyArr = Array.new
+			keyArr = Judgement.first.attributes.keys
+			customScoreArr = Judgement.first.attributes.values[6]
+			customScorePos = 0
+			
+			finalKeyArr.push("project_name")
+			finalKeyArr.push("judge first_name")
+			finalKeyArr.push("judge last_name")
+			
+			for i in 0..keyArr.length
+				if(keyArr[i] != "custom_scores" && keyArr[i] != " ")
+					finalKeyArr.push(keyArr[i])
+				end
+				if(keyArr[i] == "custom_scores") 
+					customScorePos = i
 				end
 			end
-			csv << @header
 
+			finalKeyArr.delete_at(finalKeyArr.length() - 1)
+			
+			for key, value in customScoreArr
+				finalKeyArr.push(key)
+			end
+
+			finalKeyArr.reject { |item| item.nil? || item == '' }
+			csv << finalKeyArr
+		  
 			Judgement.find_each do |j|
-				@row = []
-				j.attributes.keys.each do |attr|
-					if attr == 'project_id'
-						@row << Project.find_by(id: j.attributes[attr]).title
-					elsif attr == 'user_id'
-						@row << User.find_by(id: j.attributes[attr]).full_name
-					else
-						@row << j.attributes[attr]
+			  
+				valuesArr = j.attributes.values
+				finalValueArr = Array.new
+				customValuesArr = j.attributes.values[customScorePos]
+
+				finalValueArr.push(j.project.title)
+				finalValueArr.push(j.user.first_name)
+				finalValueArr.push(j.user.last_name)
+
+				for i in 0..valuesArr.length
+					if i != customScorePos
+						finalValueArr.push(valuesArr[i])
 					end
 				end
-				csv << @row
+				finalValueArr.delete_at(finalValueArr.length() - 1)
+				for key, value in customValuesArr
+					finalValueArr.push(value)
+				end
+
+				csv << finalValueArr
 			end
+		
 		end
 	end
 

@@ -29,6 +29,7 @@
           <th>Count</th>
           <th>Available</th>
           <th>Link</th>
+          <th>Location</th>
         </tr>
       </thead>
 
@@ -53,6 +54,11 @@
               <td><a href="<%= item.link %>" target="_blank">Link</a></td>
           <% end %>
 
+          <% if item.location.nil? or item.location.empty? %>
+              <td>--</td>
+          <% else %>
+              <td><%= item.location %></td>
+          <% end %>
         </tr>
       <% end %>
       </tbody>

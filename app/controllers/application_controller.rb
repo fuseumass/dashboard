@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   autocomplete :major, :name, full: true
   autocomplete :user, :email, full: true
   autocomplete :prize, :name, full: true
+  autocomplete :prize, :criteria, full: true
+
 
 
   def set_access_control_headers

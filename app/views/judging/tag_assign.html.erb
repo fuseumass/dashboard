@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1 class="page-title">Assign Judge to Prize Category</h1>
+</div>
+
+<div class="row">
+<div class="col-md-12 col-xl-12">
+  <div class="card">
+    <div class="card-body">
+      <p>Assign someone to judge all projects going for a prize. This will find all projects who have selected the given prize as one that they are running for, and then assign the given judge to that project.</p>
+      <%= form_tag add_judge_to_tag_path, method: :post do%>
+
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <%= text_field_tag :judge_email, params[:judge_email], class: 'form-control', placeholder: 'Email Address', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_user_email_hardware_checkouts_path} %>
+          </div>
+
+          <div class="form-group col-md-5">
+            <%= text_field_tag :prize_criteria, params[:prize_criteria], class: 'form-control', placeholder: 'Prize Category', type: "text", data: {autocomplete: autocomplete_prize_criteria_judging_index_path } %>
+          </div>
+
+          <div class="form-group col-md-2">
+            <%= button_tag 'Assign Judge', type: :submit, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+
+ <%= link_to 'Return to Judging Home', judging_index_path, class: 'btn btn-secondary' %> 
+
+</div>

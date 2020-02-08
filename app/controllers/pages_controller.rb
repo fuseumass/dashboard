@@ -190,7 +190,9 @@ class PagesController < ApplicationController
 
   # POST for submitting code
   def use_code
-    if HackumassWeb::Application::CODES.key?(params[:code].downcase)  # If a valid code
+    if (current_user.rsvp or current_user.check_in) and current_user.user_type == 'attendee'
+      redirect_to redeem_code_path, alert: 'Error: You do not have permission to use this code. If you believe this to be in error, please contact an organizer.'
+    elsif HackumassWeb::Application::CODES.key?(params[:code].downcase)  # If a valid code
       new_role = HackumassWeb::Application::CODES[params[:code].downcase]
       current_user.user_type = new_role
       current_user.save

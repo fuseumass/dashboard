@@ -69,7 +69,7 @@ class Judgement < ApplicationRecord
 
 	def custom_judgements_validation
 		HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
-			if custom_scores[c['name']] == nil
+			if custom_scores[c['name']] == nil or custom_scores[c['name']] == ""
 				errors.add("missing_custom_field_#{c['name']}".to_sym, "Please judge this category: #{c['name']}")
 			end
 		end

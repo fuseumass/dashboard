@@ -165,7 +165,7 @@ class JudgingController < ApplicationController
       end
       redirect_to judging_index_path, notice: 'Thank you for judging this project!'
     else
-      redirect_to new_judging_path(:project_id => judging_score_params[:project_id], :tag => @tag), alert: 'Error: Unable to judge project. Please ensure all fields have a value.'
+      redirect_to new_judging_path(:judgement => @judgement, :project_id => judging_score_params[:project_id], :tag => @tag), alert: 'Error: Unable to judge project. Please ensure all fields have a value.'
     end
   end
 
@@ -176,8 +176,11 @@ class JudgingController < ApplicationController
       redirect_to judging_index_path, alert: 'Error: You do not have permission to delete this project.'
       return
     end
-    @assignment = Judgement.find_by(:id => params[:judgement_id])
-    @project_id = @assignment.project.id
+
+    judgement = Judgement.find_by(:id => params[:judgement_id])
+
+    @assignment = judgement
+    @project_id = judgement.project.id
     @assignment.destroy
     respond_to do |format|
       format.html { redirect_to results_judging_index_path(:project_id => @project_id), notice: 'Score successfully deleted!' }

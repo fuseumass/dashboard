@@ -178,12 +178,15 @@ Rails.application.routes.draw do
   resources :judging do
     post 'assign_score'
     get :autocomplete_user_email, :on => :collection
+    get :autocomplete_prize_name, :on => :collection
     get :autocomplete_prize_criteria, :on => :collection
     get :autocomplete_project_title, :on => :collection
     collection do
       get 'search', :as => :search
       get 'assign'
       get 'results'
+      get 'mass_assign' => 'judging#mass_assign', :as => :judge_mass_assign
+      post 'mass_assign' => 'judging#mass_submit', :as => :judge_mass_submit
       get 'tag_assign', :as => :tag_assign
     end
   end
@@ -196,6 +199,7 @@ Rails.application.routes.draw do
   post 'judging/add_judge_to_tag' => 'judging#add_judge_to_tag', :as => :add_judge_to_tag
 
   get 'paper_judging' => 'paper_judging#index'
+
   post 'generate_forms' => 'paper_judging#generate_forms'
   get "#{Rails.root}/public/judging/judging.pdf", :to => redirect("/judging/judging.pdf?#{Time.now.to_i}")
 

@@ -7,7 +7,8 @@
       <%= link_to "Assign by Prize", tag_assign_judging_index_path, class: 'btn btn-primary btn-sm' %>
     <% end %>
     <% if current_user.is_admin? %>
-      <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-secondary btn-sm' %>
+      <%= link_to "Mass Assignment", judge_mass_assign_judging_index_path, class: 'btn btn-primary btn-md' %>
+      <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-secondary btn-md' %>
     <% end %>
     </div>
 </div>

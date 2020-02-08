@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   # full: true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
+  autocomplete :project, :title, full: true
   autocomplete :user, :email, full: true
   autocomplete :prize, :name, full: true
   autocomplete :prize, :criteria, full: true

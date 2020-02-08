@@ -40,13 +40,11 @@ class JudgingController < ApplicationController
     end
   end
 
-
   # GET route for assignment creation
   def assign
     @project = Project.find_by(id: params[:project_id])
     @assignments = JudgingAssignment.where(project_id: @project.id)
   end
-
 
   # POST route to assign a judge to a project
   def add_judge_assignment
@@ -79,6 +77,45 @@ class JudgingController < ApplicationController
       else
         redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to assign judge to project.'
       end
+    end
+  end
+
+  # GET route for mass judging assignment
+  def mass_assign
+    @assignments = []
+  end
+
+  # POST route for assignment validation
+  def mass_submit 
+    puts "time to die"
+
+    errors = []
+    success = []
+
+    mass_entries = params['entry']
+
+    mass_entries.each do |entry|
+      if (User.where(:email => entry['judge_email']).empty? or Project.where(:title => entry['project_name']).empty?)
+        errors << "Existance: #{entry['judge_email']} or #{entry['project_name']} doesn't exist"
+        next
+      end
+      
+      user = User.where(:email => entry['judge_email']).first()
+      project = Project.where(:title => entry['project_name']).first()
+      if (JudgingAssignment.exists?(user_id: user.id, project_id: project.id))
+        errors << "Duplicate: #{entry['judge_email']} and #{entry['project_name']} already exists"
+        next
+      end
+
+      @assignment = JudgingAssignment.new(:user_id => user.id, :project_id => project.id, :tag => entry['tag_name'])
+      @assignment.save
+      success << "Assignment for #{entry['judge_email']} and #{entry['project_name']} successfully created"
+    end
+
+    if (errors.length() == 0)
+      redirect_to judge_mass_assign_judging_index_path, notice: "#{success.length()} Assignments has been successfully assigned"
+    else
+      redirect_to judge_mass_assign_judging_index_path, notice: "#{success.length()} Assignments has been successfully assigned", alert: "#{errors.length()} Errors - #{errors.join(" | ")}"
     end
   end
 
@@ -270,13 +307,4 @@ end
       end
     end
 
-    # gives 
-    def judging_score_params
-      custom_scores_items = []
-      HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
-        custom_scores_items << c['name'].to_sym
-      end
-
-      params.require(:judgement).permit(:project_id, :tag, custom_scores: custom_scores_items )
-    end
 end

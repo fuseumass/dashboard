@@ -37,7 +37,7 @@
             <% elsif c['type'] == 'range' %>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
-                        <p> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                        <h6 class="mb-2"> Current Rating: </h6> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div>
                     </div>
                     <div class="col-md-7">
                         <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>
@@ -53,7 +53,7 @@
             <% elsif c['type'] == 'range_restricted' %>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
-                        <h6> Current Rating: <br/> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div> </h6>
+                        <h6 class="mb-2"> Current Rating: </h6> <div class="text-center"><output id="<%= c['name'] %>_value" class="display-4 my-2" > 0 </output>pts. </div>
                     </div>
                     <div class="col-md-7">
                         <h6> Description: </h6> <output id="<%= c['name'] %>_desc" >Please slide to an appropriate value </output>

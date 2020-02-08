@@ -59,18 +59,20 @@ class JudgingController < ApplicationController
       return
     end
 
-    @judge_id = User.where(:email => params[:judge_email]).first.id
+    judge_user = User.where(:email => params[:judge_email]).first
+    @judge_id = judge_user.id
+
 
     if (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
     
-    elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
-      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: '+params[:judge_email]+' is already assigned to judge this project!'
+    elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => judge_user.id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => judge_user.id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
+      redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: ' + params[:judge_email] + ' is already assigned to judge this project!'
     else  # All is well, assign judge to project
       if params.has_key?(:tag) and params[:tag] != ''
-        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id], :tag => params[:tag])
+        @assignment = JudgingAssignment.new(:user_id => judge_user.id, :project_id => params[:project_id], :tag => params[:tag])
       else
-        @assignment = JudgingAssignment.new(:user_id => @judge_id, :project_id => params[:project_id])
+        @assignment = JudgingAssignment.new(:user_id => judge_user.id, :project_id => params[:project_id])
       end
       if @assignment.save
         redirect_to assign_judging_index_path(:project_id => params[:project_id]), notice: 'Successfully assigned judge to project.'
@@ -146,19 +148,20 @@ class JudgingController < ApplicationController
     end
 
     if params[:tag].nil? or params[:tag] == ''
-      @tag = nil
+      tag = ""
     else
-      @tag = params[:tag]
+      tag = params[:tag]
     end
 
+    @tag = tag
     @judgement = Judgement.new
     @judgement.custom_scores = {}
 
     @project = Project.find_by(id: params[:project_id])
     @project_id = params[:project_id]
 
-    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => @project.id, :tag => @tag))
-      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => @project.id, :tag => @tag)
+    if (JudgingAssignment.exists?(:user_id => current_user.id, :project_id => params[:project_id], :tag => tag))
+      @assignment = JudgingAssignment.find_by(:user_id => current_user.id, :project_id => params[:project_id], :tag => tag)
     else
       @assignment = nil
       unless (current_user.user_type == 'admin' or current_user.user_type == 'organizer')
@@ -250,7 +253,8 @@ class JudgingController < ApplicationController
       return
     end
 
-    @judge_id = User.where(:email => params[:judge_email]).first.id
+    judge_user = User.where(:email => params[:judge_email]).first
+    @judge_id = judge_user.id
     @prize = Prize.where(:criteria => params[:prize_criteria]).first
 
     if (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
@@ -259,7 +263,7 @@ class JudgingController < ApplicationController
       @assignments = []
       Project.all.each do |project|
         if project.prizes.include?(@prize.criteria)
-          @assignments << JudgingAssignment.new(:user_id => @judge_id, :project_id => project.id, :tag => params[:prize_criteria])
+          @assignments << JudgingAssignment.new(:user_id => judge_user.id, :project_id => project.id, :tag => params[:prize_criteria])
         end
       end
 
@@ -305,6 +309,16 @@ end
       unless current_user.is_organizer? or current_user.is_admin?
         redirect_to index_path, alert: 'You do not have permission to access this judging feature.'
       end
+    end
+
+    # Never trust parameters from the scary internet 
+    def judging_score_params
+      custom_scores_items = []
+      HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+        custom_scores_items << c['name'].to_sym
+      end
+
+      params.require(:judgement).permit(:project_id, :tag, custom_scores: custom_scores_items )
     end
 
 end

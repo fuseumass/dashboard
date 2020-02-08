@@ -32,16 +32,16 @@ function update_entries(list_name) {
             <input name="entry[][project_name]" value="${project_name}" type="hidden" multiple />
             <input name="entry[][tag_name]" value="${tag_name}" type="hidden" multiple />
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body py-2 my-1">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
+                <div class="card my-1">
+                    <div class="card-body py-2">
+                        <div class="form-row pt-1">
+                            <div class="form-group col-md-4 pt-2">
                                 <h5 class="d-inline"> Judge: </h5> ${judge_name}
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 pt-2">
                                 <h5 class="d-inline"> Project Name: </h5>${project_name}
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-3 pt-2">
                                 <h5 class="d-inline"> Tag: </h5>${tag_name}
                             </div>
                             <div class="form-group col-md-1">

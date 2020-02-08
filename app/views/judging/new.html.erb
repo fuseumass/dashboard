@@ -138,51 +138,6 @@
   <!-- End modal Content-->
 </div>
 <!-- End modal -->
-
-<style>
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.main-row-header {
-  display: flex;
-}
-.card-header-padding {
-  padding-top: 9px;
-}
-</style>
-
 <script>
   var modal = document.getElementById("myModal");
   var btn = document.getElementById("mobileModalBtn");
@@ -200,8 +155,6 @@
     }
   }
 </script>
-
-
   <div class="card">
   <div class="card-body">
     <%= render "judging_fields", judgement: @judgement, project: @project_id %>

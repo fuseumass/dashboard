@@ -10,11 +10,6 @@
     <% else %>
         <%= f.hidden_field :tag, value: params[:tag] %>        
     <% end %>
-<style>
-.judge_button_style {
-    min-width: 200px;
-}
-</style>
     <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
         <%= f.hidden_field :project_id, value: @project_id %>
         <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>

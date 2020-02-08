@@ -10,18 +10,23 @@
     <% else %>
         <%= f.hidden_field :tag, value: params[:tag] %>        
     <% end %>
+<style>
+.judge_button_style {
+    min-width: 200px;
+}
+</style>
     <% HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c| %>
         <%= f.hidden_field :project_id, value: @project_id %>
         <%= f.fields_for :custom_scores, OpenStruct.new(@judgement.custom_scores) do |o| %>
             <div class="col-md-8">
-                <h2 class="leading-loose d-inline"> <%= c['name'].titleize %>: </h2>
+                <h2 class="leading-loose d-inline"> <%= c['name'].titleize %>: </h2><br>
                 <p class="leading-wide d-inline"> <%= o.label c['name'].to_sym, "#{c['label']}:" %> </p>
             </div>
             <br />
             <% if c['type'] == 'button' %>
                 <div class="row row-cards row-deck">
                     <% c['scores'].each do |cate| %>
-                        <div class="col-md-3">
+                        <div class="col-md-3 judge_button_style">
                         <label id="<%= c['name'] %>_check%" class="card">
                             <%= o.radio_button c['name'].to_sym, "#{cate['points']}", {class: 'form-control custom-select card-input-element d-none hidden'} %>                          
                             <div class="judge_button">

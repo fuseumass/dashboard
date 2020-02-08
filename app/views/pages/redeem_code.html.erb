@@ -2,17 +2,27 @@
   <h1 class="page-title">Redeem a Code</h1>
 </div>
 
+<script type="text/javascript">
+$(function() {
+    if (window.location.search.indexOf('code=') != -1) {
+        var url_code = window.location.search.split('code=')[1];
+        $("#id-code").val(url_code);
+        document.getElementById('id-form').submit();
+    }
+});
+</script>
+
 <div class="row">
     <div class="col-md-12 col-xl-12 justify-content-center">
         <div class="card">
             <div class="card-body">
-            <%= form_tag use_code_path, method: :post, class:'col-lg-12' do %>
+            <%= form_tag use_code_path, method: :post, class:'col-lg-12', id: 'id-form' do %>
                 <div class="row gutters-xs">
                 <div class="col">
-                    <%= text_field_tag :code, params[:code], class: 'form-control', placeholder: 'Code (Case Insensitive)', :autofocus => true %>
+                    <%= text_field_tag :code, params[:code], class: 'form-control', placeholder: 'Code (Case Insensitive)', :id => 'id-code', :autofocus => true %>
                 </div>
                 <span class="col-auto">
-                    <%= submit_tag 'Redeem Code', name: nil, class: 'btn btn-primary btn-raised' %>
+                    <%= submit_tag 'Redeem Code', name: nil, id: 'id-submit', class: 'btn btn-primary btn-raised' %>
                 </span>
                 </div>
             <%end%>

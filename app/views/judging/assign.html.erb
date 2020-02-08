@@ -16,7 +16,7 @@
           </div>
 
           <div class="form-group col-md-5">
-            <%= text_field_tag :tag, params[:tag], class: 'form-control', placeholder: 'Add a tag to describe this judging assignment (optional)', type: "text", data: {autocomplete: autocomplete_prize_name_judging_index_path} %>
+            <%= text_field_tag :tag, params[:tag], class: 'form-control', placeholder: 'Add a tag to describe this judging assignment (optional)', type: "text", data: {autocomplete: autocomplete_prize_criteria_judging_index_path} %>
           </div>
 
           <%= text_field_tag :project_id, "", class: 'form-control', value: @project.id, required: true, hidden: true %>

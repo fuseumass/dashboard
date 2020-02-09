@@ -303,7 +303,7 @@ class JudgingController < ApplicationController
       @score = Judgement.find_by(id: params[:id])
       if current_user.is_admin? or current_user.is_organizer?
         puts "organizer override"
-      elsif @existing_judgement.user_id != current_user.id
+      elsif @score.user_id != current_user.id
         redirect_to judging_index_path, alert: 'The judgement you are viewing is not yours.'
       end
 

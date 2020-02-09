@@ -1,7 +1,6 @@
 <style>
 input[type='range'] {
     -webkit-tap-highlight-color: transparent;
-    z-index: 9999;
     position: relative;
     height: unset;
     min-height: unset;
@@ -103,7 +102,16 @@ input[type='range'] {
             <% elsif c['type'] == 'text' %>
                 <%= o.text c['name'].to_sym, {class: 'form-control'} %>
             <% elsif c['type'] == 'textarea' %>
-                <%= o.text_area c['name'].to_sym, {class: 'form-control'} %>                
+                <%= o.text_area c['name'].to_sym, {class: 'form-control'} %> 
+                <% if not @editing %>
+                    <script>
+                        $(function() {
+                            var el = document.querySelector("#judgement_custom_scores_<%=c['name']%>");
+                            if (el.value.length == 0)
+                                el.value = " ";
+                        })
+                    </script>
+                <% end %>               
             <% end %>
         <% end %>
     <% end %>

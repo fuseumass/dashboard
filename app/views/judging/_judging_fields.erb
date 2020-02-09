@@ -1,5 +1,5 @@
 <%= form_for(@judgement, html: {multipart: true}) do |f| %>
-    <% if (current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '') %>
+    <% if ((current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '')) or @editing %>
         <div class="row mt-5 mb-5">
             <div class="col form-group">
                 <b><%= f.label :tag, 'Describe this judgement with a tag. (optional)' %></b>
@@ -50,6 +50,13 @@
                         :oninput=>"changeSliderOutput(#{c['name']}_value, #{c['name']}_desc, #{c['name']}_slider, #{c['scores'].to_json})" %>
                     </div>
                 </div>
+                <% if @editing %>
+                    <script>
+                    $(function() {
+                        document.querySelector("#<%=c['name']%>_slider").oninput();
+                    });
+                    </script>
+                <% end %>
             <% elsif c['type'] == 'range_restricted' %>
                 <div class="row justify-content-center">
                     <div class="col-md-3">
@@ -66,6 +73,13 @@
                         :oninput=>"changeSliderOutput(#{c['name']}_value, #{c['name']}_desc, #{c['name']}_slider, #{c['scores'].to_json})" %>
                     </div>
                 </div>
+                <% if @editing %>
+                    <script>
+                    $(function() {
+                        document.querySelector("#<%=c['name']%>_slider").oninput();
+                    });
+                    </script>
+                <% end %>
             <% elsif c['type'] == 'dropdown' %>
                 <%= o.select c['name'].to_sym, c['scores'].map{|item| [item['description'], item['points']]}, {include_blank: "Select an option below"}, {class: 'form-control custom-select'} %>                
             <% elsif c['type'] == 'text' %>
@@ -78,6 +92,10 @@
 
     <div class="">
     <br>
-    <%= f.submit 'Submit Judgment', type: 'submit', class: 'float-right btn btn-primary bg-primary-color' %>
+    <% if @editing %>
+        <%= f.submit 'Update Judgment', type: 'submit', class: 'float-right btn btn-primary bg-primary-color' %>
+    <% else %>
+        <%= f.submit 'Submit Judgment', type: 'submit', class: 'float-right btn btn-primary bg-primary-color' %>
+    <% end %>
     </div>
 <% end %> 

@@ -1,5 +1,9 @@
 <br>
-<h3> Judge Project: <%= @project['title'].titleize %></h3>
+<% if @editing %>
+  <h3> Editing Project Judgement: <%= @project['title'].titleize %> (by <%= @judgement.user.full_name %>)</h3>
+<% else %>
+  <h3> Judge Project: <%= @project['title'].titleize %></h3>
+<% end %>
 <!-- Alert user if they have been assigned this project. -->
 <div class="card">
 <% if !@assignment.nil? %>

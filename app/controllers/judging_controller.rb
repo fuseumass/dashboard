@@ -32,16 +32,20 @@ class JudgingController < ApplicationController
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end
       @assigned = nil
+      @judged_by_me = nil
     else
       @projects = Project.all.order(table_id: :asc).paginate(page: params[:page], per_page: 15)
       @assigned = JudgingAssignment.all.where(user_id: current_user.id)
       @judgements =  Judgement.all
+      if params[:judged_by_user] and (current_user.is_organizer? or current_user.is_admin?)
+        @judged_by_me = Judgement.where(user_id: params[:judged_by_user])
+      else
+        @judged_by_me = Judgement.where(user_id: current_user.id)
+      end
     end
 
     @projects = @projects.paginate(page: params[:page], per_page: 15)
 
-
-    # duplicate below
     @times_judged = {}
     @open_judgements = {}
     @avg_score = {}
@@ -183,6 +187,8 @@ class JudgingController < ApplicationController
       tag = params[:tag]
     end
 
+    @editing = false
+
     @tag = tag
     @judgement = Judgement.new
     @judgement.custom_scores = {}
@@ -240,6 +246,73 @@ class JudgingController < ApplicationController
     else
       redirect_to new_judging_path(:judgement => @judgement, :project_id => judging_score_params[:project_id], :tag => @tag), alert: 'Error: Unable to judge project. Please ensure all fields have a value.'
     end
+  end
+
+  # GET route to show the edit form for a judgement
+  def edit
+    if (!params.has_key?(:id))
+      redirect_to judging_index_path, alert: 'Error: Unable to load judging edit page.'
+    end
+
+    @judgement = Judgement.find_by(id: params[:id])
+
+    @editing = true
+
+
+    if current_user.is_admin? or current_user.is_organizer?
+      puts "organizer/admin override edit"
+    elsif @judgement.user_id != current_user.id
+      redirect_to judging_index_path, alert: 'You cannot edit a judgement that is not yours.'
+    end
+
+    @tag = @judgement.tag
+    params[:tag] = @tag
+
+    @project = Project.find_by(id: @judgement.project_id)
+    @project_id = @judgement.project_id
+  end
+
+
+  # PATCH route to update judgement
+  def update
+    @existing_judgement = Judgement.find_by(id: params[:id])
+    if current_user.is_admin? or current_user.is_organizer?
+      puts "organizer override"
+    elsif @existing_judgement.user_id != current_user.id
+      redirect_to judging_index_path, alert: 'The judgement you are editing is not yours.'
+    end
+    
+    if @existing_judgement.update(judging_score_params)
+      redirect_to judgement_path(params[:id]), notice: 'The judgement was successfully edited.'
+    else
+      @judgement = @existing_judgement
+      @editing = true
+      @tag = @judgement.tag
+      params[:tag] = @tag
+
+      @project = Project.find_by(id: @judgement.project_id)
+      @project_id = @judgement.project_id
+      render :edit
+    end
+  
+  end
+
+  # GET route for showing a specific judgement by id
+  # Piggybacks off of results but for a specific judge only
+  def show
+      @score = Judgement.find_by(id: params[:id])
+      if current_user.is_admin? or current_user.is_organizer?
+        puts "organizer override"
+      elsif @existing_judgement.user_id != current_user.id
+        redirect_to judging_index_path, alert: 'The judgement you are viewing is not yours.'
+      end
+
+      @max_score = 0
+      @field_max_scores = {}
+      HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+        @max_score += c['max']
+        @field_max_scores[c['name']] = c['max']
+      end
   end
 
 
@@ -351,6 +424,7 @@ end
   end
 
 
+  # GET, shows all of the judging results for a given project id
   def results
     if (!params.has_key?(:project_id))
       redirect_to judging_index_path, alert: 'Error: Unable to load results for project. Please ensure that the link is valid and try again.'

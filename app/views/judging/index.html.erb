@@ -30,7 +30,7 @@
     </div>
 </div>
 
-
+<% if not params[:judged_by_user] %>
   <!-- Projects Assigned to Be Judged By Current User -->
   <% if !@assigned.nil? and !@assigned.empty? %>
   <div class="col-12">
@@ -45,6 +45,7 @@
                 <th>Table #</th>
                 <th>Title</th>
                 <th>Tag</th>
+                <th>Times Judged</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -61,6 +62,8 @@
                   <td><%= link_to truncate(asn.project.title, length: 30), asn.project %></td>
 
                   <td> <% if !asn.tag.nil? %> <%= asn.tag %> <% end %> </td>
+
+                  <td style="text-align: center"><%= @times_judged[asn.project.id] %></td>
 
                   <td><%= link_to "Judge", new_judging_path(:project_id => asn.project.id, :tag => asn.tag), class: 'btn btn-primary' %></td>
                 </tr>
@@ -80,6 +83,7 @@
       </div>
     </div>
   <% end %>
+
   <!-- All Projects That Can Be Judged -->
   <% if current_user.is_admin? or current_user.is_organizer? %>
     <div class="col-12">
@@ -135,6 +139,7 @@
                   <th>Avg. Score</th>
                   <th>Score Actions</th>
                 <% else %>
+                  <th>Times Judged</th>
                   <th>Action</th>
                 <% end %>
               </tr>
@@ -164,6 +169,7 @@
                       <%= link_to "Scores Table", results_judging_index_path(:project_id => project.id) + "&all_table=1", class: 'btn btn-secondary' %>
                     </td>
                   <% else %>
+                    <td style="text-align: center"><%= @times_judged[project.id] %></td>
                     <td>
                       <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
                     </td>
@@ -183,9 +189,57 @@
         </div>
       </div>
     <% end %>
-  </div>
-<br>
 
 <center>
   <%= will_paginate @projects %>
 </center>
+<% elsif @judged_by_me.nil? or @judged_by_me.empty? %>
+  <p>No results for this judge: <%= User.find_by(id: params[:judged_by_user]).full_name %></p>
+<% end %>
+  <% if !@judged_by_me.nil? and !@judged_by_me.empty? %>
+    <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="page-title">Already Judged By Me<% if params[:judged_by_user] %> (SCOPE: <%= User.find_by(id: params[:judged_by_user]).full_name %>)<% end %></h3>
+        <br>
+        <div class="table-responsive">
+          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <thead>
+              <tr>
+                <th>Table #</th>
+                <th>Title</th>
+                <th>Tag</th>
+                <th>Times Judged</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @judged_by_me.each do |judgement| %>
+                <tr>
+                  <% if judgement.project.table_id.nil? %>
+                    <td>TBD</td>
+                  <% else %>
+                    <td><%= judgement.project.table_id %></td>
+                  <% end %>
+
+                  <td><%= link_to truncate(judgement.project.title, length: 30), judgement.project %></td>
+
+                  <td> <% if !judgement.tag.nil? %> <%= judgement.tag %> <% end %> </td>
+
+                  <td><%= @times_judged[judgement.project.id] %> (including you)</td>
+                  <td>
+                    <%= link_to "View", judgement_path(:id => judgement.id), class: 'btn btn-primary' %>
+                    <%= link_to "Edit", edit_judgement_path(:id => judgement.id), class: 'btn btn-primary' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  </div>
+<br>

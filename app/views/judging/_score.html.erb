@@ -1,0 +1,36 @@
+<table class="table table-hover table-outline table-vcenter card-table">
+    <thead>
+    <tr>        
+        <th>Field</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% score.custom_scores.keys.each do |field| %>
+            <tr>
+                <td> <%= field.titleize %> </td>
+                <td>
+                    <% if score.custom_scores[field].length > 4 %>
+                        </td>
+                        <tr><td colspan="2">
+                            <span style="display: inline-block; max-width: <%= max_width %>">
+                                <%= score.custom_scores[field] %>
+                            </span>
+                    <% else %>
+                        <b><%= score.custom_scores[field] %></b>
+                        <span> / <%= @field_max_scores[field] %></span>
+                    <% end %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td> <b>Total Score</b> </td>
+            <td>
+                <b><%= score.score %></b>
+                <span> / <%= @max_score %></span>
+            </td>
+        </tr>
+    </tfoot>
+</table>

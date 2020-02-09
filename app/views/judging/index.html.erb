@@ -56,7 +56,11 @@
                   <% if asn.project.table_id.nil? %>
                     <td>TBD</td>
                   <% else %>
-                    <td><%= asn.project.table_id %></td>
+                    <td><%= asn.project.table_id %>
+                    <% if asn.project.power %>
+                      (TBL)
+                    <% end %>
+                    </td>
                   <% end %>
 
                   <td><%= link_to truncate(asn.project.title, length: 30), asn.project %></td>
@@ -151,7 +155,12 @@
                   <% if project.table_id.nil? %>
                     <td>TBD</td>
                   <% else %>
-                    <td><%= project.table_id %></td>
+                    <td>
+                      <%= project.table_id %>
+                      <% if project.power %>
+                        (TBL)
+                      <% end %>
+                    </td>
                   <% end %>
 
                   <td><%= link_to truncate(project.title, length: 30), project %></td>
@@ -220,7 +229,12 @@
                   <% if judgement.project.table_id.nil? %>
                     <td>TBD</td>
                   <% else %>
-                    <td><%= judgement.project.table_id %></td>
+                    <td>
+                      <%= judgement.project.table_id %>
+                      <% if judgement.project.power %>
+                        (TBL)
+                      <% end %>
+                    </td>
                   <% end %>
 
                   <td><%= link_to truncate(judgement.project.title, length: 30), judgement.project %></td>

@@ -164,6 +164,9 @@
           <% if !@project.table_id.nil? %>
           <h1 style="color:red">
             Table <%= @project.table_id %>
+            <% if @project.power %>
+              (TBL)
+            <% end %>
           </h1>
           <% else %>
           <h1 style="color:red">

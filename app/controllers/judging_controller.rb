@@ -389,29 +389,33 @@ end
       puts "forcing assign tables"
     elsif check_feature_flag?($project_submissions)
       redirect_to judging_index_path, alert: 'WARNING: Project submissions are still open. Cannot assign table numbers.'
+      return
+    elsif Project.where.not(table_id: nil).count > 0
+      redirect_to judging_index_path, alert: 'WARNING: A project exists with a table number. Unassign tables first.'
+      return
     end
 
-    start = 0
+    start = 1
 
     Project.where(power: false).each do |p|
       p.table_id = start
-      p.save
+      p.save(validate: false)
       start += 1
     end
 
     Project.where(power: true).each do |p|
       p.table_id = start
-      p.save
+      p.save(validate: false)
       start += 1
     end
 
     redirect_to judging_index_path, notice: 'Table numbers successfully assigned to all projects!'
-
   end
 
   def unassign_tables
     unless current_user.is_admin?
       redirect_to judging_index_path, alert: 'You do not have permission to perform this action.'
+      return
     end
 
     Project.all.each do |p|

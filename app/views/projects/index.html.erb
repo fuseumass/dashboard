@@ -43,7 +43,12 @@
               <% if project.table_id.nil? %>
                 <td>TBD</td>
               <% else %>
-                <td><%= project.table_id %></td>
+                <td>
+                  <%= project.table_id %>
+                  <% if project.power %>
+                    (TBL)
+                  <% end %>
+                </td>
               <% end %>
 
               <td><%= link_to truncate(project.title, length: 30), project %></td>

@@ -54,7 +54,11 @@
 
       <div class="col-md-6">
   <div style="min-height:250px;" class="card">      
-      <div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %></h4></div>
+      <div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %>
+        <% if @project.power %>
+          (TBL)
+        <% end %>
+      </h4></div>
 
   <div class="card-body">
   <h5>Team Members:</h5>

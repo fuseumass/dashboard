@@ -1,5 +1,32 @@
+<style>
+
+    div.container {
+        max-width: 100%;
+    }
+
+    .container > .card > .card-body {
+        overflow: scroll;
+    }
+
+    .crossed, .crossed > *, .crossed * {
+      color: red !important;
+      text-decoration: line-through !important;
+    }
+</style>
 <div class="page-header">
   <h1 class="page-title"> Mass-Assign Judges to Projects</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <%= form_tag judge_mass_assign_judging_index_path, method: :post do %>
+            <%= button_tag 'Enter all values', type: :submit, class: 'btn btn-primary' %>
+            <%= button_tag 'Clear Entries', type: "button", class: 'btn btn-danger', onclick: "clear_entries('assignment_list')" %>
+            
+            <div id="assignment_list" class="col-md-12 mt-2">
+            </div>
+        <% end %>
+    </div>
 </div>
 
 <div class="row">
@@ -33,14 +60,54 @@
 </div>
 </div>
 
+
 <div class="row">
-    <div class="col-md-12">
-        <%= form_tag judge_mass_assign_judging_index_path, method: :post do %>
-            <%= button_tag 'Enter all values', type: :submit, class: 'btn btn-primary' %>
-            <%= button_tag 'Clear Entries', type: "button", class: 'btn btn-danger', onclick: "clear_entries('assignment_list')" %>
-            
-            <div id="assignment_list" class="col-md-12 mt-2">
-            </div>
+<div class="col-md-5 col-xl-6">
+  <div class="card">
+    <div class="card-body">
+      <h3>All Mentors:</h3>
+      <table class="table table-hover table-outline table-vcenter card-table">
+        <% User.where(user_type: 'mentor').order('id').each do |u| %>
+          <tr data-mentor="<%= u.email %>">
+            <td><button class="btn btn-sm btn-primary" onclick="$('#judge_email_in').val('<%= u.email %>')">Fill</button></td>
+            <td style="min-width: 250px"><%= u.full_name %></td>
+            <td><input style="background: none;border: 0;width: 200px" value="<%= u.email %>" onclick="this.focus(); this.select()"></td>
+          </tr>
         <% end %>
+      </table>
     </div>
+  </div>
+</div>
+
+<div class="col-md-3 col-xl-3">
+  <div class="card">
+    <div class="card-body">
+      <h3>All Projects:</h3>
+      <table class="table table-hover table-outline table-vcenter card-table">
+        <% Project.all.order('id').each do |p| %>
+          <tr data-project="<%= p.title %>">
+            <td><button class="btn btn-sm btn-primary" onclick="$('#project_id_in').val('<%= p.title %>')">Fill</button></td>
+            <td><input style="background: none;border: 0" value="<%= p.title %>" onclick="this.focus(); this.select()"></td>
+            <td><%= link_to 'Project', project_path(p), target: '_blank', class: 'btn btn-sm btn-primary' %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="col-md-3 col-xl-3">
+  <div class="card">
+    <div class="card-body">
+      <h3>All Selectible Prizes:</h3>
+      <table class="table table-hover table-outline table-vcenter card-table">
+        <% Prize.where(project_selectable: true).order('id').each do |p| %>
+          <tr data-prize="<%= p.criteria %>">
+            <td><button class="btn btn-sm btn-primary" onclick="$('#tag_in').val('<%= p.criteria %>')">Fill</button></td>
+            <td><input style="background: none;border: 0" value="<%= p.criteria %>" onclick="this.focus(); this.select()"></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
 </div>

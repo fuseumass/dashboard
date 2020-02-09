@@ -28,6 +28,42 @@
 </div>
 </div>
 
+<div class="row">
+<div class="col-md-6 col-xl-6">
+  <div class="card">
+    <div class="card-body">
+      <h3>All Mentors:</h3>
+      <table class="table table-hover table-outline table-vcenter card-table">
+        <% User.where(user_type: 'mentor').order('id').each do |u| %>
+          <tr>
+            <td><button class="btn btn-sm btn-primary" onclick="$('#judge_email').val('<%= u.email %>')">Fill</button></td>
+            <td style="min-width: 250px"><%= u.full_name %></td>
+            <td><input style="background: none;border: 0;width: 200px" value="<%= u.email %>" onclick="this.focus(); this.select()"></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6 col-xl-6">
+  <div class="card">
+    <div class="card-body">
+      <h3>All Selectible Prizes:</h3>
+      <table class="table table-hover table-outline table-vcenter card-table">
+        <% Prize.where(project_selectable: true).order('id').each do |p| %>
+          <tr>
+            <td><button class="btn btn-sm btn-primary" onclick="$('#prize_criteria').val('<%= p.criteria %>')">Fill</button></td>
+            <td><input style="background: none;border: 0;width:300px" value="<%= p.criteria %>" onclick="this.focus(); this.select()"></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+
  <%= link_to 'Return to Judging Home', judging_index_path, class: 'btn btn-secondary' %> 
 
 </div>

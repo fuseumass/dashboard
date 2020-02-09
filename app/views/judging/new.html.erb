@@ -74,31 +74,36 @@
   </div>
   </div>
 
+<style>
+#myModal h5 {
+
+}
+</style>
 <div id="myModal" class="modal">
 <div class="modal-content">
   <span class="close"></span>
 
-  <h5 class="mt-0 mb-4">Description as a Tweet:</h5>
+  <h5 class="mt-0 mb-0">Description as a Tweet:</h5>
   <p>
     <%= simple_format(@project.description) %>
   </p>
 
-  <h5 class="mt-0 mb-4">Inspiration:</h5>
+  <h5 class="mt-0 mb-0">Inspiration:</h5>
   <p>
     <%= simple_format(@project.inspiration) %>
   </p>
 
-  <h5 class="mt-0 mb-4">What it does:</h5>
+  <h5 class="mt-0 mb-0">What it does:</h5>
   <p>
     <%= simple_format(@project.does_what) %>
   </p>
 
-  <h5 class="mt-0 mb-4">How we built it:</h5>
+  <h5 class="mt-0 mb-0">How we built it:</h5>
   <p>
     <%= simple_format(@project.built_how) %>
   </p>
 
-  <h5 class="mt-0 mb-4">Technologies we used:</h5>
+  <h5 class="mt-0 mb-0">Technologies we used:</h5>
   <ul>
   <% unless @project.tech.empty? or @project.tech == "{}" %>
     <% @project.tech.each do |tech| %>
@@ -107,32 +112,32 @@
   <% end %>
   </ul>
 
-  <h5 class="mt-0 mb-4">Challenges we ran into:</h5>
+  <h5 class="mt-0 mb-0">Challenges we ran into:</h5>
   <p>
     <%= simple_format(@project.challenges) %>
   </p>
 
-  <h5 class="mt-0 mb-4">Accomplishments we're proud of:</h5>
+  <h5 class="mt-0 mb-0">Accomplishments we're proud of:</h5>
   <p>
     <%= simple_format(@project.accomplishments) %>
   </p>
 
-  <h5 class="mt-0 mb-4">What we've learned:</h5>
+  <h5 class="mt-0 mb-0">What we've learned:</h5>
   <p>
     <%= simple_format(@project.learned) %>
   </p>
 
-  <h5 class="mt-0 mb-4">What's next:</h5>
+  <h5 class="mt-0 mb-0">What's next:</h5>
   <p>
     <%= simple_format(@project.next) %>
   </p>
 
-  <h5 class="mt-0 mb-4">Built with:</h5>
+  <h5 class="mt-0 mb-0">Built with:</h5>
   <p>
     <%= simple_format(@project.built_with) %>
   </p>
 
-  <h5 class="mt-0 mb-4">Prizes we're going for:</h5>
+  <h5 class="mt-0 mb-0">Prizes we're going for:</h5>
   <p>
     <% if @project.prizes != "{}" and not @project.prizes.empty? %>
     <ul>

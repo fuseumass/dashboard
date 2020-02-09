@@ -4,9 +4,28 @@
     <div class="container">
 <% end %>
 
+
 <div class="page-header">
   <h1 class="page-title"><%= @project.title %></h1>
 </div>
+
+<% if current_user and current_user.user_type != 'attendee' %>
+  <% if JudgingAssignment.where(user_id: current_user.id, project_id: @project.id).present? %>
+    <div class="alert alert-success">
+      You were assigned to judge this project.
+        <%= link_to "Judge", new_judging_path(:project_id => @project.id), class: 'btn btn-primary' %>
+    </div>
+  <% elsif Judgement.where(user_id: current_user.id, project_id: @project.id).present? %>
+    <div class="alert alert-success">
+      You already judged this project.
+        <%= link_to "View Judgement", judgement_path(Judgement.where(user_id: current_user.id, project_id: @project.id).first.id), class: 'btn btn-primary' %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning">
+      You are not assigned to judge this project.
+    </div>
+  <% end %>
+<% end %>
 
 <div class="row">
 

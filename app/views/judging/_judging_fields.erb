@@ -8,6 +8,12 @@ input[type='range'] {
     height: 2em;
     zoom: 2;
 }
+
+@media (max-width: 800px) {
+    input[type='range'] {
+        zoom: 3;
+    }
+}
 </style>
 
 <%= form_for(@judgement, html: {multipart: true}) do |f| %>

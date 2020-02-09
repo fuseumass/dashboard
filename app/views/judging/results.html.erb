@@ -1,6 +1,28 @@
+<style>
+    div.container {
+        max-width: 100%;
+    }
+
+    .container > .card > .card-body {
+        overflow: scroll;
+    }
+
+    table.main-tbl th {
+        min-width: 100px;
+    }
+
+    .sm-field {
+        max-width: 150px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Results</h1>
-  <%= link_to 'View Project', project_path(@project.id), class: 'btn btn-primary', style: 'position: absolute; right: 0'  %>
+  <span style='position: absolute; right: 0'>
+    <%= link_to 'Show All Fields in Table', "?project_id=#{params[:project_id]}&all_table=1", class: 'btn btn-primary' %>
+    <%= link_to 'View Project', project_path(@project.id), class: 'btn btn-primary' %>
+  </span>
 </div>
 
 <div class="card">
@@ -10,12 +32,17 @@
         <% if @scores.nil? or @scores.empty? %>
             <p>No Scores Submitted For This Project.</p>
         <% else %>
-            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <table class="table table-hover table-outline table-vcenter card-table main-tbl">
                 <thead>
                 <tr>
                     <th>Judge</th>
                     <th>Tag</th>
                     <th>Score</th>
+                    <% if params[:all_table] and @scores %>
+                        <% @scores.last.custom_scores.keys.each do |field| %>
+                            <th class="sm-field"><%= field.titleize %></th>
+                        <% end %>
+                    <% end %>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -29,6 +56,15 @@
                                 <b><%= score.score %></b>
                                 <span> / <%= @max_score %></span>
                             </td>
+                            <% if params[:all_table] and score %>
+                                <% score.custom_scores.keys.each do |field| %>
+                                    <% if score.custom_scores[field].length > 4 %>
+                                        <td style="text-align: center; min-width: 400px !important"><%= score.custom_scores[field] %></td>
+                                    <% else %>
+                                        <td style="text-align: center; max-width: 500px"><%= score.custom_scores[field] %></td>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
                             <td>
                                 <%= form_tag destroy_judgement_path, method: :post, class:'form-inline' do%>
                                     <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#<%= score.id %>modal">Details</button>
@@ -66,8 +102,16 @@
                             <tr>
                                 <td> <%= field.titleize %> </td>
                                 <td>
-                                    <b><%= score.custom_scores[field] %></b>
-                                    <span> / <%= @field_max_scores[field] %></span>
+                                    <% if score.custom_scores[field].length > 4 %>
+                                        </td>
+                                        <tr><td colspan="2">
+                                            <span style="display: inline-block; max-width: 300px">
+                                                <%= score.custom_scores[field] %>
+                                            </span>
+                                    <% else %>
+                                        <b><%= score.custom_scores[field] %></b>
+                                        <span> / <%= @field_max_scores[field] %></span>
+                                    <% end %>
                                 </td>
                             </tr>
                         <% end %>

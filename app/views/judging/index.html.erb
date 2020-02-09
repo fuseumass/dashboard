@@ -1,3 +1,11 @@
+<style>
+.score-summary {
+  color: white;
+}
+.score-summary.nope {
+  color: black !important;
+}
+</style>
 <div class="row align-items-center">
 <div class="page-header col-sm-4">
     <h1 class="page-title">Judging</h1>
@@ -22,13 +30,6 @@
     </div>
 </div>
 
-<% if @projects.empty? %>
-  <center>
-    <h3>No Projects Have Been Created</h3>
-    <h4>So there is nothing to judge...</h4>
-  </center>
-
-<% else %>
 
   <!-- Projects Assigned to Be Judged By Current User -->
   <% if !@assigned.nil? and !@assigned.empty? %>
@@ -70,7 +71,7 @@
       </div>
     </div>
   </div>
-  <% else %>
+  <% elsif not current_user.is_admin? and not current_user.is_organizer? %>
     <div class="col-12">
       <div class="card text-center">
         <div class="card-body">
@@ -84,18 +85,39 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
+          <div style="position: absolute; right: 40px">
+            <button class='btn btn-secondary btn-sm' onclick="$('.score-summary').toggleClass('nope')">Show Score Summary</button>
+          </div>
           <h3 class="page-title">All Projects</h3>
+          
           <br>
-          <%= form_tag search_judging_index_path, method: :get, class:'col-lg-12' do %>
+          <%= form_tag judging_index_path, method: :get, class:'col-lg-12' do %>
             <div class="row gutters-xs">
               <div class="col">
                 <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.' %>
               </div>
               <span class="col-auto">
-                <a href="#" data-toggle="tooltip" title="You can search by status:judged, status:unjudged, status:assigned, status:unassigned to narrow down search results." data-placement="bottom"><i class="fe fe-help-circle"></i></a>
                 <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
-                <a href="./judging.csv" class="btn btn-secondary">Download as CSV</a>
+                <a href="/judging.csv" class="btn btn-secondary">Download as CSV</a>
               </span>
+            </div>
+            <div class="row">
+              <div class="col-auto">
+                <b>Filter by:</b> &nbsp;
+                <%= link_to "Assigned", "?search=status:assigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+                <%= link_to "Unassigned", "?search=status:unassigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+                <%= link_to "Judged", "?search=status:judged", class: 'btn btn-secondary btn-sm' %> &nbsp;
+                <%= link_to "Unjudged", "?search=status:unjudged", class: 'btn btn-secondary btn-sm' %> &nbsp;
+                <a href="#" data-toggle="tooltip" title="You can search by status:judged, status:unjudged, status:assigned, status:unassigned to narrow down search results." data-placement="bottom"><i class="fe fe-help-circle"></i></a> &nbsp;
+                <b>Project with Prize:</b> &nbsp;
+                <select onchange="if(this.value) location.href = '?prize=' + this.value; else location.href = '?';">
+                  <option value=""<% unless params[:prize] %> selected<% end %>>---------------------</option>
+                  <% Prize.where(project_selectable: true).each do |p| %>
+                    <option<% if params[:prize] == p.criteria %> selected<% end %>><%= p.criteria %></option>
+                  <% end %>
+                </select>
+
+              </div>
             </div>
           <%end%>
         </div>
@@ -106,7 +128,15 @@
               <tr>
                 <th>Table #</th>
                 <th>Title</th>
-                <th>Action</th>
+                <% if current_user.user_type == 'admin' %>
+                  <th>Judge Actions</th>
+                  <th>Times Judged</th>
+                  <th>Open Judgements</th>
+                  <th>Avg. Score</th>
+                  <th>Score Actions</th>
+                <% else %>
+                  <th>Action</th>
+                <% end %>
               </tr>
             </thead>
 
@@ -120,18 +150,33 @@
                   <% end %>
 
                   <td><%= link_to truncate(project.title, length: 30), project %></td>
-                  <td>
 
-                    <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
-
-                    <% if current_user.user_type = 'admin' %>
+                  <% if current_user.user_type == 'admin' %>
+                    <td>
+                      <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
                       <%= link_to "Assign Judges", assign_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
-                      <%= link_to "View Score", results_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
-                    <% end %>
-                      
-                  </td>
+                    </td>
+                    <td style="text-align: center"><%= @times_judged[project.id] %></td>
+                    <td style="text-align: center"><%= @open_judgements[project.id] %></td>
+                    <td class="score-summary" style="text-align: center"><%= @avg_score[project.id] %></td>
+                    <td>
+                      <%= link_to "View Scores", results_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
+                      <%= link_to "Scores Table", results_judging_index_path(:project_id => project.id) + "&all_table=1", class: 'btn btn-secondary' %>
+                    </td>
+                  <% else %>
+                    <td>
+                      <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
+                    </td>
+                  <% end %>
 
                 </tr>
+              <% end %>
+              <% if @projects.length == 0 %>
+                <tfoot>
+                  <tr>
+                    <td colspan=7>There were no projects found matching the criteria.</td>
+                  </tr>
+                </tfoot>
               <% end %>
             </tbody>
           </table>
@@ -139,7 +184,6 @@
       </div>
     <% end %>
   </div>
-<% end %>
 <br>
 
 <center>

@@ -5,7 +5,12 @@ class JudgingController < ApplicationController
   before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
 
   def search
-    if params[:search].present?
+    redirect_to judging_index_path
+  end
+
+
+  def index
+    if params[:search].present? or params[:prize].present?
 
       if params[:search] == 'status:assigned'
         @projects = Project.joins(:judging_assignments)
@@ -15,23 +20,47 @@ class JudgingController < ApplicationController
         @projects = Project.joins(:judgements)
       elsif params[:search] == 'status:unjudged'
         @projects = Project.left_outer_joins(:judgements).where("judgements.project_id IS NULL")
+      elsif params[:prize]
+        if Rails.env.production?
+          @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
+        else
+          @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
+        end
       else
         puts "heeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllp"
         @projects = Project.left_outer_joins(:judgements => :user).distinct.where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end
-      @projects = @projects.paginate(page: params[:page], per_page: 15)
+      @assigned = nil
     else
-      redirect_to judging_index_path
+      @projects = Project.all.order(table_id: :asc).paginate(page: params[:page], per_page: 15)
+      @assigned = JudgingAssignment.all.where(user_id: current_user.id)
+      @judgements =  Judgement.all
     end
-  end
+
+    @projects = @projects.paginate(page: params[:page], per_page: 15)
 
 
-  def index
-    @assigned = JudgingAssignment.all.where(user_id: current_user.id)
-    @projects = Project.all.paginate(page: params[:page], per_page: 15)
+    # duplicate below
+    @times_judged = {}
+    @open_judgements = {}
+    @avg_score = {}
 
-    @judgements =  Judgement.all
+    @projects.each do |proj|
+      judgements = Judgement.where(project_id: proj.id)
+      @times_judged[proj.id] = judgements.count
+      assmts = JudgingAssignment.where(project_id: proj.id)
+      @open_judgements[proj.id] = assmts.count
+      sum = 0
+      judgements.each do |j|
+        sum += j.score
+      end
+      if sum > 0
+        @avg_score[proj.id] = sum / judgements.count
+      else
+        @avg_score[proj.id] = 0
+      end
+    end
 
     respond_to do |format|
       format.html
@@ -281,6 +310,12 @@ end
   def assign_tables
     unless current_user.is_admin?
       redirect_to judging_index_path, alert: 'You do not have permission to perform this action.'
+    end
+
+    if params[:force]
+      puts "forcing assign tables"
+    elsif check_feature_flag?($project_submissions)
+      redirect_to judging_index_path, alert: 'WARNING: Project submissions are still open. Cannot assign table numbers.'
     end
 
     start = 0

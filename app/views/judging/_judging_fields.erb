@@ -68,6 +68,10 @@
                 </div>
             <% elsif c['type'] == 'dropdown' %>
                 <%= o.select c['name'].to_sym, c['scores'].map{|item| [item['description'], item['points']]}, {include_blank: "Select an option below"}, {class: 'form-control custom-select'} %>                
+            <% elsif c['type'] == 'text' %>
+                <%= o.text c['name'].to_sym, {class: 'form-control'} %>
+            <% elsif c['type'] == 'textarea' %>
+                <%= o.text_area c['name'].to_sym, {class: 'form-control'} %>                
             <% end %>
         <% end %>
     <% end %>

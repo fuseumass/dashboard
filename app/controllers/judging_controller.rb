@@ -282,6 +282,15 @@ class JudgingController < ApplicationController
       redirect_to judging_index_path, alert: 'The judgement you are editing is not yours.'
     end
     
+    total_score = 0
+
+    HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
+      total_score += judging_score_params['custom_scores'][c['name']].to_f
+    end
+
+    @existing_judgement.score = total_score
+  
+
     if @existing_judgement.update(judging_score_params)
       redirect_to judgement_path(params[:id]), notice: 'The judgement was successfully edited.'
     else

@@ -55,9 +55,6 @@ function update_entries(list_name) {
         `
 
 
-        document.querySelector("[data-mentor='" + judge_name + "']").classList.add('crossed');
-        document.querySelector("[data-project='" + project_name + "']").classList.add('crossed');
-        document.querySelector("[data-prize='" + tag_name + "']").classList.add('crossed');
     }
 
 
@@ -68,11 +65,6 @@ function remove_entry(judge_name, project_name, tag_name, list_name) {
     let ind = mass_entries.indexOf(mass_entries.find(x => x[0] === judge_name && x[1] == project_name && x[2] === tag_name))
     mass_entries.splice(ind, 1)
     update_entries(list_name)
-
-
-    document.querySelector("[data-mentor='" + judge_name + "']").classList.remove('crossed');
-    document.querySelector("[data-project='" + project_name + "']").classList.remove('crossed');
-    document.querySelector("[data-prize='" + tag_name + "']").classList.remove('crossed');
 }
 
 function clear_entries(list_name) {

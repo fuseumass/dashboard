@@ -102,9 +102,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user << current_user
-    @project.tech = []
-    @project.prizes = []
-    @project.prizes_won = []
+    #@project.tech = []
+    #@project.prizes = []
+    #@project.prizes_won = []
 
     respond_to do |format|
       if @project.save

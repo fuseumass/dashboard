@@ -71,7 +71,7 @@ With Dashboard we wanted to create an application that's not only simple to cust
 To get started using Dashboard head over to the [wiki](https://github.com/hackumass/dashboard/wiki) and follow along!
 
 ## Using Dashboard?
-Let us know! We'd love to add you to our list of current active users.
+Let us know by adding yourself to our [list of active users](https://github.com/fuseumass/dashboard/wiki/Events-using-Dashboard). Knowing that dashboard is useful to you all keeps our team extra motivated!
 
 # Issues?
 If you experience any issues or encounter any bugs, please file an issue on the GitHub [issues](https://github.com/hackumass/dashboard/issues) page.

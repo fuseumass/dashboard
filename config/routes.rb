@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :api do
+    mount_devise_token_auth_for 'User', at: 'auth'
+  end
 
   resources :mentorship_notifications
   get 'slackintegration/index'
@@ -80,7 +83,7 @@ Rails.application.routes.draw do
       post 'add_user' => 'events#add_user'
       post 'remove_user' => 'events#remove_user'
       post 'check_in_to_event' => 'events#check_in'
-    end 
+    end
 
   # Events Routes End
 

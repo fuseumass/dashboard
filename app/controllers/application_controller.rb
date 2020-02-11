@@ -2,7 +2,7 @@
 # part the application controller contain all the miscalleous methods
 # and or any method that need to be seen throughout the entire application
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session, if: -> { request.format.json? }
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :auth_user
   before_action :set_raven_context
@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   autocomplete :user, :email, full: true
   autocomplete :prize, :name, full: true
 
+  wrap_parameters false
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
@@ -180,7 +181,8 @@ class ApplicationController < ActionController::Base
   # event api.
   def user_is_authenticated?
     controllers = %w[passwords sessions]
-    paths = [new_user_registration_path, hardware_items_path(:json), events_path(:json)]
+    #paths = [new_user_registration_path, hardware_items_path(:json), events_path(:json)]
+    paths = [new_user_registration_path]
     user_signed_in? || controllers.include?(controller_name) || paths.include?(request.path)
   end
 end

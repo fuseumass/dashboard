@@ -27,6 +27,43 @@
   <% end %>
 <% end %>
 
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <span>
+          <% if !@project.link.empty? %>
+            <%= link_to @project.link, class: "btn btn-github mr-2" do %>
+              <i class="fe fe-github"></i> View on Github
+            <% end %>
+          <% end %>
+
+
+          <% if current_user and @project.id == current_user.project_id %>
+            <%= link_to edit_project_path(@project), class: 'btn btn-secondary mr-2' do %>
+              <i class="fe fe-edit-3"></i> Edit Project
+            <% end %>
+          <% end %>
+
+          <% if current_user and (@project.id == current_user.project_id or current_user.is_admin? or current_user.is_organizer?) %>
+            <%= link_to project_team_path(@project), class: 'btn btn-secondary mr-2' do %>
+              <i class="fe fe-user-plus"></i> Edit Team Members
+            <% end %>
+          <% end %>
+
+          <% if (@project.id == current_user.project_id or current_user.is_admin?) and !is_judging_active? %>
+            <%= link_to project_path(@project), :method => :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this project? This means you will not be judged!' } do %>
+              <i class="fe fe-trash"></i> Delete Project
+            <% end %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="row">
 
   <div class="col-md-8 col-xl-8">
@@ -176,38 +213,7 @@
         </center>
       </div>
     </div>
-
-
-
-    <% if !@project.link.empty? %>
-      <%= link_to @project.link, class: "btn btn-github" do %>
-        <i class="fe fe-github"></i> View on Github</a>
-        <br>
-        <br>
-      <% end %>
-    <% end %>
-
-
-    <% if current_user and @project.id == current_user.project_id %>
-      <%= link_to 'Edit Your Project', edit_project_path(@project), class: 'btn btn-secondary' %>
-      <br>
-      <br>
-    <% end %>
-
-    <% if current_user and (@project.id == current_user.project_id or current_user.is_admin? or current_user.is_organizer?) %>
-      <%= link_to 'Edit Your Team', project_team_path(@project), class: 'btn btn-secondary' %>
-      <br>
-      <br>
-    <% end %>
-
-    <% if current_user and (@project.id == current_user.project_id or current_user.is_admin?) %>
-      <%= link_to 'Delete Project', project_path(@project), :method => :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this project? This means you will not be judged!' } %>
-    <% end %>
-
   </div>
-
-
-
 </div>
 
 <br>

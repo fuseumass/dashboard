@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     # Make our URLs prettier
     get 'index' => 'pages#index'
     get 'admin' => 'pages#admin'
+    get 'permissions' => 'pages#permissions'
     get 'redeem_code' => 'pages#redeem_code'
     post 'use_code' => 'pages#use_code'
 

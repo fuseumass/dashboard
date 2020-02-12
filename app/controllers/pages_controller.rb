@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :check_permissions, only: [:add_permissions, :remove_permissions, :admin]
+  before_action :check_permissions, only: [:add_permissions, :remove_permissions, :permissions]
   before_action -> { is_feature_enabled($CheckIn) }, only: :check_in
   before_action :check_organizer_permissions, only: :check_in
 
@@ -54,7 +54,8 @@ class PagesController < ApplicationController
           file: nil )
   end
 
-  def admin
+  # GET route for permission mangement page
+  def permissions
     @all_admins = User.where(user_type: 'admin')
     @all_organizers = User.where(user_type: 'organizer')
     @all_mentors = User.where(user_type: 'mentor')
@@ -119,33 +120,33 @@ class PagesController < ApplicationController
       if params[:add_admin].present?
         @user = User.where(email: params[:add_admin]).first
         if @user.nil?
-          redirect_to admin_path, alert: "Could not find user with email #{params[:add_admin]}"
+          redirect_to permissions_path, alert: "Could not find user with email #{params[:add_admin]}"
         else
           @user.user_type = 'admin'
           @user.save
-          redirect_to admin_path, notice: "#{params[:add_admin]} is now an admin"
+          redirect_to permissions_path, notice: "#{params[:add_admin]} is now an admin"
         end
       end
 
       if params[:add_organizer].present?
         @user = User.where(email: params[:add_organizer]).first
         if @user.nil?
-          redirect_to admin_path, alert: "Could not find user with email #{params[:add_organizer]}"
+          redirect_to permissions_path, alert: "Could not find user with email #{params[:add_organizer]}"
         else
           @user.user_type = 'organizer'
           @user.save
-          redirect_to admin_path, notice: "#{params[:add_organizer]} is now an organizer"
+          redirect_to permissions_path, notice: "#{params[:add_organizer]} is now an organizer"
         end
       end
 
       if params[:add_mentor].present?
         @user = User.where(email: params[:add_mentor]).first
         if @user.nil?
-          redirect_to admin_path, alert: "Could not find user with email #{params[:add_mentor]}"
+          redirect_to permissions_path, alert: "Could not find user with email #{params[:add_mentor]}"
         else
           @user.user_type = 'mentor'
           @user.save
-          redirect_to admin_path, notice: "#{params[:add_mentor]} is now a mentor"
+          redirect_to permissions_path, notice: "#{params[:add_mentor]} is now a mentor"
         end
       end
   end
@@ -153,11 +154,11 @@ class PagesController < ApplicationController
   def remove_permissions
     @user = User.find(params[:format])
     if @user.is_admin? and User.where(user_type: "admin").length == 1 
-      redirect_to admin_path, alert: "Unable to remove permissions. There must be at least 1 administrator."
+      redirect_to permissions_path, alert: "Unable to remove permissions. There must be at least 1 administrator."
     else
       @user.user_type = 'attendee'
       @user.save
-      redirect_to admin_path, notice: 'Permission has been removed'
+      redirect_to permissions_path, notice: 'Permission has been removed'
     end
   end
 

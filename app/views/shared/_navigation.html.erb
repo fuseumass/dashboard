@@ -111,20 +111,20 @@
               <% if HackumassWeb::Application::PROJECTS_PUBLIC %>
                 <li class="nav-item">
                   <%= link_to projects_path, class: "nav-link #{'active' if is_projects_view_active?}" do %>
-                    <i class="fe fe-layers"></i> Projects</a>
+                    <i class="fe fe-grid"></i> Projects</a>
                   <% end %>
                 </li>
               <% end %>
               <li class="nav-item">
                 <%= link_to project_submit_info_path, class: "nav-link #{'active' if is_projects_create_active?}" do %>
-                  <i class="fe fe-layers"></i> My Project</a>
+                  <i class="fe fe-edit"></i> My Project</a>
                 <% end %>
               </li>
 
             <% else %>
               <li class="nav-item">
                 <%= link_to projects_path, class: "nav-link #{'active' if is_projects_view_active?}" do %>
-                  <i class="fe fe-layers"></i> Projects</a>
+                  <i class="fe fe-grid"></i> Projects</a>
                 <% end %>
               </li>
             <% end %>
@@ -138,15 +138,11 @@
             </li>
           <% end %>
 
-          <% if has_access_to_admin? %>
+          <% if has_access_to_admin?%>
             <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" ><i class="fe fe-layers"></i>Admin</a>
-              <div class="dropdown-menu dropdown-menu-arrow">
-                <%= link_to 'Permissions', admin_path, class: 'dropdown-item'%>
-                <%= link_to 'Emails', emails_path, class: 'dropdown-item'%>
-                <%= link_to 'Feature Flags', feature_flags_path, class: 'dropdown-item'%>
-                <%= link_to 'Slack Integration', slackintegration_admin_path, class: 'dropdown-item' %>
-              </div>
+              <%= link_to admin_path, class: "nav-link #{'active' if is_judging_active?}" do %>
+                <i class="fe fe-briefcase"></i>Admin</a>
+              <% end %>
             </li>
           <% end %>
 

@@ -8,38 +8,40 @@
 </style>
 <h1>Prizes</h1>
 
-<div class="prizes">
-  <% @prizes.each do |prize| %>
-    <div class="prize-item">
-      <div class="card">
-            <% if prize.priority <= 1 %>
-              <div class="card-status bg-purple"></div>
-            <% end %>
-            <% if prize.priority == 2 %>
-              <div class="card-status bg-yellow"></div>
-            <% end %>
-            <% if prize.priority == 3 %>
-              <div class="card-status bg-gray"></div>
-            <% end %>
-            <div class="card-header">
-              <% if current_user.is_organizer? %>
-                <h3 class="card-title"> <%= link_to prize.name, prize%> </h3>
-              <% else %>
-                <h3 class="card-title"> <%= prize.name %> </h3>
-              <% end %>
-            </div>
-            <div class="card-body">
-              <p> <b> Criteria: </b> <%= prize.criteria %> </p>
-              <p> <b> Description: </b> <%= prize.description %> </p>
-              <p> <b> Sponsored by: </b> <%= prize.sponsor %> </p>
-              <% if prize.project_selectable %><b>You need to apply for this prize by selecting it on your project.</b><% end %>
-            </div>
-        </div>
-    </div>
+<div class="row justify-content-center">
+
+<% @prizes.each do |prize| %>
+
+<div class="card col-md-3 mr-3 mr-3">
+  <% if prize.priority <= 1 %>
+    <div class="card-status bg-purple"></div>
   <% end %>
+  <% if prize.priority == 2 %>
+    <div class="card-status bg-yellow"></div>
+  <% end %>
+  <% if prize.priority == 3 %>
+    <div class="card-status bg-gray"></div>
+  <% end %>
+  <div class="card-header border-secondary">
+    <% if current_user.is_organizer? %>
+      <h3 class="card-title"> <%= link_to prize.name, prize%> </h3>
+    <% else %>
+      <h3 class="card-title"> <%= prize.name %> </h3>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <p> <b> Criteria: </b> <%= prize.criteria %> </p>
+    <p> <b> Description: </b> <%= prize.description %> </p>
+    <p> <b> Sponsored by: </b> <%= prize.sponsor %> </p>
+    <% if prize.project_selectable %>
+      <b>You need to apply for this prize by selecting it on your project.</b>
+    <% end %>
+  </div>
 </div>
 
+<% end %>
 
+</div>
 
 <br>
 <% if current_user.is_organizer? %>

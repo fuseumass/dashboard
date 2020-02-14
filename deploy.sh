@@ -103,13 +103,13 @@ then
     echo 'Creating Environment Variables...'
     echo '[>----------------------------------'
 
-    if [ "$application_mode" == "" ]
+    if [ "$application_mode" == "" ] then
         heroku config:set APPLICATION_MODE=closed -a $heroku_name
         echo ''
         echo 'Created Application Mode Environment Variable.'
     fi
 
-    if [ "$mentor_code" == "" ]
+    if [ "$mentor_code" == "" ] then
         mentorkey=`openssl rand -base64 12`
         heroku config:set MENTOR_CODE="$mentorkey" -a $heroku_name
         echo ''

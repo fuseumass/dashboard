@@ -1,16 +1,23 @@
 cat << "EOF"
- /$$   /$$                     /$$       /$$   /$$ /$$      /$$
-| $$  | $$                    | $$      | $$  | $$| $$$    /$$$
-| $$  | $$  /$$$$$$   /$$$$$$$| $$   /$$| $$  | $$| $$$$  /$$$$  /$$$$$$   /$$$$$$$  /$$$$$$$
-| $$$$$$$$ |____  $$ /$$_____/| $$  /$$/| $$  | $$| $$ $$/$$ $$ |____  $$ /$$_____/ /$$_____/
-| $$__  $$  /$$$$$$$| $$      | $$$$$$/ | $$  | $$| $$  $$$| $$  /$$$$$$$|  $$$$$$ |  $$$$$$
-| $$  | $$ /$$__  $$| $$      | $$_  $$ | $$  | $$| $$\  $ | $$ /$$__  $$ \____  $$ \____  $$
-| $$  | $$|  $$$$$$$|  $$$$$$$| $$ \  $$|  $$$$$$/| $$ \/  | $$|  $$$$$$$ /$$$$$$$/ /$$$$$$$/
-|__/  |__/ \_______/ \_______/|__/  \__/ \______/ |__/     |__/ \_______/|_______/ |_______/
+---------------------------------------------------------------
+    ______                    __  __ __  ___                  
+   / ____/__  __ _____ ___   / / / //  |/  /____ _ _____ _____
+  / /_   / / / // ___// _ \ / / / // /|_/ // __ `// ___// ___/
+ / __/  / /_/ /(__  )/  __// /_/ // /  / // /_/ /(__  )(__  ) 
+/_/     \__,_//____/ \___/ \____//_/  /_/ \__,_//____//____/  
+                            
+
+    ____                __     __                             __
+   / __ \ ____ _ _____ / /_   / /_   ____   ____ _ _____ ____/ /
+  / / / // __ `// ___// __ \ / __ \ / __ \ / __ `// ___// __  / 
+ / /_/ // /_/ /(__  )/ / / // /_/ // /_/ // /_/ // /   / /_/ /  
+/_____/ \__,_//____//_/ /_//_.___/ \____/ \__,_//_/    \__,_/   
+                                                                
+---------------------------------------------------------------
 EOF
 
 echo ' '
-echo 'Are you ready to deploy?'
+echo 'Deploy Dashboard to Heroku.'
 
 CONFIG_NAME=$(cat hackathon-config/hackathon.yml | head -n 1 | cut -d ':' -f 2)
 
@@ -26,17 +33,17 @@ fi
 
 
 
-echo -n 'Enter the Heroku name of the application: '
+echo -n 'Enter the name of the application on Heroku: '
 read heroku_name
 echo "Heroku app name: $heroku_name"
 
 
 echo ' '
-echo "Preparing for deployment to $heroku_name....."
+echo "Preparing for deployment to $heroku_name..."
 echo "Fetching remote heroku-$heroku_name"
 git fetch "heroku-$heroku_name"
 if [[ "$?" != "0" ]]; then
-    echo "Git remote doesn't exist. Do you want to add a new deployment target? (type y or n)"
+    echo "Git remote doesn't exist. Would you like to add a new deployment target? (type y or n)"
     read ok
     if [[ $ok = 'y' ]]; then
         git remote add "heroku-$heroku_name" "https://git.heroku.com/$heroku_name.git"
@@ -58,7 +65,7 @@ echo ' '
 echo 'Precompiling Assets...'
 ./docker_shell.sh bundle exec rake assets:precompile
 if [[ "$?" != "0" ]]; then
-	echo 'Failed. Ensure Docker is running and restart.'
+	echo 'Precompilation Failed. Ensure Docker is running and restart.'
 	exit 1
 fi
 echo 'Assets precompiled succesfully ✅'
@@ -87,6 +94,35 @@ git commit --allow-empty -m "Assets precompiled with submodule"
 echo ' '
 echo 'Pushing build to Heroku....'
 git push -f "heroku-$heroku_name" master
+
+application_mode=`heroku config:get APPLICATION_MODE -a $heroku_name`
+mentor_code=`heroku config:get MENTOR_CODE -a $heroku_name`
+if [ "$application_mode" == "" ] || [ "$mentor_code" == "" ]
+then
+    echo '[>----------------------------------'
+    echo 'Creating Environment Variables...'
+    echo '[>----------------------------------'
+
+    if [ "$application_mode" == "" ]
+        heroku config:set APPLICATION_MODE=closed -a $heroku_name
+        echo ''
+        echo 'Created Application Mode Environment Variable.'
+    fi
+
+    if [ "$mentor_code" == "" ]
+        mentorkey=`openssl rand -base64 12`
+        heroku config:set MENTOR_CODE="$mentorkey" -a $heroku_name
+        echo ''
+        echo 'Created Mentor Code Environment Variable.'
+    fi
+
+    echo ""
+    echo "Environment Variables Created!"
+else
+    echo "Environment Variables Already Created."
+fi
+
+
 echo ' '
 echo 'Heroku Build Successful ✅'
 echo ' '
@@ -109,6 +145,7 @@ git push
 
 # Migrations
 echo 'Do you want to migrate the production database? (type y or n)'
+echo 'NOTE: This will put the application in maintenance mode and have some downtime.'
 read migrate
 if [[ $migrate = 'y' ]]; then
   echo 'Application entering maintenance mode...'
@@ -123,7 +160,7 @@ if [[ $migrate = 'y' ]]; then
   heroku maintenance:off -a $heroku_name
   echo ' '
 else
-  echo 'Skipping maintenance mode. No migrations found. ✅'
+  echo 'Skipping Database Migrations ✅'
 fi
 
 # Feature flag updates

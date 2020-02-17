@@ -82,7 +82,4 @@ Rails.application.configure do
       storage_access_key:   'xxx',
       container:            'xxx'
   }
-  #resource '*', headers: :any,
-  #       expose: %w(etag access-token uid expiry token-type client Rate-Search-Uuid),
-  #       methods: [:get, :post, :delete, :put, :patch, :options, :head]
 end

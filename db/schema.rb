@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_212236) do
+ActiveRecord::Schema.define(version: 2020_02_06_212235) do
 
   create_table "custom_rsvps", force: :cascade do |t|
     t.json "answers"
@@ -229,10 +229,9 @@ ActiveRecord::Schema.define(version: 2020_02_06_212236) do
     t.boolean "check_in", default: false
     t.integer "project_id"
     t.string "slack_id"
-    t.string "uid", default: "", null: false
-    t.boolean "allow_password_change", default: true
-    t.json "tokens"
     t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.json "tokens"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

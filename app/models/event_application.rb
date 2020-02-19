@@ -147,64 +147,65 @@ class EventApplication < ApplicationRecord
 
   # send email confirmation to user once they submit there application.
   def submit_email
-    if Rails.env.production?
-      UserMailer.submit_email(user).deliver_now
-    end
+    UserMailer.submit_email(user).deliver_now
   end
+
+
+  
 
 
   # Generating CSV for all Event Applications
 	def self.to_csv
 		CSV.generate do |csv|
+      csv_header = Array.new    
+      custom_fields = HackumassWeb::Application::EVENT_APPLICATION_CUSTOM_FIELDS.map { |i| i['name'] }
+      event_fields = EventApplication.column_names
+      event_fields.delete("resume_content_type")
+      event_fields.delete("resume_file_size")
+      event_fields.delete("resume_updated_at")
+      
+      user_fields = ["first_name", "last_name", "email", "rsvp", "check_in"]
 
-      finalKeyArr = Array.new
-      keyArr = Array.new
-      keyArr = EventApplication.first.attributes.keys
-      hashKeyArr = EventApplication.first.attributes.values.last
-      keyArrLength = keyArr.length() - 2
-
-      finalKeyArr.push("first_name")
-      finalKeyArr.push("last_name")
-      finalKeyArr.push("email")
-
-      for i in 0..keyArrLength 
-        finalKeyArr.push(keyArr[i])
+      for value in user_fields
+        csv_header.push(value)
       end
-
-      for key, value in hashKeyArr
-        finalKeyArr.push(key)
-      end
-
-      csv << finalKeyArr
     
+      for value in event_fields
+        if value != 'custom_fields'
+          csv_header.push(value)
+        end
+      end
+
+      for value in custom_fields
+        csv_header.push(value)
+      end
+
+      csv << csv_header
 
 			EventApplication.find_each do |app|
-
         arr = Array.new
         arr = app.attributes.values
         finalArr = Array.new
-        arrLength = arr.length() - 2
 
-        finalArr.push(app.user.first_name)
-        finalArr.push(app.user.last_name)
-        finalArr.push(app.user.email)
+        for value in user_fields
+          finalArr.push(app.user[value])
+        end
 
-        for i in 0..arrLength
-          finalArr.push(arr[i])  
+        for value in event_fields
+          if value != 'custom_fields'
+            finalArr.push(app[value])  
+          end
         end
         
-        hashArr = arr[arrLength + 1]
-
-        for key, value in hashArr
-          finalArr.push(value)
+        for value in custom_fields
+          finalArr.push(app['custom_fields'][value])
         end
-
         csv << finalArr
 
 		  	end
     end
-    
-  
+
   end
   
 end
+

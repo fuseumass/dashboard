@@ -198,9 +198,9 @@ ActiveRecord::Schema.define(version: 2020_01_28_031347) do
     t.boolean "power"
     t.integer "table_id"
     t.string "youtube_link"
-    t.json "tech", default: []
-    t.json "prizes", default: []
-    t.json "prizes_won", default: []
+    t.json "tech", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
+    t.json "prizes", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
+    t.json "prizes_won", default: "\"\\\"\\\\\\\"[]\\\\\\\"\\\"\""
   end
 
   create_table "universities", force: :cascade do |t|

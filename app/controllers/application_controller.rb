@@ -180,9 +180,22 @@ class ApplicationController < ActionController::Base
   # whether if a user is logging in or signing up or calling a hardware api or
   # event api.
   def user_is_authenticated?
+    return true
+
+    if user_signed_in?
+      return true
+    end
+
     controllers = %w[passwords sessions]
-    #paths = [new_user_registration_path, hardware_items_path(:json), events_path(:json)]
-    paths = [new_user_registration_path]
-    user_signed_in? || controllers.include?(controller_name) || paths.include?(request.path)
+    if controllers.include?(controller_name)
+      return true
+    end
+
+    paths = [new_user_registration_path, hardware_items_path(:json), events_path(:json)]
+    if paths.include?(request.path)
+      return true
+    end
+
+    false
   end
 end

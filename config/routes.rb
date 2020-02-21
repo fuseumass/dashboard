@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
-  end
-
   resources :mentorship_notifications
   get 'slackintegration/index'
   post 'slackintegration/index'
@@ -206,5 +202,8 @@ Rails.application.routes.draw do
 
   # Feature Flag Routes End
 
-
+  namespace :api do
+    root to:'api#index'
+    mount_devise_token_auth_for 'User', at: 'auth'
+  end
 end

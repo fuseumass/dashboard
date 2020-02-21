@@ -180,8 +180,6 @@ class ApplicationController < ActionController::Base
   # whether if a user is logging in or signing up or calling a hardware api or
   # event api.
   def user_is_authenticated?
-    return true
-
     if user_signed_in?
       return true
     end

@@ -9,10 +9,6 @@ module Api
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
   end
 
-  def user_is_authenticated?
-    return false
-  end
-
   def index
     render json: {}
   end

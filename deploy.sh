@@ -41,7 +41,7 @@ if [[ "$?" != "0" ]]; then
     if [[ $ok = 'y' ]]; then
         git remote add "heroku-$heroku_name" "https://git.heroku.com/$heroku_name.git"
         if [[ "$?" != "0" ]]; then
-            echo 'Exiting.'
+            echo 'Exiting. Unable to add git remote.'
             exit 1
         else
             echo "Successfully added git remote heroku-$heroku_name for heroku instance $heroku_name"
@@ -58,8 +58,20 @@ echo ' '
 echo 'Precompiling Assets...'
 ./docker_shell.sh bundle exec rake assets:precompile
 if [[ "$?" != "0" ]]; then
-	echo 'Failed. Ensure Docker is running and restart.'
-	exit 1
+	echo 'Failed. Ensure Docker is running and restart the script.'
+    echo 'Do you want to rerun without Docker? Rails, bundle, and rake must be installed. (y or n)'
+    read rerun
+    if [[ $rerun = 'y' ]]; then
+        echo 'Precompiling Assets...'
+        bundle exec rake assets:precompile
+        if [[ "$?" != "0" ]]; then
+            echo 'Failed. Exiting.'
+            exit 1
+        fi
+    else
+        echo 'Exiting.'
+        exit 1
+    fi
 fi
 echo 'Assets precompiled succesfully ✅'
 echo ' '
@@ -79,6 +91,7 @@ fi
 
 # Committing Assets
 echo 'Committing precompiled assets and submodule config temporarily....'
+echo 'Warning: any non-committed or untracked files will be included in the Heroku deploy.' 
 git add .
 git commit --allow-empty -m "Assets precompiled with submodule"
 
@@ -104,9 +117,19 @@ fi
 # Undo precompile commit
 echo 'Undoing precompile commit'
 git reset HEAD~1
-echo 'Undone. Pushing to master....'
-git push
+echo 'Undone.'
 
+echo ' '
+
+echo 'Do you want to push non-submodule code changes to GitHub? If you have cloned the'
+echo 'fuseumass/dashboard repo directly, then this will only work for UMass tech team members. (type y or n)'
+read gitpush
+if [[ $gitpush = 'y' ]]; then
+  echo 'Running git push'
+  git push
+else
+  echo 'Not pushing to GitHub'
+fi
 # Migrations
 echo 'Do you want to migrate the production database? (type y or n)'
 read migrate

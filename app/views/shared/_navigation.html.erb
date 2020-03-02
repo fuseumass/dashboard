@@ -140,7 +140,7 @@
 
           <% if has_access_to_admin?%>
             <li class="nav-item">
-              <%= link_to admin_path, class: "nav-link #{'active' if is_judging_active?}" do %>
+              <%= link_to admin_path, class: "nav-link #{'active' if is_admin_active?}" do %>
                 <i class="fe fe-briefcase"></i>Admin</a>
               <% end %>
             </li>

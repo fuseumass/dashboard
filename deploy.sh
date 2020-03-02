@@ -17,7 +17,7 @@ cat << "EOF"
 EOF
 
 echo ' '
-echo 'Deploy Dashboard to Heroku.'
+echo 'Are you ready to deploy?'
 
 CONFIG_NAME=$(cat hackathon-config/hackathon.yml | head -n 1 | cut -d ':' -f 2)
 
@@ -33,22 +33,22 @@ fi
 
 
 
-echo -n 'Enter the name of the application on Heroku: '
+echo -n 'Enter the Heroku name of the application: '
 read heroku_name
 echo "Heroku app name: $heroku_name"
 
 
 echo ' '
-echo "Preparing for deployment to $heroku_name..."
+echo "Preparing for deployment to $heroku_name....."
 echo "Fetching remote heroku-$heroku_name"
 git fetch "heroku-$heroku_name"
 if [[ "$?" != "0" ]]; then
-    echo "Git remote doesn't exist. Would you like to add a new deployment target? (type y or n)"
+    echo "Git remote doesn't exist. Do you want to add a new deployment target? (type y or n)"
     read ok
     if [[ $ok = 'y' ]]; then
         git remote add "heroku-$heroku_name" "https://git.heroku.com/$heroku_name.git"
         if [[ "$?" != "0" ]]; then
-            echo 'Exiting.'
+            echo 'Exiting. Unable to add git remote.'
             exit 1
         else
             echo "Successfully added git remote heroku-$heroku_name for heroku instance $heroku_name"
@@ -65,8 +65,20 @@ echo ' '
 echo 'Precompiling Assets...'
 ./docker_shell.sh bundle exec rake assets:precompile
 if [[ "$?" != "0" ]]; then
-	echo 'Precompilation Failed. Ensure Docker is running and restart.'
-	exit 1
+	echo 'Failed. Ensure Docker is running and restart the script.'
+    echo 'Do you want to rerun without Docker? Rails, bundle, and rake must be installed. (y or n)'
+    read rerun
+    if [[ $rerun = 'y' ]]; then
+        echo 'Precompiling Assets...'
+        bundle exec rake assets:precompile
+        if [[ "$?" != "0" ]]; then
+            echo 'Failed. Exiting.'
+            exit 1
+        fi
+    else
+        echo 'Exiting.'
+        exit 1
+    fi
 fi
 echo 'Assets precompiled succesfully ✅'
 echo ' '
@@ -86,6 +98,7 @@ fi
 
 # Committing Assets
 echo 'Committing precompiled assets and submodule config temporarily....'
+echo 'Warning: any non-committed or untracked files will be included in the Heroku deploy.' 
 git add .
 git commit --allow-empty -m "Assets precompiled with submodule"
 
@@ -94,35 +107,6 @@ git commit --allow-empty -m "Assets precompiled with submodule"
 echo ' '
 echo 'Pushing build to Heroku....'
 git push -f "heroku-$heroku_name" master
-
-application_mode=`heroku config:get APPLICATION_MODE -a $heroku_name`
-mentor_code=`heroku config:get MENTOR_CODE -a $heroku_name`
-if [ "$application_mode" == "" ] || [ "$mentor_code" == "" ]
-then
-    echo '[>----------------------------------'
-    echo 'Creating Environment Variables...'
-    echo '[>----------------------------------'
-
-    if [ "$application_mode" == "" ] then
-        heroku config:set APPLICATION_MODE=closed -a $heroku_name
-        echo ''
-        echo 'Created Application Mode Environment Variable.'
-    fi
-
-    if [ "$mentor_code" == "" ] then
-        mentorkey=`openssl rand -base64 12`
-        heroku config:set MENTOR_CODE="$mentorkey" -a $heroku_name
-        echo ''
-        echo 'Created Mentor Code Environment Variable.'
-    fi
-
-    echo ""
-    echo "Environment Variables Created!"
-else
-    echo "Environment Variables Already Created."
-fi
-
-
 echo ' '
 echo 'Heroku Build Successful ✅'
 echo ' '
@@ -140,12 +124,21 @@ fi
 # Undo precompile commit
 echo 'Undoing precompile commit'
 git reset HEAD~1
-echo 'Undone. Pushing to master....'
-git push
+echo 'Undone.'
 
+echo ' '
+
+echo 'Do you want to push non-submodule code changes to GitHub? If you have cloned the'
+echo 'fuseumass/dashboard repo directly, then this will only work for UMass tech team members. (type y or n)'
+read gitpush
+if [[ $gitpush = 'y' ]]; then
+  echo 'Running git push'
+  git push
+else
+  echo 'Not pushing to GitHub'
+fi
 # Migrations
 echo 'Do you want to migrate the production database? (type y or n)'
-echo 'NOTE: This will put the application in maintenance mode and have some downtime.'
 read migrate
 if [[ $migrate = 'y' ]]; then
   echo 'Application entering maintenance mode...'
@@ -160,7 +153,7 @@ if [[ $migrate = 'y' ]]; then
   heroku maintenance:off -a $heroku_name
   echo ' '
 else
-  echo 'Skipping Database Migrations ✅'
+  echo 'Skipping maintenance mode. No migrations found. ✅'
 fi
 
 # Feature flag updates

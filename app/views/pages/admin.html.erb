@@ -1,9 +1,56 @@
 <div class="page-header">
-  <h1 class="page-title">Admin Permissions</h1>
+  <h1 class="page-title">Dashboard Administration</h1>
 </div>
 
 <div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Feature Flags</h4>
+        </div>
+        <div class="card-body">
+            <p>Feature flags allow you to choose what users see on their dashboard. By turning on and off specific features, it is easier for participants to find meaningful information and control access to modules during the event.</p>
 
-  <%= render 'shared/permissions' %>
+            <%= link_to 'Manage Feature Flags', feature_flags_path, class: 'btn btn-primary' %>
+        </div>
+    </div>
+</div>
 
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Permissions</h4>
+        </div>
+        <div class="card-body">
+            <p>Give users either mentor, organizer, or administrator permissions. This will let users have elevated access to modules on Dashboard, so be careful who you give permissions to.</p>
+
+            <%= link_to 'Manage Permissions', permissions_path, class: 'btn btn-primary' %>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Emails</h4>
+        </div>
+        <div class="card-body">
+            <p>Send out emails to all applicants or participants in the event.</p>
+
+            <%= link_to 'Send Emails', emails_path, class: 'btn btn-primary' %>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Integrations</h4>
+        </div>
+        <div class="card-body">
+            <p class="h5">Slack Integration</p>
+            <p> Manage Slack integration, which allows users to connect their slack account to Dashboard for increased functionality including messaging and notification.</p>
+
+            <%= link_to 'Manage Slack Integration', slackintegration_admin_path, class: 'btn btn-primary' %>
+        </div>
+    </div>
 </div>

@@ -17,7 +17,11 @@ module PagesHelper
   end
 
   def is_admin_active?
-    current_page?(admin_path)
+    current_page?(admin_path) or 
+    current_page?(feature_flags_path) or
+    current_page?(permissions_path) or 
+    current_page?(slackintegration_admin_path) or
+    controller?("emails")
   end
 
   def is_applications_active?

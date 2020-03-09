@@ -222,11 +222,6 @@ class EventApplicationsController < ApplicationController
   def set_event_application
     begin
       @application = EventApplication.find(params[:id])
-    rescue
-      flash[:warning] = 'Upppps looks like you went backwards or forward too much.'
-      redirect_to event_applications_path
-      return
-    end
   end
 
   def event_application_params

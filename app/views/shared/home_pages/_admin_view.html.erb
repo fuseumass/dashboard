@@ -40,7 +40,7 @@
       </div>
     </div>
   <% end %>
-  <% if HackumassWeb::Application::APPLICATIONS_MODE == 'open' %>
+  <% if @event_application_mode == 'open' %>
     <div class="col-sm-6 col-lg-3">
       <div class="card p-3">
         <a href="#" class="text-inherit text-decoration-none">
@@ -171,7 +171,7 @@
 <div class="row">
   <div class="col-sm-12 col-lg-12">
     <div class="card">
-      <% if check_feature_flag?($Applications) and HackumassWeb::Application::APPLICATIONS_MODE == 'open' %>
+      <% if check_feature_flag?($Applications) and @event_application_mode == 'open' %>
         <div class="card-status bg-green"></div>
         <div class="card-header">
           <h3 class="card-title">Event Applications are <b>OPEN</b></h3>
@@ -180,7 +180,7 @@
           <p>Participants can currently register for the event.</p>
           <p>To close regular-round applications, set <code>applications.mode</code> to <code>waitlist</code> in hackathon.yml</p>
         </div>
-      <% elsif HackumassWeb::Application::APPLICATIONS_MODE == 'waitlist' %>
+      <% elsif @event_application_mode == 'waitlist' %>
         <div class="card-status bg-orange"></div>
         <div class="card-header">
           <h3 class="card-title">Event Applications are <b>WAITLISTED</b></h3>

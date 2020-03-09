@@ -1,0 +1,61 @@
+<div class="page-header">
+  <h1 class="page-title">Event Applications Mode</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Current Event Application Mode</h4>
+            </div>
+            <div class="card-body">
+                <p class="h4">Current Application Mode:
+                    <% if @current_mode == 'open' %> 
+                        <span class="text-green"> <%= 'Open (New Applications Allowed)' %></span>
+                    <% elsif @current_mode == 'waitlist' %>
+                        <span class="text-orange"> <%= 'Waitlist (All Applicants Automatically Waitlisted)' %></span>
+                    <% elsif @current_mode == 'closed' %>
+                        <span class="text-red"> <%= 'Closed (No Applications May Be Submitted)' %></span>
+                    <% else %>
+                        <span class="text-blue"> <%= '[Error]: Please Contact Administrator' %></span>
+                    <% end %>       
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Mode</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Open</th>
+                        <td class="w-50">In this mode, anyone can create accounts, submit applications to the event, and then have them collected for review by organizers. This should be enabled before the event to allow everyone to apply. </td>
+                        <td><%= link_to 'Open Applications', set_application_mode_event_applications_path(:mode => 'open'), class: 'btn btn-success', method: :post %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Waitlist</th>
+                        <td class="w-50">In this mode, anyone can create accounts and submit applications to the event, but their applications will be automatically waitlisted. This should be enabled when you're done accepting applications before the event but don't want to reject all applicants automatically. </td>
+                        <td><%= link_to 'Waitlist Applications', set_application_mode_event_applications_path(:mode => 'waitlist'), class: 'btn btn-warning', method: :post %></td>                    
+                    </tr>
+                    <tr>
+                        <th scope="row">Open</th>
+                        <td>No applications can be submitted in this mode.</td>
+                        <td><%= link_to 'Close Applications', set_application_mode_event_applications_path(:mode => 'closed'), class: 'btn btn-danger', method: :post %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+</div>

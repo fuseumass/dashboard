@@ -1,7 +1,16 @@
 <!-- This calculates the amount  of all applicants in order to display an even amount on each page -->
 
-<div class="page-header">
-  <h1 class="page-title">Applications</h1>
+<div class="row align-items-center">
+  <div class="page-header col-sm-4">
+      <h1 class="page-title">Event Applications</h1>
+  </div>
+  <div class="col text-right">
+    <% if current_user.is_admin? %>
+    <%= link_to application_mode_event_applications_path do %>
+      <span class="btn btn-primary"><i class="fe fe-settings"></i> Set Application Mode</span>
+    <% end %>
+    <% end %>
+  </div>
 </div>
 
 <div class="row">

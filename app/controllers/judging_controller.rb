@@ -27,7 +27,6 @@ class JudgingController < ApplicationController
           @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
         end
       else
-        puts "heeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllp"
         @projects = Project.left_outer_joins(:judgements => :user).distinct.where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end

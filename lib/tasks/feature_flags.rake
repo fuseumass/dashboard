@@ -2,9 +2,10 @@ namespace :feature_flags do
   desc "Accept or flag student applications"
   task load_flags: :environment do
 
-    feature_flag_names = ['event_applications', 'mentorship_requests', 'hardware', 'projects', 'project_submissions', 'check_in','prizes', 'events', 'judging']
-    display_names = { "event_applications" => "Applications", "mentorship_requests" => "Mentorship Requests", "hardware" => "Hardware Requests", "projects" => "Projects: View", "project_submissions" => "Projects: Create", "check_in" => "Check-Ins", "prizes" => "Prizes", "events" => "Schedule", "judging" => "Judging"}
+    feature_flag_names = ['event_applications', 'application_mode', 'mentorship_requests', 'hardware', 'projects', 'project_submissions', 'check_in','prizes', 'events', 'judging']
+    display_names = { "event_applications" => "Applications", "application_mode" => "Event Application Mode", "mentorship_requests" => "Mentorship Requests", "hardware" => "Hardware Requests", "projects" => "Projects: View", "project_submissions" => "Projects: Create", "check_in" => "Check-Ins", "prizes" => "Prizes", "events" => "Schedule", "judging" => "Judging"}
     description = { "event_applications" => "Enables hackers to start registering and applying to the hackathon", 
+      "application_mode" => "closed",
       "mentorship_requests" => "Allows hackers to request mentor help", 
       "hardware" => "Enables the ability for hackers to checkout hardware", 
       "projects" => "Allows projects to be seen to the public", 
@@ -26,7 +27,7 @@ namespace :feature_flags do
       puts "Updating #{flag_name} feature flag."
     end
 
-    puts 'All Feature flags created successfully!'
+    puts 'All Feature Flags Created Successfully!'
 
   end
 

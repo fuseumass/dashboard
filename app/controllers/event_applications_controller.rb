@@ -86,11 +86,17 @@ class EventApplicationsController < ApplicationController
   end
 
   def new
+    if @event_application_mode == 'closed'
+      redirect_to index_path
+      flash[:error] = "Error: Event Applications are Currently Closed."
+      return
+    end
+
     @application = EventApplication.new
 
     if current_user.has_applied?
         redirect_to index_path
-        flash[:error] = "You have already created an application."
+        flash[:error] = "Error: You Have Already Created an Application."
     end
 
   end

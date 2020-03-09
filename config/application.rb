@@ -43,7 +43,6 @@ module HackumassWeb
     DONOTREPLY = config["emails"]["donotreply"]
     CONTACT_EMAIL = config["emails"]["contact"]
     SLACK_SUBDOMAIN = config["slack"]["subdomain"]
-    APPLICATIONS_MODE = config["applications"]["mode"]
     CHECKIN_UNIVERSITY_EMAIL_SUFFIX = config["checkin"]["university_email_suffix"]
     CHECKIN_UNIVERSITY_NAME = config["checkin"]["university_name"]
     CHECKIN_UNIVERSITY_NAME_CHECKS = config["checkin"]["university_name_checks"]

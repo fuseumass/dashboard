@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=dashboard
+      - POSTGRES_PASSWORD=dashboardpass
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  dashboard:
+    build: .
+    links:
+      - postgres
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"

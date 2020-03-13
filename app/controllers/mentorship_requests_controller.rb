@@ -8,25 +8,14 @@ class MentorshipRequestsController < ApplicationController
 
   def search
     if params[:search].present?
-      if not Rails.env.production?
-        @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
+      @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
                                                                    lower(status) LIKE lower(?) OR
                                                                    lower(users.first_name) LIKE lower(?) OR
                                                                    lower(users.last_name) LIKE lower(?) OR
                                                                    CAST(urgency AS CHAR) LIKE ? OR
-                                                                   lower(tech) LIKE lower(?)", 
+                                                                   lower(array_to_string(tech, ',')) LIKE lower(?)",
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                                                   "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
-      else
-        @mentorship_requests = MentorshipRequest.joins(:user).where("lower(title) LIKE lower(?) OR
-                                                                   lower(status) LIKE lower(?) OR
-                                                                   lower(users.first_name) LIKE lower(?) OR
-                                                                   lower(users.last_name) LIKE lower(?) OR
-                                                                   CAST(urgency AS CHAR) LIKE ? OR
-                                                                   lower(array_to_string(tech, ',')) LIKE lower(?)", 
-                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
-                                                                  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
-      end
       @mentorship_requests = @mentorship_requests.paginate(page: params[:page], per_page: 20)
     else
       redirect_to mentorship_requests_path
@@ -81,31 +70,31 @@ class MentorshipRequestsController < ApplicationController
     @mentorship_request.user = current_user
     @mentorship_request.status = 'Waiting'
 
-    if @mentorship_request.save	
+    if @mentorship_request.save
 
-      mentor_ids = Set[]	
-      @mentorship_request.tech.each do |t|	
-        ns = mentor_notifications_with_tech(t)	
-        ns.each do |n|	
-          mentor_ids.add(n.user_id)	
-        end	
+      mentor_ids = Set[]
+      @mentorship_request.tech.each do |t|
+        ns = mentor_notifications_with_tech(t)
+        ns.each do |n|
+          mentor_ids.add(n.user_id)
+        end
       end
 
       MentorshipNotification.where(all: true).each do |n|
         mentor_ids.add(n.user_id)
       end
 
-      mentor_ids.each do |user_id|	
-        slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")	
-      end	
-      slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")	
+      mentor_ids.each do |user_id|
+        slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")
+      end
+      slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")
 
       redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Wait 15 minutes, and if you don\'t hear from anyone, go to the mentorship table.'
     else
-      render :new # New mentorship request if previous is unsuccessful 
+      render :new # New mentorship request if previous is unsuccessful
     end
   end
-  # Create new mentorship request and flash good message if successful 
+  # Create new mentorship request and flash good message if successful
 
   def update
     if @mentorship_request.update!(mentorship_request_params)
@@ -152,7 +141,7 @@ class MentorshipRequestsController < ApplicationController
       request.save
       if HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX
         redirect_to HackumassWeb::Application::SLACK_MESSAGE_URL_PREFIX + "/" + slack_id
-      else  
+      else
         redirect_to usr.get_slack_message_link
       end
     else
@@ -178,12 +167,8 @@ class MentorshipRequestsController < ApplicationController
       end
     end
 
-    def mentor_notifications_with_tech(tech)	
-      if Rails.env.production?	
-        MentorshipNotification.where("tech::varchar LIKE ?", "%#{tech}%")	
-      else	
-        MentorshipNotification.where("tech LIKE ?", "%#{tech}%")	
-      end	
+    def mentor_notifications_with_tech(tech)
+      MentorshipNotification.where("tech::varchar LIKE ?", "%#{tech}%")
     end
 
 end

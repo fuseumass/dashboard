@@ -17,11 +17,7 @@
             <small class="text-muted">Checked In Users</small>
           </div>
         </div>
-        <% if Rails.env.development? %>
-          Chart will only render in production and staging
-        <% else %>
-          <%= line_chart @check_in_chart %>
-        <% end %>
+        <%= line_chart @check_in_chart %>
       </div>
     </div>
   <% else %>
@@ -36,11 +32,7 @@
             <small class="text-muted">Registered Accounts</small>
           </div>
         </div>
-        <% if Rails.env.development? %>
-          Chart will only render in production and staging
-        <% else %>
-          <%= line_chart @reg_chart %>
-        <% end %>
+        <%= line_chart @reg_chart %>
       </div>
     </div>
   <% end %>
@@ -55,11 +47,7 @@
             <small class="text-muted">Applications Count</small>
           </div>
         </div>
-        <% if Rails.env.development? %>
-          Chart will only render in production and staging
-        <% else %>
-          <%= line_chart @app_chart %>
-        <% end %>
+        <%= line_chart @app_chart %>
       </div>
     </div>
 
@@ -75,11 +63,7 @@
             <small class="text-muted">RSVP Count</small>
           </div>
         </div>
-        <% if Rails.env.development? %>
-          Chart will only render in production and staging
-        <% else %>
-          <%= line_chart @rsvp_chart %>
-        <% end %>
+        <%= line_chart @rsvp_chart %>
       </div>
     </div>
   </div>
@@ -179,7 +163,7 @@
                       <% end %>
                           <%= form.status.capitalize %>
                         </span>
-                      
+
                       <% if form.flag %>
                         <span class="tag tag-danger event-application-header-status-margin">
                           Flagged

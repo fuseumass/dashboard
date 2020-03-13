@@ -33,34 +33,33 @@ class EventApplicationsController < ApplicationController
 
     @appsCSV = EventApplication.all
 
-    unless Rails.env.development?
-      @check_in_chart = User.where(:check_in => true).group_by_day(:updated_at).count
-      total = 0
-      @check_in_chart.keys.each do |k|
-        total += @check_in_chart[k]
-        @check_in_chart[k] = total
-      end
-      
-      @reg_chart = User.all.group_by_day(:created_at).count
-      total = 0
-      @reg_chart.keys.each do |k|
-        total += @reg_chart[k]
-        @reg_chart[k] = total
-      end
 
-      @app_chart = EventApplication.all.group_by_day(:created_at).count
-      total = 0
-      @app_chart.keys.each do |k|
-        total += @app_chart[k]
-        @app_chart[k] = total
-      end
+    @check_in_chart = User.where(:check_in => true).group_by_day(:updated_at).count
+    total = 0
+    @check_in_chart.keys.each do |k|
+      total += @check_in_chart[k]
+      @check_in_chart[k] = total
+    end
 
-      @rsvp_chart = User.where(:rsvp => true).group_by_day(:updated_at).count
-      total = 0
-      @rsvp_chart.keys.each do |k|
-        total += @rsvp_chart[k]
-        @rsvp_chart[k] = total
-      end
+    @reg_chart = User.all.group_by_day(:created_at).count
+    total = 0
+    @reg_chart.keys.each do |k|
+      total += @reg_chart[k]
+      @reg_chart[k] = total
+    end
+
+    @app_chart = EventApplication.all.group_by_day(:created_at).count
+    total = 0
+    @app_chart.keys.each do |k|
+      total += @app_chart[k]
+      @app_chart[k] = total
+    end
+
+    @rsvp_chart = User.where(:rsvp => true).group_by_day(:updated_at).count
+    total = 0
+    @rsvp_chart.keys.each do |k|
+      total += @rsvp_chart[k]
+      @rsvp_chart[k] = total
     end
 
 
@@ -156,15 +155,15 @@ class EventApplicationsController < ApplicationController
     end
 
     if params[:search].present?
-      @applications = @applications.joins(:user).where("lower(users.first_name) LIKE lower(?) OR 
-                                                    lower(users.last_name) LIKE lower(?) OR 
-                                                    lower(users.email) LIKE lower(?) OR 
+      @applications = @applications.joins(:user).where("lower(users.first_name) LIKE lower(?) OR
+                                                    lower(users.last_name) LIKE lower(?) OR
+                                                    lower(users.email) LIKE lower(?) OR
                                                     lower(major) LIKE lower(?) OR
-                                                    lower(name) LIKE lower(?) OR 
+                                                    lower(name) LIKE lower(?) OR
                                                     lower(university) LIKE lower(?) OR
                                                     lower(status) LIKE lower(?) OR
-                                                    lower(education_lvl) LIKE lower(?)", 
-                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", 
+                                                    lower(education_lvl) LIKE lower(?)",
+                                              "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                               "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
                                               "%#{params[:search]}%", "%#{params[:search]}%")
       @posts = @applications.paginate(page: params[:page], per_page: 20)

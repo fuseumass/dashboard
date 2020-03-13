@@ -1,8 +1,8 @@
 FROM ruby:2.5
 
 # Installs dependencies to run Rails on the ruby:2.5 image
-RUN apt-get update && apt-get install -y \ 
-  build-essential \ 
+RUN apt-get update && apt-get install -y \
+  build-essential \
   nodejs
 
 # Configure the main working directory

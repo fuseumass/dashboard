@@ -43,6 +43,8 @@ Rails.application.routes.draw do
         post 'unflag_application'
         post 'app_rsvp'
         get 'search'
+        get 'application_mode'
+        post 'set_application_mode'
 
         get :rsvp
         get :unrsvp

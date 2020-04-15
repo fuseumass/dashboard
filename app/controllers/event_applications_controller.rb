@@ -3,8 +3,8 @@ class EventApplicationsController < ApplicationController
   include EventApplicationsHelper
 
   before_action -> { is_feature_enabled($Applications) }
-  before_action :set_event_application, only: %i[show edit update destroy]
-  before_action :check_permissions, only: %i[index destroy status_updated]
+  before_action :set_event_application, only: [:show, :edit, :update, :destroy]
+  before_action :check_permissions, only: [:index, :destroy, :status_updated]
   autocomplete :university, :name, full: true
   autocomplete :major, :name, full: true
 
@@ -86,11 +86,17 @@ class EventApplicationsController < ApplicationController
   end
 
   def new
+    if @event_application_mode == 'closed'
+      redirect_to index_path
+      flash[:error] = "Error: Event Applications are Currently Closed."
+      return
+    end
+
     @application = EventApplication.new
 
     if current_user.has_applied?
         redirect_to index_path
-        flash[:error] = "You have already created an application."
+        flash[:error] = "Error: You Have Already Created an Application."
     end
 
   end
@@ -105,9 +111,9 @@ class EventApplicationsController < ApplicationController
     puts "cfields params: #{event_application_params['custom_fields']}"
     @application = EventApplication.new(event_application_params)
     @application.user = current_user
-    if HackumassWeb::Application::APPLICATIONS_MODE == 'open'
+    if @event_application_mode == 'open'
       @application.status = 'undecided'
-    elsif HackumassWeb::Application::APPLICATIONS_MODE == 'waitlist'
+    elsif @event_application_mode == 'waitlist'
       @application.status = 'waitlisted'
     else
       @application.status = 'denied'
@@ -217,15 +223,54 @@ class EventApplicationsController < ApplicationController
     redirect_to event_application_path(app)
   end
 
-   private
+  # GET route to show change event application mode page
+  def application_mode
+    if !FeatureFlag.find_by(name: 'application_mode').nil?
+      # Note: @event_application_mode is automatically updated in Application Controller
+      @current_mode = @event_application_mode
+    else
+      @current_mode = 'ERROR'
+    end
+  end
+
+  # POST route to set the current event application mode
+  def set_application_mode
+    if !current_user.is_admin?
+      redirect_to event_applications_path, alert: 'Error: You do not have permission to change event application modes.'
+    else
+      if !params[:mode].present?
+        redirect_to application_mode_event_applications_path, alert: 'Error: Invalid Parameters Provided (1) If you get this message, please try to refresh the page and try again.'
+      else
+        if params[:mode] == 'open'
+          @flag = FeatureFlag.find_by(name: 'application_mode')
+          @flag.description = 'open'
+          @flag.save
+          redirect_to application_mode_event_applications_path, notice: 'Successfully set application mode to open!'
+        elsif params[:mode] == 'waitlist'
+          @flag = FeatureFlag.find_by(name: 'application_mode')
+          @flag.description = 'waitlist'
+          @flag.save
+          redirect_to application_mode_event_applications_path, notice: 'Successfully set application mode to waitlist!'
+        elsif params[:mode] == 'closed'
+          @flag = FeatureFlag.find_by(name: 'application_mode')
+          @flag.description = 'closed'
+          @flag.save
+          redirect_to application_mode_event_applications_path, notice: 'Successfully closed event applications!'
+        else
+          redirect_to application_mode_event_applications_path, alert: 'Error: Invalid Parameters Provided (2). If you get this message, please try to refresh the page and try again.'
+        end
+      end
+    end
+  end
+
+  private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_event_application
     begin
       @application = EventApplication.find(params[:id])
     rescue
-      flash[:warning] = 'Upppps looks like you went backwards or forward too much.'
-      redirect_to event_applications_path
-      return
+      redirect_to event_applications_path, error: 'Error: Unable to load desired page. Please ensure the URL is valid and try again.'
     end
   end
 

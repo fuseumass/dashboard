@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :auth_user
   before_action :set_raven_context
+  before_action :get_event_application_mode
   after_action  :set_access_control_headers
   after_action  :set_extra_headers
   # full: true means that the string searched will look for the match anywhere in the "email" string, and not just the beginning
@@ -17,6 +18,13 @@ class ApplicationController < ActionController::Base
   autocomplete :prize, :criteria, full: true
 
 
+  def get_event_application_mode
+    if !FeatureFlag.find_by(name: 'application_mode').nil?
+      @event_application_mode = FeatureFlag.find_by(name: 'application_mode').description
+    else
+      @event_application_mode = 'closed'
+    end
+  end
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

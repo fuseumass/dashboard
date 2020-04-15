@@ -90,7 +90,7 @@ module PagesHelper
   end
 
   def has_access_to_applying?
-    current_user.is_attendee? and check_feature_flag?($Applications)
+    current_user.is_attendee? and check_feature_flag?($Applications) and @event_application_mode != 'closed'
   end
 
   def has_access_to_judging?

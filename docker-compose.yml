@@ -7,10 +7,9 @@ services:
       - POSTGRES_PASSWORD=dashboardpass
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-  dashboard:
+  hackathon-dashboard:
     build: .
+    container_name: hackathon-dashboard
     links:
       - postgres
     volumes:

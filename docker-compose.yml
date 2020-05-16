@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=dashboard
+      - POSTGRES_PASSWORD=dashboardpass
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+  hackathon-dashboard:
+    build: .
+    container_name: hackathon-dashboard
+    links:
+      - postgres
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"

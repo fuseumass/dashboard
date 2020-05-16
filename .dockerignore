@@ -9,6 +9,9 @@ README.md
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore the docker-compose postgres volume
+/db/postgres
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

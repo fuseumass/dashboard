@@ -11,6 +11,10 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore docker Postgres files
+/db/postgres/
+/db/.built
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

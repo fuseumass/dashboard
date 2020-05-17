@@ -8,7 +8,9 @@ services:
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
   hackathon-dashboard:
-    build: .
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: hackathon-dashboard
     links:
       - postgres

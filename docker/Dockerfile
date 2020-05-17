@@ -18,4 +18,4 @@ RUN bundle install
 EXPOSE 3000
 
 # Default command that runs when the container starts
-CMD ["bash", "./docker_set_up.sh"]
+CMD ["bash", "./docker/docker_set_up.sh"]

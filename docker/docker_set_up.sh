@@ -1,3 +1,6 @@
+# Work around for the pesky "server is already running bug"
+rm tmp/pids/server.pid
+
 if [ \( ! -f "db/postgres/.built" \) ]; then
   echo Development db or test db does not exist. Running initial setup... &&
   bundle exec rake db:create  &&

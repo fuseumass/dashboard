@@ -1,8 +1,5 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+# PostgreSQL
+#   Sets the default db config to be Postgres for both Development and Production
 #
 default: &default
   adapter: postgresql

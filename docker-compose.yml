@@ -7,11 +7,10 @@ services:
       - POSTGRES_PASSWORD=dashboardpass
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
-  hackathon-dashboard:
+  web:
     build: 
       context: .
       dockerfile: docker/Dockerfile
-    container_name: hackathon-dashboard
     links:
       - postgres
     volumes:

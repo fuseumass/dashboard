@@ -1,8 +1,10 @@
-RUNNING_ID=`docker ps --format '{{.ID}}' -f 'ancestor=hackathon-dashboard'`
+CURR_DIR="${PWD##*/}"
+
+RUNNING_ID="docker ps --format '{{.ID}}' -f 'ancestor=${CURR_DIR}_rails'"
 if [[ "$RUNNING_ID" == "" ]]; then
     echo Running new container instance
-    ./docker_run.sh ${@:-/bin/bash}
+    ./docker/docker_run.sh ${@:-/bin/bash}
 else
-    echo Connecting to running container instance $RUNNING_ID
-    docker exec -it $RUNNING_ID ${@:-/bin/bash}
+    echo Connecting to running container instance
+    docker-compose exec rails ${@:-/bin/bash}
 fi

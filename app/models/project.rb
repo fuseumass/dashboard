@@ -33,12 +33,6 @@ class Project < ApplicationRecord
 											 size: { less_than: 10.megabyte,
 															 message: 'Image file must be under 10MB in size.' }
 
-	if not Rails.env.production?
-		serialize :tech, Array
-		serialize :prizes, Array
-		serialize :prizes_won, Array
-	end
-
 	def rename_file
 		unless projectimage_file_name.blank? || title.blank?
       extension = projectimage_file_name.gsub(/.*\./, '')

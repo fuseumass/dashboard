@@ -1,9 +1,10 @@
 FROM ruby:2.5
 
 # Installs dependencies to run Rails on the ruby:2.5 image
-RUN apt-get update && apt-get install -y \ 
-  build-essential \ 
-  nodejs
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  nodejs \
+  postgresql-client
 
 # Configure the main working directory
 WORKDIR /usr/src/app
@@ -18,4 +19,4 @@ RUN bundle install
 EXPOSE 3000
 
 # Default command that runs when the container starts
-CMD ["bash", "./docker_set_up.sh"]
+CMD ["bash", "docker/docker_set_up.sh"]

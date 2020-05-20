@@ -1,1 +1,0 @@
-docker run -v %cd%:/usr/src/app -p 3000:3000 -it hackathon-dashboard

@@ -21,11 +21,7 @@ class JudgingController < ApplicationController
       elsif params[:search] == 'status:unjudged'
         @projects = Project.left_outer_joins(:judgements).where("judgements.project_id IS NULL")
       elsif params[:prize]
-        if Rails.env.production?
-          @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
-        else
-          @projects = Project.where("prizes LIKE ?", "%#{params[:prize]}%")
-        end
+        @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
       else
         @projects = Project.left_outer_joins(:judgements => :user).distinct.where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
@@ -67,8 +63,8 @@ class JudgingController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { 
-        send_data @judgements.to_csv, filename: "judging.csv" 
+      format.csv {
+        send_data @judgements.to_csv, filename: "judging.csv"
       }
     end
   end
@@ -82,7 +78,7 @@ class JudgingController < ApplicationController
   # POST route to assign a judge to a project
   def add_judge_assignment
     if (!params.has_key?(:project_id) or !params.has_key?(:judge_email))  # An error in params, likely when a user messes with the URL
-      redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a 
+      redirect_to judging_index_path, alert: 'Unable to assign judge to project. This is likely from accessing a
       broken link or refreshing a submitted form. Please try to assign the judge again, and if this fails contact an administrator.'
       return
     end
@@ -98,7 +94,7 @@ class JudgingController < ApplicationController
 
     if (User.where(:email => params[:judge_email]).first.user_type == 'attendee')  # Don't let normal attendee's judge projects
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: Desired judge\'s account does not have sufficient permissions (they are a participant!).'
-    
+
     elsif (((!params.has_key?(:tag) or params[:tag] == '') and JudgingAssignment.exists?(:user_id => judge_user.id, :project_id => params[:project_id], :tag => nil)) or (params.has_key?(:tag) and JudgingAssignment.exists?(:user_id => judge_user.id, :project_id => params[:project_id], :tag => params[:tag])))  # If the judge is already assigned to this project.
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Error: ' + params[:judge_email] + ' is already assigned to judge this project!'
     else  # All is well, assign judge to project
@@ -121,7 +117,7 @@ class JudgingController < ApplicationController
   end
 
   # POST route for assignment validation
-  def mass_submit 
+  def mass_submit
     puts "time to die"
 
     errors = []
@@ -134,7 +130,7 @@ class JudgingController < ApplicationController
         errors << "Existance: #{entry['judge_email']} or #{entry['project_name']} doesn't exist"
         next
       end
-      
+
       user = User.where(:email => entry['judge_email']).first()
       project = Project.where(:title => entry['project_name']).first()
       if (JudgingAssignment.exists?(user_id: user.id, project_id: project.id))
@@ -158,9 +154,9 @@ class JudgingController < ApplicationController
   # POST route to unassign a judge from a project
   def remove_judge_assignment
     if (!params.has_key?(:project_id) or !params.has_key?(:judge_id))  # An error in params, likely when a user messes with the URL
-      redirect_to judging_index_path, alert: 'Unable to remove judge from project. This is likely from accessing a 
+      redirect_to judging_index_path, alert: 'Unable to remove judge from project. This is likely from accessing a
       broken link or refreshing a submitted form. Please try to remove the judge again, and if this fails contact an administrator.'
-    
+
     elsif (!JudgingAssignment.exists?(:user_id => params[:judge_id], :project_id => params[:project_id]))  # If no records match. When/if a user tries to change URL/request
       redirect_to assign_judging_index_path(:project_id => params[:project_id]), alert: 'Unable to remove assignment: The judge is not assigned to that project!'
 
@@ -209,7 +205,7 @@ class JudgingController < ApplicationController
   # POST route to submit a score for a project
   def create
     @judgement = Judgement.new(judging_score_params)
-    
+
     @judgement.project_id = judging_score_params[:project_id]
     @judgement.user_id = current_user.id
 
@@ -280,7 +276,7 @@ class JudgingController < ApplicationController
     elsif @existing_judgement.user_id != current_user.id
       redirect_to judging_index_path, alert: 'The judgement you are editing is not yours.'
     end
-    
+
     total_score = 0
 
     HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|
@@ -288,7 +284,7 @@ class JudgingController < ApplicationController
     end
 
     @existing_judgement.score = total_score
-  
+
 
     if @existing_judgement.update(judging_score_params)
       redirect_to judgement_path(params[:id]), notice: 'The judgement was successfully edited.'
@@ -302,7 +298,7 @@ class JudgingController < ApplicationController
       @project_id = @judgement.project_id
       render :edit
     end
-  
+
   end
 
   # GET route for showing a specific judgement by id
@@ -470,7 +466,7 @@ end
       end
     end
 
-    # Never trust parameters from the scary internet 
+    # Never trust parameters from the scary internet
     def judging_score_params
       custom_scores_items = []
       HackumassWeb::Application::JUDGING_CUSTOM_FIELDS.each do |c|

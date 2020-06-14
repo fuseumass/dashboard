@@ -186,12 +186,16 @@
             </tbody>
           </table>
         </div>
+
+        <hr>
+
+        <center class="mb-4">
+          <%= will_paginate @projects %>
+        </center>
       </div>
     <% end %>
 
-<center>
-  <%= will_paginate @projects %>
-</center>
+
 <% elsif @judged_by_me.nil? or @judged_by_me.empty? %>
   <p>No results for this judge: <%= User.find_by(id: params[:judged_by_user]).full_name %></p>
 <% end %>
@@ -245,5 +249,4 @@
     </div>
   </div>
   <% end %>
-  </div>
-<br>
+</div>

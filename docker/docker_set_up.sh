@@ -9,4 +9,4 @@ if [ \( ! -f "db/postgres/.built" \) ]; then
   bundle exec rake feature_flags:load_flags
   touch db/postgres/.built
 fi
-bundle exec rails server
+bundle exec rails server -b 0.0.0.0

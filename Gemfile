@@ -12,7 +12,7 @@ ruby '~> 2.5.0'
 gem 'rqrcode'
 
 # Graphs and all that jazz for statistics
-gem 'chartkick'
+gem 'chartkick', ">= 3.3.0"
 gem 'groupdate'
 
 # Easy debugging
@@ -37,7 +37,7 @@ gem 'devise', '~> 4.7.1'
 gem 'rails', '~> 5.2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', ">= 3.12.4"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

@@ -401,15 +401,15 @@ end
 
     start = 1
 
-    Project.where(power: false).each do |p|
+    Project.where(power: [false, nil]).each do |p|
       p.table_id = start
-      p.save(validate: false)
+      p.save
       start += 1
     end
 
     Project.where(power: true).each do |p|
       p.table_id = start
-      p.save(validate: false)
+      p.save
       start += 1
     end
 

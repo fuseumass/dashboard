@@ -50,7 +50,7 @@
                   <% else %>
                     <td><%= asn.project.table_id %>
                     <% if asn.project.power %>
-                      (TBL)
+                      (Outlet)
                     <% end %>
                     </td>
                   <% end %>
@@ -99,14 +99,20 @@
               </span>
             </div>
 
-            <div class="row mt-3">
+
+            <!-- Filtering Project Search Results -->
+            <div class="row mt-3 pt-3 pb-3 mb-3 border-top border-bottom">
               <div class="col-auto">
-                <b>Filter</b> &nbsp;
+                <b class="h4"> Filter </b><i class="fe fe-filter mr-5"></i>
                 <%= link_to "Assigned", "?search=status:assigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
                 <%= link_to "Unassigned", "?search=status:unassigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
                 <%= link_to "Judged", "?search=status:judged", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
                 <%= link_to "Unjudged", "?search=status:unjudged", class: 'btn btn-secondary btn-sm' %> &nbsp;
-                <b>Prize Category:</b> &nbsp;
+
+                <b class="ml-4">Prize Category:</b> &nbsp;
                 <select onchange="if(this.value) location.href = '?prize=' + this.value; else location.href = '?';">
                   <option value=""<% unless params[:prize] %> selected<% end %>>---------------------</option>
                   <% Prize.where(project_selectable: true).each do |p| %>
@@ -116,9 +122,9 @@
                 <span class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Filter projects by the prize category that they are applying for." data-placement="bottom"><i class="fe fe-help-circle"></i></span> &nbsp;
               </div>
             </div>
-
           <%end%>
         </div>
+
 
         <div class="table-responsive">
           <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
@@ -148,7 +154,7 @@
                     <td>
                       <%= project.table_id %>
                       <% if project.power %>
-                        (TBL)
+                        (Outlet)
                       <% end %>
                     </td>
                   <% end %>
@@ -226,7 +232,7 @@
                     <td>
                       <%= judgement.project.table_id %>
                       <% if judgement.project.power %>
-                        (TBL)
+                        (Outlet)
                       <% end %>
                     </td>
                   <% end %>

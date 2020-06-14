@@ -2,7 +2,7 @@
 # part the application controller contain all the miscalleous methods
 # and or any method that need to be seen throughout the entire application
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session, if: -> { request.format.json? }
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :auth_user
   before_action :set_raven_context
@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   autocomplete :prize, :name, full: true
   autocomplete :prize, :criteria, full: true
 
+  wrap_parameters false
 
   def get_event_application_mode
     if !FeatureFlag.find_by(name: 'application_mode').nil?
@@ -190,8 +191,20 @@ class ApplicationController < ActionController::Base
   # whether if a user is logging in or signing up or calling a hardware api or
   # event api.
   def user_is_authenticated?
+    if user_signed_in?
+      return true
+    end
+
     controllers = %w[passwords sessions]
+    if controllers.include?(controller_name)
+      return true
+    end
+
     paths = [new_user_registration_path, hardware_items_path(:json), events_path(:json)]
-    user_signed_in? || controllers.include?(controller_name) || paths.include?(request.path)
+    if paths.include?(request.path)
+      return true
+    end
+
+    false
   end
 end

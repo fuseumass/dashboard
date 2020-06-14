@@ -124,3 +124,7 @@ gem 'ransack'
 
 # Generate PDF
 gem 'hexapdf'
+
+gem 'omniauth'
+gem 'devise_token_auth'
+gem 'rack-cors'

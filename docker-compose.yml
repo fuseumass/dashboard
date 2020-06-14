@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.4"
 services:
   postgres:
     image: postgres
@@ -7,10 +7,18 @@ services:
       - POSTGRES_PASSWORD=dashboardpass
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dashboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   rails:
     build: 
       context: .
       dockerfile: docker/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
     links:
       - postgres
     volumes:

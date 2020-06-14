@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_212235) do
     t.string "tech", default: [], array: true
     t.string "screenshot_file_name"
     t.string "screenshot_content_type"
-    t.integer "screenshot_file_size"
+    t.bigint "screenshot_file_size"
     t.datetime "screenshot_updated_at"
   end
 

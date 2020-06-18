@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable
+         :omniauthable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
   has_many :hardware_checkouts, dependent: :destroy

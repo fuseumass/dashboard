@@ -3,14 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of :first_name, :last_name
 
-  if Rails.env.development?
-    devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable
-  else 
+  if !Rails.env.development? && EMAIL_VERIFICATION == true
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable
+  else 
+    devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable
   end
  
   include DeviseTokenAuth::Concerns::User

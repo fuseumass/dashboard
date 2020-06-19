@@ -2,9 +2,17 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of :first_name, :last_name
-  devise :database_authenticatable, :registerable,
+
+  if Rails.env.development?
+    devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable
+  else 
+    devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable
+  end
+ 
   include DeviseTokenAuth::Concerns::User
 
   has_many :hardware_checkouts, dependent: :destroy

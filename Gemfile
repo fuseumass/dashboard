@@ -76,6 +76,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
   # console
   gem 'byebug', platform: %i[mri mingw x64_mingw]
+  gem 'shoulda-matchers'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -91,10 +93,6 @@ end
 
 group :production do
   gem 'rails_12factor'
-end
-
-group :test do
-  gem 'shoulda-matchers'
 end
 
 # For connecting to the Postgres Database

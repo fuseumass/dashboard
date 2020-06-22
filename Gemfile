@@ -93,6 +93,10 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'shoulda-matchers'
+end
+
 # For connecting to the Postgres Database
 gem 'pg'
 

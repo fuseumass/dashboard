@@ -26,36 +26,34 @@ class JudgingController < ApplicationController
         @projects = Project.left_outer_joins(:judgements => :user).distinct.where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end
-      @assigned = nil
-      @judged_by_me = nil
+
     else
       @projects = Project.all.order(table_id: :asc).paginate(page: params[:page], per_page: 15)
-      @assigned = JudgingAssignment.all.where(user_id: current_user.id)
-      @judgements =  Judgement.all
-      if params[:judged_by_user] and (current_user.is_organizer? or current_user.is_admin?)
-        @judged_by_me = Judgement.where(user_id: params[:judged_by_user])
-      else
-        @judged_by_me = Judgement.where(user_id: current_user.id)
-      end
     end
+
+    @judged_by_me = Judgement.where(user_id: current_user.id)
+    @assigned = JudgingAssignment.all.where(user_id: current_user.id)
+    @judgements = Judgement.all
 
     @projects = @projects.paginate(page: params[:page], per_page: 15)
 
     @times_judged = {}
     @open_judgements = {}
     @avg_score = {}
-
+    # Tally up the individual counts per judgement
     @projects.each do |proj|
-      judgements = Judgement.where(project_id: proj.id)
-      @times_judged[proj.id] = judgements.count
-      assmts = JudgingAssignment.where(project_id: proj.id)
-      @open_judgements[proj.id] = assmts.count
+      project_judgements = Judgement.where(project_id: proj.id)
+      @times_judged[proj.id] = project_judgements.count
+      project_assignments = JudgingAssignment.where(project_id: proj.id)
+      @open_judgements[proj.id] = project_assignments.count
+
       sum = 0
-      judgements.each do |j|
+      project_judgements.each do |j|
         sum += j.score
       end
+
       if sum > 0
-        @avg_score[proj.id] = sum / judgements.count
+        @avg_score[proj.id] = sum / project_judgements.count
       else
         @avg_score[proj.id] = 0
       end

@@ -29,7 +29,7 @@
           <td><%= link_to truncate(asn.project.title, length: 30), asn.project %></td>
 
           <td>
-            <% if !asn.tag.nil? %> <%= asn.tag %>
+            <% unless asn.tag.nil? %> <%=  asn.tag  %>
             <% end %> </td>
 
           <td style="text-align: center"><%= @times_judged[asn.project.id] %></td>
@@ -40,4 +40,6 @@
       </tbody>
     </table>
   </div>
+<% else %>
+  You have no projects assigned to judge.
 <% end %>

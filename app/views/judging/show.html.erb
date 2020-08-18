@@ -1,19 +1,20 @@
-
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Individual Result</h1>
   <span style='position: absolute; right: 0'>
+    <% if @score.user_id == current_user.id %>
+      <%= link_to 'Edit Judgement', edit_judgement_path(@score.id), class: 'btn btn-primary' %>
+    <% end %>
     <%= link_to 'Show All Judgements for Project', results_judging_index_path(:project_id => @score.project.id), class: 'btn btn-primary' %>
     <%= link_to 'View Project', project_path(@score.project.id), class: 'btn btn-primary' %>
   </span>
 </div>
 
 <div class="card">
-    <div class="card-body">
-        <h4>Project: <%= @score.project.title %></h3>
-        <h4>Judge: <%= @score.user.full_name %></h3> 
-        <%= render 'score', score: @score, max_width: '600px' %>
-        <%= link_to 'Edit', edit_judgement_path(@score.id), class: 'btn btn-primary' %>
-    </div>
+  <div class="card-body">
+    <h4>Project: <%= @score.project.title %></h4>
+    <h4>Judge: <%= @score.user.full_name %></h4>
+    <%= render 'score', score: @score, max_width: '600px' %>
+  </div>
 </div>
 
         

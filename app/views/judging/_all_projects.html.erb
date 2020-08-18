@@ -27,11 +27,14 @@
 
       <b class="ml-4">Prize Category:</b> &nbsp;
       <select onchange="if(this.value) location.href = '?prize=' + this.value; else location.href = '?';">
-        <option value=""<% unless params[:prize] %> selected <% end %> />---------------------
+        <option value=""
+          <% unless params[:prize] %> selected
+                <% end %> />
+        ---------------------
         <% Prize.where(project_selectable: true).each do |p| %>
           <option
-          <% if params[:prize] == p.criteria %> selected
-          <% end %>><%= p.criteria %></option>
+            <% if params[:prize] == p.criteria %> selected
+            <% end %>><%= p.criteria %></option>
         <% end %>
       </select>
       <span class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Filter projects by the prize category that they are applying for." data-placement="bottom"><i class="fe fe-help-circle"></i></span> &nbsp;
@@ -51,7 +54,7 @@
         <th>Times Judged</th>
         <th>Open Judgements</th>
         <th>Avg. Score</th>
-        <th>Score Actions</th>
+        <th>Actions</th>
       <% else %>
         <th>Times Judged</th>
         <th>Action</th>
@@ -85,7 +88,6 @@
           <td style="text-align: center"><%= @avg_score[project.id] %></td>
           <td>
             <%= link_to "View Scores", results_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
-            <%= link_to "Scores Table", results_judging_index_path(:project_id => project.id) + "&all_table=1", class: 'btn btn-secondary' %>
           </td>
         <% else %>
           <td style="text-align: center"><%= @times_judged[project.id] %></td>

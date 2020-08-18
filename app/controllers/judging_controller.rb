@@ -2,12 +2,7 @@ class JudgingController < ApplicationController
   before_action -> { is_feature_enabled($Judging) }
   before_action :auth_user
   before_action :check_permissions
-  before_action :check_organizer_permissions, only: [:search, :assign, :add_judge_assignment, :remove_judge_assignment]
-
-  def search
-    redirect_to judging_index_path
-  end
-
+  before_action :check_organizer_permissions, only: [:assign, :add_judge_assignment, :remove_judge_assignment]
 
   def index
     if params[:search].present? or params[:prize].present?
@@ -23,7 +18,7 @@ class JudgingController < ApplicationController
       elsif params[:prize]
         @projects = Project.where("prizes::varchar LIKE ?", "%#{params[:prize]}%")
       else
-        @projects = Project.left_outer_joins(:judgements => :user).distinct.where("first_name LIKE lower(?) OR last_name LIKE lower(?) OR title LIKE lower(?) OR table_id = ?",
+        @projects = Project.left_outer_joins(:judgements => :user).where("lower(first_name) LIKE lower(?) OR lower(last_name) LIKE lower(?) OR lower(title) LIKE lower(?) OR table_id = ?",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", params[:search].match(/^(\d)+$/) ? params[:search].to_i : 99999)
       end
 
@@ -41,31 +36,33 @@ class JudgingController < ApplicationController
     @open_judgements = {}
     @avg_score = {}
     # Tally up the individual counts per judgement
-    @projects.each do |proj|
-      project_judgements = Judgement.where(project_id: proj.id)
-      @times_judged[proj.id] = project_judgements.count
-      project_assignments = JudgingAssignment.where(project_id: proj.id)
-      @open_judgements[proj.id] = project_assignments.count
+    if !@projects.nil? && !@projects.empty?
+      @projects.each do |proj|
+        project_judgements = Judgement.where(project_id: proj.id)
+        @times_judged[proj.id] = project_judgements.count
+        project_assignments = JudgingAssignment.where(project_id: proj.id)
+        @open_judgements[proj.id] = project_assignments.count
 
-      sum = 0
-      project_judgements.each do |j|
-        sum += j.score
-      end
+        sum = 0
+        project_judgements.each do |j|
+          sum += j.score
+        end
 
-      if sum > 0
-        @avg_score[proj.id] = sum / project_judgements.count
-      else
-        @avg_score[proj.id] = 0
+        if sum > 0
+          @avg_score[proj.id] = sum / project_judgements.count
+        else
+          @avg_score[proj.id] = 0
+        end
       end
     end
 
-    respond_to do |format|
-      format.html
-      format.csv {
-        send_data @judgements.to_csv, filename: "judging.csv"
-      }
+      respond_to do |format|
+        format.html
+        format.csv {
+          send_data @judgements.to_csv, filename: "judging.csv"
+        }
+      end
     end
-  end
 
   # GET route for assignment creation
   def assign

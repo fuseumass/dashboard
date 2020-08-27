@@ -1,61 +1,3 @@
-<style>
-    div.container {
-        max-width: 100%;
-    }
-
-    .container > .card > .card-body {
-        overflow: scroll;
-    }
-
-    table.main-tbl th {
-        min-width: 100px;
-    }
-
-    .sm-field {
-        max-width: 150px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-</style>
-
-<div class="row align-items-center">
-
-  <div class="page-header col-sm-4">
-    <h1 class="page-title">Judging Results</h1>
-  </div>
-
-
-
-  <!-- Judging Administration Button Strip -->
-  <% if current_user.is_admin? or current_user.is_organizer? %>
-    <div class="col-12 text-left">
-      <div class="card text-center">
-        <div class="card-body text-left">
-          <div class="h4 mb-4"> Judging Administration</div>
-
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <%= link_to "Assign by Prize", tag_assign_judging_index_path, class: 'btn btn-secondary' %>
-            <%= link_to "Mass Assignment", judge_mass_assign_judging_index_path, class: 'btn btn-secondary' %>
-          </div>
-
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="assignDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Project Tables
-            </button>
-            <div class="dropdown-menu" aria-labelledby="assignDrop">
-              <%= link_to "Assign Table Numbers", judging_assign_tables_path, class: 'dropdown-item', method: :post %>
-              <%= link_to "Unassign Table Numbers", judging_unassign_tables_path, class: 'dropdown-item', method: :post %>
-            </div>
-          </div>
-          <%= link_to "Paper Judging", paper_judging_path, class: 'btn btn-secondary btn-md' %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-</div>
-
-
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Results</h1>
   <span style='position: absolute; right: 0'>
@@ -76,15 +18,15 @@
         <% if @scores.nil? or @scores.empty? %>
             <p>No Scores Submitted For This Project.</p>
         <% else %>
-            <table class="table table-hover table-outline table-vcenter card-table main-tbl">
+            <table class="table table-hover table-striped table-vcenter card-table table-sm">
                 <thead>
-                <tr>
+                <tr class="text-center">
                     <th>Judge</th>
                     <th>Tag</th>
                     <th>Score</th>
                     <% if params[:all_table] and @scores %>
                         <% @scores.last.custom_scores.keys.each do |field| %>
-                            <th class="sm-field"><%= field.titleize %></th>
+                            <th><%= field.titleize %></th>
                         <% end %>
                     <% end %>
                     <th>Action</th>
@@ -93,7 +35,7 @@
 
                 <tbody>
                     <% @scores.each do |score| %>
-                        <tr>
+                        <tr class="text-center">
                             <td><%= score.user.full_name %></td>
                             <td><%= score.tag %></td>
                             <td>
@@ -103,19 +45,23 @@
                             <% if params[:all_table] and score %>
                                 <% score.custom_scores.keys.each do |field| %>
                                     <% if score.custom_scores[field].length > 4 %>
-                                        <td style="text-align: center; min-width: 400px !important"><%= score.custom_scores[field] %></td>
+                                        <td><%= score.custom_scores[field] %></td>
                                     <% else %>
-                                        <td style="text-align: center; max-width: 500px"><%= score.custom_scores[field] %></td>
+                                        <td><%= score.custom_scores[field] %></td>
                                     <% end %>
                                 <% end %>
                             <% end %>
                             <td>
+                              <div style="text-align: center;">
                                 <%= form_tag destroy_judgement_path, method: :post, class:'form-inline' do%>
+                                  <div class="btn-group" role="group" aria-label="Basic example">
                                     <a class="btn btn-primary mr-1" data-toggle="modal" data-target="#<%= score.id %>modal" href="<%= judgement_path(score.id) %>">Details</a>
                                     <%= text_field_tag :judgement_id, "", class: 'form-control', value: score.id, required: true, hidden: true %>
-                                    <%= link_to 'Edit', edit_judgement_path(score.id), class: 'btn btn-warning' %> &nbsp; 
+                                    <%= link_to 'Edit', edit_judgement_path(score.id), class: 'btn btn-warning' %> &nbsp;
                                     <%= button_tag 'Delete', type: :submit, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this judgement? This can not be undone!' } %>
+                                  </div>
                                 <% end %>
+                              </div>
                             </td>
                         </tr>
                     <% end %>

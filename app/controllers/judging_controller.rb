@@ -320,7 +320,7 @@ class JudgingController < ApplicationController
   # POST route to remove a score from a project
   def destroy
     unless current_user.is_admin? or current_user.is_organizer?
-      redirect_to judging_index_path, alert: 'Error: You do not have permission to delete this project.'
+      redirect_to judging_index_path, alert: 'Error: You do not have permission to delete this score.'
       return
     end
 
@@ -428,7 +428,7 @@ class JudgingController < ApplicationController
 
   # GET, shows all of the judging results for a given project id
   def results
-    if !params.has_key?(:project_id)
+    unless params.has_key?(:project_id)
       redirect_to judging_index_path, alert: 'Error: Unable to load results for project. Please ensure that the link is valid and try again.'
     end
     @project = Project.find_by(id: params[:project_id])

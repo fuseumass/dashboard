@@ -50,7 +50,7 @@ module HackumassWeb
     HACKING_ENDS_DATE = config["projects"]["hacking_ends"]
     EMAIL_VERIFICATION = config["emails"]["email_verification"]
 
-    SLACK_ENABLED = config["slack"]["message_url_prefix"]
+    SLACK_ENABLED = ActiveModel::Type::Boolean.new.cast(config["slack"]["enabled"])
     if SLACK_ENABLED
       SLACK_MESSAGE_URL_PREFIX = config["slack"]["message_url_prefix"]
       SLACK_SUBDOMAIN = config["slack"]["subdomain"]

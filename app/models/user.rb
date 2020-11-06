@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of :first_name, :last_name
 
-  if !Rails.env.development? && EMAIL_VERIFICATION == true
+  if !Rails.env.development? && HackumassWeb::Application::EMAIL_VERIFICATION == true
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable

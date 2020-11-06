@@ -109,7 +109,7 @@ class User < ApplicationRecord
   end
 
   def has_slack?
-    if self.slack_id != nil
+    if !HackumassWeb::Application::SLACK_ENABLED || self.slack_id != nil
       return true
     else
       return false
@@ -117,10 +117,18 @@ class User < ApplicationRecord
   end
 
   def get_slack_id
+    if !HackumassWeb::Application::SLACK_ENABLED
+      return -1
+    end
+    
     return self.slack_id
   end
 
   def get_slack_message_link
+    if !HackumassWeb::Application::SLACK_ENABLED
+      return ""
+    end
+
     return "https://" + HackumassWeb::Application::SLACK_SUBDOMAIN + ".slack.com/team/" + self.slack_id
   end
 

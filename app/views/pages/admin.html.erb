@@ -49,8 +49,11 @@
         <div class="card-body">
             <p class="h5">Slack Integration</p>
             <p> Manage Slack integration, which allows users to connect their slack account to Dashboard for increased functionality including messaging and notification.</p>
-
+            <% if HackumassWeb::Application::SLACK_ENABLED %>
             <%= link_to 'Manage Slack Integration', slackintegration_admin_path, class: 'btn btn-primary' %>
+            <% else %>
+                <button class="btn btn-primary disabled">Manage Slack Integration (Disabled)</button>
+            <% end %>
         </div>
     </div>
 </div>

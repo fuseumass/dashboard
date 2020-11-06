@@ -36,7 +36,7 @@ class MentorshipRequestsController < ApplicationController
     end
 
     if current_user.is_attendee? or current_user.is_mentor?
-      if !current_user.has_slack?
+      if HackumassWeb::Application::SLACK_ENABLED and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our mentorship page.'
       end
     end
@@ -84,12 +84,14 @@ class MentorshipRequestsController < ApplicationController
         mentor_ids.add(n.user_id)
       end
 
-      mentor_ids.each do |user_id|
-        slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")
+      if HackumassWeb::Application::SLACK_ENABLED
+        mentor_ids.each do |user_id|
+          slack_notify_user(User.where(id: user_id).first.slack_id, "New mentorship request: \n #{@mentorship_request.title} \n\nfrom #{@mentorship_request.user.full_name}\n\nUrgency: #{@mentorship_request.urgency_str}\n\nTechnologies: #{@mentorship_request.tech}\n\nSee more details: https://#{HackumassWeb::Application::DASHBOARD_URL}/mentorship_requests/#{@mentorship_request.id}")
+        end
+        slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")
       end
-      slack_notify_user(@mentorship_request.user.slack_id, "You just submitted a mentorship request: #{@mentorship_request.title} \n\nA mentor should slack you soon. Wait 15 minutes, and if you don't hear from anyone, go to the mentorship table. Best of luck with your issue!")
 
-      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should slack you soon. Wait 15 minutes, and if you don\'t hear from anyone, go to the mentorship table.'
+      redirect_to mentorship_requests_path, notice: 'Mentorship request successfully created. A mentor should contact you soon.'
     else
       render :new # New mentorship request if previous is unsuccessful
     end
@@ -133,6 +135,12 @@ class MentorshipRequestsController < ApplicationController
   # Mark request status as denied
 
   def message_on_slack
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:alert] = "Slack integration disabled. Please enable Slack integration to use this feature."
+      return
+    end
+
     request = MentorshipRequest.find(params[:mentorship_request])
     usr = User.find(request.user_id)
     slack_id = usr.get_slack_id

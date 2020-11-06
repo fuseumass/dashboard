@@ -67,10 +67,12 @@ class MentorshipNotificationsController < ApplicationController
     
     respond_to do |format|
       if @mentorship_notification.update(mentorship_notification_params)
-        if @mentorship_notification.all
-          slack_notify_user(@mentorship_notification.user.slack_id, "You just updated your mentorship request notification preferences. You will be notified for all mentorship requests. Thanks! (Make sure you turn off Slack do not disturb mode and enable notifications!)")
-        else
-          slack_notify_user(@mentorship_notification.user.slack_id, "You just updated your mentorship request notification preferences. You will be notified for mentorship requests with these tech categories: #{@mentorship_notification.tech}. Thanks! (Make sure you turn off Slack do not disturb mode and enable notifications!)")
+        if HackumassWeb::Application::SLACK_ENABLED
+          if @mentorship_notification.all
+            slack_notify_user(@mentorship_notification.user.slack_id, "You just updated your mentorship request notification preferences. You will be notified for all mentorship requests. Thanks! (Make sure you turn off Slack do not disturb mode and enable notifications!)")
+          else
+            slack_notify_user(@mentorship_notification.user.slack_id, "You just updated your mentorship request notification preferences. You will be notified for mentorship requests with these tech categories: #{@mentorship_notification.tech}. Thanks! (Make sure you turn off Slack do not disturb mode and enable notifications!)")
+          end
         end
         format.html { redirect_to mentorship_requests_path, notice: 'Mentorship notification was successfully updated.' }
         format.json { render :show, status: :ok, location: @mentorship_notification }

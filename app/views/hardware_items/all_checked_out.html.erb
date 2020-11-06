@@ -36,16 +36,17 @@
         <thead>
           <tr>
             <th colspan=5>
-              <form method="post" action="<%= slack_message_all_checked_out_hardware_items_path %>" onsubmit="return confirm('WARNING! This will slack message through the API all of the users on this page.')">
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-                <input type="hidden" name="message" value="Please return this item to the hardware table." />
-                <% if @individual %>
-                <input type="submit" value="Ask <%= @email %> to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
-                <% else %>
-                  <input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
-                <% end %>
-
-              </form>
+              <% if HackumassWeb::Application::SLACK_ENABLED %>
+                <form method="post" action="<%= slack_message_all_checked_out_hardware_items_path %>" onsubmit="return confirm('WARNING! This will slack message through the API all of the users on this page.')">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+                  <input type="hidden" name="message" value="Please return this item to the hardware table." />
+                  <% if @individual %>
+                  <input type="submit" value="Ask <%= @email %> to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+                  <% else %>
+                    <input type="submit" value="Ask All to Return Items" class="btn btn-sm btn-danger"  onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;"  />
+                  <% end %>
+                </form>
+              <% end %>
             </th>
           </tr>
           <tr>
@@ -69,8 +70,9 @@
                 <input type="hidden" name="checkout_id" value="<%= checkout.id %>" />
                 <input type="hidden" name="message" value="Please return this item to the hardware table." />
                 <input type="submit" value="Ask to Return Item" class="btn btn-sm btn-success" onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;" />
-
-                <a href="<%= checkout.user.get_slack_message_link %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Open Slack</a></td>
+                <% if HackumassWeb::Application::SLACK_ENABLED %>
+                  <a href="<%= checkout.user.get_slack_message_link %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Open Slack</a></td>
+                <% end %>
               </form>
             </td>
             <td>

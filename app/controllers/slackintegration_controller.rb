@@ -8,6 +8,11 @@ class SlackintegrationController < ApplicationController
   
   def index
     puts params
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:error] = "Slack integration disabled. Please enable Slack integration to access this feature."
+    end
+
     hackathonname = "#{HackumassWeb::Application::HACKATHON_NAME} #{HackumassWeb::Application::HACKATHON_VERSION}"
     integ_token = HackumassWeb::Application::SLACKINTEGRATION_TOKEN
     if not integ_token or integ_token.length == 0
@@ -42,6 +47,11 @@ class SlackintegrationController < ApplicationController
   end
 
   def reassociate_all
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:error] = "Slack integration disabled. Please enable Slack integration to access this feature."
+    end
+
     if current_user.is_admin?
       if params[:force]
         cnt = slack_reassociate_users(nil, true)
@@ -61,6 +71,11 @@ class SlackintegrationController < ApplicationController
   end
 
   def reassociate_self
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:error] = "Slack integration disabled. Please enable Slack integration to access this feature."
+    end
+
     cnt = slack_reassociate_users(current_user.email)
     if cnt and cnt > 0
       flash[:success] = "Successfully associated your Slack and Dashboard accounts."

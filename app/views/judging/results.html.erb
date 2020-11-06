@@ -1,28 +1,14 @@
-<style>
-    div.container {
-        max-width: 100%;
-    }
-
-    .container > .card > .card-body {
-        overflow: scroll;
-    }
-
-    table.main-tbl th {
-        min-width: 100px;
-    }
-
-    .sm-field {
-        max-width: 150px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-</style>
 <div class="page-header" style="position: relative">
   <h1 class="page-title">Judging Results</h1>
   <span style='position: absolute; right: 0'>
-    <%= link_to 'Show All Fields in Table', "?project_id=#{params[:project_id]}&all_table=1", class: 'btn btn-primary' %>
+    <% if params[:all_table] %>
+        <%= link_to 'Hide Table View', "?project_id=#{params[:project_id]}", class: 'btn btn-secondary' %>
+    <% else %>
+        <%= link_to 'Show Table View', "?project_id=#{params[:project_id]}&all_table=1", class: 'btn btn-secondary' %>
+    <% end %>
     <%= link_to 'View Project', project_path(@project.id), class: 'btn btn-primary' %>
   </span>
+
 </div>
 
 <div class="card">
@@ -32,15 +18,15 @@
         <% if @scores.nil? or @scores.empty? %>
             <p>No Scores Submitted For This Project.</p>
         <% else %>
-            <table class="table table-hover table-outline table-vcenter card-table main-tbl">
+            <table class="table table-hover table-striped table-vcenter card-table table-sm">
                 <thead>
-                <tr>
+                <tr class="text-center">
                     <th>Judge</th>
                     <th>Tag</th>
                     <th>Score</th>
                     <% if params[:all_table] and @scores %>
                         <% @scores.last.custom_scores.keys.each do |field| %>
-                            <th class="sm-field"><%= field.titleize %></th>
+                            <th><%= field.titleize %></th>
                         <% end %>
                     <% end %>
                     <th>Action</th>
@@ -49,7 +35,7 @@
 
                 <tbody>
                     <% @scores.each do |score| %>
-                        <tr>
+                        <tr class="text-center">
                             <td><%= score.user.full_name %></td>
                             <td><%= score.tag %></td>
                             <td>
@@ -59,19 +45,23 @@
                             <% if params[:all_table] and score %>
                                 <% score.custom_scores.keys.each do |field| %>
                                     <% if score.custom_scores[field].length > 4 %>
-                                        <td style="text-align: center; min-width: 400px !important"><%= score.custom_scores[field] %></td>
+                                        <td><%= score.custom_scores[field] %></td>
                                     <% else %>
-                                        <td style="text-align: center; max-width: 500px"><%= score.custom_scores[field] %></td>
+                                        <td><%= score.custom_scores[field] %></td>
                                     <% end %>
                                 <% end %>
                             <% end %>
                             <td>
+                              <div style="text-align: center;">
                                 <%= form_tag destroy_judgement_path, method: :post, class:'form-inline' do%>
-                                    <a type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#<%= score.id %>modal" href="<%= judgement_path(score.id) %>">Details</button>
+                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-primary mr-1" data-toggle="modal" data-target="#<%= score.id %>modal" href="<%= judgement_path(score.id) %>">Details</a>
                                     <%= text_field_tag :judgement_id, "", class: 'form-control', value: score.id, required: true, hidden: true %>
-                                    <%= link_to 'Edit', edit_judgement_path(score.id), class: 'btn btn-warning' %> &nbsp; 
+                                    <%= link_to 'Edit', edit_judgement_path(score.id), class: 'btn btn-warning' %> &nbsp;
                                     <%= button_tag 'Delete', type: :submit, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this judgement? This can not be undone!' } %>
+                                  </div>
                                 <% end %>
+                              </div>
                             </td>
                         </tr>
                     <% end %>

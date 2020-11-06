@@ -16,7 +16,7 @@ input[type='range'] {
 </style>
 
 <%= form_for(@judgement, html: {multipart: true}) do |f| %>
-    <% if ((current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '')) or @editing %>
+    <% if (current_user.is_admin? or current_user.is_organizer?) and (params[:tag].nil? or params[:tag] == '') %>
         <div class="row mt-5 mb-5">
             <div class="col form-group">
                 <b><%= f.label :tag, 'Describe this judgement with a tag. (optional)' %></b>

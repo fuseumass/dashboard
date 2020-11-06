@@ -1,0 +1,115 @@
+<h3 class="page-title">All Projects</h3>
+
+<br>
+<%= form_tag judging_index_path, method: :get, class: 'col-lg-12' do %>
+  <div class="row gutters-xs">
+    <div class="col">
+      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by project title, table number, judge\'s name, or status.' %>
+    </div>
+    <span class="col-auto">
+      <%= submit_tag 'Search', name: nil, class: 'btn btn-secondary' %>
+      <a href="/judging.csv" class="btn btn-secondary">Download as CSV</a>
+    </span>
+  </div>
+
+
+  <!-- Filtering Project Search Results -->
+  <div class="row mt-3 pt-3 pb-3 mb-3 border-top border-bottom">
+    <div class="col-auto">
+      <b class="h4"> Filter </b><i class="fe fe-filter mr-5"></i>
+      <%= link_to "Assigned", "?search=status:assigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
+      <%= link_to "Unassigned", "?search=status:unassigned", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
+      <%= link_to "Judged", "?search=status:judged", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
+      <%= link_to "Unjudged", "?search=status:unjudged", class: 'btn btn-secondary btn-sm' %> &nbsp;
+
+      <b class="ml-4">Prize Category:</b> &nbsp;
+      <select onchange="if(this.value) location.href = '?prize=' + this.value; else location.href = '?';">
+        <option value=""
+          <% unless params[:prize] %> selected
+                <% end %> />
+        ---------------------
+        <% Prize.where(project_selectable: true).each do |p| %>
+          <option
+            <% if params[:prize] == p.criteria %> selected
+            <% end %>><%= p.criteria %></option>
+        <% end %>
+      </select>
+      <span class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Filter projects by the prize category that they are applying for." data-placement="bottom"><i class="fe fe-help-circle"></i></span> &nbsp;
+    </div>
+  </div>
+<% end %>
+
+
+<div class="table-responsive">
+  <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+    <thead>
+    <tr>
+      <th>Table #</th>
+      <th>Title</th>
+      <% if current_user.user_type == 'admin' %>
+        <th>Judge Actions</th>
+        <th>Times Judged</th>
+        <th>Open Judgements</th>
+        <th>Avg. Score</th>
+        <th>Actions</th>
+      <% else %>
+        <th>Times Judged</th>
+        <th>Action</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <% if project.table_id.nil? %>
+          <td>TBD</td>
+        <% else %>
+          <td>
+            <%= project.table_id %>
+            <% if project.power %>
+              (Outlet)
+            <% end %>
+          </td>
+        <% end %>
+
+        <td><%= link_to truncate(project.title, length: 30), project %></td>
+
+        <% if current_user.user_type == 'admin' %>
+          <td>
+            <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
+            <%= link_to "Assign Judges", assign_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
+          </td>
+          <td style="text-align: center"><%= @times_judged[project.id] %></td>
+          <td style="text-align: center"><%= @open_judgements[project.id] %></td>
+          <td style="text-align: center"><%= @avg_score[project.id] %></td>
+          <td>
+            <%= link_to "View Scores", results_judging_index_path(:project_id => project.id), class: 'btn btn-secondary' %>
+          </td>
+        <% else %>
+          <td style="text-align: center"><%= @times_judged[project.id] %></td>
+          <td>
+            <%= link_to "Judge", new_judging_path(:project_id => project.id), class: 'btn btn-primary' %>
+          </td>
+        <% end %>
+
+      </tr>
+    <% end %>
+    <% if @projects.length == 0 %>
+      <tfoot>
+      <tr>
+        <td colspan=7>There were no projects found matching the criteria.</td>
+      </tr>
+      </tfoot>
+    <% end %>
+    </table>
+</div>
+
+<hr>
+
+<center class="mb-4">
+  <%= will_paginate @projects %>
+</center>

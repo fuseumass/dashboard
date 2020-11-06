@@ -1,0 +1,45 @@
+<% if !@assigned.nil? and !@assigned.empty? %>
+  <h3 class="page-title">Assigned to Me</h3>
+  <br>
+  <div class="table-responsive">
+    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <thead>
+      <tr>
+        <th>Table #</th>
+        <th>Title</th>
+        <th>Tag</th>
+        <th>Times Judged</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @assigned.each do |asn| %>
+        <tr>
+          <% if asn.project.table_id.nil? %>
+            <td>TBD</td>
+          <% else %>
+            <td><%= asn.project.table_id %>
+              <% if asn.project.power %>
+                (Outlet)
+              <% end %>
+            </td>
+          <% end %>
+
+          <td><%= link_to truncate(asn.project.title, length: 30), asn.project %></td>
+
+          <td>
+            <% unless asn.tag.nil? %> <%=  asn.tag  %>
+            <% end %> </td>
+
+          <td style="text-align: center"><%= @times_judged[asn.project.id] %></td>
+
+          <td><%= link_to "Judge", new_judging_path(:project_id => asn.project.id, :tag => asn.tag), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  You have no projects assigned to judge.
+<% end %>

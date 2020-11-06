@@ -6,174 +6,183 @@
 <% end %>
 <!-- Alert user if they have been assigned this project. -->
 <div class="card">
-<% if @editing %>
-  <div class="card-header text-green lead"> <h1 class="card-title"> You are editing your previous judgement for this project. </h1> </div>
-  <% if @judgement.tag.nil? and @judgement.tag != '' %> <div class="card-body"> <p class="lead">Category: <%= @judgement.tag %> </p> </div> <% end %>
-<% elsif !@assignment.nil? %>
-  <div class="card-header text-green lead"> <h1 class="card-title"> You have been assigned to judge this project. </h1> </div>
-  <% if !params[:tag].nil? and params[:tag] != '' %> <div class="card-body"> <p class="lead">Category: <%= params[:tag] %> </p> </div> <% end %>
-<% else %>
-  <div class="card-header text-red lead"> <h1 class="card-title"> You have not been assigned this project to judge. </h1> </div>
-  <div class="card-body"> <p class="lead">You may still submit a judgement</p> </div>
-<% end %>
+  <% if @editing %>
+    <div class="card-header text-green lead">
+      <h1 class="card-title"> You are editing your previous judgement for this project. </h1></div>
+    <% if @judgement.tag.nil? and @judgement.tag != '' %>
+      <div class="card-body"><p class="lead">Category: <%= @judgement.tag %> </p></div>
+    <% end %>
+  <% elsif !@assignment.nil? %>
+    <div class="card-header text-green lead"><h1 class="card-title"> You have been assigned to judge this project. </h1>
+    </div>
+    <% if !params[:tag].nil? and params[:tag] != '' %>
+      <div class="card-body"><p class="lead">Category: <%= params[:tag] %> </p></div>
+    <% end %>
+  <% else %>
+    <div class="card-header text-red lead">
+      <h1 class="card-title"> You have not been assigned this project to judge. </h1></div>
+    <div class="card-body"><p class="lead">You may still submit a judgement</p></div>
+  <% end %>
 </div>
 
 <% if @judgement.errors.any? %>
-        <div class="card">
-          <div class="card-status bg-danger"></div>
-          <div class="card-header">
-            <h3 class="page-title">
-                <%=pluralize(@judgement.errors.count, 'error') %> prohibited this
-                judgement from being submitted:
-            </h3>
-          </div>
-          <div class="card-body event-judgement-error-card-padding">
-            <ul>
-              <% @judgement.errors.values.each do |message| %>
-                <li>
-                  <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '').titleize %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
-
-      <style>
-  
-      </style>
-      
-      <div class="row">
-      <div class="col-md-6">
-      
-    <div style="min-height:250px;" class="card">
-        <div class="card-header"> <h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1> </div>
-        <div class="card-body"> <p> Description: <%= @project['description'] %> </p> 
-         <button id="mobileModalBtn" class="btn btn-primary bg-primary-color">Show Project Details</button>   
-        </div>   
+  <div class="card">
+    <div class="card-status bg-danger"></div>
+    <div class="card-header">
+      <h3 class="page-title">
+        <%= pluralize(@judgement.errors.count, 'error') %> prohibited this
+        judgement from being submitted:
+      </h3>
     </div>
- 
-      </div>
+    <div class="card-body event-judgement-error-card-padding">
+      <ul>
+        <% @judgement.errors.values.each do |message| %>
+          <li>
+            <%= message.to_s.gsub(%r{[\[\]"]}, '').gsub(%r{\\n}, '').titleize %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
-      <div class="col-md-6">
-  <div style="min-height:250px;" class="card">      
-      <div class="card-header "><h4 class="card-header-padding">Table Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned': @project.table_id %>
+<style>
+
+</style>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div style="min-height:250px;" class="card">
+      <div class="card-header"><h1 class="card-title font-weight-bold"> Title: <%= @project['title'].titleize %> </h1>
+      </div>
+      <div class="card-body"><p> Description: <%= @project['description'] %> </p>
+        <button id="mobileModalBtn" class="btn btn-primary bg-primary-color">Show Project Details</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-6">
+    <div style="min-height:250px;" class="card">
+      <div class="card-header "><h4 class="card-header-padding">Table
+        Number:&nbsp;<%= @project.table_id.nil? ? 'Unassigned' : @project.table_id %>
         <% if @project.power %>
           (TBL)
         <% end %>
       </h4></div>
 
-  <div class="card-body">
-  <h5>Team Members:</h5>
-  <% @project.user.each do |projUser| %>
-  <p><%= projUser.first_name %> &nbsp;<%= projUser.last_name %></p>
-  <% end %>
+      <div class="card-body">
+        <h5>Team Members:</h5>
+        <% @project.user.each do |projUser| %>
+          <p><%= projUser.first_name %> &nbsp;<%= projUser.last_name %></p>
+        <% end %>
+      </div>
+    </div>
+
   </div>
-  </div>
-  
-  </div>
-  </div>
+</div>
 
 <style>
-#myModal h5 {
+    #myModal h5 {
 
-}
+    }
 </style>
 <div id="myModal" class="modal">
-<div class="modal-content">
-  <span class="close"></span>
+  <div class="modal-content">
+    <span class="close"></span>
 
-  <h5 class="mt-0 mb-0">Description as a Tweet:</h5>
-  <p>
-    <%= simple_format(@project.description) %>
-  </p>
+    <h5 class="mt-0 mb-0">Description as a Tweet:</h5>
+    <p>
+      <%= simple_format(@project.description) %>
+    </p>
 
-  <h5 class="mt-0 mb-0">Inspiration:</h5>
-  <p>
-    <%= simple_format(@project.inspiration) %>
-  </p>
+    <h5 class="mt-0 mb-0">Inspiration:</h5>
+    <p>
+      <%= simple_format(@project.inspiration) %>
+    </p>
 
-  <h5 class="mt-0 mb-0">What it does:</h5>
-  <p>
-    <%= simple_format(@project.does_what) %>
-  </p>
+    <h5 class="mt-0 mb-0">What it does:</h5>
+    <p>
+      <%= simple_format(@project.does_what) %>
+    </p>
 
-  <h5 class="mt-0 mb-0">How we built it:</h5>
-  <p>
-    <%= simple_format(@project.built_how) %>
-  </p>
+    <h5 class="mt-0 mb-0">How we built it:</h5>
+    <p>
+      <%= simple_format(@project.built_how) %>
+    </p>
 
-  <h5 class="mt-0 mb-0">Technologies we used:</h5>
-  <ul>
-  <% unless @project.tech.empty? or @project.tech == "{}" %>
-    <% @project.tech.each do |tech| %>
-      <li><%= tech %></li>
-    <% end %>
-  <% end %>
-  </ul>
-
-  <h5 class="mt-0 mb-0">Challenges we ran into:</h5>
-  <p>
-    <%= simple_format(@project.challenges) %>
-  </p>
-
-  <h5 class="mt-0 mb-0">Accomplishments we're proud of:</h5>
-  <p>
-    <%= simple_format(@project.accomplishments) %>
-  </p>
-
-  <h5 class="mt-0 mb-0">What we've learned:</h5>
-  <p>
-    <%= simple_format(@project.learned) %>
-  </p>
-
-  <h5 class="mt-0 mb-0">What's next:</h5>
-  <p>
-    <%= simple_format(@project.next) %>
-  </p>
-
-  <h5 class="mt-0 mb-0">Built with:</h5>
-  <p>
-    <%= simple_format(@project.built_with) %>
-  </p>
-
-  <h5 class="mt-0 mb-0">Prizes we're going for:</h5>
-  <p>
-    <% if @project.prizes != "{}" and not @project.prizes.empty? %>
+    <h5 class="mt-0 mb-0">Technologies we used:</h5>
     <ul>
-      <% @project.prizes.each do |prize| %>
-        <li><%= prize %></li>
+      <% unless @project.tech.empty? or @project.tech == "{}" %>
+        <% @project.tech.each do |tech| %>
+          <li><%= tech %></li>
+        <% end %>
       <% end %>
     </ul>
+
+    <h5 class="mt-0 mb-0">Challenges we ran into:</h5>
+    <p>
+      <%= simple_format(@project.challenges) %>
+    </p>
+
+    <h5 class="mt-0 mb-0">Accomplishments we're proud of:</h5>
+    <p>
+      <%= simple_format(@project.accomplishments) %>
+    </p>
+
+    <h5 class="mt-0 mb-0">What we've learned:</h5>
+    <p>
+      <%= simple_format(@project.learned) %>
+    </p>
+
+    <h5 class="mt-0 mb-0">What's next:</h5>
+    <p>
+      <%= simple_format(@project.next) %>
+    </p>
+
+    <h5 class="mt-0 mb-0">Built with:</h5>
+    <p>
+      <%= simple_format(@project.built_with) %>
+    </p>
+
+    <h5 class="mt-0 mb-0">Prizes we're going for:</h5>
+    <p>
+      <% if @project.prizes != "{}" and not @project.prizes.empty? %>
+      <ul>
+        <% @project.prizes.each do |prize| %>
+          <li><%= prize %></li>
+        <% end %>
+      </ul>
     <% else %>
       No Prizes Chosen
     <% end %>
-  </p>
+    </p>
 
   </div>
   <!-- End modal Content-->
 </div>
 <!-- End modal -->
 <script>
-  var modal = document.getElementById("myModal");
-  var btn = document.getElementById("mobileModalBtn");
-  var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("mobileModalBtn");
+    var span = document.getElementsByClassName("close")[0];
 
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+    btn.onclick = function () {
+        modal.style.display = "block";
     }
-  }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>
-  <div class="card">
+<div class="card">
   <div class="card-body">
     <%= render "judging_fields", judgement: @judgement, project: @project_id %>
   </div>
-  </div>
+</div>
 

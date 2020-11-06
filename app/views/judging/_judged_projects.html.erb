@@ -1,0 +1,48 @@
+<% if !@judged_by_me.nil? and !@judged_by_me.empty? %>
+  <h3 class="page-title"> Judged By Me </h3>
+  <br>
+  <div class="table-responsive">
+    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <thead>
+      <tr>
+        <th>Table #</th>
+        <th>Title</th>
+        <th>Tag</th>
+        <th>Times Judged</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @judged_by_me.each do |judgement| %>
+        <tr>
+          <% if judgement.project.table_id.nil? %>
+            <td>TBD</td>
+          <% else %>
+            <td>
+              <%= judgement.project.table_id %>
+              <% if judgement.project.power %>
+                (Outlet)
+              <% end %>
+            </td>
+          <% end %>
+
+          <td><%= link_to truncate(judgement.project.title, length: 30), judgement.project %></td>
+
+          <td>
+            <% if !judgement.tag.nil? %> <%= judgement.tag %>
+            <% end %> </td>
+
+          <td><%= @times_judged[judgement.project.id] %> (including you)</td>
+          <td>
+            <%= link_to "View", judgement_path(:id => judgement.id), class: 'btn btn-primary' %>
+            <%= link_to "Edit", edit_judgement_path(:id => judgement.id), class: 'btn btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>You have not judged any projects.</p>
+<% end %>

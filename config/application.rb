@@ -48,7 +48,7 @@ module HackumassWeb
     PROJECTS_PUBLIC = config["projects"]["public"]
     HACKING_BEGINS_DATE = config["projects"]["hacking_begins"]
     HACKING_ENDS_DATE = config["projects"]["hacking_ends"]
-    EMAIL_VERIFICATION = config["emails"]["email_verification"]
+    EMAIL_VERIFICATION = ActiveModel::Type::Boolean.new.cast(config["emails"]["email_verification"])
 
     SLACK_ENABLED = ActiveModel::Type::Boolean.new.cast(config["slack"]["enabled"])
     if SLACK_ENABLED

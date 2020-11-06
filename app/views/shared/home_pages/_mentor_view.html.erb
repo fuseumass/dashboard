@@ -8,31 +8,32 @@
   </div>	
 </div>
 
-<% if current_user.has_slack? %>
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card">
-      <div class="card-status card-status-left bg-dark"></div>
-      <div class="card-body d-flex flex-column">
-        <p><b>Thanks!</b> You joined our Slack! Try checking out the <b>#mentorship</b> channel! See if people need help with their hacks or forming teams.</p>
-        <a href="https://<%= HackumassWeb::Application::SLACK_SUBDOMAIN %>.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
-      </div>
-    </div>
-  </div>
-</div>
-<% else %>
+<% if HackumassWeb::Application::SLACK_ENABLED %>
+  <% if current_user.has_slack? %>
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-status card-status-left bg-purple"></div>
+        <div class="card-status card-status-left bg-dark"></div>
         <div class="card-body d-flex flex-column">
-          <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/mentor_no_slack') %>  
+          <p><b>Thanks!</b> You joined our Slack! Try checking out the <b>#mentorship</b> channel! See if people need help with their hacks or forming teams.</p>
+          <a href="https://<%= HackumassWeb::Application::SLACK_SUBDOMAIN %>.slack.com/app_redirect?channel=mentorship" target="_blank" class="btn btn-dark"><i class="fe fe-slack mr-2"></i>Go to #mentorship channel</a>
         </div>
       </div>
     </div>
   </div>
+  <% else %>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-status card-status-left bg-purple"></div>
+          <div class="card-body d-flex flex-column">
+            <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/mentor_no_slack') %>  
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
-
 <div class="row">
   <div class="col-sm-12 col-lg-4">
     <div class="card">
@@ -94,7 +95,9 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-4">
-    <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/slack_channels') %>  
-  </div>
+  <% if HackumassWeb::Application::SLACK_ENABLED %>
+    <div class="col-sm-12 col-lg-4">
+      <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/slack_channels') %>  
+    </div>
+  <% end %>
 </div>

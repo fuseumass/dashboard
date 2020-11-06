@@ -2,6 +2,17 @@
   <h1 class="page-title">Slack Integration</h1>
 </div>
 
+<% if !HackumassWeb::Application::SLACK_ENABLED %>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body"> 
+        <p class="text-danger"><strong>Slack Integration Not Enabled</strong></p>
+        <p>Changes on this page will not have any effect unless Slack integration is enabled.</p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">

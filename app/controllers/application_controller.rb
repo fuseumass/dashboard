@@ -71,6 +71,9 @@ class ApplicationController < ActionController::Base
   end
 
   def slack_notify_user(user_id, message)
+    if !HackumassWeb::Application::SLACK_ENABLED
+      return
+    end
     bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
     if not bot_accesstok or bot_accesstok.length == 0
       puts "No bot access token. Unable to notify #{user_id} with #{message}"
@@ -101,6 +104,9 @@ class ApplicationController < ActionController::Base
   end
 
   def slack_get_user_email(user_id)
+    if !HackumassWeb::Application::SLACK_ENABLED
+      return ""
+    end
     bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
     if not bot_accesstok or bot_accesstok.length == 0
       puts "No bot access token"
@@ -128,6 +134,9 @@ class ApplicationController < ActionController::Base
   end
 
   def slack_reassociate_users(user_email = nil, force = false)
+    if !HackumassWeb::Application::SLACK_ENABLED
+      return -1
+    end
     bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
     if not bot_accesstok or bot_accesstok.length == 0
       puts "No bot access token"

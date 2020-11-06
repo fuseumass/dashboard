@@ -83,6 +83,13 @@ class HardwareItemsController < ApplicationController
   end
 
   def slack_message_all_checked_out
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:alert] = "Slack integration disabled. Please enable Slack integration to use this feature."
+      redirect_to hardware_items_url
+      return
+    end
+
     cnt = 0
     message = params[:message] or ""
 
@@ -102,6 +109,13 @@ class HardwareItemsController < ApplicationController
   end
 
   def slack_message_individual_checkout
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:alert] = "Slack integration disabled. Please enable Slack integration to use this feature."
+      redirect_to hardware_items_url
+      return
+    end
+
     c = HardwareCheckout.find(params[:checkout_id])
     user = User.find(c.user_id)
     hwitem = HardwareItem.find(c.hardware_item_id)
@@ -117,6 +131,13 @@ class HardwareItemsController < ApplicationController
   end
 
   def slack_message_individual_item
+
+    if !HackumassWeb::Application::SLACK_ENABLED
+      flash[:alert] = "Slack integration disabled. Please enable Slack integration to use this feature."
+      redirect_to hardware_item_path(params[:hwitem_id])
+      return
+    end
+
     cnt = 0
     message = params[:message] or ""
 
@@ -159,7 +180,7 @@ class HardwareItemsController < ApplicationController
 
     # Users who are attendees and don't have slack are not allowed to look at the hardware inventory
     def check_attendee_slack
-      if current_user and current_user.is_attendee? and !current_user.has_slack?
+      if current_user and HackumassWeb::Application::SLACK_ENABLED and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our hardware page.'
       end
     end

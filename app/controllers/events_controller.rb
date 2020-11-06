@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :check_permissions, except: :index
   before_action -> { is_feature_enabled($Events) }
   def index
-    if current_user and current_user.is_attendee? and !current_user.has_slack?
+    if HackumassWeb::Application::SLACK_ENABLED and current_user and current_user.is_attendee? and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access our events page.'
     end
     if session[:return_to]

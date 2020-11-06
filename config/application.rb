@@ -42,15 +42,23 @@ module HackumassWeb
     FAVICON_URL = config["logos"]["favicon_url"]
     DONOTREPLY = config["emails"]["donotreply"]
     CONTACT_EMAIL = config["emails"]["contact"]
-    SLACK_SUBDOMAIN = config["slack"]["subdomain"]
     CHECKIN_UNIVERSITY_EMAIL_SUFFIX = config["checkin"]["university_email_suffix"]
     CHECKIN_UNIVERSITY_NAME = config["checkin"]["university_name"]
     CHECKIN_UNIVERSITY_NAME_CHECKS = config["checkin"]["university_name_checks"]
     PROJECTS_PUBLIC = config["projects"]["public"]
     HACKING_BEGINS_DATE = config["projects"]["hacking_begins"]
     HACKING_ENDS_DATE = config["projects"]["hacking_ends"]
-    SLACK_MESSAGE_URL_PREFIX = config["slack"]["message_url_prefix"]
     EMAIL_VERIFICATION = config["emails"]["email_verification"]
+
+    SLACK_ENABLED = ActiveModel::Type::Boolean.new.cast(config["slack"]["enabled"])
+    if SLACK_ENABLED
+      SLACK_MESSAGE_URL_PREFIX = config["slack"]["message_url_prefix"]
+      SLACK_SUBDOMAIN = config["slack"]["subdomain"]
+    else
+      SLACK_MESSAGE_URL_PREFIX = ""
+      SLACK_SUBDOMAIN = ""
+    end
+
 
     if config.key?('codes')
       CODES = config["codes"]
@@ -85,10 +93,17 @@ module HackumassWeb
     # ----------- DO NOT EDIT BELOW THIS LINE ------------
     # Secret keys for various external services, these keys/tokens are loaded from the secrets.yml file
     # Please first create & then paste your keys into secrets.yml following the format provided in the documentation
-    SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
-    SLACK_JOIN_URL = ENV['SLACK_JOIN_URL']
-    SLACKINTEGRATION_TOKEN = ENV['SLACKINTEGRATION_TOKEN']
-    SLACKINTEGRATION_BOT_ACCESS_TOKEN = ENV['SLACKINTEGRATION_BOT_ACCESS_TOKEN']
+    if SLACK_ENABLED
+      SLACK_WORKSPACE_TOKEN = ENV['SLACK_TOKEN']
+      SLACK_JOIN_URL = ENV['SLACK_JOIN_URL']
+      SLACKINTEGRATION_TOKEN = ENV['SLACKINTEGRATION_TOKEN']
+      SLACKINTEGRATION_BOT_ACCESS_TOKEN = ENV['SLACKINTEGRATION_BOT_ACCESS_TOKEN']
+    else
+      SLACK_WORKSPACE_TOKEN = ""
+      SLACK_JOIN_URL = ""
+      SLACKINTEGRATION_TOKEN = ""
+      SLACKINTEGRATION_BOT_ACCESS_TOKEN = ""
+    end
   end
 end
 

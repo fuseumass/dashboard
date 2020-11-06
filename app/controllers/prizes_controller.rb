@@ -5,7 +5,7 @@ class PrizesController < ApplicationController
 
   def index
     if current_user.is_attendee?
-      if !current_user.has_slack?
+      if HackumassWeb::Application::SLACK_ENABLED and !current_user.has_slack?
         redirect_to join_slack_path, alert: 'You will need to join slack before you access prizes.'
       end
     end

@@ -37,12 +37,13 @@
     <div class="card">
       <div class="card-status bg-success"></div>
       <div class="card-header">
-        <h3 class="card-title">Check Out Hardware</h3>
+        <h3 class="card-title">Make a Hardware Hack</h3>
       </div>
       <div class="card-body d-flex flex-column">
-        <center>
-          <%= image_tag @qr_image.to_data_url, style: 'height: 300px; width:300px' %>
-        </center>
+        <%# COMMENTED OUT DUE TO ONLINE NATURE OF HACKATHON. TODO: CHANGE FOR IN PERSON%>
+        <%# <center> %>
+          <%# image_tag @qr_image.to_data_url, style: 'height: 300px; width:300px' %>
+        <%#  </center> %>
         <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/checked_in_hardware') %>  
       </div>
     </div>

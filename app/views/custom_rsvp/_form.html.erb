@@ -93,16 +93,17 @@ function toggleHiddenField(hiddenId, checkBoxId) {
         <% if @rsvp_new and not @current_user.rsvp %>
         <%= f.submit 'Submit RSVP',
                     type: 'submit',
-                    class: 'btn btn-purple bg-primary-color' %>
+                    class: 'btn btn-success w-100' %>
         <% else %>
         <%= f.submit 'Update RSVP',
                     type: 'submit',
-                    class: 'btn btn-purple bg-primary-color' %>
+                    class: 'btn btn-success w-100' %>
         <% end %>
     </center>
     <% end %>
-    <br>
     <p></p>
+    <center>
     <%= form_tag unrsvp_path, method: :post do%>
-          <%= submit_tag "Sorry, I can't participate", class: 'btn btn-danger w-100', data: { confirm: 'Are you sure you will not come? By doing this you will be moving your application status from accepted to declined. There is no way to get accepted after clicking the okay button. Are you sure you want to decline your acceptance?' } %>
+          <%= submit_tag "Sorry, I can't participate", class: 'btn btn-danger', data: { confirm: 'Are you sure you will not come? By doing this you will be moving your application status from accepted to declined. There is no way to get accepted after clicking the okay button. Are you sure you want to decline your acceptance?' } %>
     <%end%>
+    </center>

@@ -69,8 +69,8 @@
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
                 <input type="hidden" name="checkout_id" value="<%= checkout.id %>" />
                 <input type="hidden" name="message" value="Please return this item to the hardware table." />
-                <input type="submit" value="Ask to Return Item" class="btn btn-sm btn-success" onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;" />
                 <% if HackumassWeb::Application::SLACK_ENABLED %>
+                  <input type="submit" value="Ask to Return Item" class="btn btn-sm btn-success" onclick="var p=prompt('Enter a custom message or leave the field blank for: Please return this item to the hardware table.');if(p) this.form.message.value=p;" />
                   <a href="<%= checkout.user.get_slack_message_link %>" target="_blank" class="btn btn-sm btn-dark"><i class="fe fe-slack mr-2"></i>Open Slack</a></td>
                 <% end %>
               </form>

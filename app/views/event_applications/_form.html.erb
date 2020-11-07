@@ -112,49 +112,13 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
       </div>
 
       <div class="form-group">
-        <%= f.label :food_restrictions,
-                    'Do you have any food allergies or dietary restrictions that we should know about?:',
-                    class: 'form-label event-application-required-field' %>
-        <div class="custom-controls-stacked">
-          <label class="custom-control custom-radio custom-control-inline">
-            <%= f.radio_button :food_restrictions,
-                               true,
-                               class: 'custom-control-input',
-                               onclick: 'toggleHiddenField(\'event_application_food_restrictions_info\', \'event_application_food_restrictions_true\')' %>
-            <span class="custom-control-label">Yes</span>
-          </label>
-          <label class="custom-control custom-radio custom-control-inline">
-            <%= f.radio_button :food_restrictions,
-                               false,
-                               class: 'custom-control-input',
-                               onclick: 'toggleHiddenField(\'event_application_food_restrictions_info\', \'event_application_food_restrictions_true\')' %>
-            <span class="custom-control-label">No</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="form-group event-application-hidden">
-        <%= f.label :food_restrictions_info,
-                    raw('Please list your dietary restrictions and allergies<noscript>, if you answer yes</noscript>:'),
-                    class: 'form-label' %>
-        <%= f.text_area :food_restrictions_info,
-                        rows: '5',
-                        class: 'form-control text-box',
-                        onkeyup: 'charCounter(1)' %>
-        <div class="form-label-small event-application-flex-end-container text-box-counter">
-          0 of 500
-        </div>
+        <%= f.hidden_field :food_restrictions, value: false %>
       </div>
 
       <div class="form-group">
-        <%= f.label :t_shirt_size,
-                    'T-Shirt Size:',
-                    class:'form-label event-application-required-field' %>
-        <%= f.select :t_shirt_size,
-                     ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                     {include_blank: true},
-                     {class: 'form-control custom-select'} %>
+        <%= f.hidden_field :t_shirt_size, value: 'N/A' %>
       </div>
+
 
       <div class="form-group">
         <%= f.label :resume,

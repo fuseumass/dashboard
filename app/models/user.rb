@@ -2,6 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of :first_name, :last_name
+  # validate that a new user has @umass.edu email to sign up
+  validates_format_of :email, with: /\@umass\.edu/, message: 'must have domain @umass.edu to register on Dashboard!'
 
   if !Rails.env.development? && HackumassWeb::Application::EMAIL_VERIFICATION
     devise :database_authenticatable, :registerable,
@@ -33,6 +35,11 @@ class User < ApplicationRecord
 
   # slack workspace token for your hackathon
   $workspace_token = "#{HackumassWeb::Application::SLACK_WORKSPACE_TOKEN}"
+
+  # ensure that any users that already signed up with non-UMass emails cannot sign in any longer
+  def active_for_authentication?
+    super && email.include?(HackumassWeb::Application::CHECKIN_UNIVERSITY_EMAIL_SUFFIX)
+  end
 
   # Use type checkers
   def is_attendee?

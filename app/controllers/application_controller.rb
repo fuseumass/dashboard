@@ -74,31 +74,29 @@ class ApplicationController < ActionController::Base
     if !HackumassWeb::Application::SLACK_ENABLED
       return
     end
-    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
-    if not bot_accesstok or bot_accesstok.length == 0
+    bot_access_token = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+    if not bot_access_token or bot_access_token.length == 0
       puts "No bot access token. Unable to notify #{user_id} with #{message}"
       return false
     end
     puts "Notifying #{user_id} with #{message}"
 
-    uri = URI.parse("https://slack.com/api/chat.postMessage")
-    request = Net::HTTP::Post.new(uri)
-    request.content_type = "application/json"
-    request["Authorization"] = "Bearer #{bot_accesstok}"
+    target_url = "https://slack.com/api/chat.postMessage"
+
+    uri = URI(target_url)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri.path)
     request.body = JSON.dump({
       "channel" => user_id,
       "text" => message,
       "as_user" => true
     })
-    puts request
+    request.content_type = "application/json"
+    request['Authorization'] = 'Bearer ' + bot_access_token
 
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
-
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
+    response = https.request(request)
     puts response.body
 
   end
@@ -107,24 +105,26 @@ class ApplicationController < ActionController::Base
     if !HackumassWeb::Application::SLACK_ENABLED
       return ""
     end
-    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
-    if not bot_accesstok or bot_accesstok.length == 0
+    bot_access_token = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+
+    if not bot_access_token or bot_access_token.length == 0
       puts "No bot access token"
       return false
     end
     puts "Getting email of #{user_id}"
 
-    uri = URI.parse("https://slack.com/api/users.info?token=#{bot_accesstok}&user=#{user_id}")
-    request = Net::HTTP::Get.new(uri)
-    puts request
+    target_url = "https://slack.com/api/users.info"
 
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
+    uri = URI(target_url)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    params = { :user => user_id}
+    uri.query = URI.encode_www_form( params )
 
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
+    request = Net::HTTP::Get.new(uri.path)
+    request['Authorization'] = 'Bearer ' + bot_access_token
+
+    response = https.request(request)
 
     res = JSON.parse(response.body)
     puts res
@@ -137,24 +137,25 @@ class ApplicationController < ActionController::Base
     if !HackumassWeb::Application::SLACK_ENABLED
       return -1
     end
-    bot_accesstok = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
-    if not bot_accesstok or bot_accesstok.length == 0
+    bot_access_token = HackumassWeb::Application::SLACKINTEGRATION_BOT_ACCESS_TOKEN
+    if not bot_access_token or bot_access_token.length == 0 
       puts "No bot access token"
       return false
     end
     puts "Getting email and user ids from Slack"
 
-    uri = URI.parse("https://slack.com/api/users.list?token=#{bot_accesstok}")
-    request = Net::HTTP::Get.new(uri)
-    puts request
 
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
+    target_url = "https://slack.com/api/users.list"
 
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
+    uri = URI(target_url)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+
+    request = Net::HTTP::Get.new(uri.path)
+    request.content_type = "application/json"
+    request['Authorization'] = 'Bearer ' + bot_access_token
+
+    response = https.request(request)
 
     count = 0
     res = JSON.parse(response.body)

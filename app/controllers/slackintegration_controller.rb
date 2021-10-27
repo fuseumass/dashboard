@@ -17,8 +17,10 @@ class SlackintegrationController < ApplicationController
     integ_token = HackumassWeb::Application::SLACKINTEGRATION_TOKEN
     if not integ_token or integ_token.length == 0
       render json: { "error" => "no_token" }
+    elsif params[:token] == nil
+      render json: { "error" => "token_param_nil" }
     elsif params[:token] != integ_token
-      render json: { "error" => "invalid_token" }
+      render json: { "error" => "invalid_token" + params[:token] }
     elsif params[:type] == 'url_verification'
       render json: { "challenge" => params[:challenge] }
     elsif params[:type] == 'event_callback'

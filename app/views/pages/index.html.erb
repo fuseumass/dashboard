@@ -9,6 +9,8 @@
     <%= render 'shared/home_pages/organizer_view'%>
   <% elsif current_user.is_mentor? %>
     <%= render 'shared/home_pages/mentor_view'%>
+  <% elsif current_user.check_in %>
+    <%= render 'shared/home_pages/checked_in_view'%>
   <% else %>
     <% if current_user.has_applied? %>
       <% if current_user.event_application.status == 'undecided' %>

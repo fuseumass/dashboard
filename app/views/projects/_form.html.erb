@@ -171,10 +171,13 @@
     <div class='card'>
       <div class='card-body'>
         <h3>
-          For judging purposes, do you need a wall outlet?
+          For judging purposes, are you participating only virtually? Otherwise, leave blank.
         </h3>
+        <%# Note that the question now asks for confirmation of being a virtual participant and not the wall outlet requirement so %>
+        <%# while this may not be the best practice for long term development, I am leaving the form field as supplying the :power %>
+        <%# symbol in the interest of not wrangling with model changes and creating updated migrations in the middle of the event %>
         <%= form.check_box(:power)%>
-        <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
+        <%= form.label :power,'Yes, I am a virtual participant for HackUMass IX!'%>
       </div>
     </div>
 

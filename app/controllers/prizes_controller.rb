@@ -1,6 +1,6 @@
 class PrizesController < ApplicationController
   before_action :set_prize, only: [:show, :edit, :update, :destroy]
-  before_action :check_permissions, only: [:show, :new, :edit]
+  before_action :check_permissions, only: [:show, :new, :edit, :assign, :set_prize_winner, :remove_prize_winner]
   before_action -> { is_feature_enabled($Prizes) }
 
   def index
@@ -42,6 +42,61 @@ class PrizesController < ApplicationController
   def destroy
     @prize.destroy
     redirect_to prizes_url, notice: 'Prize was successfully destroyed.'
+  end
+
+  # GET Route for marking a project as a prize winner
+  def assign
+    @prize = Prize.find(params[:prize_id])
+    @project = nil
+
+    Project.all.each do |p|
+      if p.prizes_won.include? @prize.criteria
+        @project = p
+        break
+      end
+    end
+
+  end
+
+  # POST Route for marking a project as a prize winner
+  def set_prize_winner
+    project = Project.find_by(:title => params[:project_name])
+    if !project
+      redirect_to prize_assign_path, alert: 'Unable to assign winner, invalid project name specified.'
+      return
+    end
+
+    prize = Prize.find_by(:id => params[:prize_id])
+
+    if !prize
+      redirect_to prize_assign_path, alert: 'Unable to assign winner. Prize could not be found.'
+      return
+    end
+
+    project.prizes_won << prize.criteria
+    project.save
+
+    redirect_to prize_assign_path, notice: 'Successfully assigned winner to prize.'
+  end
+
+  # POST Route for marking a project as a prize winner
+  def remove_prize_winner
+    prize = Prize.find_by(:id => params[:prize_id])
+    if !prize
+      redirect_to prize_assign_path, alert: 'Unable to assign winner. Prize could not be found.'
+      return
+    end
+
+    project = Project.find_by(:title => params[:project_name])
+    if !project
+      redirect_to prize_assign_path, alert: 'Unable to assign winner, invalid project name specified.'
+      return
+    end
+    
+    project.prizes_won.delete(prize.criteria)
+    project.save
+
+    redirect_to prize_assign_path, notice: 'Successfully removed prize from project.'
   end
 
   private

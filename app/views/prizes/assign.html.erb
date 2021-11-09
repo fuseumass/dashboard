@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1 class="page-title">Assign Prize Winner: <%= @prize.criteria.capitalize %></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xl-12">
+        <div class="card">
+            <div class="card-body">
+            <% if @project.nil? %>
+                <%= form_tag prize_assign_prize_path, method: :post do %>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    <%= text_field_tag :project_name, params[:project_name], class: 'form-control', placeholder: 'Project Name', type: "search", 'min-length' => 1, required: true, data: {autocomplete: autocomplete_project_title_prizes_path} %>
+                    </div>
+
+                    <%= hidden_field_tag :prize_id, value: @prize.id %>
+
+                    <div class="form-group col-md-2">
+                    <%= button_tag 'Assign Winner', type: :submit, class: 'btn btn-primary' %>
+                    </div>
+                </div>
+                <% end %>
+            <% else %>
+                <p class="text-green";>This Prize Has Been Assigned to a Winning Project.</p>
+                <p class="lead"><b>Project Name:</b> <%= @project.title %></p>
+                <%= link_to "View Project", @project, class: 'btn btn-primary' %>
+                <%= link_to "Remove Prize From Project", prize_unassign_prize_path(:project_name => @project.title, :prize_id => @prize.id), class: 'btn btn-danger', method: :post %>
+
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<%= link_to 'Return to Prizes', prizes_path, class: 'btn btn-secondary' %>
+
+</div>

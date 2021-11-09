@@ -7,7 +7,14 @@ Rails.application.routes.draw do
   get 'slackintegration/reassociate_all'
   get 'slackintegration/admin'
 
-  resources :prizes
+  # resources :prizes
+  resources :prizes do
+    get 'assign'
+    post 'set_prize_winner', as: :assign_prize
+    post 'remove_prize_winner', as: :unassign_prize
+    get :autocomplete_project_title, :on => :collection, only: [:assign_prize]
+  end
+
   # Our Root URL Links to the index page (duh)
   root 'pages#index'
 

@@ -129,6 +129,8 @@ Rails.application.routes.draw do
     post 'use_code' => 'pages#use_code'
 
     get 'check_in' => 'pages#check_in'
+    get 'check_in_self' => 'pages#check_in_self'
+
 
   # Pages Routes End
 

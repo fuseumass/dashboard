@@ -64,7 +64,45 @@ class PagesController < ApplicationController
   def join_slack
   end
 
+
+  def check_in_self
+
+    user_email = params[:email]
+    unless user_email.nil? #Only validate for an email when the email is in the params
+
+      if user_email.empty?
+        flash[:alert] = 'Error! Cannot check in user without an email.'
+        return
+      end
+
+      user_email = user_email.downcase.delete(' ')
+
+      user = User.where(:email => user_email).first
+
+      unless params[:force_check_in]
+        if user.event_application
+          if user.event_application.status != 'accepted'
+            redirect_to root_path, alert: "Error! Couldn't self-check in #{user_email}."
+            return
+          end
+        else
+          redirect_to root_path, alert: "Error! Couldn't check in user #{user_email}. You have not applied to the event."
+          return
+        end
+      end
+
+      user.check_in = true
+
+      if user.save
+        redirect_to root_path, notice: "Congrats #{user.full_name.titleize}! You have successfully checked in virtually!"
+        return
+      end
+
+    end
+  end
+
   def check_in
+
     @check_in_count = User.where(check_in: true).count
     @rsvp_count = User.where(rsvp: true).count
 

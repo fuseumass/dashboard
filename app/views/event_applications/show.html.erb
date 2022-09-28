@@ -138,7 +138,7 @@ document.addEventListener('turbolinks:before-visit', function(e) {
 
             <tr>
               <td class="event-application-name"><label><b><center>Pronoun: </center></b></label></td>
-              <td class="event-application-td"><%= @applicant.pronoun %></td>
+              <td class="event-application-td"><%= @applicant.pronoun.empty? ? 'N/A' : @applicant.pronoun %></td>
             </tr>
 
             <tr>

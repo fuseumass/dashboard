@@ -72,25 +72,6 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                     {class: 'form-control custom-select'} %>
       </div>
 
-      <%
-=begin%>
- <div class="form-group">
-       <%= f.label :demographic_id,
-                   'Which of the following best describes you?',
-                   class: 'form-label event-application-required-field' %>
-        <% ["Asian Indian", "Black or African", "Chinese", "Filipino", "Guamaniam or Chamorro", "Hispanic/Latino/Spanish Origin", "Japanese", "Korean", "Middle Eastern", "Native American or Alaskan Native", "Native Hawaiian", "Samoan", "Vietnamese", "White", "Other Asian (Thai, Cambodian, etc.)", "Other Pacific Islanders", "Prefer not to say", "Other"].each do |option| %>
-                  <label class="custom-control custom-checkbox">
-                    <%= f.check_box :demographic_id,
-                          {multiple: true},
-                          option,
-                          nil %> 
-                    <%= option %>
-                  </label>
-        <% end %>
-      </div> 
-<%
-=end%>
-
       <div class="form-group">
         <%= f.label :education_lvl,
                     'What is your level of study?',

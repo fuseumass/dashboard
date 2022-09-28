@@ -211,16 +211,20 @@ function updateAge() {
     age = parseInt(age);
 
     var resumeLabel = document.querySelector('label[for=event_application_resume]');
-    if (age) {
-        if (age <= window.MIN_RESUME_AGE) {
-            resumeLabel.classList.remove('event-application-required-field');
-            resumeLabel.classList.add('resume-optional');
-        } else {
-            resumeLabel.classList.add('event-application-required-field');
-            resumeLabel.classList.remove('resume-optional');
-        }
-    } else {
-        resumeLabel.classList.add('event-application-required-field');
-        resumeLabel.classList.remove('resume-optional');
-    }
+    resumeLabel.classList.remove('event-application-required-field');
+    resumeLabel.classList.add('resume-optional');
+    
+    // Made resumes optional;
+    // if (age) {
+    //     if (age <= window.MIN_RESUME_AGE) {
+    //         resumeLabel.classList.remove('event-application-required-field');
+    //         resumeLabel.classList.add('resume-optional');
+    //     } else {
+    //         resumeLabel.classList.add('event-application-required-field');
+    //         resumeLabel.classList.remove('resume-optional');
+    //     }
+    // } else {
+    //     resumeLabel.classList.add('event-application-required-field');
+    //     resumeLabel.classList.remove('resume-optional');
+    // }
 }

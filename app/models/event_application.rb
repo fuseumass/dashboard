@@ -18,9 +18,10 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[gender pronoun age t_shirt_size education_lvl],
                         message: 'Please select your %{attribute}. This field is required.'
 
+  # Added 'false and' to make resumes optional. 
   validates_presence_of %i[resume],
                         message: 'Please upload your resume. This field is required.',
-                        if: -> { age.to_i > min_resume_age() and !Rails.env.development? }
+                        if: -> { false and age.to_i > min_resume_age() and !Rails.env.development?}
 
   validates_inclusion_of %i[food_restrictions],
                          in: [true, false],

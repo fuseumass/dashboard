@@ -10,9 +10,12 @@
 window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0 %>;
 </script>
 <style>
-.resume-optional:after {
-  content: ' (Note: this is optional because you are under age <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0 %>.) ';
+.resume:after {
+  content: '' !important;
 }
+/* .resume-optional:after {
+  content: ' (Note: this is optional because you are under age <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['min_resume_age'] or 0 %>.) ';
+} */
 </style>
 <div class="card-body">
   <noscript>

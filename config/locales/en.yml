@@ -28,7 +28,6 @@ en:
         phone: "phone number"
         age: "age"
         gender: "gender"
-        pronoun: "pronoun"
         university: "university"
         major: "major"
         grad_year: "graduation year"

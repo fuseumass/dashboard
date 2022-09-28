@@ -42,7 +42,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
       <div class="form-group event-application-form-group">
         <%= f.label :phone,
                     'Phone:',
-                    class: 'form-label' %>
+                    class: 'form-label event-application-required-field' %>
         <%= f.text_field :phone,
                          class: 'form-control',
                          maxlength: 10,
@@ -54,14 +54,14 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                     'Age:',
                     class: 'form-label event-application-required-field' %>
         <%= f.select :age,
-                     (14..50).map { |i| i.to_s},
+                     (14..99).map { |i| i.to_s},
                      {include_blank: true},
                      {class: 'form-control custom-select', 'onblur': 'updateAge()', 'onchange': 'updateAge()'} %>
       </div>
 
       <div class="form-group">
        <%= f.label :gender,
-                   'What gender do you identify as?',
+                   'What is your gender?',
                    class: 'form-label event-application-required-field' %>
        <%= f.select :gender,
                     ['Female', 'Non-Binary', 'Male', 'Other' ],
@@ -69,29 +69,38 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                     {class: 'form-control custom-select'} %>
       </div>
 
-      <div class="form-group">
-       <%= f.label :pronoun,
-                   'What pronouns do you go by?',
+      <%
+=begin%>
+ <div class="form-group">
+       <%= f.label :demographic_id,
+                   'Which of the following best describes you?',
                    class: 'form-label event-application-required-field' %>
-       <%= f.select :pronoun,
-                    ['he/him', 'she/her', 'they/them', 'ze/zir', 'other'],
-                    {include_blank: true},
-                    {class: 'form-control custom-select'} %>
-      </div>
+        <% ["Asian Indian", "Black or African", "Chinese", "Filipino", "Guamaniam or Chamorro", "Hispanic/Latino/Spanish Origin", "Japanese", "Korean", "Middle Eastern", "Native American or Alaskan Native", "Native Hawaiian", "Samoan", "Vietnamese", "White", "Other Asian (Thai, Cambodian, etc.)", "Other Pacific Islanders", "Prefer not to say", "Other"].each do |option| %>
+                  <label class="custom-control custom-checkbox">
+                    <%= f.check_box :demographic_id,
+                          {multiple: true},
+                          option,
+                          nil %> 
+                    <%= option %>
+                  </label>
+        <% end %>
+      </div> 
+<%
+=end%>
 
       <div class="form-group">
         <%= f.label :education_lvl,
-                    'What\'s your education level?',
+                    'What is your level of study?',
                     class: 'form-label event-application-required-field' %>
         <%= f.select :education_lvl,
-                     ['High School Student', 'College Freshman', 'College Sophomore', 'College Junior', 'College Senior', 'Masters', 'PhD', 'Post-Graduation'],
+                     ["Less than Secondary / High School", "Secondary / High School", "Undergraduate University (2 year - community college or similar)", "Undergraduate University (3+ year)", "Graduate University (Masters, Professional, Doctoral, etc)", "Code School / Bootcamp", "Other Vocational / Trade Program or Apprenticeship", "Post Doctorate", "Other ", "I’m not currently a student ", "Prefer not to answer"],
                      {include_blank: true},
                      {class: 'form-control custom-select'} %>
       </div>
 
       <div class="form-group">
         <%= f.label :university,
-                    'University:',
+                    'School:',
                     class: 'form-label event-application-required-field' %>
 
         <%= f.text_field :university,
@@ -160,7 +169,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
       <div class="form-group">
         <%= f.label :resume,
                     'Resume: (.PDF)',
-                    class: 'form-label event-application-required-field' %>
+                    class: 'form-label' %>
         <div class="custom-file">
           <%= f.file_field :resume, class:'custom-file-input', onchange: 'updateResumeFileLabel()' %>
           <label class="custom-file-label">
@@ -173,7 +182,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
         <%= f.fields_for :custom_fields, OpenStruct.new(@application.custom_fields) do |o| %>
           <div class="form-group<% if c['hidden'] %> event-application-hidden<% end %>">
             <%= o.label c['name'].to_sym,
-                        "#{c['label']}:",
+                        "#{c['label']}",
                         class: c['required'] ? 'form-label event-application-required-field' : 'form-label' %>
             <% if c['type'] == 'select' %>
               <%= o.select c['name'].to_sym,

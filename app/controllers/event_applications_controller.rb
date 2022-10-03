@@ -87,7 +87,7 @@ class EventApplicationsController < ApplicationController
   def new
     if @event_application_mode == 'closed'
       redirect_to index_path
-      flash[:error] = "Error: Event Applications are Currently Closed."
+      flash[:error] = "Error: Event Registrations are Currently Closed."
       return
     end
 
@@ -95,7 +95,7 @@ class EventApplicationsController < ApplicationController
 
     if current_user.has_applied?
         redirect_to index_path
-        flash[:error] = "Error: You Have Already Created an Application."
+        flash[:error] = "Error: You Have Already Created a Registration."
     end
 
   end
@@ -119,7 +119,7 @@ class EventApplicationsController < ApplicationController
     end
 
     if @application.save
-      redirect_to index_path, notice: 'Thank you for submitting your application!'
+      redirect_to index_path, notice: 'Thank you for submitting your registration!'
     else
       render :new
     end
@@ -128,7 +128,7 @@ class EventApplicationsController < ApplicationController
   def update
     @application = @application
     if @application.update(event_application_params)
-      redirect_to @application, notice: 'Event application was successfully updated.'
+      redirect_to @application, notice: 'Event registration was successfully updated.'
     else
       render :edit
     end
@@ -137,7 +137,7 @@ class EventApplicationsController < ApplicationController
 
   def destroy
     @application.destroy
-    redirect_to event_applications_url, notice: 'Event application was successfully destroyed.'
+    redirect_to event_applications_url, notice: 'Event registration was successfully destroyed.'
   end
 
   def search
@@ -244,17 +244,17 @@ class EventApplicationsController < ApplicationController
           @flag = FeatureFlag.find_by(name: 'application_mode')
           @flag.description = 'open'
           @flag.save
-          redirect_to application_mode_event_applications_path, notice: 'Successfully set application mode to open!'
+          redirect_to application_mode_event_applications_path, notice: 'Successfully set registration mode to open!'
         elsif params[:mode] == 'waitlist'
           @flag = FeatureFlag.find_by(name: 'application_mode')
           @flag.description = 'waitlist'
           @flag.save
-          redirect_to application_mode_event_applications_path, notice: 'Successfully set application mode to waitlist!'
+          redirect_to application_mode_event_applications_path, notice: 'Successfully set registration mode to waitlist!'
         elsif params[:mode] == 'closed'
           @flag = FeatureFlag.find_by(name: 'application_mode')
           @flag.description = 'closed'
           @flag.save
-          redirect_to application_mode_event_applications_path, notice: 'Successfully closed event applications!'
+          redirect_to application_mode_event_applications_path, notice: 'Successfully closed event registrations!'
         else
           redirect_to application_mode_event_applications_path, alert: 'Error: Invalid Parameters Provided (2). If you get this message, please try to refresh the page and try again.'
         end

@@ -2,12 +2,12 @@
 
 <div class="row align-items-center">
   <div class="page-header col-sm-4">
-      <h1 class="page-title">Event Applications</h1>
+      <h1 class="page-title">Event Registration</h1>
   </div>
   <div class="col text-right">
     <% if current_user.is_admin? %>
     <%= link_to application_mode_event_applications_path do %>
-      <span class="btn btn-primary"><i class="fe fe-settings"></i> Set Application Mode</span>
+      <span class="btn btn-primary"><i class="fe fe-settings"></i> Set Registration Mode</span>
     <% end %>
     <% end %>
   </div>
@@ -53,7 +53,7 @@
           </span>
           <div>
             <h4 class="m-0"><%= EventApplication.all.count%></h4>
-            <small class="text-muted">Applications Count</small>
+            <small class="text-muted">Registrations Count</small>
           </div>
         </div>
         <%= line_chart @app_chart %>
@@ -214,7 +214,7 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <center>
-                  <h4>No applications found with that query...</h4>
+                  <h4>No registrations found with that query...</h4>
                 </center>
               </div>
             </div>

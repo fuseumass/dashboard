@@ -56,11 +56,11 @@
             <li class="nav-item">
               <% if already_applied? %>
                 <%= link_to event_application_path(current_user.event_application.id), class: "nav-link #{'active' if is_applications_active?}" do %>
-                  <i class="fe fe-file-text"></i>My Application</a>
+                  <i class="fe fe-file-text"></i>My Registration</a>
                 <% end %>
               <% else %>
                 <%= link_to apply_path, class: "nav-link #{'active' if is_applications_active?}" do %>
-                  <i class="fe fe-file-text"></i>Apply</a>
+                  <i class="fe fe-file-text"></i>Register</a>
                 <% end %>
               <% end %>
             </li>
@@ -85,7 +85,7 @@
           <% if has_access_to_all_applications? %>
             <li class="nav-item">
               <%= link_to event_applications_path, class: "nav-link #{'active' if is_applications_active?}" do %>
-                <i class="fe fe-file"></i> Applications</a>
+                <i class="fe fe-file"></i> Registrations</a>
               <% end %>
             </li>
           <% end %>

@@ -125,6 +125,9 @@ gem 'ransack'
 # Generate PDF
 gem 'hexapdf'
 
+# Validate email addresses with MX lookups
+gem 'valid_email2'
+
 gem 'omniauth'
 gem 'devise_token_auth'
 gem 'rack-cors'

@@ -128,6 +128,9 @@ gem 'hexapdf'
 # Validate email addresses with MX lookups
 gem 'valid_email2'
 
+# Validate user registrations with captcha
+gem 'recaptcha'
+
 gem 'omniauth'
 gem 'devise_token_auth'
 gem 'rack-cors'

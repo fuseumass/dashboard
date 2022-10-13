@@ -152,7 +152,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
 
       <div class="form-group">
         <%= f.label :resume,
-                    'Resume: (.PDF)',
+                    "Résumé: (Uploading a résumé is optional and may be shared with sponsors. Please only upload a .pdf document.)",
                     class: 'form-label' %>
         <div class="custom-file">
           <%= f.file_field :resume, class:'custom-file-input', onchange: 'updateResumeFileLabel()' %>
@@ -236,6 +236,16 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
                       class: 'form-label event-application-required-field' %>
           <%= f.check_box :mlh_agreement, {}, true, false %>
           <%= render file: HackumassWeb::Application::copy_for('event_applications/form_liability_mlh') %>
+        </div>
+      <% end %>
+
+      <% unless HackumassWeb::Application::EVENT_APPLICATION_OPTIONS['hide_mlh_comms'] %>  
+        <div class="form-group event-application-form-group">
+          <%= f.label :mlh_communications,
+                      '[OPTIONAL] Communication from MLH: :',
+                      class: 'form-label' %>
+          <%= f.check_box :mlh_communications, {}, true, false %>
+          <%= render file: HackumassWeb::Application::copy_for('event_applications/form_communications_mlh') %>
         </div>
       <% end %>
 

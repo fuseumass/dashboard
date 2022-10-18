@@ -25,6 +25,8 @@
           <label class="form-label">Confirm Password</label>
           <%= f.password_field :password_confirmation, placeholder: "Confirm Password", autocomplete: "off", class: "form-control" %>
         </div>
+        <%= flash[:recaptcha_error] %>
+        <%= recaptcha_tags %>
         <div class="form-footer">
           <button type="submit" class="btn btn-primary btn-block">Create new account</button>
         </div>

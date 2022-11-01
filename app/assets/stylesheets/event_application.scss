@@ -28,6 +28,11 @@ $error-color: red;
   justify-content: flex-end;
 }
 
+.event-application-flex-mid-container {
+  display: flex;
+  justify-content: center;
+}
+
 .event-application-status-button {
   margin: 5px;
   width: $event-application-medium-button-width;

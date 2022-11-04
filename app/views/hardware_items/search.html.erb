@@ -37,7 +37,7 @@
       <% @hardware_items.each do |item| %><a href=""></a>
         <tr>
           <% if current_user.is_organizer? %>
-              <td><%= link_to item.upc, item %></td>
+              <td><%= link_to item.uid, item %></td>
           <% end %>
           <td><%= item.name %></td>
           <td><%= item.category %></td>

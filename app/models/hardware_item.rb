@@ -15,7 +15,7 @@ class HardwareItem < ApplicationRecord
   end
 
   def to_csv
-    attributes = %w{name upc}
+    attributes = %w{name uid}
     CSV.generate do |csv|
       item = self
         count = item.count

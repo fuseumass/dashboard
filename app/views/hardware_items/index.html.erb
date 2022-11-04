@@ -80,7 +80,7 @@
       <% @hardware_items.each do |item| %>
         <tr>
           <% if current_user.is_organizer? %>
-              <td><%= link_to item.upc.to_s.rjust(9, "0"), item %></td>
+              <td><%= link_to item.uid.to_s.rjust(9, "0"), item %></td>
           <% end %>
           <td><%= item.name %></td>
           <td><%= item.category %></td>

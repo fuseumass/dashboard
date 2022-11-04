@@ -6,9 +6,9 @@ class HardwareItemsController < ApplicationController
 
   def search
     if params[:search].present?
-      # if a number is searched and it matches the upc of a item, return the item
-      if is_upc?(params[:search].to_i)
-        item = HardwareItem.where(upc: params[:search])
+      # if a number is searched and it matches the uid of a item, return the item
+      if is_uid?(params[:search].to_i)
+        item = HardwareItem.where(uid: params[:search])
         if !item.first.nil?
           redirect_to hardware_item_path(item.first)
         end
@@ -190,18 +190,18 @@ class HardwareItemsController < ApplicationController
       params.require(:hardware_item).permit(:name, :count, :link, :category, :available, :uid, :location)
     end
 
-    # Checks if the upc is in range
-    def is_upc?(number)
+    # Checks if the uid is in range
+    def is_uid?(number)
       number > 0 and number < 1000000000
     end
 
-    # Randomly and recursively generate a upc number
-    def generate_upc
-      random_upc = rand(1000000000)
-      if(HardwareItem.where(upc: random_upc)).any?
-        generate_upc
+    # Randomly and recursively generate a uid number
+    def generate_uid
+      random_uid = rand(1000000000)
+      if(HardwareItem.where(uid: random_uid)).any?
+        generate_uid
       else
-        random_upc
+        random_uid
       end
     end
 

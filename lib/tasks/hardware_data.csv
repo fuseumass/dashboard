@@ -1,0 +1,121 @@
+uid,name,count,category,location
+806127238,CY8CKIT BLE-Kit,19,Microcontrollers,1
+613887492,USB A to Micro B,25,Cables,1
+877157274,37 Sensor Kit,9,Kits,2
+161164760,Arduino Starter Kit,5,Kits,2
+476260842,BeagleBone Black,4,Microcontrollers,2
+675176334,ARM (Mbed Application Shield),8,Sensors,4
+110000095,Feather 328P,10,Microcontrollers,4
+110000002,Feather RP2040,10,Microcontrollers,4
+10000002,Freescale Freedom Platform,1,Microcontrollers,4
+849756036,Keypad shield for Arduino V2,14,Sensors,4
+900959335,NFC+RFID Shield,4,Sensors,4
+10000004,RFID tags,30,Sensors,4
+10000003,RFIDuino,6,Sensors,4
+698225755,Accelerometer/Gyroscopic Sensor,15,Sensors,5
+642672028,Electric Lock Sytle Solenoid,1,Sensors,5
+1000030,Electric Microphone Breakout,7,Sensors,5
+720136940,ESP 8266 01,5,Radios,5
+491095270,Fingerprint Sensor,2,Sensors,5
+10000018,Force Sensing Resistor,11,Sensors,5
+10000008,FTDI Friend,2,Sensors,5
+154783732,IR BreakBeam Sensor,4,Sensors,5
+15079202,IR Distance Sensor,4,Sensors,5
+328810395,Leap Motion,5,Sensors,5
+216913854,Long Flex Sensor,5,Sensors,5
+671418546,Motion Sensor,23,Sensors,5
+1000031,Motion Sensor small (PIR),10,Sensors,5
+581267978,Myo Gesture Control Armband,4,Sensors,5
+56106747,Photo Transistor Light,40,Sensors,5
+437627771,Pulse Sensors,3,Sensors,5
+10000007,PWM Audio Jack,1,Sensors,5
+10000009,Reflectance Sensor,3,Sensors,5
+554509226,Relay(5V One Channel),15,Actuators,5
+10000054,Short Flex Sensor,6,Sensors,5
+347769704,Sparkfun Pro Micro,4,Microcontrollers,5
+576351429,Ultrasonic Distance Sensor,21,Sensors,5
+507137348,USB Bluetooth Module(4.0),9,Radios,5
+220846436,Vibrator Motor,12,Motors,5
+729453459,Aux Cable,2,Cables,6
+729453460,Bag of Aux,1,Cables,6
+56000051,HDMI Cable,23,Cables,6
+721508094,HDMI to VGA,6,Cables,6
+338801253,VGA Cable,8,Cables,6
+1000028,Ethernet Cables,1,Cables,7
+1000057,Micro HDMI to HDMI,6,Cables,7
+134882227,USB A - Micro,50,Cables,7
+716108241,USB A - USB A,7,Cables,7
+10000006,USB A - USB B,50,Cables,7
+613887491,USB A Male to Mini,65,Cables,7
+4500001,USB C - USB B,2,Cables,7
+1000029,USB Serial Debugger,6,Cables,7
+53841482,LPCXpresso812-Max Dev Board,40,Microcontrollers,8
+990565173,PiFace,6,Microcontrollers,9
+596413070,Raspberry Pi 2,9,Microcontrollers,9
+778653730,Raspberry Pi 3,8,Microcontrollers,9
+56000050,TPlink Wireless Nano USB Adapter,2,Radios,9
+410735781,Wi-Fi Nano USB Adapters,6,Radios,9
+102922856,Continuous Servo,2,Motors,10
+1000032,"DC Gearbox Motor ""TT Motor""",9,Motors,10
+1000051,Micro Servo,40,Motors,10
+1000053,Motor Drivers,20,Actuators,10
+1000054,Stepper motor drivers,9,Actuators,10
+1000050,Stepper motors,40,Motors,10
+1000052,Sub Micro Servo,2,Motors,10
+1000055,2D Barcode Scanner,4,Other,11
+10000010,Breadboards,20,Other,11
+12490827,Debugger,4,Other,11
+110000074,Elgoo Arduino Kit,15,Kits,11
+83386849,Featherwing tripler,6,Other,11
+454105310,Label Maker,1,Other,11
+675460109,Micro SD Cards,10,Other,11
+62284387,TerAsic FPGA Board,3,Microcontrollers,11
+110000027,Arduino Mega 2560,1,Microcontrollers,13
+714679154,Circuit Playground Express,5,Microcontrollers,13
+1000074,Fox Development Board,2,Microcontrollers,13
+10000022,Fox Development Board Connector,2,Microcontrollers,13
+110000005,HM-10 Bluetooth Module,9,Radios,13
+397464010,Intel Edison,2,Microcontrollers,13
+197504543,Intel Neural Compute Stick,2,Microcontrollers,13
+10000023,Nucleo-F411RE,1,Microcontrollers,13
+159147627,Nvidia Jetson Nano,1,Microcontrollers,13
+110000025,USB-C HTMI cable,5,Cables,13
+36293988,WS2812B LED Strip,2,Actuators,13
+382542895,Digital Multimeter,1,Sensors,14
+63785719,Fire 7,3,Other,14
+7745530,Mobile Pixels,3,Other,14
+880743583,Screwdrivers,10,Other,14
+382542894,Small Multimeter,10,Sensors,14
+561661166,Classic Controller,5,Sensors,16
+110000073,Mini Round Robot Chasis Kit,8,Kits,16
+201493882,Multi Chassis Kit,5,Kits,16
+479848257,Romi Chassis Kit,4,Kits,16
+136632866,Rover Kit,1,Kits,16
+66679680,"5"" LCD Displays",4,Actuators,17
+234783212,Power Adapter (all rasp pi's),9,Other,17
+778653731,Raspberry Pi 3,2,Microcontrollers,17
+765800000,Raspberry Pi 4,7,Microcontrollers,17
+234783211,Raspberry Pi camera Module,4,Sensors,17
+758434818,Raspberry Pi NoIR camera,4,Sensors,17
+11029,DC Motors,40,Motors,20
+11028,Stepper Motors,17,Motors,20
+10000017,2 Ohm Speakers,10,Actuators,21
+10000015,9V Battery Connector,40,Other,21
+854117632,Analog Joysticks,21,Sensors,21
+124701945,Arduino Motor Shield,11,Actuators,21
+10000053,Barrel Jacks,10,Other,21
+10000016,Battery Enclosure,19,Other,21
+10000019,Force Sensor,1,Sensors,21
+978966702,Keyboard and mouse combo,3,Other,21
+10000014,L293D Motor Driver,23,Actuators,21
+335536686,Light Dependent Resistor,11,Sensors,21
+1000059,Neopixel LED Ring,5,Actuators,21
+10000052,Photocell resistors,12,Sensors,21
+110000026,Raspberry Pico,7,Microcontrollers,21
+743847638,Sparkfun Camera Module,3,Sensors,21
+664155563,Sparkfun MicroSD Transflash,35,Other,21
+1000058,Uno Power Supply,14,Other,21
+4419296,Adafruit AHT20 Temp+Humidity Sensor,10,Sensors,23
+895632742,Arduino Uno,19,Microcontrollers,23
+110000021,ESP 8266,11,Microcontrollers,23
+110000023,USB to USB-C,10,Cables,23

@@ -145,12 +145,8 @@
         </p>
 
         <% if current_user %>
-          <p style="color:red">
-          <% if @project.power == true %>
+          <p style="color:red">         
             This project is being judged live.
-          <% else %>
-            This project is being judged via video.
-          <% end %>
           </p>
         <% end %>
 

@@ -20,7 +20,7 @@ namespace :hardware do
       else
           item = HardwareItem.new(
               {
-              upc: row[0],
+              uid: row[0],
               name: row[1],
               count: row[2],
               category: row[3],

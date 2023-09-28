@@ -17,7 +17,7 @@ class HardwareItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create hardware_item" do
     assert_difference('HardwareItem.count') do
-      post hardware_items_url, params: { hardware_item: { available: @hardware_item.available, category: @hardware_item.category, count: @hardware_item.count, link: @hardware_item.link, name: @hardware_item.name, upc: @hardware_item.upc } }
+      post hardware_items_url, params: { hardware_item: { available: @hardware_item.available, category: @hardware_item.category, count: @hardware_item.count, link: @hardware_item.link, name: @hardware_item.name, uid: @hardware_item.uid } }
     end
 
     assert_redirected_to hardware_item_url(HardwareItem.last)
@@ -34,7 +34,7 @@ class HardwareItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update hardware_item" do
-    patch hardware_item_url(@hardware_item), params: { hardware_item: { available: @hardware_item.available, category: @hardware_item.category, count: @hardware_item.count, link: @hardware_item.link, name: @hardware_item.name, upc: @hardware_item.upc } }
+    patch hardware_item_url(@hardware_item), params: { hardware_item: { available: @hardware_item.available, category: @hardware_item.category, count: @hardware_item.count, link: @hardware_item.link, name: @hardware_item.name, uid: @hardware_item.uid } }
     assert_redirected_to hardware_item_url(@hardware_item)
   end
 

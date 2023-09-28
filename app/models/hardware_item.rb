@@ -1,7 +1,7 @@
 class HardwareItem < ApplicationRecord
   validates_presence_of :name, :count, :category, :location
   validates_numericality_of :count
-  validates_uniqueness_of :upc
+  validates_uniqueness_of :uid
 
   has_many :hardware_checkouts, dependent: :destroy
   has_many :users, through: :hardware_checkouts
@@ -15,7 +15,7 @@ class HardwareItem < ApplicationRecord
   end
 
   def to_csv
-    attributes = %w{name upc}
+    attributes = %w{name uid}
     CSV.generate do |csv|
       item = self
         count = item.count

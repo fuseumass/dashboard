@@ -22,7 +22,7 @@
       <thead>
         <tr>
           <% if current_user.is_organizer? %>
-              <th>UPC</th>
+              <th>UID</th>
           <% end %>
           <th>Name</th>
           <th>Category</th>
@@ -37,7 +37,7 @@
       <% @hardware_items.each do |item| %><a href=""></a>
         <tr>
           <% if current_user.is_organizer? %>
-              <td><%= link_to item.upc, item %></td>
+              <td><%= link_to item.uid, item %></td>
           <% end %>
           <td><%= item.name %></td>
           <td><%= item.category %></td>

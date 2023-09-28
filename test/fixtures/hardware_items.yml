@@ -6,7 +6,7 @@ one:
   link: MyString
   category: MyString
   available: false
-  upc: 1
+  uid: 1
 
 two:
   name: MyString
@@ -14,4 +14,4 @@ two:
   link: MyString
   category: MyString
   available: false
-  upc: 1
+  uid: 1

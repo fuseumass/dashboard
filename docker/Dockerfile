@@ -9,11 +9,14 @@ RUN apt-get update && apt-get install -y \
 # Configure the main working directory
 WORKDIR /usr/src/app
 
-# Copies the main application to run install dependencies and rake files
-COPY . .
+# Copies the Gemfile and Gemfile.lock to the main working directory
+COPY Gemfile Gemfile.lock ./
 
 # Installs gems listed in the Gemfile.lock
 RUN bundle install
+
+# Copies the main application to run install dependencies and rake files
+COPY . .
 
 # Exposes the 3000 port to access it outside of the image
 EXPOSE 3000

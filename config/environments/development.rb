@@ -77,8 +77,8 @@ Rails.application.configure do
   #     }
   # }
 
-  # WARNING: This will raise an error when submitting an application
-  # To test how resume get uploaded to Azure, use container 'humdbstaging'
+  # WARNING: This will raise an error if you attach a resume when submitting an application
+  # To test how resume get uploaded to Azure, use container 'humdbstaging' from Azure
   Paperclip::Attachment.default_options[:storage] = :azure
   Paperclip::Attachment.default_options[:azure_credentials] = {
       storage_account_name: 'xxx',

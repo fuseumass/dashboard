@@ -76,6 +76,9 @@ Rails.application.configure do
   #         secret_access_key: 'XXX'
   #     }
   # }
+
+  # WARNING: This will raise an error when submitting an application
+  # To test how resume get uploaded to Azure, use container 'humdbstaging'
   Paperclip::Attachment.default_options[:storage] = :azure
   Paperclip::Attachment.default_options[:azure_credentials] = {
       storage_account_name: 'xxx',

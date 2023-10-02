@@ -17,7 +17,7 @@ class PrizesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create prize" do
     assert_difference('Prize.count') do
-      post prizes_url, params: { prize: { criteria: @prize.criteria, description: @prize.description, name: @prize.name, priority: @prize.priority, sponsor: @prize.sponsor } }
+      post prizes_url, params: { prize: { title: @prize.title, description: @prize.description, award: @prize.award, priority: @prize.priority, sponsor: @prize.sponsor } }
     end
 
     assert_redirected_to prize_url(Prize.last)
@@ -34,7 +34,7 @@ class PrizesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update prize" do
-    patch prize_url(@prize), params: { prize: { criteria: @prize.criteria, description: @prize.description, name: @prize.name, priority: @prize.priority, sponsor: @prize.sponsor } }
+    patch prize_url(@prize), params: { prize: { title: @prize.title, description: @prize.description, award: @prize.award, priority: @prize.priority, sponsor: @prize.sponsor } }
     assert_redirected_to prize_url(@prize)
   end
 

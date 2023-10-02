@@ -14,9 +14,9 @@ class PrizesTest < ApplicationSystemTestCase
     visit prizes_url
     click_on "New Prize"
 
-    fill_in "Criteria", with: @prize.criteria
+    fill_in "Title", with: @prize.title
     fill_in "Description", with: @prize.description
-    fill_in "Name", with: @prize.name
+    fill_in "Award", with: @prize.award
     fill_in "Priority", with: @prize.priority
     fill_in "Sponsor", with: @prize.sponsor
     click_on "Create Prize"
@@ -29,9 +29,9 @@ class PrizesTest < ApplicationSystemTestCase
     visit prizes_url
     click_on "Edit", match: :first
 
-    fill_in "Criteria", with: @prize.criteria
+    fill_in "Title", with: @prize.title
     fill_in "Description", with: @prize.description
-    fill_in "Name", with: @prize.name
+    fill_in "Award", with: @prize.award
     fill_in "Priority", with: @prize.priority
     fill_in "Sponsor", with: @prize.sponsor
     click_on "Update Prize"

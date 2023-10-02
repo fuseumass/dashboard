@@ -152,7 +152,7 @@ window.MIN_RESUME_AGE = <%= HackumassWeb::Application::EVENT_APPLICATION_OPTIONS
 
       <div class="form-group">
         <%= f.label :resume,
-                    "Résumé: (Uploading a résumé is optional and may be shared with sponsors. Please only upload a .pdf document.)",
+                    "Résumé: (Uploading a résumé is optional and may be shared with sponsors. Please only upload a .pdf document that is under 2MB.)",
                     class: 'form-label' %>
         <div class="custom-file">
           <%= f.file_field :resume, class:'custom-file-input', onchange: 'updateResumeFileLabel()' %>

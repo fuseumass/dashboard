@@ -50,7 +50,7 @@ class PrizesController < ApplicationController
     @project = nil
 
     Project.all.each do |p|
-      if p.prizes_won.include? @prize.criteria
+      if p.prizes_won.include? @prize.title
         @project = p
         break
       end
@@ -73,7 +73,7 @@ class PrizesController < ApplicationController
       return
     end
 
-    project.prizes_won << prize.criteria
+    project.prizes_won << prize.title
     project.save
 
     redirect_to prize_assign_path, notice: 'Successfully assigned winner to prize.'
@@ -93,7 +93,7 @@ class PrizesController < ApplicationController
       return
     end
     
-    project.prizes_won.delete(prize.criteria)
+    project.prizes_won.delete(prize.title)
     project.save
 
     redirect_to prize_assign_path, notice: 'Successfully removed prize from project.'
@@ -107,7 +107,7 @@ class PrizesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prize_params
-      params.require(:prize).permit(:name, :description, :criteria, :sponsor, :priority, :project_selectable)
+      params.require(:prize).permit(:award, :description, :title, :sponsor, :priority, :project_selectable)
     end
 
     def check_permissions

@@ -18,18 +18,18 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :name, class:'control-label' %>
-    <%= form.text_field :name, class: 'form-control', placeholder: 'Give it a name! Is this an Amazon Echo? A GTX 1080? ' %>
+    <%= form.label :award, class:'control-label' %>
+    <%= form.text_field :award, class: 'form-control', placeholder: 'Give it a award! Is this an Amazon Echo? A GTX 1080? ' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title, class:'control-label' %>
+    <%= form.text_area :title, class: 'form-control', placeholder: 'What do hackers need to do in order to win this prize? Use an API? Create a hack that helps people?' %>
   </div>
 
   <div class="form-group">
     <%= form.label :description, class:'control-label' %>
     <%= form.text_area :description, class: 'form-control', placeholder: 'Describe the prize. You can just google a description for the item and paste it here...' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :criteria, class:'control-label' %>
-    <%= form.text_area :criteria, class: 'form-control', placeholder: 'What do hackers need to do in order to win this prize? Use an API? Create a hack that helps people?' %>
   </div>
 
   <div class="form-group">
@@ -50,7 +50,7 @@
   <div class="form-group">
     
     <%= form.check_box :project_selectable, {}, true %> <%= form.label :project_selectable, class:'control-label' %> <br>
-    If selected, teams will be able to note that they are submitting a project for this prize. The text in the Criteria field will be used for the prize category.
+    If selected, teams will be able to note that they are submitting a project for this prize. The text in the Title field will be used for the prize category.
   </div>
 
   <div class="actions">

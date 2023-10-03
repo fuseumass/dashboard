@@ -5,18 +5,20 @@ puts '################# Rake Seed File Started #####################'
 
 puts ' '
 
-20.times do |i|
+5.times do |i|
+    puts "Creating prizes #{i}"
+
     Prize.create(
-        name: "Prize#{i}",
+        award: "Prize#{i}",
         description: "Amazing prize!",
-        criteria: "Best Hack #{i}",
+        title: "Best Hack #{i}",
         sponsor: "Dashboard",
         priority: 1,
         project_selectable: i%2==0 ? true : false
     )
 end
 
-50.times do |i|
+5.times do |i|
     puts "Creating user #{i}"
 
     u = User.where(email: "user#{i}@email.com")
@@ -31,7 +33,10 @@ end
             password_confirmation: "testpass",
             user_type: "attendee"
         )
+        u.save!
     end
+
+    puts "Created user #{u.id}"
 
     if i % 6 == 5
         u.user_type = "mentor"
@@ -43,7 +48,7 @@ end
     app = EventApplication.new(
         created_at: Time.now,
         updated_at: Time.now,
-        user: u,
+        user_id: i,
         name: "User#{i} User#{i}",
         phone: "+12345678901",
         age: 15,

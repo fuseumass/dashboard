@@ -56,37 +56,15 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               Previous Applicant
             </button>
             <div class="dropdown-menu" aria-labelledby="previousAppDropdownBtn">
-              <% EventApplication.where("id < ?", @applicant.id).where(status: 'undecided').any? && if admin_or_organizer? %>
-                <div class="dropdown-item">
-                  <%= link_to 'Undecided Applicant',
-                              event_application_path(EventApplication.where("id < ?", @applicant.id).where(status: 'undecided').first.id),
-                              class: 'btn btn-primary'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id < ?", @applicant.id).where(status: 'accepted').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Accepted Applicant',
-                              event_application_path(EventApplication.where("id < ?", @applicant.id).where(status: 'accepted').first.id),
-                              class: 'btn btn-success'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id < ?", @applicant.id).where(status: 'waitlisted').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Waitlisted Applicant',
-                              event_application_path(EventApplication.where("id < ?", @applicant.id).where(status: 'waitlisted').first.id),
-                              class: 'btn btn-warning'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id < ?", @applicant.id).where(status: 'denied').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Denied Applicant',
-                              event_application_path(EventApplication.where("id < ?", @applicant.id).where(status: 'denied').first.id),
-                              class: 'btn btn-danger'
-                  %>
-                </div>
+              <% [["undecided", "primary"], ["accepted", "success"], ["waitlisted", "warning"], ["denied", "danger"]].each do |status| %>
+                <% EventApplication.where("id < ?", @applicant.id).where(status: status[0]).any? && if admin_or_organizer? %>
+                  <div class="dropdown-item">
+                    <%= link_to "#{status[0].capitalize} Applicant",
+                                event_application_path(EventApplication.where("id < ?", @applicant.id).where(status: status[0]).first.id),
+                                class: "btn btn-#{status[1]}"
+                    %>
+                  </div>
+                <% end %>
               <% end %>
               <% EventApplication.where("id < ?", @applicant.id).where(flag: true).any? && if admin_or_organizer? %>
                 <div class='dropdown-item'>
@@ -136,37 +114,15 @@ document.addEventListener('turbolinks:before-visit', function(e) {
               Next Applicant
             </button>
             <div class="dropdown-menu" aria-labelledby="nextAppDropdownBtn">
-              <% EventApplication.where("id > ?", @applicant.id).where(status: 'undecided').any? && if admin_or_organizer? %>
-                <div class="dropdown-item">
-                  <%= link_to 'Undecided Applicant',
-                              event_application_path(EventApplication.where("id > ?", @applicant.id).where(status: 'undecided').first.id),
-                              class: 'btn btn-primary'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id > ?", @applicant.id).where(status: 'accepted').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Accepted Applicant',
-                              event_application_path(EventApplication.where("id > ?", @applicant.id).where(status: 'accepted').first.id),
-                              class: 'btn btn-success'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id > ?", @applicant.id).where(status: 'waitlisted').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Waitlisted Applicant',
-                              event_application_path(EventApplication.where("id > ?", @applicant.id).where(status: 'waitlisted').first.id),
-                              class: 'btn btn-warning'
-                  %>
-                </div>
-              <% end %>
-              <% EventApplication.where("id > ?", @applicant.id).where(status: 'denied').any? && if admin_or_organizer? %>
-                <div class='dropdown-item'>
-                  <%= link_to 'Denied Applicant',
-                              event_application_path(EventApplication.where("id > ?", @applicant.id).where(status: 'denied').first.id),
-                              class: 'btn btn-danger'
-                  %>
-                </div>
+              <% [["undecided", "primary"], ["accepted", "success"], ["waitlisted", "warning"], ["denied", "danger"]].each do |status| %>
+                <% EventApplication.where("id > ?", @applicant.id).where(status: status[0]).any? && if admin_or_organizer? %>
+                  <div class="dropdown-item">
+                    <%= link_to "#{status[0].capitalize} Applicant",
+                                event_application_path(EventApplication.where("id > ?", @applicant.id).where(status: status[0]).first.id),
+                                class: "btn btn-#{status[1]}"
+                    %>
+                  </div>
+                <% end %>
               <% end %>
               <% EventApplication.where("id > ?", @applicant.id).where(flag: true).any? && if admin_or_organizer? %>
                 <div class='dropdown-item'>

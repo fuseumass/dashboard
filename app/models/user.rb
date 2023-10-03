@@ -1,7 +1,11 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  validates :first_name, :last_name, presence: true, format: { with: /\A[a-zA-Z .'-]+\Z/, message: 'only allows letters, periods, apostrophes, hyphens and spaces' } 
+  if !Rails.env.development?
+    validates :first_name, :last_name, presence: true, format: { with: /\A[a-zA-Z .'-]+\Z/, message: 'only allows letters, periods, apostrophes, hyphens and spaces' } 
+  else
+    validates :first_name, :last_name, presence: true
+  end
   # Confirm that the email is not disposable or missing an MX record
   validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}
 

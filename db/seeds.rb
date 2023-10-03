@@ -33,10 +33,8 @@ end
             password_confirmation: "testpass",
             user_type: "attendee"
         )
-        u.save!
+        u.save
     end
-
-    puts "Created user #{u.id}"
 
     if i % 6 == 5
         u.user_type = "mentor"
@@ -48,7 +46,7 @@ end
     app = EventApplication.new(
         created_at: Time.now,
         updated_at: Time.now,
-        user_id: i,
+        user_id: u.id,
         name: "User#{i} User#{i}",
         phone: "+12345678901",
         age: 15,

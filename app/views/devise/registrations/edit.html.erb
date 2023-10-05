@@ -23,10 +23,19 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">Email</label>
             <div class="col-lg-10">
+              <%= f. class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-6 control-label">Opt-out of notification emails? Type your email: (Not Recommended)</label>
+            <div class="col-lg-10">
               <%= f.email_field :email, class: "form-control" %>
             </div>
           </div>
 
+
+          
           <div class="form-group">
             <label class="col-lg-6 control-label">Change your password? (Not Required)</label>
             <div class="col-lg-10">

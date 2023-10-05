@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_09_013144) do
+ActiveRecord::Schema.define(version: 2023_10_02_032542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,9 +171,9 @@ ActiveRecord::Schema.define(version: 2022_11_09_013144) do
   end
 
   create_table "prizes", force: :cascade do |t|
-    t.string "name"
+    t.string "award"
     t.string "description"
-    t.string "criteria"
+    t.string "title"
     t.string "sponsor"
     t.integer "priority"
     t.datetime "created_at", null: false

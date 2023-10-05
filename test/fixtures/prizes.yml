@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  award: MyString
   description: MyString
-  criteria: MyString
+  title: MyString
   sponsor: MyString
   priority: 
 
 two:
-  name: MyString
+  award: MyString
   description: MyString
-  criteria: MyString
+  title: MyString
   sponsor: MyString
   priority: 

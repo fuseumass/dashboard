@@ -19,9 +19,9 @@ class EventApplication < ApplicationRecord
                         message: 'Please select your %{attribute}. This field is required.'
 
   # Added 'false and' to make resumes optional. 
-  validates_presence_of %i[resume],
-                        message: 'Please upload your resume. This field is required.',
-                        if: -> { false and age.to_i > min_resume_age() and !Rails.env.development?}
+  # validates_presence_of %i[resume],
+  #                       message: 'Please upload your resume. This field is required.',
+  #                       if: -> { false and age.to_i > min_resume_age() and !Rails.env.development?}
 
   validates_inclusion_of %i[food_restrictions],
                          in: [true, false],
@@ -72,7 +72,8 @@ class EventApplication < ApplicationRecord
                        content_type: { content_type: 'application/pdf',
                                        message: 'Resume file must be a PDF.' },
                        size: { less_than: 2.megabyte,
-                               message: 'Resume file must be under 2MB in size.' }
+                               message: 'Resume file must be under 2MB in size.' },
+                        if: -> { resume.present? }
 
   # checks to see that the user resume is legit.
   validate :resume_legitimacy,

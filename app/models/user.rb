@@ -6,8 +6,8 @@ class User < ApplicationRecord
   else
     validates :first_name, :last_name, presence: true
   end
-  # Confirm that the email is not disposable or missing an MX record
-  validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}
+  # Confirm that the email is not disposable or missing an MX record, and they agree to be emailed
+  validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}, user_emailable: true
 
   if !Rails.env.development? && HackumassWeb::Application::EMAIL_VERIFICATION
     devise :database_authenticatable, :registerable,

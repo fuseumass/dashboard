@@ -9,6 +9,8 @@ class User < ApplicationRecord
   # Confirm that the email is not disposable or missing an MX record, and they agree to be emailed
   validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}, user_emailable: true
 
+
+
   if !Rails.env.development? && HackumassWeb::Application::EMAIL_VERIFICATION
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -51,6 +53,10 @@ class User < ApplicationRecord
 
   def is_mentor?
   	user_type == 'mentor'
+  end
+
+  def rsvp?
+  	user.rsvp == true
   end
 
   #Admins should have the same permissions (and more) that organizers do
@@ -109,6 +115,8 @@ class User < ApplicationRecord
       self.event_application.status == 'accepted'
     end
   end
+
+ 
 
   def welcome_email
     UserMailer.welcome_email(self).deliver_now

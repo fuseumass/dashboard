@@ -114,6 +114,10 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
+  def can_email?
+  	user_emailable == 'True'
+  end
+
   def has_slack?
     if !HackumassWeb::Application::SLACK_ENABLED || self.slack_id != nil
       return true

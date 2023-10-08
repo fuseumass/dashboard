@@ -183,7 +183,7 @@ class ApplicationController < ActionController::Base
 
   # Additional parameters needed for devise
   def configure_permitted_parameters
-    additional_params = %i[first_name last_name type]
+    additional_params = %i[first_name last_name type emailMarketingConsent]
     devise_parameter_sanitizer.permit(:sign_up, keys: additional_params)
     devise_parameter_sanitizer.permit(:account_update, keys: additional_params)
   end

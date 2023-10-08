@@ -7,7 +7,7 @@ class User < ApplicationRecord
     validates :first_name, :last_name, presence: true
   end
   # Confirm that the email is not disposable or missing an MX record, and they agree to be emailed
-  validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}, user_emailable: true
+  validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}
 
 
 
@@ -116,14 +116,12 @@ class User < ApplicationRecord
     end
   end
 
- 
-
   def welcome_email
     UserMailer.welcome_email(self).deliver_now
   end
 
-  def can_email?
-  	user_emailable == 'True'
+  def has_opted_in?
+    emailMarketingConsent == true
   end
 
   def has_slack?

@@ -40,7 +40,16 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-check">
+            <%= f.check_box :non_transactional_email_consent, autocomplete: "off", class: "form-check-input" %>
+            <% if current_user.non_transactional_email_consent %>
+              <label class="form-check-label">Uncheck this box to opt-out of notifications.</label>
+            <% else %>
+              <label class="form-check-label">Check this box to opt-in to notifications?</label>
+            <% end %>
+          </div>
+
+          <div class="form-group pt-5">
             <label class="col-lg-2 control-label">Confirmation</label>
             <div class="col-lg-10">
               <%= f.password_field :current_password, autocomplete: "off", class: "form-control", placeholder: "Confirm changes with current password" %>

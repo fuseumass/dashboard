@@ -6,8 +6,10 @@ class User < ApplicationRecord
   else
     validates :first_name, :last_name, presence: true
   end
-  # Confirm that the email is not disposable or missing an MX record
+  # Confirm that the email is not disposable or missing an MX record, and they agree to be emailed
   validates :email, presence: true,  'valid_email_2/email': {mx: true, disposable: true}
+
+
 
   if !Rails.env.development? && HackumassWeb::Application::EMAIL_VERIFICATION
     devise :database_authenticatable, :registerable,
@@ -51,6 +53,10 @@ class User < ApplicationRecord
 
   def is_mentor?
   	user_type == 'mentor'
+  end
+
+  def rsvp?
+  	user.rsvp == true
   end
 
   #Admins should have the same permissions (and more) that organizers do

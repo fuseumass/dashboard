@@ -61,14 +61,15 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   
-  # SMTP settings for amazon ses
+  # SMTP settings for SendGrid
   config.action_mailer.smtp_settings = {
-      :address => "email-smtp.us-east-1.amazonaws.com",
-      :port => 587,
-      :user_name => ENV['AWS_SMTP_KEY'], #Your SMTP user
-      :password => ENV['AWS_SMTP_SECRET'], #Your SMTP password
-      :authentication => :login,
-      :enable_starttls_auto => true
+    :user_name => 'apikey', # This is the string literal 'apikey', NOT the ID
+    :password => ENV['SENDGRID_SMTP_SECRET'],
+    :domain => 'hackumass.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
   config.action_mailer.perform_deliveries = true

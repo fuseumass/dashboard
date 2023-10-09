@@ -40,7 +40,6 @@ module HackumassWeb
     LOGO_PATH = config["logos"]["primary_path"]
     NAV_LOGO_PATH = config["logos"]["nav_path"]
     FAVICON_URL = config["logos"]["favicon_url"]
-    DONOTREPLY = config["emails"]["donotreply"]
     CONTACT_EMAIL = config["emails"]["contact"]
     CHECKIN_UNIVERSITY_EMAIL_SUFFIX = config["checkin"]["university_email_suffix"]
     CHECKIN_UNIVERSITY_NAME = config["checkin"]["university_name"]

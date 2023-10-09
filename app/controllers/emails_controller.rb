@@ -72,54 +72,54 @@ class EmailsController < ApplicationController
       User.where(:id => current_user)
     elsif list == 'Send Email To Those Who Have Not Applied'
       users_without_apps = []
-      User.all.each do |u|
-        unless EventApplication.where(user_id: u.id).where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |u|
+        unless EventApplication.where(user_id: u.id).exists?
           users_without_apps.push(u)
         end
       end
       return users_without_apps
     elsif list == 'Accepted Applicants'
       accepted_applicants = []
-      User.all.each do |u|
-        if EventApplication.where(user_id: u.id).where(status: 'accepted').where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |u|
+        if EventApplication.where(user_id: u.id).where(status: 'accepted').exists?
           accepted_applicants.push(u)
         end
       end
       return accepted_applicants
     elsif list == 'Waitlisted Applicants'
       waitlisted_applicants = []
-      User.all.each do |u|
-        if EventApplication.where(user_id: u.id).where(status: 'waitlisted').where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |u|
+        if EventApplication.where(user_id: u.id).where(status: 'waitlisted').exists?
           waitlisted_applicants.push(u)
         end
       end
       return waitlisted_applicants
     elsif list == 'Undecided Applicants'
       undecided_applicants = []
-      User.all.each do |user|
-        if EventApplication.where(user_id: user.id).where(status: 'undecided').where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |user|
+        if EventApplication.where(user_id: user.id).where(status: 'undecided').exists?
           undecided_applicants.push(user)
         end
       end
       return undecided_applicants
     elsif list == 'Denied Applicants'
       denied_applicants = []
-      User.all.each do |user|
-        if EventApplication.where(user_id: user.id).where(status: 'denied').where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |user|
+        if EventApplication.where(user_id: user.id).where(status: 'denied').exists?
           denied_applicants.push(user)
         end
       end
       return denied_applicants
     elsif list == 'All Applicants'
       all_applicants = []
-      User.all.each do |user|
-        if EventApplication.where(user_id: user.id).where(non_transactional_email_consent: true).exists?
+      User.where(non_transactional_email_consent: true).all.each do |user|
+        if EventApplication.where(user_id: user.id).exists?
           all_applicants.push(user)
         end
       end
       return all_applicants
     elsif list == 'All Users'
-      User.all.where(non_transactional_email_consent: true)
+      User.where(non_transactional_email_consent: true).all
     end
   end
 

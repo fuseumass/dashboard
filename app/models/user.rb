@@ -120,10 +120,6 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
-  def has_opted_in?
-    emailMarketingConsent == true
-  end
-
   def has_slack?
     if !HackumassWeb::Application::SLACK_ENABLED || self.slack_id != nil
       return true

@@ -58,7 +58,7 @@
         <div class="card-body">
             <p class="h5">Discord Integration</p>
             <p>Currently, Dashboard only allows users to join Discord through invite link.</p>
-            <% if !HackumassWeb::Application::DISCORD_ENABLED %>
+            <% if HackumassWeb::Application::DISCORD_ENABLED %>
                 <div class="alert alert-success m-0">
                     Discord successfully integrated!
                 </div>

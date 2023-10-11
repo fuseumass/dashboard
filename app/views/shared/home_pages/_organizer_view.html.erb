@@ -129,4 +129,9 @@
       <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/slack_channels') %>  
     </div>
   <% end %>
+  <% if HackumassWeb::Application::DISCORD_ENABLED %>
+    <div class="col-sm-12 col-lg-4">
+        <%= render file: HackumassWeb::Application::copy_for('shared/home_pages/discord_channels') %>    
+    </div>
+  <% end %>
 </div>

@@ -58,6 +58,20 @@ module HackumassWeb
       SLACK_SUBDOMAIN = ""
     end
 
+    DISCORD_ENABLED = ActiveModel::Type::Boolean.new.cast(config["discord"]["enabled"])
+    if DISCORD_ENABLED
+      DISCORD_SERVER_ID = config["discord"]["server_id"]
+      DISCORD_TEAMFORM_CHANNEL_ID = config["discord"]["teamforming_channel_id"]
+      DISCORD_ASK_MENTOR_CHANNEL_ID = config["discord"]["ask_mentor_channel_id"]
+      DISCORD_GENERAL_CHANNEL_ID = config["discord"]["general_channel_id"]
+      DISCORD_INVITE_URL = config["discord"]["invite_url"]
+    else
+      DISCORD_SERVER_ID = ""
+      DISCORD_TEAMFORM_CHANNEL_ID = ""
+      DISCORD_ASK_MENTOR_CHANNEL_ID = ""
+      DISCORD_GENERAL_CHANNEL_ID = ""
+      DISCORD_INVITE_URL = ""
+    end
 
     if config.key?('codes')
       CODES = config["codes"]

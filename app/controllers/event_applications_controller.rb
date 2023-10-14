@@ -282,7 +282,7 @@ class EventApplicationsController < ApplicationController
         custom_fields_items << c['name'].to_sym
       end
     end
-    params.require(:event_application).permit(:name, :phone, :age, :gender, :university, :major, :grad_year,
+    params.require(:event_application).permit(:name, :phone, :age, :university, :major, :grad_year,
                    :food_restrictions, :food_restrictions_info, :resume, :t_shirt_size, :education_lvl,
                    :waiver_liability_agreement, :mlh_agreement, :mlh_communications,
                    custom_fields: custom_fields_items)

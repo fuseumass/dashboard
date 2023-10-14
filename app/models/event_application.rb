@@ -15,7 +15,7 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[name university major],
                         message: 'Please enter %{attribute}. This field is required.'
 
-  validates_presence_of %i[gender age t_shirt_size education_lvl],
+  validates_presence_of %i[ age t_shirt_size education_lvl],
                         message: 'Please select your %{attribute}. This field is required.'
 
   # Added 'false and' to make resumes optional. 

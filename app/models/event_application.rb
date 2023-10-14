@@ -50,7 +50,11 @@ class EventApplication < ApplicationRecord
                       minimum: 10,
                       maximum: 14,
                       message: 'Your phone number must be 10 digits long.' }
-
+  # checks that gender is valid
+  validates :gender,
+            if: -> {gender.present? },
+            inclusion: { in: %w('Female' 'Male' 'Non-Binary' 'Other'),
+            message: "%{value} is not a valid gender." }
   # checks to see that the user inputs a name that has more than 2 characters and
   # that the characters only contain letters, periods, dashes and apostrophes.
   validates :name,

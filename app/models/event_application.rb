@@ -15,7 +15,7 @@ class EventApplication < ApplicationRecord
   validates_presence_of %i[name university major],
                         message: 'Please enter %{attribute}. This field is required.'
 
-  validates_presence_of %i[ age t_shirt_size education_lvl],
+  validates_presence_of %i[gender age t_shirt_size education_lvl],
                         message: 'Please select your %{attribute}. This field is required.'
 
   # Added 'false and' to make resumes optional. 
@@ -53,7 +53,7 @@ class EventApplication < ApplicationRecord
   # checks that gender is valid
   validates :gender,
             if: -> {gender.present? },
-            inclusion: { in: %w('Female' 'Male' 'Non-Binary' 'Other'),
+            inclusion: { in: %w(Female Male Non-Binary Other No-Answer),
             message: "%{value} is not a valid gender." }
   # checks to see that the user inputs a name that has more than 2 characters and
   # that the characters only contain letters, periods, dashes and apostrophes.

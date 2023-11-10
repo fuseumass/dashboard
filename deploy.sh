@@ -106,7 +106,7 @@ git commit --allow-empty -m "Assets precompiled with submodule"
 # Pushing build to Heroku
 echo ' '
 echo 'Pushing build to Heroku....'
-git push -f "heroku-$heroku_name" master
+git push -f "heroku-$heroku_name" hackher413-2024:master 
 echo ' '
 echo 'Heroku Build Successful ✅'
 echo ' '

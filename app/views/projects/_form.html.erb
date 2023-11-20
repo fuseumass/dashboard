@@ -77,8 +77,8 @@
       <h3>
         Do you have a YouTube video link?
       </h3>
-      <p style="color: grey; ">A project video is optional. <b>The video should be between 30 and 60 seconds long, and demonstrate how your hack works.</b> No PowerPoint slides, please. Cinema-level video editing not required.</p>
-      <%= form.text_field :youtube_link, id: :youtube_link, class: 'form-control', placeholder: "This is optional, but if you don't upload a video then please upload a photo!" %>
+      <p style="color: grey; "><b>A project video is required. The video should be between 2 - 3 minutes long, and demonstrate how your hack works.</b> No PowerPoint slides, please. Cinema-level video editing not required.</p>
+      <%= form.text_field :youtube_link, id: :youtube_link, class: 'form-control', placeholder: "Link us to your project's video demonstration!" %>
     </div>
 
     <div class="form-group">
@@ -171,10 +171,13 @@
     <div class='card'>
       <div class='card-body'>
         <h3>
-          For judging purposes, do you need a wall outlet?
+          For judging purposes, are you participating only virtually? Otherwise, leave blank.
         </h3>
+        <%# Note that the question now asks for confirmation of being a virtual participant and not the wall outlet requirement so %>
+        <%# while this may not be the best practice for long term development, I am leaving the form field as supplying the :power %>
+        <%# symbol in the interest of not wrangling with model changes and creating updated migrations in the middle of the event %>
         <%= form.check_box(:power)%>
-        <%= form.label :power,'Yes, I need an outlet to connect my project to.'%>
+        <%= form.label :power,'Yes, I am a virtual participant for HackUMass IX!'%>
       </div>
     </div>
 

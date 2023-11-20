@@ -3,7 +3,7 @@ class Project < ApplicationRecord
 	before_create :rename_file
 	before_update :rename_file
 
-	validates_presence_of :title, :description, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, message: '%{attribute} can\'t be blank.'
+	validates_presence_of :title, :description, :youtube_link, :inspiration, :does_what, :built_how, :challenges, :accomplishments, :learned, :next, :built_with, message: '%{attribute} can\'t be blank.'
 	validates_uniqueness_of :title, message: '%{attribute} has already been taken.'
 
 	has_many :user
@@ -14,7 +14,13 @@ class Project < ApplicationRecord
 	has_attached_file :projectimage,
 										path: 'project/:filename'
 
-
+	# validates the format of the youtube_link (allowed to be blank so that it doesn't show 2 errors if absent as we're
+	# already validating its presence above) if it is indeed present because it needs to start with "https://"
+	validates :youtube_link,
+            allow_blank: true, 
+			if: -> { link.present? },
+            format: { with: /\G[hH][tT][tT][pP][sS]:\/\/.*/,
+                      message: 'YouTube link must begin with \'https://\'' }
 
 	validates :link,
             allow_blank: true,

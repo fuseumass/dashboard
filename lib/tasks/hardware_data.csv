@@ -1,4 +1,4 @@
-Barcode UID,Name,Categories,Number,Bin
+uid,name,category,count,location
 806127238,CY8CKIT BLE-Kit ,Microcontrollers,19,1
 613887491,USB A to Mini B cable,Cables,25,1
 161164760,Arduino Starter Kit,Kits,4,2

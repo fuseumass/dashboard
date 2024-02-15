@@ -22,8 +22,8 @@ namespace :hardware do
               {
               uid: row[0],
               name: row[1],
-              count: row[2],
-              category: row[3],
+              count: row[3],
+              category: row[2],
               location: row[4]
               })
           hardware_items.push(item)

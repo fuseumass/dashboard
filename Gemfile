@@ -134,3 +134,6 @@ gem 'recaptcha'
 gem 'omniauth'
 gem 'devise_token_auth'
 gem 'rack-cors'
+
+# Packages needed to upgrade to Ruby 3
+gem 'rexml'

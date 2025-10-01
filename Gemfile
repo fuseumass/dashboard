@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Declares the version of ruby needed for this project
-ruby '~> 2.5.0'
+ruby '3.1.6'
 
 # QR Code generating gem
 gem 'rqrcode'

@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Declares the version of ruby needed for this project
-ruby '~> 2.5.0'
+ruby '3.1.6'
 
 # QR Code generating gem
 gem 'rqrcode'
@@ -134,3 +134,6 @@ gem 'recaptcha'
 gem 'omniauth'
 gem 'devise_token_auth'
 gem 'rack-cors'
+
+# Packages needed to upgrade to Ruby 3
+gem 'rexml'

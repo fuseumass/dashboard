@@ -118,7 +118,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
+    ffi (1.17.2)
     ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
     geom2d (0.4.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -165,6 +167,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.25.5)
     multipart-post (2.4.1)
     net-imap (0.5.10)
@@ -177,7 +180,12 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.18.10)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.10-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
     omniauth (2.1.3)
       hashie (>= 3.4.6)
@@ -202,7 +210,9 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    pg (1.6.2)
     pg (1.6.2-arm64-darwin)
+    pg (1.6.2-x86_64-linux)
     popper_js (1.16.1)
     pry (0.15.2)
       coderay (~> 1.1)
@@ -342,6 +352,8 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  ruby
+  x86_64-linux
 
 DEPENDENCIES
   aws-sdk (< 3.0)

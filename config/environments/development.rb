@@ -6,11 +6,22 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  config.hosts.clear
+
   # Do not eager load code on boot.
   config.eager_load = false
 
   # Allow for local development with Docker
-  config.web_console.whitelisted_ips = '172.17.0.1'
+  # config.web_console.whitelisted_ips = '172.17.0.1'
+  # require 'ipaddr'
+  # config.web_console.permissions = IPAddr.new('172.17.0.0/16')
+  config.eager_load = false
+  if defined?(WebConsole)
+    require "ipaddr"
+    # either a CIDR or specific IPs are fine
+    config.web_console.permissions = IPAddr.new("172.17.0.0/16")
+    # or: config.web_console.permissions = ["172.17.0.1"]
+  end
 
   # Show full error reports.
   config.consider_all_requests_local = true

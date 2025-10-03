@@ -1,5 +1,6 @@
 require_relative 'boot'
 
+require 'logger'
 require 'csv'
 require 'rails/all'
 
@@ -15,6 +16,8 @@ module HackumassWeb
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.load_defaults 6.0
+    config.autoloader = :classic
     config.time_zone = 'Eastern Time (US & Canada)'
 
     config=YAML.load_file('hackathon-config/hackathon.yml')
@@ -121,7 +124,7 @@ module HackumassWeb
   end
 end
 
-Raven.configure do |config|
-  config.dsn = ENV['SENTRY_DSN']
-  config.environments = %w[ production ]
-end
+# Raven.configure do |config|
+#   config.dsn = ENV['SENTRY_DSN']
+#   config.environments = %w[ production ]
+# end

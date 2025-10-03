@@ -34,7 +34,10 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'devise', '~> 4.8.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+# gem 'rails', '~> 6.1.7'
+# Rails upgrade
+gem "rails", "~> 6.0.6", ">= 6.0.6.1"
+gem 'rack', '~> 2.2'
 
 # Use Puma as the app server
 gem 'puma', ">= 3.12.4"
@@ -82,7 +85,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere
   # in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '~> 4.2'
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -117,7 +120,9 @@ gem 'rails-jquery-autocomplete'
 gem 'will_paginate'
 
 # Gem use to track and report errors on website
-gem 'sentry-raven'
+# gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 # Search and filtering
 gem 'ransack'

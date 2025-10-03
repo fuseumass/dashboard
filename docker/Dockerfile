@@ -1,6 +1,6 @@
-FROM ruby:2.5
+FROM ruby:3.1
 
-# Installs dependencies to run Rails on the ruby:2.5 image
+# Installs dependencies to run Rails on the ruby:3.1 image
 RUN apt-get update && apt-get install -y \
   build-essential \
   nodejs \

@@ -1,4 +1,3 @@
-version: "2.4"
 services:
   postgres:
     image: postgres:12
@@ -13,12 +12,16 @@ services:
       timeout: 5s
       retries: 5
   rails:
-    build: 
+    build:
       context: .
       dockerfile: docker/Dockerfile
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      - PGHOST=postgres
+      - PGUSER=dashboard
+      - PGPASSWORD=dashboardpass
     links:
       - postgres
     volumes:
